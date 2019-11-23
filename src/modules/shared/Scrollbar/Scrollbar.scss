@@ -59,4 +59,17 @@
       right: -1.125rem;
     }
   }
+
+  &--dropdown {
+    .scrollbar__track-y {
+      right: 0.3125rem;
+      top: 0.1rem;
+      background: none;
+      bottom: 0.2rem;
+    }
+
+    .scrollbar__thumb-y {
+      background: #C1C4C6;
+    }
+  }
 }

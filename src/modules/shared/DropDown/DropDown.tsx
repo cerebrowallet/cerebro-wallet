@@ -3,6 +3,7 @@ import { ChevronDown as ChevronDownIcon } from 'react-feather';
 import Select, { components } from 'react-select';
 import { Field, FieldProps } from 'formik';
 
+import Scrollbar from '../Scrollbar/Scrollbar';
 import './DropDown.scss';
 
 const DropDownValue = ({ label, value }: { label: string; value: string }) => {
@@ -44,7 +45,17 @@ const Menu = (props: any) => {
 
   return (
     <components.Menu {...props} className="dropdown__menu">
-      {children}
+      {props.options.length > 3 ? (
+        <Scrollbar
+          width="100%"
+          height="7.7rem"
+          wrapperClass="scrollbar--dropdown"
+        >
+          {children}
+        </Scrollbar>
+      ) : (
+        children
+      )}
     </components.Menu>
   );
 };
@@ -120,7 +131,6 @@ const DropDown: React.FC<Props> = ({
             Placeholder,
             SingleValue,
           }}
-          // menuIsOpen
           width="100%"
           isSearchable={isSearchable}
           className={`dropdown${className ? ` ${className}` : ''}${
