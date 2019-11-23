@@ -1,0 +1,149 @@
+@import '../../../styles/vars';
+
+.event-list {
+  color: $text-color;
+  font-size: 0.813rem;
+  line-height: 1rem;
+  padding: 0 1.25rem;
+  flex-grow: 1;
+
+  @media (min-width: $xl-breakpoint) {
+    padding: 0 1.875rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1.25rem;
+    margin-bottom: 0.15rem;
+
+    &--totals {
+      height: 2.5rem;
+      color: $dark-gray;
+    }
+
+    &--transaction {
+      height: 2.5rem;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: $light-gray;
+      }
+    }
+
+    &--post {
+      position: relative;
+      background: linear-gradient(#e2e2ea, #ececf2);
+      padding: 1.563rem;
+      display: block;
+      //margin: 1rem 1.575rem 1rem 0;
+      margin: 1rem 0;
+    }
+  }
+
+  &__item-transaction {
+    padding-left: 0.625rem;
+  }
+
+  &__item-content {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  &__item-transaction-comment {
+    display: block;
+    color: $dark-gray;
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+    overflow: hidden;
+  }
+
+  &__item-title {
+    font-weight: bold;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    padding-right: 3.5rem;
+    margin-bottom: 0.813rem;
+  }
+
+  &__item-excerpt {
+    font-size: 0.813rem;
+    line-height: 1.188rem;
+
+    @media (min-width: $xl-breakpoint) {
+      line-height: 1.5rem;
+    }
+
+    a {
+      color: $dark-gray;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    & + .event-list__item-read-more {
+      margin-top: 0.813rem;
+    }
+  }
+
+  &__item-read-more {
+    display: block;
+    color: $dark-gray;
+    font-size: 0.813rem;
+    line-height: 1rem;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__hide-item {
+    position: absolute;
+    top: 1.563rem;
+    right: 1.563rem;
+    width: 3rem;
+    height: 3rem;
+    background: $light-gray;
+    border-radius: 100%;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &-icon {
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      left: 50%;
+      top: 50%;
+      background: url(../../../images/dynamite.png) center center no-repeat;
+      background-size: cover;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__swipe-for-more {
+    text-align: center;
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+    color: $dark-gray;
+    padding: 0.9375rem 1.25rem;
+
+    @media (min-width: $md-breakpoint) {
+      display: none;
+    }
+
+    &-icon {
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}

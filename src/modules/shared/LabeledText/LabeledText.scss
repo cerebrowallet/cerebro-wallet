@@ -1,0 +1,42 @@
+@import '../../../styles/vars';
+
+.labeled-text {
+  margin-bottom: 1.5625rem;
+  padding-left: 1.5625rem;
+
+  &__label {
+    display: block;
+    margin-bottom: 0.625rem;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    color: $dark-gray;
+  }
+
+  &__text {
+    position: relative;
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: $text-color;
+    word-break: break-all;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  &__copy-icon {
+    position: absolute;
+    background: none;
+    border: 0;
+    left: -1.0625rem;
+    top: 0.375rem;
+    padding: 0;
+    color: $dark-gray;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  &--can-copy-text {
+    cursor: pointer;
+  }
+}

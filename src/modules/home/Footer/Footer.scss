@@ -1,0 +1,27 @@
+@import '../../../styles/vars';
+
+.footer {
+  grid-area: footer;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  color: $dark-gray;
+  padding: 0 4.688rem 2.188rem 0;
+  align-self: start;
+
+  @media (min-width: $xl-breakpoint) {
+    display: flex;
+  }
+
+  &__menu-item {
+    text-decoration: none;
+    margin-right: 1.5625rem;
+    color: $dark-gray;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

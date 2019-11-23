@@ -1,0 +1,26 @@
+@import '../../../styles/vars';
+
+.input {
+  background: $light-gray;
+  border: 0;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: $text-color;
+  padding: 1rem 1.25rem;
+  width: 100%;
+  word-break: break-all;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--has-error {
+
+  }
+
+  &--square-corners {
+    border-radius: 0;
+  }
+}

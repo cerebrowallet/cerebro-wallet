@@ -1,0 +1,23 @@
+@import '../../../styles/vars';
+
+.qr-code {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  margin-bottom: 3.125rem;
+  border-radius: 1.25rem;
+  padding-top: 100%;
+
+  &__image {
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (min-width: 400px) {
+    width: 12.5rem;
+    padding-top: 12.5rem;
+  }
+}

@@ -1,0 +1,154 @@
+//html {
+//  font-size: 100%;
+//
+//  @media (min-width: 1600px) {
+//    font-size: 140%;
+//  }
+//
+//  @media (min-width: 2500px) {
+//    font-size: 160%;
+//  }
+//
+//  @media (min-width: 3000px) {
+//    font-size: 180%;
+//  }
+//
+//  @media (min-width: 3500px) {
+//    font-size: 200%;
+//  }
+//
+//  @media (min-width: 4000px) {
+//    font-size: 220%;
+//  }
+//}
+
+body {
+  line-height: 1.5;
+  color: $text-color;
+  background: $light-gray;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.content {
+  display: grid;
+  grid-template-areas:
+    'main'
+    'sidebar';
+  height: 100vh;
+
+  @media (min-width: $xl-breakpoint) {
+    grid-template-areas: 'sidebar main';
+    grid-template-columns: auto 3fr;
+  }
+
+  &--features {
+    grid-template-areas:
+      'sidebar'
+      'main';
+    grid-auto-rows: minmax(min-content, max-content);
+
+    @media (min-width: $md-breakpoint) {
+      grid-template-areas: 'sidebar main';
+      grid-template-columns: 1.5fr 2.5fr;
+      grid-template-rows: auto;
+    }
+
+    @media (min-width: $lg-breakpoint) {
+      grid-template-columns: 1fr 2fr;
+    }
+
+    @media (min-width: $xl-breakpoint) {
+      grid-template-columns: auto 3fr;
+    }
+  }
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+
+  @media (min-width: $xl-breakpoint) {
+    width: 25.625rem;
+  }
+}
+
+.main {
+  grid-area: main;
+}
+
+.page {
+  margin-top: 2.5rem;
+  padding: 0 1.25rem;
+  max-width: calc(100vw);
+
+  @media (min-width: $lg-breakpoint) {
+    margin-top: 3.125rem;
+    padding: 0;
+    margin-left: 4rem;
+    max-width: 36.25rem;
+  }
+
+  @media (min-width: $xl-breakpoint) {
+    margin-left: 14.0625rem;
+  }
+
+  &__header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.page-footer {
+  position: relative;
+  border-top: 1px solid #eaeaea;
+  padding-top: 1.0625rem;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  padding-left: 1.5625rem;
+  color: $dark-gray;
+  margin: 3.125rem 0;
+
+  &__icon {
+    position: absolute;
+    width: 0.75rem;
+    height: 0.75rem;
+    color: $dark-gray;
+    top: 1.21rem;
+    left: 0.5rem;
+  }
+}
+
+.white-block {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 1.5625rem;
+  margin-bottom: 1.25rem;
+
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: $md-breakpoint) {
+    margin-bottom: 3.125rem;
+  }
+}
+
+.two-cols {
+  @media (min-width: $md-breakpoint) {
+    display: flex;
+    align-items: center;
+  }
+
+  & > * {
+    flex: 50%;
+  }
+
+  &__right {
+    text-align: right;
+  }
+}

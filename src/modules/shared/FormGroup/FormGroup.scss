@@ -1,0 +1,13 @@
+@import '../../../styles/vars';
+
+.form-group {
+  margin-bottom: 1.25rem;
+
+  &__label {
+    display: block;
+    margin-bottom: 0.625rem;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    color: $dark-gray;
+  }
+}

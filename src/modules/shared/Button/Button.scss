@@ -1,0 +1,27 @@
+@import '../../../styles/vars';
+
+.button {
+  display: inline-block;
+  background: $text-color;
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  text-align: center;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.75rem 0;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.625rem;
+
+  @media (min-width: $sm-breakpoint) {
+    width: 10rem;
+    margin-top: 0;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
