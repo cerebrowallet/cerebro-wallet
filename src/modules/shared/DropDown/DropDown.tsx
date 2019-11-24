@@ -112,43 +112,46 @@ const DropDown: React.FC<Props> = ({
         form: { setFieldValue, setFieldTouched },
         meta: { touched, error },
       }: FieldProps) => (
-        <Select
-          value={value}
-          onChange={selectedValue => {
-            setFieldValue(name, selectedValue);
+        <div className={`dropdown${className ? ` ${className}` : ''}${
+          touched && error ? ' dropdown--has-error' : ''
+        }`}>
+          <Select
+            value={value}
+            onChange={selectedValue => {
+              setFieldValue(name, selectedValue);
 
-            if (!touched) {
-              setFieldTouched(name, true);
-            }
-          }}
-          options={options}
-          placeholder={placeholder}
-          components={{
-            IndicatorsContainer,
-            Option,
-            Menu,
-            ValueContainer,
-            Placeholder,
-            SingleValue,
-          }}
-          width="100%"
-          isSearchable={isSearchable}
-          className={`dropdown${className ? ` ${className}` : ''}${
-            touched && error ? ' dropdown--has-error' : ''
-          }`}
-          styles={{
-            container: (provided, state) => ({
-              ...provided,
-              width: '100%',
-              borderRadius: state.selectProps.menuIsOpen
-                ? '0.625rem 0.625rem 0 0'
-                : '0.625rem',
-            }),
-            control: (_, { selectProps: { width } }) => ({
-              width: width,
-            }),
-          }}
-        />
+              if (!touched) {
+                setFieldTouched(name, true);
+              }
+            }}
+            className="dropdown__select"
+            options={options}
+            placeholder={placeholder}
+            components={{
+              IndicatorsContainer,
+              Option,
+              Menu,
+              ValueContainer,
+              Placeholder,
+              SingleValue,
+            }}
+            width="100%"
+            isSearchable={isSearchable}
+            styles={{
+              container: (provided, state) => ({
+                ...provided,
+                width: '100%',
+                borderRadius: state.selectProps.menuIsOpen
+                  ? '0.625rem 0.625rem 0 0'
+                  : '0.625rem',
+              }),
+              control: (_, { selectProps: { width } }) => ({
+                width: width,
+              }),
+            }}
+          />
+          {touched && error && <span className="form-el-error">{error}</span>}
+        </div>
       )}
     </Field>
   );

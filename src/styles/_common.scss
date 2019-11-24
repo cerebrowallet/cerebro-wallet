@@ -152,3 +152,16 @@ body {
     text-align: right;
   }
 }
+
+.form-el-error {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  opacity: 0;
+  color: $red;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-top: 0.0625rem;
+  transition: opacity .2s ease-in-out;
+}

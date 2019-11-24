@@ -10,7 +10,7 @@ interface Props {
   required?: boolean;
   className?: string;
   disabled?: boolean;
-};
+}
 
 const Input: React.FC<Props> = ({
   name,
@@ -24,18 +24,25 @@ const Input: React.FC<Props> = ({
       {({ field, meta: { touched, error } }: FieldProps) => {
         const props = {
           ...field,
-          className: `input${touched && error ? ' input--has-error' : ''}${
-            className ? ` ${className}` : ''
-          }`,
           placeholder,
           disabled,
+          className: 'input__el',
         };
 
-        if (type === 'textarea') {
-          return <textarea {...props} rows={1} />;
-        }
-
-        return <input type={type} {...props} />;
+        return (
+          <div
+            className={`input${touched && error ? ' input--has-error' : ''}${
+              className ? ` ${className}` : ''
+            }`}
+          >
+            {type === 'textarea' ? (
+              <textarea {...props} rows={1} />
+            ) : (
+              <input type={type} {...props} />
+            )}
+            {touched && error && <span className="form-el-error">{error}</span>}
+          </div>
+        );
       }}
     </Field>
   );
