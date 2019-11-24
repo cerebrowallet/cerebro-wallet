@@ -1,0 +1,35 @@
+@import '../../../../styles/vars';
+
+.total-balance {
+  grid-area: total-balance;
+  padding: 2rem 1.563rem;
+  background: #fff;
+  border-radius: 1.25rem;
+
+  &__title {
+    font-size: 0.75rem;
+    line-height: 0.938rem;
+    color: $dark-gray;
+  }
+
+  &__currency {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-color;
+    margin-left: 0.2rem;
+  }
+
+  &__balance {
+    font-weight: bold;
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+  }
+
+  &__currency-dropdown-toggle {
+    width: 0.75rem;
+    height: 0.75rem;
+    color: $dark-gray;
+    vertical-align: middle;
+    margin-left: 0.1rem;
+  }
+}
