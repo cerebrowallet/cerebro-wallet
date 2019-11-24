@@ -14,14 +14,16 @@
   border-radius: 1.25rem;
   cursor: pointer;
   width: 100%;
-  margin-top: 0.625rem;
 
   @media (min-width: $sm-breakpoint) {
     width: 10rem;
-    margin-top: 0;
   }
 
   &:focus {
     outline: none;
+  }
+
+  &--send-confirm {
+    max-width: 15rem;
   }
 }

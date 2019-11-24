@@ -139,7 +139,7 @@ body {
 }
 
 .two-cols {
-  @media (min-width: $md-breakpoint) {
+  @media (min-width: $sm-breakpoint) {
     display: flex;
     align-items: center;
   }

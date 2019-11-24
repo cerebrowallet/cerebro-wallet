@@ -5,7 +5,7 @@ import {
 } from 'react-feather';
 
 import FormGroup from '../../shared/FormGroup/FormGroup';
-import QRCode from '../QRCode/QRCode';
+import QRCode from './QRCode/QRCode';
 import LabeledText from '../../shared/LabeledText/LabeledText';
 import DropDown from '../../shared/DropDown/DropDown';
 

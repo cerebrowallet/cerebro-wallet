@@ -1,0 +1,9 @@
+@import 'styles/vars';
+
+.fee {
+  margin-bottom: 1.875rem;
+
+  @media (min-width: $sm-breakpoint) {
+    margin-bottom: 0;
+  }
+}

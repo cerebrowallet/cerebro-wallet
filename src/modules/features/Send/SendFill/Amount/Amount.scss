@@ -1,6 +1,6 @@
-@import '../../../styles/vars';
+@import '../../../../../styles/vars';
 
-.amount-input {
+.amount {
   position: relative;
 
   &__send-all-btn {
@@ -22,7 +22,7 @@
     border-radius: 1.25rem;
     overflow: hidden;
 
-    @media (min-width: $md-breakpoint) {
+    @media (min-width: $sm-breakpoint) {
       display: flex;
       width: 100%;
     }
@@ -31,7 +31,7 @@
   &__amount {
     border-bottom: 1px solid #fff;
 
-    @media (min-width: $md-breakpoint) {
+    @media (min-width: $sm-breakpoint) {
       border-right: 1px solid #fff;
     }
   }

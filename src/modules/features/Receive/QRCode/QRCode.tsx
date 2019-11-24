@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './QRCode.scss';
-import qrCodePlaceholder from '../../../images/qr-code-placeholder.png';
+import qrCodePlaceholder from '../../../../images/qr-code-placeholder.png';
 
 const QRCode: React.FC = () => {
   return (

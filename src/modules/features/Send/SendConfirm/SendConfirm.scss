@@ -1,0 +1,75 @@
+@import 'styles/vars';
+
+.send-confirm {
+  &__title {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    margin-bottom: 0.8125rem;
+    color: $dark-gray;
+    font-weight: 400;
+  }
+
+  &__amount {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.8125rem;
+    margin-bottom: 0;
+  }
+
+  &__amount-in-dollars {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 1.8125rem;
+  }
+
+  &__details {
+    margin-bottom: 2.5625rem;
+
+    @media (min-width: $sm-breakpoint) {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: start;
+      margin-bottom: 1.4375rem;
+    }
+
+    &-name {
+      flex: 0 1 25%;
+      font-size: 0.875rem;
+      line-height: 1.0625rem;
+      color: $dark-gray;
+      margin-top: 0.22rem;
+      margin-bottom: 0.625rem;
+    }
+
+    &-value {
+      flex: 0 1 75%;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin-bottom: 1.0625rem;
+      word-break: break-all;
+
+      @media (min-width: $sm-breakpoint) {
+        margin-bottom: 0.625rem;
+      }
+    }
+  }
+}
+
+.send-confirm-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__back {
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.0625rem;
+    font-weight: bold;
+    border: 0;
+    background: #fff;
+    white-space: nowrap;
+    padding: 0 1.25rem 0 0 ;
+  }
+}

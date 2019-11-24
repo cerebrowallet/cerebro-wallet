@@ -1,0 +1,32 @@
+@import 'styles/vars';
+
+.send-success {
+  padding-top: 55px;
+  text-align: center;
+
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+    color: $green;
+    margin-bottom: 0.9375rem;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5625rem;
+  }
+
+  &__text {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+  }
+
+  &__text-hash {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-decoration: underline;
+    margin-bottom: 2.25rem;
+  }
+}

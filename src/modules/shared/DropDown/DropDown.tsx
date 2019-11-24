@@ -90,12 +90,19 @@ const SingleValue = (props: any) => {
   );
 };
 
+interface Value {
+  value: string;
+  label: string;
+}
+
 interface Props {
-  options: { value: string; label: string }[];
+  options: Value[];
   name: string;
   className?: string;
   placeholder?: string;
   isSearchable?: boolean;
+  required?: boolean;
+  requiredErrorMessage?: string;
 }
 
 const DropDown: React.FC<Props> = ({
@@ -103,26 +110,37 @@ const DropDown: React.FC<Props> = ({
   options,
   className,
   placeholder,
+  required,
+  requiredErrorMessage,
   isSearchable,
 }) => {
   return (
-    <Field name={name}>
+    <Field
+      name={name}
+      validate={(value: Value | null) => {
+        let error;
+
+        if (required && value === null) {
+          error = requiredErrorMessage || 'no-message';
+        }
+
+        return error;
+      }}
+    >
       {({
-        field: { value },
+        field: { value, onChange },
         form: { setFieldValue, setFieldTouched },
         meta: { touched, error },
       }: FieldProps) => (
-        <div className={`dropdown${className ? ` ${className}` : ''}${
-          touched && error ? ' dropdown--has-error' : ''
-        }`}>
+        <div
+          className={`dropdown${className ? ` ${className}` : ''}${
+            touched && error ? ' dropdown--has-error' : ''
+          }`}
+        >
           <Select
             value={value}
             onChange={selectedValue => {
               setFieldValue(name, selectedValue);
-
-              if (!touched) {
-                setFieldTouched(name, true);
-              }
             }}
             className="dropdown__select"
             options={options}
@@ -150,7 +168,9 @@ const DropDown: React.FC<Props> = ({
               }),
             }}
           />
-          {touched && error && <span className="form-el-error">{error}</span>}
+          {touched && error && error !== 'no-message' && (
+            <span className="form-el-error">{error}</span>
+          )}
         </div>
       )}
     </Field>

@@ -6,8 +6,8 @@ interface Props {
   type?: 'button' | 'submit';
   children: React.ReactNode;
   className?: string;
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-};
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+}
 
 const Button: React.FC<Props> = ({ type, children, className, onClick }) => {
   return (
@@ -23,6 +23,7 @@ const Button: React.FC<Props> = ({ type, children, className, onClick }) => {
 
 Button.defaultProps = {
   type: 'button',
+  onClick: () => {},
 };
 
 export default Button;

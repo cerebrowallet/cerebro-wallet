@@ -8,8 +8,10 @@ interface Props {
   type?: string;
   placeholder?: string;
   required?: boolean;
+  requiredErrorMessage?: string;
   className?: string;
   disabled?: boolean;
+  validate?: (value: string) => string | undefined;
 }
 
 const Input: React.FC<Props> = ({
@@ -18,9 +20,25 @@ const Input: React.FC<Props> = ({
   placeholder,
   className,
   disabled,
+  required,
+  validate,
+  requiredErrorMessage,
 }) => {
   return (
-    <Field name={name}>
+    <Field
+      name={name}
+      validate={(value: string) => {
+        let error;
+
+        if (validate) {
+          error = validate(value);
+        } else if (required && value === '') {
+          error = requiredErrorMessage || 'no-message';
+        }
+
+        return error;
+      }}
+    >
       {({ field, meta: { touched, error } }: FieldProps) => {
         const props = {
           ...field,
@@ -40,7 +58,9 @@ const Input: React.FC<Props> = ({
             ) : (
               <input type={type} {...props} />
             )}
-            {touched && error && <span className="form-el-error">{error}</span>}
+            {touched && error && error !== 'no-message' && (
+              <span className="form-el-error">{error}</span>
+            )}
           </div>
         );
       }}

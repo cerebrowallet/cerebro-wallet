@@ -10,4 +10,8 @@
     line-height: 1.0625rem;
     color: $dark-gray;
   }
+
+  &--no-margin {
+    margin-bottom: 0;
+  }
 }

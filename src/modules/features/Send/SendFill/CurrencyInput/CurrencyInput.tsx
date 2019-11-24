@@ -11,7 +11,7 @@ interface Props {
   currency: keyof typeof Currencies;
   children: React.ReactNode;
   className?: string;
-};
+}
 
 const CurrencyInput: React.FC<Props> = ({ currency, children, className }) => {
   return (
