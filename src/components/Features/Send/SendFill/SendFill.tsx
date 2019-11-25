@@ -3,6 +3,7 @@ import { Compass as CompassIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router';
 
+import Page from '../../../shared/Page/Page';
 import FormGroup from '../../../shared/FormGroup/FormGroup';
 import Input from '../../../shared/Input/Input';
 import DropDown from '../../../shared/DropDown/DropDown';
@@ -40,57 +41,51 @@ const SendFill: React.FC<{}> = () => {
   const history = useHistory();
 
   return (
-    <section className="page">
-      <header className="page__header">Send</header>
-      <section className="page__content">
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values: Values) => history.push('/features/send/confirm')}
-        >
-          {() => (
-            <Form>
-              <div className="white-block">
-                <FormGroup label="From account">
-                  <DropDown
-                    required
-                    options={ACCOUNTS_OPTIONS}
-                    name="fromAccount"
-                    placeholder="Choose account"
-                  />
-                </FormGroup>
-                <FormGroup label="Transfer to">
-                  <Input
-                    name="transferTo"
-                    type="textarea"
-                    placeholder="Enter BTC Address"
-                    required
-                  />
-                </FormGroup>
-                <Amount />
-                <FormGroup
-                  label="Network fee"
-                  className="form-group--no-margin"
-                >
-                  <div className="two-cols">
-                    <div className="two-cols__left">
-                      <Fee />
-                    </div>
-                    <div className="two-cols__right">
-                      <Button type="submit">Next</Button>
-                    </div>
+    <Page
+      headerText="Send"
+      FooterIcon={CompassIcon}
+      footerText="Instantly send money with custom fee to anyone or own wallet."
+    >
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values: Values) => history.push('/features/send/confirm')}
+      >
+        {() => (
+          <Form>
+            <div className="white-block">
+              <FormGroup label="From account">
+                <DropDown
+                  required
+                  options={ACCOUNTS_OPTIONS}
+                  name="fromAccount"
+                  placeholder="Choose account"
+                />
+              </FormGroup>
+              <FormGroup label="Transfer to">
+                <Input
+                  name="transferTo"
+                  type="textarea"
+                  placeholder="Enter BTC Address"
+                  required
+                />
+              </FormGroup>
+              <Amount />
+              <FormGroup label="Network fee" className="form-group--no-margin">
+                <div className="two-cols">
+                  <div className="two-cols__left">
+                    <Fee />
                   </div>
-                </FormGroup>
-                <SendProgress step={SEND_STEPS.CHOOSE} />
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </section>
-      <footer className="page-footer">
-        <CompassIcon className="page-footer__icon" />
-        Instantly send money with custom fee to anyone or own wallet.
-      </footer>
-    </section>
+                  <div className="two-cols__right">
+                    <Button type="submit">Next</Button>
+                  </div>
+                </div>
+              </FormGroup>
+              <SendProgress step={SEND_STEPS.CHOOSE} />
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </Page>
   );
 };
 
