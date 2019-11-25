@@ -13,6 +13,7 @@ import FeaturesMenu from './FeaturesMenu/FeaturesMenu';
 import CircleButton from '../shared/CircleButton/CircleButton';
 import TopUpAccount from './TopUpAccount/TopUpAccount';
 import Send from './Send/Send';
+import Exchange from './Exchange/Exchange';
 
 import './Features.scss';
 
@@ -33,7 +34,7 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
             <Send />
           </Route>
           <Route path={`${match.path}/exchange`}>
-            <section className="send"></section>
+            <Exchange />
           </Route>
           <Route path={`${match.path}/activity`}>
             <section className="activity"></section>
