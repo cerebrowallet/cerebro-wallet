@@ -2,11 +2,11 @@ import React from 'react';
 import { Share2 as ShareIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 
-import FormGroup from '../../shared/FormGroup/FormGroup';
+import FormGroup from '../FormGroup/FormGroup';
 import QRCode from './QRCode/QRCode';
-import LabeledText from '../../shared/LabeledText/LabeledText';
-import DropDown from '../../shared/DropDown/DropDown';
-import Page from '../../shared/Page/Page';
+import LabeledText from '../LabeledText/LabeledText';
+import DropDown from '../DropDown/DropDown';
+import Page from '../Page/Page';
 
 import { ACCOUNTS_OPTIONS } from '../../../dummyData';
 

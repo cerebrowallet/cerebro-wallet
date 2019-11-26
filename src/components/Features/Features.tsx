@@ -11,10 +11,10 @@ import {
 
 import FeaturesMenu from './FeaturesMenu/FeaturesMenu';
 import CircleButton from '../shared/CircleButton/CircleButton';
-import TopUpAccount from './TopUpAccount/TopUpAccount';
+import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Send from './Send/Send';
 import Exchange from './Exchange/Exchange';
-import TransactionDetails from './TransactionDetails/TransactionDetails';
+import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Activity from '../shared/Activity/Activity';
 
 import './Features.scss';
