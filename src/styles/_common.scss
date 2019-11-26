@@ -63,12 +63,16 @@ body {
       grid-template-columns: auto 3fr;
     }
   }
+
+  &--activity {
+    grid-template-areas:
+      'main'
+      'sidebar';
+  }
 }
 
 .sidebar {
   grid-area: sidebar;
-  display: flex;
-  flex-direction: column;
   background: #fff;
 
   @media (min-width: $xl-breakpoint) {
@@ -120,5 +124,5 @@ body {
   font-size: 0.75rem;
   line-height: 1rem;
   margin-top: 0.0625rem;
-  transition: opacity .2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }

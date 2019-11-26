@@ -1,0 +1,93 @@
+@import 'styles/vars';
+
+.tr-details {
+  &__top-up {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 1.875rem 1.5625rem;
+    margin-bottom: 3.125rem;
+
+    &-header {
+      display: grid;
+      grid-template-areas:
+        'currency-icon'
+        'details';
+      margin-bottom: 1.25rem;
+
+      @media (min-width: 420px) {
+        grid-template-areas: 'details currency-icon';
+        margin-bottom: 0;
+      }
+
+      &-details {
+        grid-area: details;
+        margin-bottom: 1.5625rem;
+      }
+
+      &-icon {
+        text-align: center;
+        grid-area: currency-icon;
+        margin-bottom: 1.5625rem;
+
+        @media (min-width: 420px) {
+          text-align: right;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &-amount-in-crypto {
+      font-weight: 600;
+      font-size: 1.5rem;
+      line-height: 1.8125rem;
+      margin-bottom: 0.1875rem;
+    }
+
+    &-amount-in-dollars {
+      font-size: 1.125rem;
+      line-height: 1.375rem;
+      color: $dark-gray;
+    }
+
+    &-content {
+      &-date {
+        margin-bottom: 0.9375rem;
+
+        @media (min-width: $sm-breakpoint) {
+          margin-bottom: 0;
+          margin-right: 1.25rem;
+        }
+      }
+
+      @media (min-width: $sm-breakpoint) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 60%;
+      }
+
+      @media (min-width: $md-breakpoint) {
+        max-width: 75%;
+      }
+
+      @media (min-width: $lg-breakpoint) {
+        max-width: 65%;
+      }
+    }
+  }
+
+  &__details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > * {
+      flex: 1 1 auto;;
+    }
+
+    @media (min-width: $md-breakpoint) {
+      justify-content: space-between;
+      max-width: 80%;
+    }
+  }
+}

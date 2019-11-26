@@ -26,8 +26,8 @@ const SendSuccess: React.FC = () => {
           <p className="send-success__text">
             Your transaction was successfully sent! Hash:
           </p>
-          <HashText className="send-success__text-hash">
-            0x309cc6klklkklkaf2f6b1...ec6llklkkb489858489bd
+          <HashText truncate className="send-success__text-hash">
+            0x309cc6klklkklkaf2f6b1ec6llklkkb489858489bd
           </HashText>
           <Button>Ok</Button>
         </div>

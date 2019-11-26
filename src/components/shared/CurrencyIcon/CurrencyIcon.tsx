@@ -2,11 +2,13 @@ import React from 'react';
 
 import './CurrencyIcon.scss';
 
+import Currencies from '../../../currencies';
+
 interface Props {
-  currency: string;
+  currency: Currencies;
   size?: string;
   className?: string;
-};
+}
 
 const CurrencyIcon: React.FC<Props> = ({ currency, size, className }) => {
   return (

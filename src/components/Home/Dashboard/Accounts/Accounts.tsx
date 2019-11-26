@@ -2,6 +2,7 @@ import React from 'react';
 import { Plus as PlusIcon } from 'react-feather';
 
 import './Accounts.scss';
+import Currencies from '../../../../currencies';
 
 import Scrollbar from '../../../shared/Scrollbar/Scrollbar';
 import CurrencyIcon from '../../../shared/CurrencyIcon/CurrencyIcon';
@@ -20,7 +21,7 @@ const Accounts: React.FC = () => {
           <>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="btc"
+                currency={Currencies.BTC}
                 size="large"
                 className="account-btn__currency-icon"
               />
@@ -33,7 +34,7 @@ const Accounts: React.FC = () => {
             </button>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="stx"
+                currency={Currencies.STX}
                 size="large"
                 className="account-btn__currency-icon"
               />
@@ -46,7 +47,7 @@ const Accounts: React.FC = () => {
             </button>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="stx"
+                currency={Currencies.STX}
                 size="large"
                 className="account-btn__currency-icon"
               />
@@ -59,7 +60,7 @@ const Accounts: React.FC = () => {
             </button>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="stx"
+                currency={Currencies.STX}
                 size="large"
                 className="account-btn__currency-icon"
               />
@@ -72,7 +73,7 @@ const Accounts: React.FC = () => {
             </button>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="stx"
+                currency={Currencies.STX}
                 size="large"
                 className="account-btn__currency-icon"
               />
@@ -85,7 +86,7 @@ const Accounts: React.FC = () => {
             </button>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="stx"
+                currency={Currencies.STX}
                 size="large"
                 className="account-btn__currency-icon"
               />
@@ -98,7 +99,7 @@ const Accounts: React.FC = () => {
             </button>
             <button type="button" className="account-btn">
               <CurrencyIcon
-                currency="stx"
+                currency={Currencies.STX}
                 size="large"
                 className="account-btn__currency-icon"
               />

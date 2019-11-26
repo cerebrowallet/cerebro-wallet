@@ -1,6 +1,12 @@
 .hash-text {
-  display: flex;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  &--truncate {
+    display: flex;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &--break-all {
+    word-break: break-all;
+  }
 }

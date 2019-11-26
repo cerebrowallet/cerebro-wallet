@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { X as CloseIcon } from 'react-feather';
 import {
   Switch,
@@ -14,11 +14,14 @@ import CircleButton from '../shared/CircleButton/CircleButton';
 import TopUpAccount from './TopUpAccount/TopUpAccount';
 import Send from './Send/Send';
 import Exchange from './Exchange/Exchange';
+import TransactionDetails from './TransactionDetails/TransactionDetails';
+import Activity from '../shared/Activity/Activity';
 
 import './Features.scss';
 
 const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <section className="content content--features">
@@ -37,7 +40,7 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
             <Exchange />
           </Route>
           <Route path={`${match.path}/activity`}>
-            <section className="activity"></section>
+            <TransactionDetails />
           </Route>
         </Switch>
         <CircleButton
@@ -48,7 +51,11 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
         </CircleButton>
       </main>
       <aside className="sidebar">
-        <FeaturesMenu wrapperCssClass="features-menu--sidebar" />
+        {location.pathname === `${match.path}/activity` ? (
+          <Activity />
+        ) : (
+          <FeaturesMenu wrapperCssClass="features-menu--sidebar" />
+        )}
       </aside>
     </section>
   );

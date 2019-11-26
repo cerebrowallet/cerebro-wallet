@@ -7,14 +7,20 @@ interface Props {
   label: string;
   children: React.ReactNode;
   canCopyText?: boolean;
-};
+  className?: string;
+}
 
-const LabeledText: React.FC<Props> = ({ label, children, canCopyText }) => {
+const LabeledText: React.FC<Props> = ({
+  label,
+  children,
+  canCopyText,
+  className,
+}) => {
   return (
     <div
-      className={`labeled-text ${
-        canCopyText ? 'labeled-text--can-copy-text' : ''
-      }`}
+      className={`labeled-text${
+        canCopyText ? ' labeled-text--can-copy-text' : ''
+      }${className ? ` ${className}` : ''}`}
     >
       <span className="labeled-text__label">{label}</span>
       <button

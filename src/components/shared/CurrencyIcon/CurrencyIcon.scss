@@ -16,6 +16,8 @@
 
   &--btc {
     background: url(../../../images/currencies-icons/btc.svg) center center no-repeat;
+    background-size: 50% 50%;
+
 
     &:before {
       background: #FF8A00;
@@ -24,6 +26,7 @@
 
   &--stx {
     background: url(../../../images/currencies-icons/stx.svg) center center no-repeat;
+    background-size: 50% 50%;
 
     &:before {
       background: #1313F0;
@@ -33,5 +36,10 @@
   &--large {
     width: 2.25rem;
     height: 2.25rem;
+  }
+
+  &--xl {
+    width: 4rem;
+    height: 4rem;
   }
 }

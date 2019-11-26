@@ -15,13 +15,13 @@
   &__text {
     position: relative;
     display: block;
-    font-size: 1rem;
+    font-size: 0.875rem;
     line-height: 1.5rem;
     color: $text-color;
-    word-break: break-all;
     padding: 0;
     background: none;
     border: 0;
+    text-align: left;
   }
 
   &__copy-icon {
@@ -38,5 +38,26 @@
 
   &--can-copy-text {
     cursor: pointer;
+  }
+
+  &--small {
+    .labeled-text__label {
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      margin-bottom: 0.125rem;
+    }
+
+    .labeled-text__text {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  &--no-left-padding {
+    padding-left: 0;
+  }
+
+  &--no-margin {
+    margin: 0;
   }
 }

@@ -2,8 +2,7 @@ import React from 'react';
 
 import Header from './Header/Header';
 import Dashboard from './Dashboard/Dashboard';
-import ActivityFilter from './ActivityFilter/ActivityFilter';
-import Activity from './Activity/Activity';
+import Activity from '../shared/Activity/Activity';
 import Footer from './Footer/Footer';
 
 import './Home.scss';
@@ -17,7 +16,6 @@ const Home: React.FC = () => {
         <Footer />
       </main>
       <aside className="sidebar">
-        <ActivityFilter />
         <Activity />
       </aside>
     </section>
