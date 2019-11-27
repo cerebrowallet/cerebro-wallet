@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './TransactionDetails.scss';
-import Currencies from '../../../currencies';
+import { Currencies } from '../../../enums';
 
 import Page from '../../shared/Page/Page';
 import LabeledText from '../../shared/LabeledText/LabeledText';

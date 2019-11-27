@@ -2,7 +2,7 @@ import React from 'react';
 
 import './CurrencyIcon.scss';
 
-import Currencies from '../../../currencies';
+import { Currencies } from '../../../enums';
 
 interface Props {
   currency: Currencies;

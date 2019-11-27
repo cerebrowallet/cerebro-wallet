@@ -5,7 +5,7 @@ import './ActivityList.scss';
 
 import Scrollbar from '../../Scrollbar/Scrollbar';
 import CurrencyIcon from '../../CurrencyIcon/CurrencyIcon';
-import Currencies from '../../../../currencies';
+import { Currencies } from '../../../../enums';
 
 const ActivityList: React.FC = () => {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Plus as PlusIcon } from 'react-feather';
 
 import './Accounts.scss';
-import Currencies from '../../../../currencies';
+import { Currencies } from '../../../../enums';
 
 import Scrollbar from '../../../shared/Scrollbar/Scrollbar';
 import CurrencyIcon from '../../../shared/CurrencyIcon/CurrencyIcon';
