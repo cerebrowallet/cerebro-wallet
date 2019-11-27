@@ -7,6 +7,7 @@ import QRCode from './QRCode/QRCode';
 import LabeledText from '../LabeledText/LabeledText';
 import DropDown from '../DropDown/DropDown';
 import Page from '../Page/Page';
+import HashText from '../HashText/HashText';
 
 import { ACCOUNTS_OPTIONS } from '../../../dummyData';
 
@@ -39,10 +40,10 @@ const TopUpAccount: React.FC = () => {
       </section>
       <QRCode />
       <LabeledText label="Public address">
-        1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19
+        <HashText breakAll>1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>
       </LabeledText>
       <LabeledText label="Legacy format" canCopyText>
-        afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19
+        <HashText breakAll>afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>
       </LabeledText>
     </Page>
   );
