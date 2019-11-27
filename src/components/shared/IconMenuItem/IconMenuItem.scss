@@ -1,0 +1,49 @@
+@import 'styles/vars';
+
+.icon-menu-item {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.875rem 1.1875rem;
+  color: $text-color;
+  text-decoration: none;
+  border-radius: 1.25rem;
+  transition: background 0.3s;
+  width: 100%;
+
+  @media (min-width: $md-breakpoint) {
+    max-width: 15.3125rem;
+  }
+
+  &--active,
+  &:hover {
+    background: $light-gray;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1.25rem;
+  }
+
+  &__name {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+
+  &__desc {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: $dark-gray;
+    font-weight: 400;
+  }
+}

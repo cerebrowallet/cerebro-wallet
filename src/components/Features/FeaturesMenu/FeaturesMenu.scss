@@ -4,48 +4,6 @@
   display: grid;
   grid-area: features-menu;
 
-  &__item {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    padding: 0.875rem 1.1875rem;
-    color: $text-color;
-    text-decoration: none;
-    border-radius: 1.25rem;
-    transition: background .3s;
-
-    &--active, &:hover {
-      background: $light-gray;
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  &__item-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 1.25rem;
-  }
-
-  &__item-name {
-    font-size: 1rem;
-    line-height: 1.25rem;
-    font-weight: 600;
-  }
-
-  &__item-desc {
-    display: block;
-    font-size: 0.75rem;
-    line-height: 0.9375rem;
-    color: $dark-gray;
-    font-weight: 400;
-  }
-
   &--dashboard {
     @media (min-width: $md-breakpoint) {
       grid-template-columns: 15.3125rem 15.3125rem;
@@ -55,22 +13,14 @@
   &--sidebar {
     background: $light-gray;
     padding: 2.1875rem 1.25rem 0;
-
-    .features-menu__item {
-      display: none;
-    }
-
-    .features-menu__item--active {
-      display: flex;
-      background: #f1f1f1;
-    }
+    justify-items: center;
 
     @media (min-width: $md-breakpoint) {
       margin: 5.375rem auto 0;
       background: none;
       padding: 0;
 
-      .features-menu__item {
+      .icon-menu-item {
         display: flex;
 
         &--active {
@@ -81,15 +31,35 @@
   }
 
   &__mobile-close {
-    display: none;
     position: absolute;
     top: 1.25rem;
     right: 0.625rem;
-    z-index: 1;
+  }
+
+  &__mobile-trigger {
+    position: relative;
+    display: flex;
+    width: 100%;
+    background: #f1f1f1!important;
+
+    &-icon {
+      position: absolute;
+      right: 0.625rem;
+      top: 50%;
+      width: 1.5rem;
+      height: 1.5rem;
+      color: $dark-gray;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__mobile-menu {
+    display: none;
   }
 
   &--mobile-opened {
     position: fixed;
+    z-index: 101;
     left: 0;
     top: 0;
     right: 0;
@@ -97,12 +67,13 @@
     background: #fff;
     grid-auto-rows: minmax(min-content, max-content);
 
-    .features-menu__item {
-      display: flex;
+    .features-menu__mobile-menu {
+      display: block;
+      width: 100%;
     }
 
-    .features-menu__mobile-close {
-      display: block;
+    .features-menu__mobile-trigger-icon {
+      display: none;
     }
   }
 }

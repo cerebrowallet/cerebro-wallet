@@ -4,6 +4,7 @@
   position: absolute;
   top: 1.25rem;
   right: 0.625rem;
+  z-index: 100;
 
   @media (min-width: $md-breakpoint) {
     top: 2.625rem;
