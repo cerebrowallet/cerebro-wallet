@@ -74,6 +74,8 @@ body {
 .sidebar {
   grid-area: sidebar;
   background: #fff;
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: $xl-breakpoint) {
     width: 25.625rem;

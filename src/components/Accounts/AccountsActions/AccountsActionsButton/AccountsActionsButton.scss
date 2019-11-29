@@ -1,0 +1,54 @@
+@import 'styles/vars';
+
+.accounts-actions-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 1.5625rem;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &__icon {
+    position: relative;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: $light-gray;
+    margin-right: 0.9375rem;
+    border-radius: 100%;
+
+    & > svg {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: $orange;
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+
+  &__text {
+    text-align: left;
+    line-height: 1;
+  }
+
+  &__name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    margin-bottom: 0.3125rem;
+  }
+
+  &__desc {
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    color: $dark-gray;
+  }
+}

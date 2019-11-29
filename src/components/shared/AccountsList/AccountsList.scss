@@ -1,0 +1,95 @@
+@import '../../../styles/vars';
+
+.accounts-list {
+  position: relative;
+  flex-grow: 1;
+  padding: 0 1.5625rem;
+
+  .ScrollbarsCustom .ScrollbarsCustom-TrackY {
+    z-index: 2;
+  }
+
+  &:after {
+    position: absolute;
+    display: none;
+    content: '';
+    height: 2.625rem;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      #ffffff 100%
+    );
+  }
+
+  @media (min-width: $xl-breakpoint) {
+    &:after {
+      display: block;
+    }
+  }
+
+  &__item {
+    border: 0;
+    background: none;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    //margin-bottom: 1.5625rem;
+    width: 100%;
+    padding: 0.8125rem 0.625rem;
+    border-radius: 1.25rem;
+    transition: background-color 0.15s ease-in;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: $light-gray;
+    }
+
+    @media (min-width: $xl-breakpoint) {
+      &:last-child {
+        margin-bottom: 1.5625rem;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &--active {
+      background: $gray-medium;
+
+      &:hover {
+        background: $gray-medium;
+      }
+    }
+  }
+
+  &__currency-icon {
+    margin-right: 0.9375rem;
+  }
+
+  &__name {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+
+  &__balance {
+    display: block;
+    font-weight: 400;
+    color: $dark-gray;
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+  }
+
+  &--my-accounts {
+    padding: 0;
+  }
+}

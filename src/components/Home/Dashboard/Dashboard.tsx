@@ -4,7 +4,8 @@ import './Dashboard.scss';
 
 import TotalBalance from './TotalBalance/TotalBalance';
 import FeaturesMenu from '../../Features/FeaturesMenu/FeaturesMenu';
-import Accounts from './Accounts/Accounts';
+import AccountsDashboard from './AccountsDashboard/AccountsDashboard';
+import AccountsList from '../../shared/AccountsList/AccountsList';
 import Chart from './Chart/Chart';
 
 const Dashboard: React.FC = () => {
@@ -12,10 +13,12 @@ const Dashboard: React.FC = () => {
     <section className="dashboard">
       <TotalBalance />
       <FeaturesMenu wrapperCssClass="features-menu--dashboard" />
-      <Accounts />
+      <AccountsDashboard>
+        <AccountsList />
+      </AccountsDashboard>
       <Chart />
     </section>
-  )
+  );
 };
 
 export default Dashboard;

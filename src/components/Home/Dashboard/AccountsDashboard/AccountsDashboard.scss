@@ -1,0 +1,47 @@
+@import 'styles/vars';
+
+.accounts-dashboard {
+  position: relative;
+  background: #fff;
+  border-radius: 1.25rem;
+  grid-area: accounts;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $xl-breakpoint) {
+    height: 26.875rem;
+    padding-bottom: 1.3125rem;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.3125rem 1.5625rem 1.5625rem;
+  }
+
+  &__title {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    color: $dark-gray;
+  }
+
+  &__add {
+    width: 2.25rem;
+    height: 1.5625rem;
+    border-radius: 1.6875rem;
+    background: #f7f7f7;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &-icon {
+      color: $dark-gray;
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+}
