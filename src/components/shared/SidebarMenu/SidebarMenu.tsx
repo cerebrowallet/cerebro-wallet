@@ -16,7 +16,7 @@ import { useWindowSize } from '../../../hooks';
 
 import './SidebarMenu.scss';
 import CircleButton from '../../shared/CircleButton/CircleButton';
-import IconMenuItem from '../../shared/IconMenuItem/IconMenuItem';
+import IconMenuItem from '../IconButton/IconButton';
 
 interface MenuItem {
   link: string;

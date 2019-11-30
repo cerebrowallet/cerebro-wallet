@@ -6,7 +6,7 @@ import { Currencies } from '../../../enums';
 
 import Scrollbar from '../Scrollbar/Scrollbar';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
-import IconMenuItem from '../IconMenuItem/IconMenuItem';
+import IconMenuItem from '../IconButton/IconButton';
 import SidebarMenu from '../SidebarMenu/SidebarMenu';
 
 export interface Props {

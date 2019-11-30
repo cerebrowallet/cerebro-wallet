@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './IconMenuItem.scss';
+import './IconButton.scss';
 
 interface Props {
   link?: string;
@@ -26,7 +26,7 @@ const IconMenuIcon: React.FC<Props> = ({
     return null;
   }
 
-  let cls = 'icon-menu-item';
+  let cls = 'icon-button';
   if (className) {
     cls += ` ${className}`;
   }
@@ -34,11 +34,11 @@ const IconMenuIcon: React.FC<Props> = ({
   const content = (
     <>
       {React.cloneElement(icon, {
-        className: `icon-menu-item__icon ${icon.props.className || ''}`,
+        className: `icon-button__icon ${icon.props.className || ''}`,
       })}
-      <div className="icon-menu-item__name">
+      <div className="icon-button__name">
         {text}
-        <span className="icon-menu-item__desc">{descText}</span>
+        <span className="icon-button__desc">{descText}</span>
       </div>
       {children}
     </>
@@ -49,7 +49,7 @@ const IconMenuIcon: React.FC<Props> = ({
       <NavLink
         to={link}
         className={cls}
-        activeClassName="icon-menu-item--active"
+        activeClassName="icon-button--active"
       >
         {content}
       </NavLink>

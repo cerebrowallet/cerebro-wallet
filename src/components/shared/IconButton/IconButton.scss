@@ -1,6 +1,6 @@
 @import 'styles/vars';
 
-.icon-menu-item {
+.icon-button {
   display: flex;
   align-items: center;
   text-align: left;
@@ -74,7 +74,7 @@
       margin-bottom: 0;
     }
 
-    .icon-menu-item__name {
+    .icon-button__name {
       display: block;
       font-weight: 600;
       font-size: 0.875rem;
@@ -82,7 +82,7 @@
       margin-bottom: 0.0625rem;
     }
 
-    .icon-menu-item__desc {
+    .icon-button__desc {
       font-size: 0.75rem;
       line-height: 0.9375rem;
       color: $dark-gray;

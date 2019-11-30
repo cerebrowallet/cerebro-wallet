@@ -7,7 +7,7 @@ import {
 } from 'react-feather';
 
 import './FeaturesMenu.scss';
-import IconMenuItem from '../IconMenuItem/IconMenuItem';
+import IconMenuItem from '../IconButton/IconButton';
 import SidebarMenu from '../../shared/SidebarMenu/SidebarMenu';
 
 interface Props {

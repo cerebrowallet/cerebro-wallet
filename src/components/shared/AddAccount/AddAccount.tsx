@@ -7,7 +7,7 @@ import {
 
 import './AddAccount.scss';
 
-import IconMenuItem from '../IconMenuItem/IconMenuItem';
+import IconMenuItem from '../IconButton/IconButton';
 import AddAccountIcon from './AddAccountIcon/AddAccountIcon';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const AddAccount: React.FC<Props> = ({ className, buttonClassName }) => {
-  const btnClass = `icon-menu-item--add-account${
+  const btnClass = `icon-button--add-account${
     buttonClassName ? ` ${buttonClassName}` : ''
   }`;
 
