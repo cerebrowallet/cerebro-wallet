@@ -58,6 +58,10 @@
       color: $dark-gray;
       transform: translateY(-50%);
     }
+
+    @media (min-width: $lg-breakpoint) {
+      min-width: 15.3125rem;
+    }
   }
 
   &--mobile-opened {
@@ -78,6 +82,18 @@
 
     .sidebar-menu__mobile-trigger-icon {
       display: none;
+    }
+  }
+
+  &--accounts-list {
+    padding: 2.1875rem 1.25rem 0;
+
+    @media (min-width: $md-breakpoint) {
+      padding: 2.125rem 2.6875rem 1.125rem;
+    }
+
+    @media (min-width: $lg-breakpoint) {
+      padding: 0;
     }
   }
 }

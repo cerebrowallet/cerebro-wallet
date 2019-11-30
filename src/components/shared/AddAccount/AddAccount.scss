@@ -2,7 +2,7 @@
 
 .add-account {
   border-top: 1px solid $light-gray;
-  padding: 2.1875rem 0 0.3125rem;
+  padding: 2.1875rem 0;
 
   &--mobile {
     margin: 2.1875rem 0;
@@ -14,5 +14,10 @@
     @media (min-width: $md-breakpoint) {
       margin: 0 -0.3125rem;
     }
+  }
+
+  &--my-accounts {
+    padding: 0;
+    border-top: 0;
   }
 }

@@ -3,12 +3,12 @@ import { Compass as CompassIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router';
 
-import Page from '../../../shared/Page/Page';
-import FormGroup from '../../../shared/FormGroup/FormGroup';
-import Input from '../../../shared/Input/Input';
-import DropDown from '../../../shared/DropDown/DropDown';
+import Page from '../../Page/Page';
+import FormGroup from '../../FormGroup/FormGroup';
+import Input from '../../Input/Input';
+import DropDown from '../../DropDown/DropDown';
 import Amount from './Amount/Amount';
-import Button from '../../../shared/Button/Button';
+import Button from '../../Button/Button';
 import Fee from './Fee/Fee';
 import SendProgress from '../SendProgress/SendProgress';
 
@@ -28,7 +28,11 @@ interface Values {
   fee: number;
 }
 
-const SendFill: React.FC<{}> = () => {
+interface Props {
+  account?: string;
+}
+
+const SendFill: React.FC<Props> = ({ account }) => {
   const initialValues: Values = {
     fromAccount: null,
     transferTo: '',
@@ -53,14 +57,16 @@ const SendFill: React.FC<{}> = () => {
         {() => (
           <Form>
             <div className="white-block">
-              <FormGroup label="From account">
-                <DropDown
-                  required
-                  options={ACCOUNTS_OPTIONS}
-                  name="fromAccount"
-                  placeholder="Choose account"
-                />
-              </FormGroup>
+              {!account && (
+                <FormGroup label="From account">
+                  <DropDown
+                    required
+                    options={ACCOUNTS_OPTIONS}
+                    name="fromAccount"
+                    placeholder="Choose account"
+                  />
+                </FormGroup>
+              )}
               <FormGroup label="Transfer to">
                 <Input
                   name="transferTo"

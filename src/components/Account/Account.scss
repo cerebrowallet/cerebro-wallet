@@ -1,0 +1,33 @@
+@import 'styles/vars';
+
+.account {
+  display: grid;
+  padding: 0 1.25rem 1.5625rem;
+
+  @media (min-width: $md-breakpoint) {
+    grid-template-columns: auto 1fr;
+    grid-gap: 2.4375rem;
+    padding: 1.125rem 2.6875rem;
+  }
+
+  @media (min-width: $lg-breakpoint) {
+    padding: 3.125rem 2.6875rem;
+  }
+
+  @media (min-width: $xl-breakpoint) {
+    padding: 3.125rem 4.6875rem;
+    grid-gap: 3.4375rem;
+  }
+
+  &__menu {
+    width: 15.875rem;
+  }
+
+  &__content {
+    padding-top: 2.1875rem;
+
+    @media (min-width: $md-breakpoint) {
+      padding-top: 0;
+    }
+  }
+}

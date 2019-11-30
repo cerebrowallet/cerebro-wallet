@@ -52,6 +52,7 @@ const FeaturesMenu: React.FC<Props> = ({ view }) => {
       <div className="features-menu features-menu--dashboard">
         {MENU_ITEMS.map(item => (
           <IconMenuItem
+            key={item.link}
             link={item.link}
             text={item.text}
             descText={item.descText}

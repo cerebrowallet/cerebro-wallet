@@ -64,6 +64,27 @@ body {
     }
   }
 
+  &--account {
+    grid-template-areas:
+            'sidebar'
+            'main';
+    grid-auto-rows: minmax(min-content, max-content);
+
+    @media (min-width: $lg-breakpoint) {
+      grid-template-areas: 'sidebar main';
+      grid-template-columns: auto 3fr;
+      grid-template-rows: auto;
+    }
+
+    //@media (min-width: $lg-breakpoint) {
+    //  grid-template-columns: 1fr 2fr;
+    //}
+
+    @media (min-width: $xl-breakpoint) {
+      grid-template-columns: auto 3fr;
+    }
+  }
+
   &--activity {
     grid-template-areas:
       'main'
@@ -127,4 +148,16 @@ body {
   line-height: 1rem;
   margin-top: 0.0625rem;
   transition: opacity 0.2s ease-in-out;
+}
+
+.close-page-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 0.625rem;
+  z-index: 100;
+
+  @media (min-width: $md-breakpoint) {
+    top: 2.625rem;
+    right: 1.25rem;
+  }
 }

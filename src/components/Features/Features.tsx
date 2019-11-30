@@ -12,8 +12,8 @@ import {
 import FeaturesMenu from '../shared/FeaturesMenu/FeaturesMenu';
 import CircleButton from '../shared/CircleButton/CircleButton';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
-import Send from './Send/Send';
-import Exchange from './Exchange/Exchange';
+import Send from '../shared/Send/Send';
+import Exchange from '../shared/Exchange/Exchange';
 import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Activity from '../shared/Activity/Activity';
 
@@ -28,7 +28,7 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
       <Route exact path="/features">
         <Redirect to="/features/receive" />
       </Route>
-      <main className="main">
+      <main className="main features">
         <Switch>
           <Route path={`${match.path}/receive`}>
             <TopUpAccount />

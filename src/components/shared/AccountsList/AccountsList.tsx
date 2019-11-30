@@ -3,11 +3,12 @@ import React from 'react';
 import './AccountsList.scss';
 import { Currencies } from '../../../enums';
 
-
 import Scrollbar from '../Scrollbar/Scrollbar';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import IconMenuItem from '../IconButton/IconButton';
 import SidebarMenu from '../SidebarMenu/SidebarMenu';
+
+import { Breakpoints } from '../../../enums';
 
 export interface Props {
   className?: string;
@@ -15,7 +16,11 @@ export interface Props {
   mobileMenuFooter?: React.ReactNode;
 }
 
-const AccountsList: React.FC<Props> = ({ className, view, mobileMenuFooter }) => {
+const AccountsList: React.FC<Props> = ({
+  className,
+  view,
+  mobileMenuFooter,
+}) => {
   const ACCOUNTS = [
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19',
@@ -145,8 +150,10 @@ const AccountsList: React.FC<Props> = ({ className, view, mobileMenuFooter }) =>
         {view === 'sidebar' ? (
           <SidebarMenu
             menuItems={ACCOUNTS}
+            wrapperClassName="sidebar-menu--accounts-list"
             itemClassName="accounts-list__item"
             mobileMenuFooter={mobileMenuFooter}
+            mobileBreakpoint={Breakpoints.lg}
           />
         ) : (
           ACCOUNTS.map(account => (

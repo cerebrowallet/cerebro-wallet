@@ -5,11 +5,15 @@ import SendFill from './SendFill/SendFill';
 import SendConfirm from './SendConfirm/SendConfirm';
 import SendSuccess from './SendSuccess/SendSuccess';
 
-const Send: React.FC<RouteComponentProps<{}>> = ({ match }) => {
+interface Props extends RouteComponentProps {
+  account?: string;
+}
+
+const Send: React.FC<Props> = ({ match, account }) => {
   return (
     <Switch>
       <Route exact path={match.path}>
-        <SendFill />
+        <SendFill account={account} />
       </Route>
       <Route path={`${match.path}/confirm`}>
         <SendConfirm />

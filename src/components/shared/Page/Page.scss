@@ -1,19 +1,19 @@
 @import 'styles/vars';
 
 .page {
-  margin-top: 2.5rem;
-  padding: 0 1.25rem;
+  //margin-top: 2.5rem;
+  //padding: 0 1.25rem;
   max-width: calc(100vw);
 
   @media (min-width: $lg-breakpoint) {
-    margin-top: 3.125rem;
+    //margin-top: 3.125rem;
     padding: 0;
-    margin-left: 4rem;
+    //margin-left: 4rem;
     max-width: 36.25rem;
   }
 
   @media (min-width: $xl-breakpoint) {
-    margin-left: 14.0625rem;
+    //margin-left: 14.0625rem;
   }
 
   &__header {

@@ -30,6 +30,7 @@ interface Props extends RouteComponentProps {
   menuItems: MenuItem[];
   itemClassName?: string;
   mobileMenuFooter?: React.ReactNode;
+  mobileBreakpoint?: Breakpoints;
 }
 
 const SidebarMenu: React.FC<Props> = ({
@@ -37,6 +38,7 @@ const SidebarMenu: React.FC<Props> = ({
   menuItems,
   itemClassName,
   mobileMenuFooter,
+  mobileBreakpoint = Breakpoints.md,
 }) => {
   const windowSize = useWindowSize();
   const location = useLocation();
@@ -44,7 +46,7 @@ const SidebarMenu: React.FC<Props> = ({
   const history = useHistory();
 
   useEffect(() => {
-    if (windowSize.width > Breakpoints.md && showMenu) {
+    if (windowSize.width > mobileBreakpoint && showMenu) {
       setShowMenu(false);
     }
   }, [windowSize, showMenu]);
@@ -53,7 +55,7 @@ const SidebarMenu: React.FC<Props> = ({
     wrapperClassName ? ` ${wrapperClassName}` : ''
   }`;
 
-  if (windowSize.width < Breakpoints.md) {
+  if (windowSize.width < mobileBreakpoint) {
     className += ' sidebar-menu--mobile';
 
     if (showMenu) {
@@ -62,7 +64,7 @@ const SidebarMenu: React.FC<Props> = ({
 
     const [triggerMenuItem, otherMenuItems] = menuItems.reduce(
       (acc: [MenuItem | undefined, MenuItem[]], item: MenuItem) => {
-        if (item.link === location.pathname) {
+        if (location.pathname.includes(item.link)) {
           acc[0] = item;
         } else {
           if (acc[1] === undefined) {
@@ -125,14 +127,14 @@ const SidebarMenu: React.FC<Props> = ({
           descText={item.descText}
           icon={item.icon}
           className={`sidebar-menu__item ${itemClassName || ''}`}
-        >
-          {item.link === location.pathname && (
-            <ChevronRightIcon className="sidebar-menu__item-active-icon" />
-          )}
-        </IconMenuItem>
+        />
       ))}
     </section>
   );
+};
+
+SidebarMenu.defaultProps = {
+  mobileBreakpoint: Breakpoints.md,
 };
 
 export default withRouter(SidebarMenu);

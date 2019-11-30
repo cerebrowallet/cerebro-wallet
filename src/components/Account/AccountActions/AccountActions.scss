@@ -1,0 +1,15 @@
+@import 'styles/vars';
+
+.account-actions {
+  margin-top: 1.5625rem;
+
+  @media (min-width: $md-breakpoint) {
+    margin-top: 0;
+  }
+
+  .icon-button {
+    &--active, &:hover {
+      background: $gray-medium;
+    }
+  }
+}

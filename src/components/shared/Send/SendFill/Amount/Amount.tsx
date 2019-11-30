@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FormGroup from '../../../../shared/FormGroup/FormGroup';
-import Input from '../../../../shared/Input/Input';
+import FormGroup from '../../../FormGroup/FormGroup';
+import Input from '../../../Input/Input';
 import CurrencyInput from '../CurrencyInput/CurrencyInput';
 
 import './Amount.scss';

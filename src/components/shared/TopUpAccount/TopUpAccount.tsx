@@ -11,33 +11,39 @@ import HashText from '../HashText/HashText';
 
 import { ACCOUNTS_OPTIONS } from '../../../dummyData';
 
-const TopUpAccount: React.FC = () => {
+interface Props {
+  account?: string;
+}
+
+const TopUpAccount: React.FC<Props> = ({ account }) => {
   return (
     <Page
-      headerText="Send"
+      headerText="Top up account"
       FooterIcon={ShareIcon}
       footerText="Instantly send money with custom fee to anyone or own wallet."
     >
-      <section className="white-block">
-        <Formik
-          initialValues={{
-            account: null,
-          }}
-          onSubmit={() => {}}
-        >
-          {() => (
-            <Form>
-              <FormGroup label="Account" className="form-group--no-margin">
-                <DropDown
-                  options={ACCOUNTS_OPTIONS}
-                  name="account"
-                  onChange={() => {}}
-                />
-              </FormGroup>
-            </Form>
-          )}
-        </Formik>
-      </section>
+      {!account && (
+        <section className="white-block">
+          <Formik
+            initialValues={{
+              account: null,
+            }}
+            onSubmit={() => {}}
+          >
+            {() => (
+              <Form>
+                <FormGroup label="Account" className="form-group--no-margin">
+                  <DropDown
+                    options={ACCOUNTS_OPTIONS}
+                    name="account"
+                    onChange={() => {}}
+                  />
+                </FormGroup>
+              </Form>
+            )}
+          </Formik>
+        </section>
+      )}
       <QRCode />
       <LabeledText label="Public address">
         <HashText breakAll>1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>

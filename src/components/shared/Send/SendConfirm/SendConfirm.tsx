@@ -3,8 +3,8 @@ import { File as FileIcon } from 'react-feather';
 
 import { SEND_STEPS } from '../constants';
 import SendProgress from '../SendProgress/SendProgress';
-import Button from '../../../shared/Button/Button';
-import Page from '../../../shared/Page/Page';
+import Button from '../../Button/Button';
+import Page from '../../Page/Page';
 
 import './SendConfirm.scss';
 

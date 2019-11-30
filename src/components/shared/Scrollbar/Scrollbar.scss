@@ -56,12 +56,12 @@
   }
 
   &--accounts-list {
-    @media (min-width: $md-breakpoint) {
+    @media (min-width: $lg-breakpoint) {
       position: relative !important;
     }
 
     .scrollbar__wrapper {
-      @media (min-width: $md-breakpoint) {
+      @media (min-width: $lg-breakpoint) {
         position: absolute !important;
         top: 0;
         right: 0;
@@ -71,7 +71,7 @@
     }
 
     .scrollbar__scroller {
-      @media (min-width: $md-breakpoint) {
+      @media (min-width: $lg-breakpoint) {
         position: absolute !important;
       }
     }

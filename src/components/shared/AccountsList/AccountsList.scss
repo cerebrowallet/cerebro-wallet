@@ -91,5 +91,11 @@
 
   &--my-accounts {
     padding: 0;
+    background: $light-gray;
+
+    @media (min-width: $lg-breakpoint) {
+      background: none;
+      padding: 0;
+    }
   }
 }
