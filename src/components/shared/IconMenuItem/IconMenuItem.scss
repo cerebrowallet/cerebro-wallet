@@ -61,4 +61,31 @@
         0px 10px 10px rgba(0, 0, 0, 0.04);
     }
   }
+
+  &--add-account {
+    width: 100%;
+    margin-bottom: 1.5625rem;
+    cursor: pointer;
+    text-decoration: none;
+    max-width: none;
+    color: $text-color;
+
+    @media (min-width: $md-breakpoint) {
+      margin-bottom: 0;
+    }
+
+    .icon-menu-item__name {
+      display: block;
+      font-weight: 600;
+      font-size: 0.875rem;
+      line-height: 1.4375rem;
+      margin-bottom: 0.0625rem;
+    }
+
+    .icon-menu-item__desc {
+      font-size: 0.75rem;
+      line-height: 0.9375rem;
+      color: $dark-gray;
+    }
+  }
 }

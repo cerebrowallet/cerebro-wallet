@@ -6,7 +6,7 @@ import { useWindowSize } from '../../../hooks';
 import './AccountsListSidebar.scss';
 
 import AccountsList from '../../shared/AccountsList/AccountsList';
-import AccountsActions from '../AccountsActions/AccountsActions';
+import AddAccount from '../../shared/AddAccount/AddAccount';
 
 const AccountsListSidebar: React.FC = () => {
   const windowSize = useWindowSize();
@@ -17,9 +17,9 @@ const AccountsListSidebar: React.FC = () => {
       <AccountsList
         view="sidebar"
         className="accounts-list--my-accounts"
-        mobileMenuFooter={<AccountsActions className="accounts-actions--mobile" />}
+        mobileMenuFooter={<AddAccount className="add-account--sidebar add-account--mobile" />}
       />
-      {windowSize.width > Breakpoints.md && <AccountsActions />}
+      {windowSize.width > Breakpoints.md && <AddAccount className="add-account--sidebar" />}
     </section>
   );
 };

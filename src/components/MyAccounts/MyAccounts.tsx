@@ -6,13 +6,8 @@ import './MyAccounts.scss';
 import IconMenuItem from '../shared/IconMenuItem/IconMenuItem';
 import { Currencies } from '../../enums';
 import CurrencyIcon from '../shared/CurrencyIcon/CurrencyIcon';
-import AccountsActionsButton from '../Account/AccountsActions/AccountsActionsButton/AccountsActionsButton';
-import {
-  Eye as EyeIcon,
-  Key as KeyIcon,
-  Plus as PlusIcon,
-  X as CloseIcon,
-} from 'react-feather';
+import AddAccount from '../shared/AddAccount/AddAccount';
+import { X as CloseIcon } from 'react-feather';
 import CircleButton from '../shared/CircleButton/CircleButton';
 
 const MyAccounts: React.FC = () => {
@@ -88,29 +83,10 @@ const MyAccounts: React.FC = () => {
           />
         </div>
         <h3 className="my-accounts__header">Manage</h3>
-        <div className="my-accounts__items">
-          <AccountsActionsButton
-            link="/account/create"
-            Icon={PlusIcon}
-            name="Create a new account"
-            desc="Manage multiple coins at once"
-            className="accounts-actions-btn--my-accounts"
-          />
-          <AccountsActionsButton
-            link="/account/import-private-key"
-            Icon={KeyIcon}
-            name="Import Private Key"
-            desc="from existing wallet"
-            className="accounts-actions-btn--my-accounts"
-          />
-          <AccountsActionsButton
-            link="/account/import-public-address"
-            Icon={EyeIcon}
-            name="Import Public Address"
-            desc="See what is happening to it"
-            className="accounts-actions-btn--my-accounts"
-          />
-        </div>
+        <AddAccount
+          className="my-accounts__items add-account--my-accounts"
+          buttonClassName="icon-menu-item--my-accounts"
+        />
       </div>
       <CircleButton
         className="close-page-btn"

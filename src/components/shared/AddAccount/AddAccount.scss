@@ -1,6 +1,6 @@
-@import 'styles/vars';
+@import '../../../styles/vars';
 
-.accounts-actions {
+.add-account {
   border-top: 1px solid $light-gray;
   padding: 2.1875rem 0 0.3125rem;
 
@@ -8,5 +8,11 @@
     margin: 2.1875rem 0;
     padding-left: 0.625rem;
     padding-right: 0.625rem;
+  }
+
+  &--sidebar {
+    @media (min-width: $md-breakpoint) {
+      margin: 0 -0.3125rem;
+    }
   }
 }

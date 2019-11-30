@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from "react-router";
 
 import AccountsListSidebar from './AccountsListSidebar/AccountsListSidebar';
-import AccountsActions from "./AccountsActions/AccountsActions";
 import {X as CloseIcon} from "react-feather";
 import CircleButton from "../shared/CircleButton/CircleButton";
 
