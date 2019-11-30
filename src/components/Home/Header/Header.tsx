@@ -40,7 +40,7 @@ const Header: React.FC = () => {
           )}
         </CircleButton>
         <nav className="header-menu__nav-items">
-          <Link to="/accounts" className="header-menu__item">
+          <Link to="/my-accounts" className="header-menu__item">
             Accounts
           </Link>
           <Link to="/help" className="header-menu__item">

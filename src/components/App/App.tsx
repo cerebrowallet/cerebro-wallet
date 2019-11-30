@@ -4,7 +4,8 @@ import { UserSession, AppConfig } from 'blockstack';
 
 import Home from '../Home/Home';
 import Features from '../Features/Features';
-import Accounts from "../Accounts/Accounts";
+import Account from '../Account/Account';
+import MyAccounts from '../MyAccounts/MyAccounts';
 
 import './App.scss';
 
@@ -32,8 +33,11 @@ const App: React.FC = () => {
       <Route path="/features">
         <Features />
       </Route>
-      <Route path="/accounts">
-        <Accounts />
+      <Route path="/account/:accountId">
+        <Account />
+      </Route>
+      <Route path="/my-accounts">
+        <MyAccounts />
       </Route>
     </Switch>
   );

@@ -1,0 +1,41 @@
+@import 'styles/vars';
+
+.my-accounts {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: linear-gradient(237.99deg, #4E6B81 0%, #2A4355 100%);
+  overflow-y: auto;
+
+  &__content {
+    max-width: 57.5rem;
+    margin: 3.125rem auto;
+    padding: 0 1.25rem;
+  }
+
+  &__header {
+    display: block;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 2.1875rem;
+    color: #fff;
+  }
+
+  &__items {
+    display: grid;
+    grid-gap: 1.25rem;
+    margin-bottom: 3.125rem;
+
+    @media (min-width: $sm-breakpoint) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (min-width: $md-breakpoint) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}

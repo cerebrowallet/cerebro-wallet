@@ -9,7 +9,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import FeaturesMenu from './FeaturesMenu/FeaturesMenu';
+import FeaturesMenu from '../shared/FeaturesMenu/FeaturesMenu';
 import CircleButton from '../shared/CircleButton/CircleButton';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Send from './Send/Send';
@@ -54,7 +54,7 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
         {location.pathname === `${match.path}/activity` ? (
           <Activity />
         ) : (
-          <FeaturesMenu wrapperCssClass="features-menu--sidebar" />
+          <FeaturesMenu view="sidebar" />
         )}
       </aside>
     </section>

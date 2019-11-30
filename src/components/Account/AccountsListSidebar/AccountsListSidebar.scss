@@ -1,0 +1,23 @@
+@import 'styles/vars';
+
+.accounts-list-sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  @media (min-width: $md-breakpoint) {
+    margin: 2.9375rem 1.875rem 0;
+  }
+
+  &__header {
+    display: none;
+    font-weight: bold;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    margin: 0 0.625rem 2.3125rem;
+
+    @media (min-width: $md-breakpoint) {
+      display: block;
+    }
+  }
+}

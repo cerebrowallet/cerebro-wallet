@@ -3,7 +3,7 @@
 .accounts-list {
   position: relative;
   flex-grow: 1;
-  padding: 0 1.5625rem;
+  padding: 0 1.25rem 0 0.9375rem;
 
   .ScrollbarsCustom .ScrollbarsCustom-TrackY {
     z-index: 2;
@@ -37,12 +37,12 @@
     display: flex;
     align-items: center;
     text-align: left;
-    //margin-bottom: 1.5625rem;
     width: 100%;
     padding: 0.8125rem 0.625rem;
     border-radius: 1.25rem;
     transition: background-color 0.15s ease-in;
     cursor: pointer;
+    max-width: none;
 
     &:last-child {
       margin-bottom: 0;

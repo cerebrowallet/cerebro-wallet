@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Plus as PlusIcon,
-  Navigation as NavigationIcon,
-  Repeat as RepeatIcon,
-  Filter as FilterIcon,
   ChevronLeft as ChevronLeftIcon,
   ChevronDown as ChevronDownIcon,
+  ChevronRight as ChevronRightIcon,
 } from 'react-feather';
 import {
   withRouter,
@@ -17,7 +14,7 @@ import {
 import { Breakpoints } from '../../../enums';
 import { useWindowSize } from '../../../hooks';
 
-import './FeaturesMenu.scss';
+import './SidebarMenu.scss';
 import CircleButton from '../../shared/CircleButton/CircleButton';
 import IconMenuItem from '../../shared/IconMenuItem/IconMenuItem';
 
@@ -25,41 +22,22 @@ interface MenuItem {
   link: string;
   text: string;
   descText: string;
-  icon: React.ComponentType<any>;
+  icon: React.ReactElement<any>;
 }
-
-const MENU_ITEMS = [
-  {
-    link: '/features/receive',
-    text: 'Receive',
-    descText: 'Top up my accounts',
-    icon: PlusIcon,
-  },
-  {
-    link: '/features/send',
-    text: 'Send',
-    descText: 'Transfer to others',
-    icon: NavigationIcon,
-  },
-  {
-    link: '/features/exchange',
-    text: 'Exchange',
-    descText: 'Trade your funds instantly',
-    icon: RepeatIcon,
-  },
-  {
-    link: '/features/activity',
-    text: 'Activity',
-    descText: 'Transactions history',
-    icon: FilterIcon,
-  },
-];
 
 interface Props extends RouteComponentProps {
-  wrapperCssClass?: string;
+  wrapperClassName?: string;
+  menuItems: MenuItem[];
+  itemClassName?: string;
+  mobileMenuFooter?: React.ReactNode;
 }
 
-const FeaturesMenu: React.FC<Props> = ({ wrapperCssClass }) => {
+const SidebarMenu: React.FC<Props> = ({
+  wrapperClassName,
+  menuItems,
+  itemClassName,
+  mobileMenuFooter,
+}) => {
   const windowSize = useWindowSize();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
@@ -71,18 +49,18 @@ const FeaturesMenu: React.FC<Props> = ({ wrapperCssClass }) => {
     }
   }, [windowSize, showMenu]);
 
-  let className = `features-menu${
-    wrapperCssClass ? ` ${wrapperCssClass}` : ''
+  let className = `sidebar-menu${
+    wrapperClassName ? ` ${wrapperClassName}` : ''
   }`;
 
   if (windowSize.width < Breakpoints.md) {
-    className += ' features-menu--mobile';
+    className += ' sidebar-menu--mobile';
 
     if (showMenu) {
-      className += ' features-menu--mobile-opened';
+      className += ' sidebar-menu--mobile-opened';
     }
 
-    const [triggerMenuItem, otherMenuItems] = MENU_ITEMS.reduce(
+    const [triggerMenuItem, otherMenuItems] = menuItems.reduce(
       (acc: [MenuItem | undefined, MenuItem[]], item: MenuItem) => {
         if (item.link === location.pathname) {
           acc[0] = item;
@@ -102,19 +80,19 @@ const FeaturesMenu: React.FC<Props> = ({ wrapperCssClass }) => {
       <section className={className}>
         {triggerMenuItem && (
           <IconMenuItem
-            className="features-menu__mobile-trigger"
+            className={`sidebar-menu__mobile-trigger ${itemClassName || ''}`}
             onClick={() => setShowMenu(!showMenu)}
             text={triggerMenuItem.text}
             descText={triggerMenuItem.descText}
-            Icon={triggerMenuItem.icon}
+            icon={triggerMenuItem.icon}
           >
-            <ChevronDownIcon className="features-menu__mobile-trigger-icon" />
+            <ChevronDownIcon className="sidebar-menu__mobile-trigger-icon" />
           </IconMenuItem>
         )}
-        <div className="features-menu__mobile-menu">
+        <div className="sidebar-menu__mobile-menu">
           {otherMenuItems.map((item, i) => (
             <IconMenuItem
-              className="features-menu__mobile-item"
+              className={`sidebar-menu__mobile-item ${itemClassName || ''}`}
               key={`${item.link}-${i}`}
               onClick={() => {
                 history.push(item.link);
@@ -122,15 +100,16 @@ const FeaturesMenu: React.FC<Props> = ({ wrapperCssClass }) => {
               }}
               text={item.text}
               descText={item.descText}
-              Icon={item.icon}
+              icon={item.icon}
             />
           ))}
           <CircleButton
             onClick={() => setShowMenu(!showMenu)}
-            className="features-menu__mobile-close"
+            className="sidebar-menu__mobile-close"
           >
             <ChevronLeftIcon />
           </CircleButton>
+          {mobileMenuFooter}
         </div>
       </section>
     );
@@ -138,17 +117,22 @@ const FeaturesMenu: React.FC<Props> = ({ wrapperCssClass }) => {
 
   return (
     <section className={className}>
-      {MENU_ITEMS.map((item, i) => (
+      {menuItems.map((item, i) => (
         <IconMenuItem
           key={`${item.link}-${i}`}
           link={item.link}
           text={item.text}
           descText={item.descText}
-          Icon={item.icon}
-        />
+          icon={item.icon}
+          className={`sidebar-menu__item ${itemClassName || ''}`}
+        >
+          {item.link === location.pathname && (
+            <ChevronRightIcon className="sidebar-menu__item-active-icon" />
+          )}
+        </IconMenuItem>
       ))}
     </section>
   );
 };
 
-export default withRouter(FeaturesMenu);
+export default withRouter(SidebarMenu);

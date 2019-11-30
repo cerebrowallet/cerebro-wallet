@@ -56,8 +56,28 @@
   }
 
   &--accounts-list {
+    @media (min-width: $md-breakpoint) {
+      position: relative !important;
+    }
+
+    .scrollbar__wrapper {
+      @media (min-width: $md-breakpoint) {
+        position: absolute !important;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    .scrollbar__scroller {
+      @media (min-width: $md-breakpoint) {
+        position: absolute !important;
+      }
+    }
+
     .scrollbar__track-y {
-      right: -1.125rem;
+      right: -0.875rem;
     }
   }
 

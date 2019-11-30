@@ -30,7 +30,7 @@
   &__icon {
     width: 1.5rem;
     height: 1.5rem;
-    margin-right: 1.25rem;
+    margin-right: 0.9375rem;
   }
 
   &__name {
@@ -45,5 +45,20 @@
     line-height: 0.9375rem;
     color: $dark-gray;
     font-weight: 400;
+  }
+
+  &--my-accounts {
+    position: relative;
+    background: #fff;
+    max-width: none;
+    transition: top 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    top: 0;
+
+    &:hover {
+      background: #fff;
+      top: -0.125rem;
+      box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1),
+        0px 10px 10px rgba(0, 0, 0, 0.04);
+    }
   }
 }

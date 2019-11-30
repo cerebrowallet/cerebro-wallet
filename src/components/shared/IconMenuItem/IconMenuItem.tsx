@@ -6,7 +6,7 @@ import './IconMenuItem.scss';
 interface Props {
   link?: string;
   onClick?: () => void;
-  Icon: React.ComponentType<any>;
+  icon: React.ReactElement<any>;
   text: string;
   descText: string;
   className?: string;
@@ -18,7 +18,7 @@ const IconMenuIcon: React.FC<Props> = ({
   onClick,
   text,
   descText,
-  Icon,
+  icon,
   className,
   children,
 }) => {
@@ -33,7 +33,9 @@ const IconMenuIcon: React.FC<Props> = ({
 
   const content = (
     <>
-      <Icon className="icon-menu-item__icon" />
+      {React.cloneElement(icon, {
+        className: `icon-menu-item__icon ${icon.props.className || ''}`,
+      })}
       <div className="icon-menu-item__name">
         {text}
         <span className="icon-menu-item__desc">{descText}</span>

@@ -9,6 +9,8 @@
   background: none;
   padding: 0;
   cursor: pointer;
+  text-decoration: none;
+  color: $text-color;
 
   &:focus {
     outline: none;
@@ -43,12 +45,30 @@
     font-weight: 600;
     font-size: 0.875rem;
     line-height: 1.0625rem;
-    margin-bottom: 0.3125rem;
+    margin-bottom: 0.0625rem;
   }
 
   &__desc {
     font-size: 0.75rem;
     line-height: 0.9375rem;
     color: $dark-gray;
+  }
+
+  &--my-accounts {
+    position: relative;
+    background: #fff;
+    max-width: none;
+    transition: top 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    top: 0;
+    padding: 0.875rem 0.625rem;
+    border-radius: 1.25rem;
+    margin-bottom: 0;
+
+    &:hover {
+      background: #fff;
+      top: -0.125rem;
+      box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1),
+        0px 10px 10px rgba(0, 0, 0, 0.04);
+    }
   }
 }
