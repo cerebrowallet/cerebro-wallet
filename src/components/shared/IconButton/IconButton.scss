@@ -8,7 +8,7 @@
   border: 0;
   cursor: pointer;
   padding: 0.875rem 1.1875rem;
-  color: $text-color;
+  color: $base-color;
   text-decoration: none;
   border-radius: 1.25rem;
   transition: background 0.3s;
@@ -68,7 +68,7 @@
     cursor: pointer;
     text-decoration: none;
     max-width: none;
-    color: $text-color;
+    color: $base-color;
 
     @media (min-width: $md-breakpoint) {
       margin-bottom: 0;

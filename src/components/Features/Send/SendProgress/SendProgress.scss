@@ -24,7 +24,7 @@
     transition: background 0.15s ease-in-out;
 
     &--current {
-      background: $text-color;
+      background: $base-color;
     }
   }
 }
