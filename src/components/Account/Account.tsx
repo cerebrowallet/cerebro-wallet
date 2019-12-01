@@ -4,7 +4,8 @@ import {
   Switch,
   Route,
   RouteComponentProps,
-  withRouter, Redirect,
+  withRouter,
+  Redirect,
 } from 'react-router';
 import { X as CloseIcon } from 'react-feather';
 
@@ -19,6 +20,7 @@ import AccountActions from './AccountActions/AccountActions';
 import Send from '../shared/Send/Send';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Exchange from '../shared/Exchange/Exchange';
+import Details from './Details/Details';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -47,7 +49,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           <Switch>
             <Route exact path={`${match.url}/details`}>
               <main className="account__content">
-                Details
+                <Details />
               </main>
             </Route>
             <Route exact path={`${match.url}/receive`}>
@@ -66,24 +68,16 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
               </main>
             </Route>
             <Route exact path={`${match.url}/rename`}>
-              <main className="account__content">
-                Rename
-              </main>
+              <main className="account__content">Rename</main>
             </Route>
             <Route exact path={`${match.url}/explorer`}>
-              <main className="account__content">
-                Explorer
-              </main>
+              <main className="account__content">Explorer</main>
             </Route>
             <Route exact path={`${match.url}/private-key`}>
-              <main className="account__content">
-                Private key
-              </main>
+              <main className="account__content">Private key</main>
             </Route>
             <Route exact path={`${match.url}/delete`}>
-              <main className="account__content">
-                Delete
-              </main>
+              <main className="account__content">Delete</main>
             </Route>
           </Switch>
         </section>

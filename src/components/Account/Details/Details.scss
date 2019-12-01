@@ -1,0 +1,69 @@
+@import 'styles/vars';
+
+.details {
+  &__info {
+    @media (min-width: $sm-breakpoint) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__name {
+    font-size: 1.125rem;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    margin-right: 1.25rem;
+    margin-bottom: 1.875rem;
+
+    @media (min-width: $sm-breakpoint) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__currency-icon {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 0.9375rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  &__update-balance {
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    &-icon {
+      width: 0.875rem;
+      height: 0.875rem;
+      color: $dark-gray;
+    }
+  }
+
+  &__balance {
+    text-align: center;
+
+    @media (min-width: $sm-breakpoint) {
+      text-align: right;
+    }
+
+    &-in-crypto {
+      font-size: 1.5rem;
+      line-height: 1.8125rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    &-in-dollars {
+      font-size: 1.125rem;
+      line-height: 1.375rem;
+      color: $dark-gray;
+    }
+  }
+
+  &__addresses {
+    margin-bottom: 3.125rem;
+  }
+}

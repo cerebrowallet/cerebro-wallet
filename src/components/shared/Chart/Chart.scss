@@ -1,16 +1,13 @@
-@import '../../../../styles/vars';
+@import '../../../styles/vars';
 
 .chart {
-  display: none;
   grid-area: chart;
   background: #fff;
   border-radius: 1.25rem;
+  height: 26.875rem;
+  display: none;
 
   @media (min-width: $md-breakpoint) {
     display: block;
-  }
-
-  @media (min-width: $xl-breakpoint) {
-    height: 26.875rem;
   }
 }

@@ -40,7 +40,7 @@ body {
 
   @media (min-width: $xl-breakpoint) {
     grid-template-areas: 'sidebar main';
-    grid-template-columns: auto 3fr;
+    grid-template-columns: auto 1fr;
   }
 
   &--features {
@@ -70,18 +70,10 @@ body {
             'main';
     grid-auto-rows: minmax(min-content, max-content);
 
-    @media (min-width: $lg-breakpoint) {
-      grid-template-areas: 'sidebar main';
-      grid-template-columns: auto 3fr;
-      grid-template-rows: auto;
-    }
-
-    //@media (min-width: $lg-breakpoint) {
-    //  grid-template-columns: 1fr 2fr;
-    //}
-
     @media (min-width: $xl-breakpoint) {
-      grid-template-columns: auto 3fr;
+      grid-template-areas: 'sidebar main';
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto;
     }
   }
 

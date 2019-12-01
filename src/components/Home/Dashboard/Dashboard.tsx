@@ -6,7 +6,7 @@ import TotalBalance from './TotalBalance/TotalBalance';
 import FeaturesMenu from '../../shared/FeaturesMenu/FeaturesMenu';
 import AccountsDashboard from './AccountsDashboard/AccountsDashboard';
 import AccountsList from '../../shared/AccountsList/AccountsList';
-import Chart from './Chart/Chart';
+import Chart from '../../shared/Chart/Chart';
 
 const Dashboard: React.FC = () => {
   return (

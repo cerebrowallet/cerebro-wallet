@@ -153,7 +153,7 @@ const AccountsList: React.FC<Props> = ({
             wrapperClassName="sidebar-menu--accounts-list"
             itemClassName="accounts-list__item"
             mobileMenuFooter={mobileMenuFooter}
-            mobileBreakpoint={Breakpoints.lg}
+            mobileBreakpoint={Breakpoints.xl}
           />
         ) : (
           ACCOUNTS.map(account => (

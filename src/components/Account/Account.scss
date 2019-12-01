@@ -10,12 +10,8 @@
     padding: 1.125rem 2.6875rem;
   }
 
-  @media (min-width: $lg-breakpoint) {
-    padding: 3.125rem 2.6875rem;
-  }
-
   @media (min-width: $xl-breakpoint) {
-    padding: 3.125rem 4.6875rem;
+    padding: 3.125rem 2.6875rem;
     grid-gap: 3.4375rem;
   }
 
