@@ -17,9 +17,13 @@ const AccountsListSidebar: React.FC = () => {
       <AccountsList
         view="sidebar"
         className="accounts-list--my-accounts"
-        mobileMenuFooter={<AddAccount className="add-account--sidebar add-account--mobile" />}
+        mobileMenuFooter={
+          <AddAccount className="add-account--sidebar add-account--mobile" />
+        }
       />
-      {windowSize.width > Breakpoints.xl && <AddAccount className="add-account--sidebar" />}
+      {windowSize.width > Breakpoints.xl && (
+        <AddAccount className="add-account--sidebar" />
+      )}
     </section>
   );
 };
