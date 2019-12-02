@@ -36,7 +36,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM18',
-      text: 'My Bitcoin Wallet',
+      text: 'Blockstack',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
@@ -48,7 +48,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM16',
-      text: 'My Bitcoin Wallet',
+      text: 'Bitcoin',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
@@ -60,7 +60,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM15',
-      text: 'My Bitcoin Wallet',
+      text: 'Wallet',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
@@ -72,7 +72,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM13',
-      text: 'My Bitcoin Wallet',
+      text: 'My Wallet',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
@@ -84,7 +84,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-      text: 'My Bitcoin Wallet',
+      text: 'My Bitcoin',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
@@ -96,7 +96,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM00',
-      text: 'My Bitcoin Wallet',
+      text: 'Bitcoin Wallet',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
@@ -108,7 +108,7 @@ const AccountsList: React.FC<Props> = ({
     },
     {
       link: '/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM01',
-      text: 'My Bitcoin Wallet',
+      text: 'Another Bitcoin Wallet',
       descText: '0.00002914 BTC / $100',
       icon: (
         <CurrencyIcon
