@@ -6,6 +6,7 @@ import {
   RouteComponentProps,
   withRouter,
   Redirect,
+  useLocation,
 } from 'react-router';
 import { X as CloseIcon } from 'react-feather';
 
@@ -21,11 +22,13 @@ import Send from '../shared/Send/Send';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Exchange from '../shared/Exchange/Exchange';
 import Details from './Details/Details';
+import Activity from '../shared/Activity/Activity';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
 }) => {
   const history = useHistory();
+  const location = useLocation();
   const windowSize = useWindowSize();
 
   return (
@@ -40,9 +43,11 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             </Route>
           ) : (
             <aside className="account__menu">
-              <Route exact path={match.url}>
-                <Redirect to={`${match.url}/details`} />
-              </Route>
+              {windowSize.width > Breakpoints.md && (
+                <Route exact path={match.url}>
+                  <Redirect to={`${match.url}/details`} />
+                </Route>
+              )}
               <AccountActions />
             </aside>
           )}
@@ -79,6 +84,9 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <Route exact path={`${match.url}/delete`}>
               <main className="account__content">Delete</main>
             </Route>
+            <Route exact path={`${match.url}/transactions`}>
+              Transactions
+            </Route>
           </Switch>
         </section>
         <CircleButton
@@ -88,17 +96,14 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           <CloseIcon />
         </CircleButton>
       </main>
-      {windowSize.width < Breakpoints.md ? (
-        <Route exact path={match.url}>
-          <aside className="sidebar">
-            <AccountsListSidebar />
-          </aside>
+      <aside className="sidebar">
+        {((windowSize.width < Breakpoints.md && match.isExact) ||
+          windowSize.width > Breakpoints.md) &&
+          !location.pathname.includes('transaction') && <AccountsListSidebar />}
+        <Route exact path={`${match.url}/transactions`}>
+          <Activity />
         </Route>
-      ) : (
-        <aside className="sidebar">
-          <AccountsListSidebar />
-        </aside>
-      )}
+      </aside>
     </section>
   );
 };
