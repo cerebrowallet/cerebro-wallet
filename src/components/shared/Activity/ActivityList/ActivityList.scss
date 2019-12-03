@@ -4,12 +4,8 @@
   color: $base-color;
   font-size: 0.813rem;
   line-height: 1rem;
-  padding: 0 1.25rem;
+  padding: 0 1.875rem;
   flex-grow: 1;
-
-  @media (min-width: $xl-breakpoint) {
-    padding: 0 1.875rem;
-  }
 
   &__item {
     display: flex;
@@ -23,41 +19,19 @@
       color: $dark-gray;
     }
 
-    &--transaction {
-      height: 2.5rem;
-      transition: background-color 0.2s ease-in-out;
-
-      &:hover {
-        background-color: $light-gray;
-      }
-    }
-
     &--post {
       position: relative;
       background: linear-gradient(#e2e2ea, #ececf2);
       padding: 1.563rem;
       display: block;
-      //margin: 1rem 1.575rem 1rem 0;
       margin: 1rem 0;
     }
-  }
-
-  &__item-transaction {
-    padding-left: 0.625rem;
   }
 
   &__item-content {
     display: flex;
     align-items: center;
     justify-content: start;
-  }
-
-  &__item-transaction-comment {
-    display: block;
-    color: $dark-gray;
-    font-size: 0.625rem;
-    line-height: 0.75rem;
-    overflow: hidden;
   }
 
   &__item-title {

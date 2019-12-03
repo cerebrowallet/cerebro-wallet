@@ -12,6 +12,7 @@
     "@types/react-select": "^3.0.8",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "blockstack": "^19.3.0",
+    "date-fns": "^2.8.1",
     "formik": "^2.0.4",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",

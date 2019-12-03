@@ -23,6 +23,7 @@ import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Exchange from '../shared/Exchange/Exchange';
 import Details from './Details/Details';
 import Activity from '../shared/Activity/Activity';
+import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -85,7 +86,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
               <main className="account__content">Delete</main>
             </Route>
             <Route exact path={`${match.url}/transactions`}>
-              Transactions
+              <TransactionDetails />
             </Route>
           </Switch>
         </section>
