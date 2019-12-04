@@ -25,6 +25,7 @@ import Details from './Details/Details';
 import Activity from '../shared/Activity/Activity';
 import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Rename from './Rename/Rename';
+import ExportPrivateKey from './ExportPrivateKey/ExportPrivateKey';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -82,8 +83,10 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <Route exact path={`${match.url}/explorer`}>
               <main className="account__content">Explorer</main>
             </Route>
-            <Route exact path={`${match.url}/private-key`}>
-              <main className="account__content">Private key</main>
+            <Route exact path={`${match.url}/export-private-key`}>
+              <main className="account__content">
+                <ExportPrivateKey />
+              </main>
             </Route>
             <Route exact path={`${match.url}/delete`}>
               <main className="account__content">Delete</main>

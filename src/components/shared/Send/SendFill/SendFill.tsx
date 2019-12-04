@@ -64,6 +64,7 @@ const SendFill: React.FC<Props> = ({ account }) => {
                     options={ACCOUNTS_OPTIONS}
                     name="fromAccount"
                     placeholder="Choose account"
+                    showValue
                   />
                 </FormGroup>
               )}

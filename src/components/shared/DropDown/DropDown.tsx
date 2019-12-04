@@ -6,11 +6,29 @@ import { Field, FieldProps } from 'formik';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import './DropDown.scss';
 
-const DropDownValue = ({ label, value }: { label: string; value: string }) => {
+const DropDownValue = ({
+  label,
+  value,
+  showValue,
+}: {
+  label: string;
+  value: string;
+  showValue: boolean;
+}) => {
   return (
-    <div className="dropdown__value">
-      <span className="dropdown__value-account">{value}</span>
-      <strong className="dropdown__value-label">{label}</strong>
+    <div
+      className={`dropdown__value${
+        showValue ? ' dropdown__value--show-value' : ''
+      }`}
+    >
+      {showValue ? (
+        <>
+          <span className="dropdown__value-account">{value}</span>
+          <strong className="dropdown__value-label">{label}</strong>
+        </>
+      ) : (
+        <span className="dropdown__value-label">{label}</span>
+      )}
     </div>
   );
 };
@@ -31,11 +49,15 @@ const IndicatorsContainer = (props: any) => {
 };
 
 const Option = (props: any) => {
-  const { innerProps, data } = props;
+  const { innerProps, data, selectProps } = props;
 
   return (
     <div {...innerProps} className="dropdown__option">
-      <DropDownValue label={data.label} value={data.value} />
+      <DropDownValue
+        label={data.label}
+        value={data.value}
+        showValue={selectProps.showValue}
+      />
     </div>
   );
 };
@@ -81,11 +103,15 @@ const Placeholder = (props: any) => {
 };
 
 const SingleValue = (props: any) => {
-  const { data } = props;
+  const { data, selectProps } = props;
 
   return (
     <components.SingleValue {...props} className="dropdown__single-value">
-      <DropDownValue label={data.label} value={data.value} />
+      <DropDownValue
+        label={data.label}
+        value={data.value}
+        showValue={selectProps.showValue}
+      />
     </components.SingleValue>
   );
 };
@@ -104,6 +130,7 @@ interface Props {
   required?: boolean;
   requiredErrorMessage?: string;
   onChange?: (value: Value) => void;
+  showValue?: boolean;
 }
 
 const DropDown: React.FC<Props> = ({
@@ -115,6 +142,7 @@ const DropDown: React.FC<Props> = ({
   requiredErrorMessage,
   isSearchable,
   onChange,
+  showValue,
 }) => {
   return (
     <Field
@@ -151,6 +179,7 @@ const DropDown: React.FC<Props> = ({
             className="dropdown__select"
             options={options}
             placeholder={placeholder}
+            showValue={showValue}
             components={{
               IndicatorsContainer,
               Option,

@@ -62,7 +62,7 @@ const AccountActions: React.FC<RouteComponentProps<{}>> = ({ match }) => {
         descText="Show public information"
       />
       <IconButton
-        link={`${match.url}/private-key`}
+        link={`${match.url}/export-private-key`}
         icon={<KeyIcon />}
         text="Private Key"
         descText="Not for prying eyes"

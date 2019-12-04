@@ -74,14 +74,16 @@
       overflow: hidden;
     }
 
-    &-label {
-      padding-left: 1rem;
-      flex: 0 1 30%;
-      text-align: right;
-    }
+    &--show-value {
+      .dropdown__value-label {
+        padding-left: 1rem;
+        flex: 0 1 30%;
+        text-align: right;
+      }
 
-    &-account {
-      flex: 0 1 70%;
+      .dropdown__value-account {
+        flex: 0 1 70%;
+      }
     }
   }
 
