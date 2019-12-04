@@ -24,6 +24,7 @@ import Exchange from '../shared/Exchange/Exchange';
 import Details from './Details/Details';
 import Activity from '../shared/Activity/Activity';
 import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
+import Rename from './Rename/Rename';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -74,7 +75,9 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
               </main>
             </Route>
             <Route exact path={`${match.url}/rename`}>
-              <main className="account__content">Rename</main>
+              <main className="account__content">
+                <Rename />
+              </main>
             </Route>
             <Route exact path={`${match.url}/explorer`}>
               <main className="account__content">Explorer</main>
