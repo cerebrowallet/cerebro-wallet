@@ -32,7 +32,7 @@ const ConfirmModal: React.FC<Props> = ({
             <header className="confirm-modal__header">Attention</header>
             <main className="confirm-modal__content">
               <p>{description}</p>
-              <Input name="account" />
+              <Input name="account" placeholder="Account name" />
             </main>
             <footer className="confirm-modal__footer">
               <button
