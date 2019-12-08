@@ -3,6 +3,8 @@ import Input from '../../shared/Input/Input';
 import Button from '../../shared/Button/Button';
 import { Formik, Form } from 'formik';
 
+import { ButtonColors } from '../../../enums';
+
 import './ConfirmModal.scss';
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
   account: string;
   description: string;
   confirmBtnName: string;
+  confirmBtnColor?: ButtonColors;
 }
 
 const ConfirmModal: React.FC<Props> = ({
@@ -19,6 +22,7 @@ const ConfirmModal: React.FC<Props> = ({
   account,
   confirmBtnName,
   description,
+  confirmBtnColor,
 }) => {
   return (
     <Formik initialValues={{ account: '' }} onSubmit={onConfirm}>
@@ -38,7 +42,11 @@ const ConfirmModal: React.FC<Props> = ({
               >
                 &larr; Back
               </button>
-              <Button type="submit" className="button--modal">
+              <Button
+                type="submit"
+                className="button--modal"
+                color={confirmBtnColor}
+              >
                 {confirmBtnName}
               </Button>
             </footer>

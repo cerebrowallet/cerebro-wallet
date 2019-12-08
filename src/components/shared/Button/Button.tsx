@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ButtonColors } from '../../../enums';
+
 import './Button.scss';
 
 interface Props {
@@ -7,7 +9,7 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  color?: 'black' | 'red';
+  color?: ButtonColors;
 }
 
 const Button: React.FC<Props> = ({
@@ -21,7 +23,7 @@ const Button: React.FC<Props> = ({
     <button
       type={type}
       className={`button${className ? ` ${className}` : ''}${
-        color !== 'black' ? ` button--${color}` : ''
+        color ? ` button--${ButtonColors[color]}` : ''
       }`}
       onClick={onClick}
     >
@@ -33,7 +35,7 @@ const Button: React.FC<Props> = ({
 Button.defaultProps = {
   type: 'button',
   onClick: () => {},
-  color: 'black',
+  color: ButtonColors.black,
 };
 
 export default Button;

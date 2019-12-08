@@ -1,5 +1,5 @@
 export enum Currencies {
-  BTC ='btc',
+  BTC = 'btc',
   STX = 'stx',
 }
 
@@ -10,3 +10,7 @@ export enum Breakpoints {
   xl = 1200,
 }
 
+export enum ButtonColors {
+  red = 'red',
+  black = 'black',
+}
