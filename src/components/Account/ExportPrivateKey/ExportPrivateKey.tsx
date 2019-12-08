@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Download as DownloadIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
 
@@ -6,8 +6,14 @@ import Page from '../../shared/Page/Page';
 import FormGroup from '../../shared/FormGroup/FormGroup';
 import DropDown from '../../shared/DropDown/DropDown';
 import Button from '../../shared/Button/Button';
+import Modal from '../../shared/Modal/Modal';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 const ExportPrivateKey: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const hideModal = () => setShowModal(false);
+
   return (
     <Page
       headerText="Export Private Kay"
@@ -18,7 +24,7 @@ const ExportPrivateKey: React.FC = () => {
         initialValues={{
           format: null,
         }}
-        onSubmit={() => {}}
+        onSubmit={() => setShowModal(true)}
       >
         {() => (
           <Form>
@@ -35,6 +41,15 @@ const ExportPrivateKey: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <Modal showModal={showModal} onHide={hideModal}>
+        <ConfirmModal
+          onCancel={hideModal}
+          onConfirm={hideModal}
+          account="My Account Name"
+          description="To export your private key, we must be sure of safety. Enter account name:"
+          confirmBtnName="Export"
+        />
+      </Modal>
     </Page>
   );
 };

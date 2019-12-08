@@ -7,13 +7,22 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  color?: 'black' | 'red';
 }
 
-const Button: React.FC<Props> = ({ type, children, className, onClick }) => {
+const Button: React.FC<Props> = ({
+  type,
+  children,
+  className,
+  onClick,
+  color,
+}) => {
   return (
     <button
       type={type}
-      className={`button${className ? ` ${className}` : ''}`}
+      className={`button${className ? ` ${className}` : ''}${
+        color !== 'black' ? ` button--${color}` : ''
+      }`}
       onClick={onClick}
     >
       {children}
@@ -24,6 +33,7 @@ const Button: React.FC<Props> = ({ type, children, className, onClick }) => {
 Button.defaultProps = {
   type: 'button',
   onClick: () => {},
+  color: 'black',
 };
 
 export default Button;
