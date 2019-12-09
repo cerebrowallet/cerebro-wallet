@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 import './MyAccounts.scss';
+import { ACCOUNTS } from '../../dummyData';
 
 import IconMenuItem from '../shared/IconButton/IconButton';
 import { Currencies } from '../../enums';
@@ -18,69 +19,16 @@ const MyAccounts: React.FC = () => {
       <div className="my-accounts__content">
         <h3 className="my-accounts__header">My accounts</h3>
         <div className="my-accounts__items">
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.BTC} size="large" />}
-            text="My Bitcoin Wallet"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.STX} size="large" />}
-            text="Blockstack"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.BTC} size="large" />}
-            text="Bitcoin"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.BTC} size="large" />}
-            text="My Bitcoin Wallet"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.STX} size="large" />}
-            text="Blockstack"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.BTC} size="large" />}
-            text="Bitcoin"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.BTC} size="large" />}
-            text="My Bitcoin Wallet"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.STX} size="large" />}
-            text="Blockstack"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
-          <IconMenuItem
-            link="/account/1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-            icon={<CurrencyIcon currency={Currencies.BTC} size="large" />}
-            text="Bitcoin"
-            descText="0.00002914 STX / $100"
-            className="icon-button--my-accounts"
-          />
+          {ACCOUNTS.map((acc, i) => (
+            <IconMenuItem
+              key={`${acc.address}-${i}`}
+              link={`/account/${acc.address}}`}
+              icon={<CurrencyIcon currency={acc.currency} size="large" />}
+              text={acc.name}
+              descText={`${acc.balance} ${acc.currency.toUpperCase()} / $100`}
+              className="icon-button--my-accounts"
+            />
+          ))}
         </div>
         <h3 className="my-accounts__header">Manage</h3>
         <AddAccount

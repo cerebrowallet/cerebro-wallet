@@ -11,29 +11,58 @@ export const COINS = [
   },
 ];
 
-export const ACCOUNTS_OPTIONS = [
+export const ACCOUNTS = [
   {
-    label: 'Bitcoin',
-    value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuXR1',
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19',
+    name: 'My Bitcoin Wallet',
+    balance: 0.00002914,
+    currency: Currencies.BTC,
   },
   {
-    label: 'Very long account name',
-    value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuXR4',
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM18',
+    name: 'Blockstack',
+    balance: 0.00002914,
+    currency: Currencies.STX,
   },
   {
-    label: 'Bitcoin 2',
-    value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuX41',
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19',
+    name: 'My Bitcoin Wallet',
+    balance: 0.00002914,
+    currency: Currencies.BTC,
   },
   {
-    label: 'Bitcoin',
-    value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuXRw',
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM18',
+    name: 'Blockstack',
+    balance: 0.00002914,
+    currency: Currencies.STX,
   },
   {
-    label: 'Very long account name',
-    value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuXR8',
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19',
+    name: 'My Bitcoin Wallet',
+    balance: 0.00002914,
+    currency: Currencies.BTC,
   },
   {
-    label: 'Bitcoin 2',
-    value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuX423',
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM18',
+    name: 'Blockstack',
+    balance: 0.00002914,
+    currency: Currencies.STX,
+  },
+  {
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19',
+    name: 'My Bitcoin Wallet',
+    balance: 0.00002914,
+    currency: Currencies.BTC,
+  },
+  {
+    address: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM18',
+    name: 'Blockstack',
+    balance: 0.00002914,
+    currency: Currencies.STX,
   },
 ];
+
+export const ACCOUNTS_OPTIONS = ACCOUNTS.map(acc => ({
+  label: acc.name,
+  value: acc.currency,
+}));
