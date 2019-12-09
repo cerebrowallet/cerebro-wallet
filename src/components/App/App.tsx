@@ -33,7 +33,7 @@ const App: React.FC = () => {
       <Route path="/features">
         <Features />
       </Route>
-      <Route path="/account/:accountId">
+      <Route path={['/account/create', '/account/:accountId']}>
         <Account />
       </Route>
       <Route path="/my-accounts">

@@ -53,11 +53,15 @@ const Option = (props: any) => {
 
   return (
     <div {...innerProps} className="dropdown__option">
-      <DropDownValue
-        label={data.label}
-        value={data.value}
-        showValue={selectProps.showValue}
-      />
+      {selectProps.optionComponent ? (
+        <selectProps.optionComponent {...data} />
+      ) : (
+        <DropDownValue
+          label={data.label}
+          value={data.value}
+          showValue={selectProps.showValue}
+        />
+      )}
     </div>
   );
 };
@@ -107,11 +111,15 @@ const SingleValue = (props: any) => {
 
   return (
     <components.SingleValue {...props} className="dropdown__single-value">
-      <DropDownValue
-        label={data.label}
-        value={data.value}
-        showValue={selectProps.showValue}
-      />
+      {selectProps.valueComponent ? (
+        <selectProps.valueComponent {...data} />
+      ) : (
+        <DropDownValue
+          label={data.label}
+          value={data.value}
+          showValue={selectProps.showValue}
+        />
+      )}
     </components.SingleValue>
   );
 };
@@ -131,6 +139,8 @@ interface Props {
   requiredErrorMessage?: string;
   onChange?: (value: Value) => void;
   showValue?: boolean;
+  optionComponent?: React.ComponentType<any>;
+  valueComponent?: React.ComponentType<any>;
 }
 
 const DropDown: React.FC<Props> = ({
@@ -143,6 +153,8 @@ const DropDown: React.FC<Props> = ({
   isSearchable,
   onChange,
   showValue,
+  optionComponent,
+  valueComponent,
 }) => {
   return (
     <Field
@@ -180,6 +192,8 @@ const DropDown: React.FC<Props> = ({
             options={options}
             placeholder={placeholder}
             showValue={showValue}
+            optionComponent={optionComponent}
+            valueComponent={valueComponent}
             components={{
               IndicatorsContainer,
               Option,

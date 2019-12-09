@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 import { Breakpoints } from '../../../enums';
 import { useWindowSize } from '../../../hooks';
@@ -8,8 +9,12 @@ import './AccountsListSidebar.scss';
 import AccountsList from '../../shared/AccountsList/AccountsList';
 import AddAccount from '../../shared/AddAccount/AddAccount';
 
-const AccountsListSidebar: React.FC = () => {
+const AccountsListSidebar: React.FC<RouteComponentProps<{}>> = ({ match }) => {
   const windowSize = useWindowSize();
+
+  if (windowSize.width < Breakpoints.md && !match.isExact) {
+    return null;
+  }
 
   return (
     <section className="accounts-list-sidebar">
@@ -28,4 +33,4 @@ const AccountsListSidebar: React.FC = () => {
   );
 };
 
-export default AccountsListSidebar;
+export default withRouter(AccountsListSidebar);

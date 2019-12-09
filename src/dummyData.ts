@@ -1,3 +1,16 @@
+import { Currencies } from './enums';
+
+export const COINS = [
+  {
+    name: 'Bitcoin',
+    code: Currencies.BTC,
+  },
+  {
+    name: 'Stack',
+    code: Currencies.STX,
+  },
+];
+
 export const ACCOUNTS_OPTIONS = [
   {
     label: 'Bitcoin',
@@ -23,4 +36,4 @@ export const ACCOUNTS_OPTIONS = [
     label: 'Bitcoin 2',
     value: '1JfkskjdaPPa61K2fvpyRLCdd8so1iuX423',
   },
-]
+];

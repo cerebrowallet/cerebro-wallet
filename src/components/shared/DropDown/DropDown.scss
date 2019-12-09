@@ -114,4 +114,37 @@
   strong {
     font-weight: 600;
   }
+
+  &--coin {
+    .dropdown__value-container {
+      padding: 0.625rem 0!important;
+    }
+
+    .dropdown__value {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: start;
+
+      &-coin {
+        &-icon {
+          margin-right: 0.625rem;
+          width: 2.25rem;
+          height: 2.25rem;
+        }
+
+        &-name {
+          margin-right: 0.3125rem;
+        }
+
+        &-code {
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .dropdown__option {
+      padding: 0.1875rem 0;
+    }
+  }
 }

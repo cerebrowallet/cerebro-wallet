@@ -13,10 +13,18 @@ import {
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import './AccountActions.scss';
+import { Breakpoints } from '../../../enums';
+import { useWindowSize } from '../../../hooks';
 
 import IconButton from '../../shared/IconButton/IconButton';
 
 const AccountActions: React.FC<RouteComponentProps<{}>> = ({ match }) => {
+  const windowSize = useWindowSize();
+
+  if (windowSize.width < Breakpoints.md && !match.isExact) {
+    return null;
+  }
+
   return (
     <nav className="account-actions">
       <IconButton

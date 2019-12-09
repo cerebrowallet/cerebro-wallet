@@ -27,94 +27,79 @@ import TransactionDetails from '../shared/TransactionDetails/TransactionDetails'
 import Rename from './Rename/Rename';
 import ExportPrivateKey from './ExportPrivateKey/ExportPrivateKey';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
+import CreateAccount from './CreateAccount/CreateAccount';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
 }) => {
   const history = useHistory();
-  const location = useLocation();
   const windowSize = useWindowSize();
 
   return (
-    <section className="content content--account">
-      <main className="main">
-        <section className="account">
-          {windowSize.width < Breakpoints.md ? (
-            <Route exact path={match.url}>
-              <aside className="account__menu">
-                <AccountActions />
-              </aside>
-            </Route>
-          ) : (
+    <main className="content content--account">
+      <section className="main">
+        <div className="account">
+          {match.params.accountId && (
             <aside className="account__menu">
-              {windowSize.width > Breakpoints.md && (
+              <AccountActions />
+            </aside>
+          )}
+          <div className="account__content">
+            <Switch>
+              <Route exact path="/account/create">
+                <CreateAccount />
+              </Route>
+              {windowSize.width > Breakpoints.md && match.params.accountId && (
                 <Route exact path={match.url}>
                   <Redirect to={`${match.url}/details`} />
                 </Route>
               )}
-              <AccountActions />
-            </aside>
-          )}
-          <Switch>
-            <Route exact path={`${match.url}/details`}>
-              <main className="account__content">
+              <Route exact path={`${match.url}/details`}>
                 <Details />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/receive`}>
-              <main className="account__content">
+              </Route>
+              <Route exact path={`${match.url}/receive`}>
                 <TopUpAccount account={match.params.accountId} />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/send`}>
-              <main className="account__content">
+              </Route>
+              <Route exact path={`${match.url}/send`}>
                 <Send account={match.params.accountId} />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/exchange`}>
-              <main className="account__content">
+              </Route>
+              <Route exact path={`${match.url}/exchange`}>
                 <Exchange />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/rename`}>
-              <main className="account__content">
+              </Route>
+              <Route exact path={`${match.url}/rename`}>
                 <Rename />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/explorer`}>
-              <main className="account__content">Explorer</main>
-            </Route>
-            <Route exact path={`${match.url}/export-private-key`}>
-              <main className="account__content">
+              </Route>
+              <Route exact path={`${match.url}/explorer`}>
+                Explorer
+              </Route>
+              <Route exact path={`${match.url}/export-private-key`}>
                 <ExportPrivateKey />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/delete`}>
-              <main className="account__content">
+              </Route>
+              <Route exact path={`${match.url}/delete`}>
                 <DeleteAccount />
-              </main>
-            </Route>
-            <Route exact path={`${match.url}/transactions`}>
-              <TransactionDetails />
-            </Route>
-          </Switch>
-        </section>
+              </Route>
+              <Route exact path={`${match.url}/transactions`}>
+                <TransactionDetails />
+              </Route>
+            </Switch>
+          </div>
+        </div>
         <CircleButton
           className="close-page-btn"
           onClick={() => history.push('/')}
         >
           <CloseIcon />
         </CircleButton>
-      </main>
+      </section>
       <aside className="sidebar">
-        {((windowSize.width < Breakpoints.md && match.isExact) ||
-          windowSize.width > Breakpoints.md) &&
-          !location.pathname.includes('transaction') && <AccountsListSidebar />}
         <Route exact path={`${match.url}/transactions`}>
           <Activity />
         </Route>
+        <Route path={match.url}>
+          <AccountsListSidebar />
+        </Route>
       </aside>
-    </section>
+    </main>
   );
 };
 
