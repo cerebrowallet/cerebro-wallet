@@ -70,11 +70,9 @@
     text-decoration: none;
     max-width: none;
     color: $base-color;
-    padding: 0;
 
     @media (min-width: $md-breakpoint) {
       margin-bottom: 0;
-      padding: 0.875rem 1.1875rem;
     }
 
     .icon-button__name {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronDown as ChevronDownIcon,
-  ChevronRight as ChevronRightIcon,
 } from 'react-feather';
 import {
   withRouter,
@@ -23,21 +22,25 @@ interface MenuItem {
   text: string;
   descText: string;
   icon: React.ReactElement<any>;
+  className?: string;
 }
 
 interface Props extends RouteComponentProps {
   wrapperClassName?: string;
   menuItems: MenuItem[];
   itemClassName?: string;
-  mobileMenuFooter?: React.ReactNode;
   mobileBreakpoint?: Breakpoints;
+  children?: ({
+    setShowMenu,
+  }: {
+    setShowMenu: (show: boolean) => void;
+  }) => React.ReactNode;
 }
 
 const SidebarMenu: React.FC<Props> = ({
   wrapperClassName,
   menuItems,
   itemClassName,
-  mobileMenuFooter,
   mobileBreakpoint = Breakpoints.md,
 }) => {
   const windowSize = useWindowSize();
@@ -64,6 +67,8 @@ const SidebarMenu: React.FC<Props> = ({
 
     const [triggerMenuItem, otherMenuItems] = menuItems.reduce(
       (acc: [MenuItem | undefined, MenuItem[]], item: MenuItem) => {
+        console.log(item.link, location);
+
         if (location.pathname.includes(item.link)) {
           acc[0] = item;
         } else {
@@ -94,7 +99,8 @@ const SidebarMenu: React.FC<Props> = ({
         <div className="sidebar-menu__mobile-menu">
           {otherMenuItems.map((item, i) => (
             <IconMenuItem
-              className={`sidebar-menu__mobile-item ${itemClassName || ''}`}
+              className={`sidebar-menu__mobile-item ${itemClassName ||
+                ''} ${item.className || ''}`}
               key={`${item.link}-${i}`}
               onClick={() => {
                 history.push(item.link);
@@ -111,7 +117,6 @@ const SidebarMenu: React.FC<Props> = ({
           >
             <ChevronLeftIcon />
           </CircleButton>
-          {mobileMenuFooter}
         </div>
       </section>
     );

@@ -29,7 +29,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    background: #f1f1f1 !important;
+    background: #fff !important;
 
     &-icon {
       position: absolute;
@@ -64,6 +64,10 @@
     }
   }
 
+  :not(.sidebar-menu__item--add-account) + .sidebar-menu__item--add-account {
+    margin-top: 3.125rem;
+  }
+
   &--mobile-opened {
     position: fixed;
     overflow-y: auto;
@@ -78,10 +82,15 @@
     .sidebar-menu__mobile-menu {
       display: block;
       width: 100%;
+      padding-bottom: 1.875rem;
     }
 
     .sidebar-menu__mobile-trigger-icon {
       display: none;
+    }
+
+    .sidebar-menu__mobile-trigger {
+      background: #f1f1f1!important;
     }
   }
 

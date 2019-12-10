@@ -6,7 +6,6 @@ import {
   RouteComponentProps,
   withRouter,
   Redirect,
-  useLocation,
 } from 'react-router';
 import { X as CloseIcon } from 'react-feather';
 
@@ -44,10 +43,20 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
               <AccountActions />
             </aside>
           )}
-          <div className="account__content">
+          <div
+            className={`account__content${
+              !match.params.accountId ? ' account__content--left-pad' : ''
+            }`}
+          >
             <Switch>
               <Route exact path="/account/create">
                 <CreateAccount />
+              </Route>
+              <Route exact path="/account/import-private-key">
+                Import private key
+              </Route>
+              <Route exact path="/account/import-public-address">
+                Import public address
               </Route>
               {windowSize.width > Breakpoints.md && match.params.accountId && (
                 <Route exact path={match.url}>

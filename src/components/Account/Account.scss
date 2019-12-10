@@ -25,5 +25,11 @@
     @media (min-width: $md-breakpoint) {
       padding-top: 0;
     }
+
+    &--left-pad {
+      @media (min-width: $xl-breakpoint) {
+        padding-left: 9.375rem;
+      }
+    }
   }
 }

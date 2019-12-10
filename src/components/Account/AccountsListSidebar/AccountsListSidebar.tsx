@@ -22,9 +22,6 @@ const AccountsListSidebar: React.FC<RouteComponentProps<{}>> = ({ match }) => {
       <AccountsList
         view="sidebar"
         className="accounts-list--my-accounts"
-        mobileMenuFooter={
-          <AddAccount className="add-account--sidebar add-account--mobile" />
-        }
       />
       {windowSize.width > Breakpoints.xl && (
         <AddAccount className="add-account--sidebar" />
