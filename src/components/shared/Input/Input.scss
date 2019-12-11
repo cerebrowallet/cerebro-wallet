@@ -13,7 +13,6 @@
     color: $base-color;
     padding: 1rem 1.25rem;
     width: 100%;
-    word-break: break-all;
     resize: none;
     transition: border-color 0.15s ease-in-out;
 
@@ -35,6 +34,12 @@
   &--square-corners {
     .input__el {
       border-radius: 0;
+    }
+  }
+
+  &--break-all {
+    .input__el {
+      word-break: break-all;
     }
   }
 }

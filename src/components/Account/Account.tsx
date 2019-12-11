@@ -27,6 +27,8 @@ import Rename from './Rename/Rename';
 import ExportPrivateKey from './ExportPrivateKey/ExportPrivateKey';
 import DeleteAccount from './DeleteAccount/DeleteAccount';
 import CreateAccount from './CreateAccount/CreateAccount';
+import ImportPrivateKey from './ImportPrivateKey/ImportPrivateKey';
+import ImportPublicAddress from './ImportPublicAddress/ImportPublicAddress';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -53,10 +55,10 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
                 <CreateAccount />
               </Route>
               <Route exact path="/account/import-private-key">
-                Import private key
+                <ImportPrivateKey />
               </Route>
               <Route exact path="/account/import-public-address">
-                Import public address
+                <ImportPublicAddress />
               </Route>
               {windowSize.width > Breakpoints.md && match.params.accountId && (
                 <Route exact path={match.url}>

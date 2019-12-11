@@ -12,6 +12,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   validate?: (value: string) => string | undefined;
+  rows?: number;
 }
 
 const Input: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const Input: React.FC<Props> = ({
   required,
   validate,
   requiredErrorMessage,
+                                  rows
 }) => {
   return (
     <Field
@@ -54,7 +56,7 @@ const Input: React.FC<Props> = ({
             }`}
           >
             {type === 'textarea' ? (
-              <textarea {...props} rows={1} />
+              <textarea {...props} rows={rows} />
             ) : (
               <input type={type} {...props} />
             )}
@@ -72,6 +74,7 @@ Input.defaultProps = {
   type: 'text',
   placeholder: '',
   required: false,
+  rows: 1,
 };
 
 export default Input;
