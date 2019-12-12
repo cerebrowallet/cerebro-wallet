@@ -1,19 +1,14 @@
 import React from 'react';
-import { useHistory } from 'react-router';
 
 import './MyAccounts.scss';
 import { ACCOUNTS } from '../../dummyData';
 
 import IconMenuItem from '../shared/IconButton/IconButton';
-import { Currencies } from '../../enums';
 import CurrencyIcon from '../shared/CurrencyIcon/CurrencyIcon';
 import AddAccount from '../shared/AddAccount/AddAccount';
-import { X as CloseIcon } from 'react-feather';
-import CircleButton from '../shared/CircleButton/CircleButton';
+import CloseCornerButton from '../shared/CloseCornerButton/CloseCornerButton';
 
 const MyAccounts: React.FC = () => {
-  const history = useHistory();
-
   return (
     <section className="my-accounts">
       <div className="my-accounts__content">
@@ -36,12 +31,7 @@ const MyAccounts: React.FC = () => {
           buttonClassName="icon-button--my-accounts"
         />
       </div>
-      <CircleButton
-        className="close-page-btn"
-        onClick={() => history.push('/')}
-      >
-        <CloseIcon />
-      </CircleButton>
+      <CloseCornerButton />
     </section>
   );
 };

@@ -10,12 +10,12 @@ import {
 } from 'react-router-dom';
 
 import FeaturesMenu from '../shared/FeaturesMenu/FeaturesMenu';
-import CircleButton from '../shared/CircleButton/CircleButton';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Send from '../shared/Send/Send';
 import Exchange from '../shared/Exchange/Exchange';
 import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Activity from '../shared/Activity/Activity';
+import CloseCornerButton from "../shared/CloseCornerButton/CloseCornerButton";
 
 import './Features.scss';
 
@@ -43,12 +43,7 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
             <TransactionDetails />
           </Route>
         </Switch>
-        <CircleButton
-          className="close-page-btn"
-          onClick={() => history.push('/')}
-        >
-          <CloseIcon />
-        </CircleButton>
+        <CloseCornerButton />
       </main>
       <aside className="sidebar">
         {location.pathname === `${match.path}/activity` ? (

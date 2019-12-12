@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Smile as SmileIcon,
   Paperclip as PaperclipIcon,
-  X as CloseIcon,
 } from 'react-feather';
 import { useHistory } from 'react-router';
 import { Formik, Form } from 'formik';
@@ -12,12 +11,12 @@ import userImg from '../../images/user.png';
 import blockStackIcon from '../../images/blockstack-icon.svg';
 
 import Page from '../shared/Page/Page';
-import CircleButton from '../shared/CircleButton/CircleButton';
 import ProfileMenu from '../shared/ProfileMenu/ProfileMenu';
 import LabeledText from '../shared/LabeledText/LabeledText';
-import FormGroup from "../shared/FormGroup/FormGroup";
-import Input from "../shared/Input/Input";
-import DropDown from "../shared/DropDown/DropDown";
+import FormGroup from '../shared/FormGroup/FormGroup';
+import Input from '../shared/Input/Input';
+import DropDown from '../shared/DropDown/DropDown';
+import CloseCornerButton from '../shared/CloseCornerButton/CloseCornerButton';
 
 const GENDERS = [
   { value: 'incognito', label: 'Incognito' },
@@ -52,14 +51,14 @@ const Profile: React.FC = () => {
               ID-175LZCS78r9YFjBQYsaqa5uYg5eHErDRPa
             </p>
           </LabeledText>
-          <LabeledText
-            label="Blockstack username"
-            canCopyText
-          >
+          <LabeledText label="Blockstack username" canCopyText>
             Eugene Ives
           </LabeledText>
           <div className="white-block">
-            <Formik initialValues={{ username: '', gender: GENDERS[0] }} onSubmit={() => {}}>
+            <Formik
+              initialValues={{ username: '', gender: GENDERS[0] }}
+              onSubmit={() => {}}
+            >
               {() => (
                 <Form>
                   <FormGroup label="Cerebro username">
@@ -73,12 +72,7 @@ const Profile: React.FC = () => {
             </Formik>
           </div>
         </Page>
-        <CircleButton
-          className="close-page-btn"
-          onClick={() => history.push('/')}
-        >
-          <CloseIcon />
-        </CircleButton>
+        <CloseCornerButton />
       </section>
       <aside className="sidebar">
         <ProfileMenu />

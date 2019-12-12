@@ -145,15 +145,3 @@ body {
   margin-top: 0.0625rem;
   transition: opacity 0.2s ease-in-out;
 }
-
-.close-page-btn {
-  position: absolute;
-  top: 1.25rem;
-  right: 0.625rem;
-  z-index: 100;
-
-  @media (min-width: $md-breakpoint) {
-    top: 2.625rem;
-    right: 1.25rem;
-  }
-}

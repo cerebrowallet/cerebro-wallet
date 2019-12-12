@@ -7,7 +7,6 @@ import {
   withRouter,
   Redirect,
 } from 'react-router';
-import { X as CloseIcon } from 'react-feather';
 
 import './Account.scss';
 
@@ -15,7 +14,6 @@ import { Breakpoints } from '../../enums';
 import { useWindowSize } from '../../hooks';
 
 import AccountsListSidebar from './AccountsListSidebar/AccountsListSidebar';
-import CircleButton from '../shared/CircleButton/CircleButton';
 import AccountActions from './AccountActions/AccountActions';
 import Send from '../shared/Send/Send';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
@@ -29,6 +27,7 @@ import DeleteAccount from './DeleteAccount/DeleteAccount';
 import CreateAccount from './CreateAccount/CreateAccount';
 import ImportPrivateKey from './ImportPrivateKey/ImportPrivateKey';
 import ImportPublicAddress from './ImportPublicAddress/ImportPublicAddress';
+import CloseCornerButton from '../shared/CloseCornerButton/CloseCornerButton';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -95,12 +94,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             </Switch>
           </div>
         </div>
-        <CircleButton
-          className="close-page-btn"
-          onClick={() => history.push('/')}
-        >
-          <CloseIcon />
-        </CircleButton>
+        <CloseCornerButton />
       </section>
       <aside className="sidebar">
         <Route exact path={`${match.url}/transactions`}>
