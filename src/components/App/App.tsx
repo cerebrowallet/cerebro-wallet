@@ -7,6 +7,7 @@ import Features from '../Features/Features';
 import Account from '../Account/Account';
 import MyAccounts from '../MyAccounts/MyAccounts';
 import Profile from '../Profile/Profile';
+import Settings from '../Settings/Settings';
 
 import './App.scss';
 
@@ -49,6 +50,9 @@ const App: React.FC = () => {
       </Route>
       <Route path="/profile">
         <Profile />
+      </Route>
+      <Route path="/settings">
+        <Settings />
       </Route>
     </Switch>
   );

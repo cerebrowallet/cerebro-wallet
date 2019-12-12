@@ -111,6 +111,10 @@ body {
 
   @media (min-width: $md-breakpoint) {
     margin-bottom: 3.125rem;
+
+    & + .white-block {
+      margin-top: -1.2rem;
+    }
   }
 }
 

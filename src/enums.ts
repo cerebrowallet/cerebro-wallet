@@ -1,6 +1,7 @@
 export enum Currencies {
   BTC = 'btc',
   STX = 'stx',
+  USD = 'usd',
 }
 
 export enum Breakpoints {

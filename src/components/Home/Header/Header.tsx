@@ -43,9 +43,14 @@ const Header: React.FC = () => {
           <Link to="/my-accounts" className="header-menu__item">
             Accounts
           </Link>
-          <Link to="/help" className="header-menu__item">
+          <a
+            href="https://docs.cerebrowallet.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="header-menu__item"
+          >
             Help Center
-          </Link>
+          </a>
           <Link to="/settings" className="header-menu__item">
             Settings
           </Link>

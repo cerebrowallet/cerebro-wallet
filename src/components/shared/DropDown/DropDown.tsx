@@ -125,7 +125,7 @@ const SingleValue = (props: any) => {
 };
 
 interface Value {
-  value: string;
+  value: string | number;
   label: string;
 }
 
