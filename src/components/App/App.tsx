@@ -6,6 +6,7 @@ import Home from '../Home/Home';
 import Features from '../Features/Features';
 import Account from '../Account/Account';
 import MyAccounts from '../MyAccounts/MyAccounts';
+import Profile from '../Profile/Profile';
 
 import './App.scss';
 
@@ -45,6 +46,9 @@ const App: React.FC = () => {
       </Route>
       <Route path="/my-accounts">
         <MyAccounts />
+      </Route>
+      <Route path="/profile">
+        <Profile />
       </Route>
     </Switch>
   );

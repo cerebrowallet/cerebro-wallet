@@ -17,9 +17,9 @@ const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="user">
-        <div className="user__avatar">
+        <Link to="/profile" className="user__avatar">
           <img src={userImage} className="user__avatar-img" alt="" />
-        </div>
+        </Link>
         <div className="user__text">
           Hello, <strong className="user__name">Eugene</strong>
         </div>

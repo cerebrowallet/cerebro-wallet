@@ -8,6 +8,7 @@ interface Props {
   children: React.ReactNode;
   canCopyText?: boolean;
   className?: string;
+  icon?: React.ReactElement<any>;
 }
 
 const LabeledText: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const LabeledText: React.FC<Props> = ({
   children,
   canCopyText,
   className,
+  icon,
 }) => {
   return (
     <div
@@ -23,17 +25,18 @@ const LabeledText: React.FC<Props> = ({
       }${className ? ` ${className}` : ''}`}
     >
       <span className="labeled-text__label">{label}</span>
-      <button
-        type="button"
-        className="labeled-text__text"
-        onClick={() => {
-          if (canCopyText) {
-          }
-        }}
-      >
-        {canCopyText && <CopyIcon className="labeled-text__copy-icon" />}
-        {children}
-      </button>
+      {canCopyText ? (
+        <button type="button" className="labeled-text__text" onClick={() => {}}>
+          <CopyIcon className="labeled-text__copy-icon" />
+          {children}
+        </button>
+      ) : (
+        <span className="labeled-text__text">
+          {icon &&
+            React.cloneElement(icon, { className: 'labeled-text__copy-icon' })}
+          {children}
+        </span>
+      )}
     </div>
   );
 };

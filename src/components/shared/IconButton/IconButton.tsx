@@ -45,12 +45,21 @@ const IconMenuIcon: React.FC<Props> = ({
   );
 
   if (link) {
+    if (link.indexOf('://') > 0) {
+      return (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cls}
+        >
+          {content}
+        </a>
+      );
+    }
+
     return (
-      <NavLink
-        to={link}
-        className={cls}
-        activeClassName="icon-button--active"
-      >
+      <NavLink to={link} className={cls} activeClassName="icon-button--active">
         {content}
       </NavLink>
     );
