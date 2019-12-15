@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import { Breakpoints } from '../../../enums';
-import { useWindowSize } from '../../../hooks';
+import { useWindowSize } from '../../../utils/hooks';
 
 import './AccountsListSidebar.scss';
 

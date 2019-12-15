@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { useKeyPress } from '../../../hooks';
+import { useKeyPress } from '../../../utils/hooks';
 
 import './Modal.scss';
 

@@ -11,7 +11,7 @@ import {
 import './Account.scss';
 
 import { Breakpoints } from '../../enums';
-import { useWindowSize } from '../../hooks';
+import { useWindowSize } from '../../utils/hooks';
 
 import AccountsListSidebar from './AccountsListSidebar/AccountsListSidebar';
 import AccountActions from './AccountActions/AccountActions';

@@ -11,7 +11,7 @@ import {
 } from 'react-router';
 
 import { Breakpoints } from '../../../enums';
-import { useWindowSize } from '../../../hooks';
+import { useWindowSize } from '../../../utils/hooks';
 
 import './SidebarMenu.scss';
 import CircleButton from '../../shared/CircleButton/CircleButton';

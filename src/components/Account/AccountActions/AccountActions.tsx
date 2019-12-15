@@ -14,7 +14,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 import './AccountActions.scss';
 import { Breakpoints } from '../../../enums';
-import { useWindowSize } from '../../../hooks';
+import { useWindowSize } from '../../../utils/hooks';
 
 import IconButton from '../../shared/IconButton/IconButton';
 

@@ -15,3 +15,17 @@ export enum ButtonColors {
   red = 'red',
   black = 'black',
 }
+
+export enum Genders {
+  incognito = 'incognito',
+  male = 'male',
+  female = 'female',
+}
+
+export enum TimeOuts {
+  OneMinute = 1,
+  ThreeMinutes = 3,
+  FiveMinutes = 5,
+  TenMinutes = 10,
+  ThirtyMinutes = 30,
+}
