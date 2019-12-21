@@ -1,16 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import './Activity.scss';
-
-import ActivityFilter from './ActivityFilter/ActivityFilter';
+import ActivityFilter from './ActivityFilter';
 import ActivityList from './ActivityList/ActivityList';
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 const Activity: React.FC = () => {
   return (
-    <section className="activity">
+    <Section>
       <ActivityFilter />
       <ActivityList />
-    </section>
+    </Section>
   );
 };
 

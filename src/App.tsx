@@ -1,39 +1,31 @@
-import React, { useState } from 'react';
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
-import { Store } from 'redux'
-import { History } from 'history'
-import { UserSession, AppConfig } from 'blockstack';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { Store } from 'redux';
+import { History } from 'history';
 
+import Normalize from './styles/normalize';
+import Globals from './styles/globals';
 import Routes from './routes';
 
-import { ApplicationState } from './store'
+import { ApplicationState } from './store';
 
-const appConfig = new AppConfig();
-const userSession = new UserSession({ appConfig: appConfig });
+import LayoutContainer from './containers/LayoutContainer';
 
 interface Props {
-  store: Store<ApplicationState>
-  history: History
+  store: Store<ApplicationState>;
+  history: History;
 }
 
 const App: React.FC<Props> = ({ store, history }) => {
-  const [userData, setUserData] = useState<null | any>(null);
-
-  // TODO enable authorization
-  // useEffect(() => {
-  //   if (userSession.isSignInPending()) {
-  //     userSession.handlePendingSignIn().then((response) => {
-  //       window.history.replaceState({}, document.title, "/");
-  //       setUserData(response)
-  //     });
-  //   }
-  // }, []);
-
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Routes />
+        <LayoutContainer>
+          <Normalize />
+          <Globals />
+          <Routes />
+        </LayoutContainer>
       </ConnectedRouter>
     </Provider>
   );

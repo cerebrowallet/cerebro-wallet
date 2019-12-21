@@ -29,3 +29,9 @@ export enum TimeOuts {
   TenMinutes = 10,
   ThirtyMinutes = 30,
 }
+
+export enum SendSteps {
+  Choose = 'choose',
+  Confirm = 'confirm',
+  Success = 'success',
+}

@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 
-import './styles/index.scss';
-
 import configureStore from './configureStore';
 import * as serviceWorker from './serviceWorker';
 

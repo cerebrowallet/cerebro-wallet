@@ -1,18 +1,25 @@
 import React from 'react';
-import { ChevronUp as ChevronUpIcon } from 'react-feather';
+import styled from 'styled-components';
 
-import './ActivityList.scss';
-
-import Scrollbar from '../../Scrollbar/Scrollbar';
+import Scrollbar, { SidebarTrackY } from '../../../Scrollbar';
 import { Currencies } from '../../../../enums';
-import Transaction from './Transaction/Transaction';
-import DayTotals from './DayTotals/DayTotals';
-import BlogPost from './BlogPost/BlogPost';
+import Transaction from './Transaction';
+import DayTotals from './DayTotals';
+import BlogPost from './BlogPost';
+import SwipeForMore from '../SwipeForMore';
+
+const Wrapper = styled.div`
+  color: ${props => props.theme.colors.primary};
+  font-size: 0.813rem;
+  line-height: 1rem;
+  padding: 0 1.875rem;
+  flex-grow: 1;
+`;
 
 const ActivityList: React.FC = () => {
   return (
-    <div className="activity-list">
-      <Scrollbar wrapperClass="scrollbar--activity-list">
+    <Wrapper>
+      <Scrollbar TrackY={SidebarTrackY}>
         <>
           <DayTotals
             amount={-177}
@@ -103,14 +110,8 @@ const ActivityList: React.FC = () => {
           />
         </>
       </Scrollbar>
-      <div className="activity-list__swipe-for-more">
-        Swipe Up
-        <br />
-        to load more transactions
-        <br />
-        <ChevronUpIcon className="activity-list__swipe-for-more-icon" />
-      </div>
-    </div>
+      <SwipeForMore />
+    </Wrapper>
   );
 };
 

@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from './components/Home/Home';
-import Features from './components/Features/Features';
-import Account from './components/Account/Account';
-import MyAccounts from './components/MyAccounts/MyAccounts';
-import Profile from './components/Profile/Profile';
-import Settings from './components/Settings/Settings';
+import Home from './components/home/Home';
+import Features from './components/features/Features';
+import Account from './components/account/Account';
+import Profile from './components/profile/Profile';
 
 const Routes: React.FC = () => {
   return (
@@ -22,19 +20,13 @@ const Routes: React.FC = () => {
           '/accounts/create',
           '/accounts/import-private-key',
           '/accounts/import-public-address',
-          '/accounts/:accountId',
+          '/account/:accountId',
         ]}
       >
         <Account />
       </Route>
-      <Route path="/my-accounts">
-        <MyAccounts />
-      </Route>
-      <Route path="/profile">
+      <Route path={['/my-accounts', '/profile', '/settings']}>
         <Profile />
-      </Route>
-      <Route path="/settings">
-        <Settings />
       </Route>
     </Switch>
   );

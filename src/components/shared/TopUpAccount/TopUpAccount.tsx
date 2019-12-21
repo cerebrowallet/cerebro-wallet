@@ -2,12 +2,13 @@ import React from 'react';
 import { Share2 as ShareIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 
-import FormGroup from '../FormGroup/FormGroup';
-import QRCode from './QRCode/QRCode';
-import LabeledText from '../LabeledText/LabeledText';
-import DropDown from '../DropDown/DropDown';
-import Page from '../Page/Page';
-import HashText from '../HashText/HashText';
+import FormGroup from '../../forms/FormGroup';
+import QRCode from './QRCode';
+import LabeledText from '../LabeledText';
+import DropDown from '../../forms/DropDown/DropDown';
+import Page from '../../layout/Page';
+import HashText from '../HashText';
+import WhiteBlock from '../WhiteBlock';
 
 import { ACCOUNTS_OPTIONS } from '../../../dummyData';
 
@@ -23,7 +24,7 @@ const TopUpAccount: React.FC<Props> = ({ account }) => {
       footerText="Instantly send money with custom fee to anyone or own wallet."
     >
       {!account && (
-        <section className="white-block">
+        <WhiteBlock>
           <Formik
             initialValues={{
               account: null,
@@ -42,7 +43,7 @@ const TopUpAccount: React.FC<Props> = ({ account }) => {
               </Form>
             )}
           </Formik>
-        </section>
+        </WhiteBlock>
       )}
       <QRCode />
       <LabeledText label="Public address">

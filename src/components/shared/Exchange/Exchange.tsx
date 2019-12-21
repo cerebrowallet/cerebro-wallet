@@ -1,11 +1,10 @@
 import React from 'react';
 import { TrendingUp as TrendingUpIcon } from 'react-feather';
 
-import './Exchange.scss';
 import exchangeIllustration from '../../../images/exchange-placeholder.png';
 
-import Page from '../../shared/Page/Page';
-import Poll from './Poll/Poll';
+import Page from '../../layout/Page';
+import Poll from './Poll';
 
 const Exchange: React.FC = () => {
   return (
@@ -14,7 +13,7 @@ const Exchange: React.FC = () => {
       FooterIcon={TrendingUpIcon}
       footerText="Fast way to exchange cryptocurrencies without leaving Cerebro."
     >
-      <img src={exchangeIllustration} alt="" className="exchange-img" />
+      <img src={exchangeIllustration} alt="" />
       <p>
         You are an important and significant voice here and play a crucial role
         in Cerebro development. Which exchanger would you like to use in our
