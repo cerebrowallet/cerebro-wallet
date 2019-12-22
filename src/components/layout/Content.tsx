@@ -36,4 +36,23 @@ export const ContentTwoCols = styled(Content)`
   }
 `;
 
+export const ContentHome = styled(Content)`
+  display: grid;
+  grid-gap: 1.3125rem;
+  padding: 0.9375rem 1.25rem 1.5625rem;
+  grid-template-areas:
+    'header'
+    'dashboard'
+    'footer';
+
+  @media (min-width: ${props => props.theme.breakpoints.md}) {
+    grid-template-rows: auto 1fr auto;
+    padding: 2.188rem 1.875rem;
+  }
+
+  @media (min-width: ${props => props.theme.breakpoints.xxl}) {
+    padding-left: 4.6875rem;
+  }
+`;
+
 export default Content;

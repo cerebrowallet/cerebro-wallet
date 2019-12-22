@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Download as DownloadIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
 
-import Page from '../layout/Page';
-import FormGroup from '../forms/FormGroup';
+import Page from '../layout/Page/Page';
+import FormGroup from '../forms/FormGroup/FormGroup';
 import DropDown from '../forms/DropDown/DropDown';
-import Button from '../forms/Button';
-import Modal from '../shared/Modal';
-import ConfirmModal from './ConfirmModal';
+import Button from '../forms/Button/Button';
+import Modal from '../shared/Modal/Modal';
+import ConfirmModal from './ConfirmModal/ConfirmModal';
 import WhiteBlock from '../shared/WhiteBlock';
 
 const ExportPrivateKey: React.FC = () => {

@@ -5,13 +5,13 @@ import { Form, Formik } from 'formik';
 import { Genders } from '../../enums';
 import blockStackIcon from '../../images/blockstack-icon.svg';
 
-import Avatar from './Avatar';
-import LabeledText from '../shared/LabeledText';
+import Avatar from './Avatar/Avatar';
+import LabeledText from '../shared/LabeledText/LabeledText';
 import WhiteBlock from '../shared/WhiteBlock';
-import FormGroup from '../forms/FormGroup';
-import Input from '../forms/Input';
+import FormGroup from '../forms/FormGroup/FormGroup';
+import Input from '../forms/Input/Input';
 import DropDown from '../forms/DropDown/DropDown';
-import Page from '../layout/Page';
+import Page from '../layout/Page/Page';
 
 const GENDERS_OPTIONS = Object.keys(Genders).map(key => ({
   label: key,

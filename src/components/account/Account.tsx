@@ -14,21 +14,21 @@ import { useWindowSize } from '../../utils/hooks';
 import { ContainerTwoCols } from '../layout/Container';
 import { ContentTwoCols } from '../layout/Content';
 import Sidebar from '../layout/Sidebar';
-import AccountsSidebar from './AccountsSidebar';
-import AccountActions from './AccountActions';
+import AccountsSidebar from './AccountsSidebar/AccountsSidebar';
+import AccountActions from './AccountActions/AccountActions';
 import Send from '../shared/Send/Send';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Exchange from '../shared/Exchange/Exchange';
-import Details from './Details';
+import Details from './Details/Details';
 import Activity from '../shared/Activity/Activity';
-import TransactionDetails from '../shared/TransactionDetails';
+import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Rename from './Rename';
 import ExportPrivateKey from './ExportPrivateKey';
 import DeleteAccount from './DeleteAccount';
 import CreateAccount from './CreateAccount';
 import ImportPrivateKey from './ImportPrivateKey';
 import ImportPublicAddress from './ImportPublicAddress';
-import CornerCloseButton from '../shared/CornerCloseButton';
+import CornerCloseButton from '../shared/CornerCloseButton/CornerCloseButton';
 
 const AccountSidebar = styled(Sidebar)`
   @media (min-width: ${props => props.theme.breakpoints.md}) {

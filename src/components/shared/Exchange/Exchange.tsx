@@ -3,8 +3,8 @@ import { TrendingUp as TrendingUpIcon } from 'react-feather';
 
 import exchangeIllustration from '../../../images/exchange-placeholder.png';
 
-import Page from '../../layout/Page';
-import Poll from './Poll';
+import Page from '../../layout/Page/Page';
+import Poll from './Poll/Poll';
 
 const Exchange: React.FC = () => {
   return (

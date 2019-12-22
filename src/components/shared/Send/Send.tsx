@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, RouteComponentProps, withRouter } from 'react-router';
 
 import SendChoose from './SendChoose/SendChoose';
-import SendConfirm from './SendConfirm';
-import SendSuccess from './SendSuccess';
+import SendConfirm from './SendConfirm/SendConfirm';
+import SendSuccess from './SendSuccess/SendSuccess';
 
 interface Props extends RouteComponentProps {
   account?: string;

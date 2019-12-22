@@ -6,14 +6,14 @@ import { useHistory } from 'react-router';
 import { SendSteps } from '../../../../enums';
 import { ACCOUNTS_OPTIONS } from '../../../../dummyData';
 
-import Page from '../../../layout/Page';
-import FormGroup from '../../../forms/FormGroup';
-import Input from '../../../forms/Input';
+import Page from '../../../layout/Page/Page';
+import FormGroup from '../../../forms/FormGroup/FormGroup';
+import Input from '../../../forms/Input/Input';
 import DropDown from '../../../forms/DropDown/DropDown';
-import Amount from './Amount';
-import Button from '../../../forms/Button';
-import Fee from './Fee';
-import SendPagination from '../SendPagination';
+import Amount from './Amount/Amount';
+import Button from '../../../forms/Button/Button';
+import Fee from './Fee/Fee';
+import SendPagination from '../SendPagination/SendPagination';
 import WhiteBlock from '../../WhiteBlock';
 import TwoCols from '../../../layout/TwoCols';
 

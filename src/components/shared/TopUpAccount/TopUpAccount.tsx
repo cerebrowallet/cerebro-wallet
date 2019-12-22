@@ -2,12 +2,12 @@ import React from 'react';
 import { Share2 as ShareIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 
-import FormGroup from '../../forms/FormGroup';
-import QRCode from './QRCode';
-import LabeledText from '../LabeledText';
+import FormGroup from '../../forms/FormGroup/FormGroup';
+import QRCode from './QRCode/QRCode';
+import LabeledText from '../LabeledText/LabeledText';
 import DropDown from '../../forms/DropDown/DropDown';
-import Page from '../../layout/Page';
-import HashText from '../HashText';
+import Page from '../../layout/Page/Page';
+import HashText from '../HashText/HashText';
 import WhiteBlock from '../WhiteBlock';
 
 import { ACCOUNTS_OPTIONS } from '../../../dummyData';

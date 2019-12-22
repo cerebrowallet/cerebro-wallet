@@ -9,7 +9,7 @@ import {
 import { Breakpoints } from '../enums';
 import { useWindowSize } from '../utils/hooks';
 
-import SidebarMenu from '../components/shared/SidebarMenu';
+import SidebarMenu from '../components/shared/SidebarMenu/SidebarMenu';
 
 interface MenuItem {
   link: string;

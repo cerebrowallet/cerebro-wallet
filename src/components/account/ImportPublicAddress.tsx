@@ -4,11 +4,11 @@ import { Formik, Form } from 'formik';
 
 import { COINS } from '../../dummyData';
 
-import Page from '../layout/Page';
+import Page from '../layout/Page/Page';
 import CoinDropDown from '../forms/DropDown/CoinDropDown';
-import FormGroup from '../forms/FormGroup';
-import Input from '../forms/Input';
-import Button from '../forms/Button';
+import FormGroup from '../forms/FormGroup/FormGroup';
+import Input from '../forms/Input/Input';
+import Button from '../forms/Button/Button';
 import WhiteBlock from '../shared/WhiteBlock';
 
 const OPTIONS = COINS.map(coin => ({

@@ -16,9 +16,9 @@ import FeaturesSidebarMenu from './FeaturesSidebarMenu';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Send from '../shared/Send/Send';
 import Exchange from '../shared/Exchange/Exchange';
-import TransactionDetails from '../shared/TransactionDetails';
+import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Activity from '../shared/Activity/Activity';
-import CornerCloseButton from '../shared/CornerCloseButton';
+import CornerCloseButton from '../shared/CornerCloseButton/CornerCloseButton';
 
 const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
   const location = useLocation();

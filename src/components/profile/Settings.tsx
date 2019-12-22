@@ -4,9 +4,9 @@ import { Formik, Form } from 'formik';
 
 import { Currencies, TimeOuts } from '../../enums';
 
-import Page from '../layout/Page';
-import FormGroup from '../forms/FormGroup';
-import Input from '../forms/Input';
+import Page from '../layout/Page/Page';
+import FormGroup from '../forms/FormGroup/FormGroup';
+import Input from '../forms/Input/Input';
 import DropDown from '../forms/DropDown/DropDown';
 
 const CURRENCIES_OPTIONS = Object.values(Currencies).map(key => ({

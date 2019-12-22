@@ -2,9 +2,9 @@ import React from 'react';
 import { Unlock as UnlockIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 
-import Page from '../layout/Page';
-import FormGroup from '../forms/FormGroup';
-import Button from '../forms/Button';
+import Page from '../layout/Page/Page';
+import FormGroup from '../forms/FormGroup/FormGroup';
+import Button from '../forms/Button/Button';
 import WhiteBlock from '../shared/WhiteBlock';
 
 import { COINS } from '../../dummyData';

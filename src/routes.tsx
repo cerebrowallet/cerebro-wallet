@@ -5,6 +5,7 @@ import Home from './components/home/Home';
 import Features from './components/features/Features';
 import Account from './components/account/Account';
 import Profile from './components/profile/Profile';
+import MyAccounts from './components/shared/MyAccounts/MyAccounts';
 
 const Routes: React.FC = () => {
   return (
@@ -25,7 +26,10 @@ const Routes: React.FC = () => {
       >
         <Account />
       </Route>
-      <Route path={['/my-accounts', '/profile', '/settings']}>
+      <Route path="/my-accounts">
+        <MyAccounts />
+      </Route>
+      <Route path={['/profile', '/settings']}>
         <Profile />
       </Route>
     </Switch>

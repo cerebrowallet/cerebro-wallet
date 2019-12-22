@@ -1,24 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import Scrollbar, { SidebarTrackY } from '../../../Scrollbar';
+import Scrollbar from '../../Scrollbar/Scrollbar';
+import { SidebarTrackY } from '../../Scrollbar/styled';
 import { Currencies } from '../../../../enums';
-import Transaction from './Transaction';
-import DayTotals from './DayTotals';
-import BlogPost from './BlogPost';
-import SwipeForMore from '../SwipeForMore';
-
-const Wrapper = styled.div`
-  color: ${props => props.theme.colors.primary};
-  font-size: 0.813rem;
-  line-height: 1rem;
-  padding: 0 1.875rem;
-  flex-grow: 1;
-`;
+import Transaction from './Transaction/Transaction';
+import DayTotals from './DayTotals/DayTotals';
+import BlogPost from './BlogPost/BlogPost';
+import SwipeForMore from '../SwipeForMore/SwipeForMore';
+import { ActivityListContainer } from './styled';
 
 const ActivityList: React.FC = () => {
   return (
-    <Wrapper>
+    <ActivityListContainer>
       <Scrollbar TrackY={SidebarTrackY}>
         <>
           <DayTotals
@@ -111,7 +104,7 @@ const ActivityList: React.FC = () => {
         </>
       </Scrollbar>
       <SwipeForMore />
-    </Wrapper>
+    </ActivityListContainer>
   );
 };
 

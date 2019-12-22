@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Currencies } from '../../../enums';
 
 import DropDown from './DropDown';
-import CurrencyIcon from '../../shared/CurrencyIcon';
+import CurrencyIcon from '../../shared/CurrencyIcon/CurrencyIcon';
 import { components } from 'react-select';
 
 interface CoinOption {

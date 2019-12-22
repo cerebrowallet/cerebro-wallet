@@ -3,10 +3,10 @@ import { Lock as LockIcon } from 'react-feather';
 
 import { ButtonColors } from '../../enums';
 
-import Page from '../layout/Page';
-import Button from '../forms/Button';
-import Modal from '../shared/Modal';
-import ConfirmModal from './ConfirmModal';
+import Page from '../layout/Page/Page';
+import Button from '../forms/Button/Button';
+import Modal from '../shared/Modal/Modal';
+import ConfirmModal from './ConfirmModal/ConfirmModal';
 
 const DeleteAccount: React.FC = () => {
   const [showModal, setShowModal] = useState(false);

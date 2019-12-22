@@ -2,10 +2,10 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { AtSign as AtSignIcon } from 'react-feather';
 
-import Page from '../layout/Page';
-import Input from '../forms/Input';
-import Button from '../forms/Button';
-import FormGroup from '../forms/FormGroup';
+import Page from '../layout/Page/Page';
+import Input from '../forms/Input/Input';
+import Button from '../forms/Button/Button';
+import FormGroup from '../forms/FormGroup/FormGroup';
 import WhiteBlock from '../shared/WhiteBlock';
 
 const Rename: React.FC = () => {
