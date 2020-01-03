@@ -55,4 +55,16 @@ export const ContentHome = styled(Content)`
   }
 `;
 
+export const ContentAuth = styled(Content)`
+  display: none;
+
+  @media (min-width: ${props => props.theme.breakpoints.md}) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 0;
+    padding: 0;
+  }
+`;
+
 export default Content;

@@ -6,6 +6,7 @@ import Features from './components/features/Features';
 import Account from './components/account/Account';
 import Profile from './components/profile/Profile';
 import MyAccounts from './components/shared/MyAccounts/MyAccounts';
+import Auth from './components/auth/Auth';
 
 const Routes: React.FC = () => {
   return (
@@ -28,6 +29,9 @@ const Routes: React.FC = () => {
       </Route>
       <Route path="/my-accounts">
         <MyAccounts />
+      </Route>
+      <Route path={['/signup', '/signin']}>
+        <Auth />
       </Route>
       <Route path={['/profile', '/settings']}>
         <Profile />

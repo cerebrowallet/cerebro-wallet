@@ -47,4 +47,13 @@ export const ContainerTwoCols = styled(Container)`
   }
 `;
 
+export const ContainerAuth = styled(Container)`
+  grid-template-areas: 'sidebar';
+  
+  @media (min-width: ${props => props.theme.breakpoints.md}) {
+    grid-template-areas: 'sidebar main';
+    grid-template-columns: auto 1fr;
+  }
+`;
+
 export default Container;
