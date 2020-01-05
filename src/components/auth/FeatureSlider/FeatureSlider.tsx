@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import Slide from './Slide/Slide';
-import { Wrapper, SlideHeader, SlideContent } from './styled';
+import { SliderWrapper, SlideHeader, SlideContent } from './styled';
+import Background from './Background/Background';
+import FlyingIcons from './FlyingIcons/FlyingIcons';
 
 interface Props {
   slides: {
@@ -10,7 +12,7 @@ interface Props {
   }[];
 }
 
-const FeatureSlider: React.FC<Props> = ({ slides }) => {
+const FeatureSlider: React.FC<Props> = React.memo(({ slides }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   useEffect(() => {
@@ -25,16 +27,25 @@ const FeatureSlider: React.FC<Props> = ({ slides }) => {
     };
   }, [activeSlideIndex, slides]);
 
+  useEffect(() => {
+    setActiveSlideIndex(0);
+  }, [slides]);
+
   return (
-    <Wrapper>
-      {slides.map((slide, i) => (
-        <Slide key={i} active={i === activeSlideIndex}>
-          <SlideHeader>{slide.header}</SlideHeader>
-          <SlideContent>{slide.text}</SlideContent>
-        </Slide>
-      ))}
-    </Wrapper>
+    <Background>
+      {({ coords }) => (
+        <SliderWrapper>
+          {slides.map((slide, i) => (
+            <Slide key={i} active={i === activeSlideIndex}>
+              <SlideHeader>{slide.header}</SlideHeader>
+              <SlideContent>{slide.text}</SlideContent>
+            </Slide>
+          ))}
+          <FlyingIcons coords={coords} />
+        </SliderWrapper>
+      )}
+    </Background>
   );
-};
+});
 
 export default FeatureSlider;

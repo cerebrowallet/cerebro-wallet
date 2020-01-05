@@ -10,30 +10,24 @@ import key from './icons/key.svg';
 import locker from './icons/locker.svg';
 import robot from './icons/robot.svg';
 
-export const Wrapper = styled.div`
-  position: relative;
-  overflow: hidden;
-  background: ${props => props.theme.colors.primary};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 interface IconProps {
-  left: number;
-  top: number;
+  left?: number;
+  top?: number;
 }
 
 const Icon = styled(animated.div)`
   position: absolute;
-  left: ${(props: IconProps) => props.left}%;
-  top:  ${(props: IconProps) => props.top}%;
   will-change: transform;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   width: 4rem;
   height: 4rem;
+  
+  ${(props: IconProps) => props.left && props.top && `
+    left: ${props.left}%;
+    top:  ${props.top}%;
+  `}
 `;
 
 export const BlockStackIcon = styled(Icon)`

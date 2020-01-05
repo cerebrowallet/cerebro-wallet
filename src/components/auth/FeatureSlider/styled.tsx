@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.nav`
+export const SliderWrapper = styled.nav`
   position: relative;
   z-index: 5;
   min-width: 20rem;
   min-height: 22rem;
-  overflow: hidden;
   margin: 0 3.125rem;
   color: white;
   
