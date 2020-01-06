@@ -19,39 +19,41 @@ const Routes: React.FC = () => {
   });
 
   return (
-    <>
-      {transitions.map(({ item: location, props, key }) => (
-        <animated.div key={key} style={props}>
-          <Switch location={location}>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/features">
-              <Features />
-            </Route>
-            <Route
-              path={[
-                '/accounts/create',
-                '/accounts/import-private-key',
-                '/accounts/import-public-address',
-                '/account/:accountId',
-              ]}
-            >
-              <Account />
-            </Route>
-            <Route path="/my-accounts">
-              <MyAccounts />
-            </Route>
-            <Route path={['/signup', '/signin']}>
-              <Auth />
-            </Route>
-            <Route path={['/profile', '/settings']}>
-              <Profile />
-            </Route>
-          </Switch>
-        </animated.div>
-      ))}
-    </>
+    <Switch>
+      <Route path={['/signup', '/signin']}>
+        <Auth />
+      </Route>
+      <Route>
+        {transitions.map(({ item: location, props, key }) => (
+          <animated.div key={key} style={props}>
+            <Switch location={location}>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/features">
+                <Features />
+              </Route>
+              <Route
+                path={[
+                  '/accounts/create',
+                  '/accounts/import-private-key',
+                  '/accounts/import-public-address',
+                  '/account/:accountId',
+                ]}
+              >
+                <Account />
+              </Route>
+              <Route path="/my-accounts">
+                <MyAccounts />
+              </Route>
+              <Route path={['/profile', '/settings']}>
+                <Profile />
+              </Route>
+            </Switch>
+          </animated.div>
+        ))}
+      </Route>
+    </Switch>
   );
 };
 
