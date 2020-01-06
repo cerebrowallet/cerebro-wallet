@@ -11,6 +11,13 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  
+  #root > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    will-change: transform, opacity;
+  }
  `;
 
 export default Globals;
