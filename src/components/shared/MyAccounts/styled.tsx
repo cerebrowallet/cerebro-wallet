@@ -1,5 +1,7 @@
-import styled from "styled-components";
-import IconButton from "../IconButton/IconButton";
+import styled from 'styled-components';
+import { animated } from 'react-spring';
+
+import IconButton from '../IconButton/IconButton';
 
 export const Wrapper = styled.section`
   position: fixed;
@@ -41,22 +43,13 @@ export const Grid = styled.div`
   }
 `;
 
-export const Button = styled(IconButton)`
+export const Button = styled(animated(IconButton))`
   position: relative;
   background: #fff;
   max-width: none;
-  transition: top 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  top: 0;
   margin-bottom: 0 !important;
 
   i {
     margin-right: 0.9375rem;
-  }
-
-  &:hover {
-    background: #fff;
-    top: -0.125rem;
-    box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1),
-      0px 10px 10px rgba(0, 0, 0, 0.04);
   }
 `;

@@ -50,6 +50,7 @@ export const RouterLink: React.FC<{
   to: string;
   children: React.ReactNode;
   className?: string;
+  style: any;
 }> = props => (
   <Button as={NavLink} {...props}>
     {props.children}
@@ -66,6 +67,7 @@ export const ExternalLink: React.FC<{
   href: string;
   children: React.ReactNode;
   className?: string;
+  style: any;
 }> = props => (
   <Button as={HtmlLink} {...props}>
     {props.children}

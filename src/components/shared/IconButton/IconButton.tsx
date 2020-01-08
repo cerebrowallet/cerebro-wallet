@@ -10,6 +10,7 @@ interface Props {
   descText: string;
   className?: string;
   children?: React.ReactNode;
+  style?: any;
 }
 
 const IconMenuIcon: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const IconMenuIcon: React.FC<Props> = ({
   icon,
   children,
   className,
+  style,
 }) => {
   if (!link && !onClick) {
     return null;
@@ -39,21 +41,21 @@ const IconMenuIcon: React.FC<Props> = ({
   if (link) {
     if (link.indexOf('://') > 0) {
       return (
-        <ExternalLink className={className || ''} href={link}>
+        <ExternalLink className={className || ''} href={link} style={style}>
           {content}
         </ExternalLink>
       );
     }
 
     return (
-      <RouterLink className={className || ''} to={link}>
+      <RouterLink className={className || ''} to={link} style={style}>
         {content}
       </RouterLink>
     );
   }
 
   return (
-    <Button type="button" onClick={onClick} className={className}>
+    <Button type="button" onClick={onClick} className={className} style={style}>
       {content}
     </Button>
   );

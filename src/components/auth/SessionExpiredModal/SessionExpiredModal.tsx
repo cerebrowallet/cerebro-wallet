@@ -15,8 +15,6 @@ const SessionExpiredModal: React.FC = () => {
   const timeout = useSelector(getSessionTimeoutMs);
   const history = useHistory();
 
-  console.log(timeout);
-
   const isIdle = useIdle({
     timeToIdle: timeout,
     inactivityEvents: [],
