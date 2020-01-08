@@ -1,11 +1,14 @@
 import React from 'react';
 import { LogOut as LogOutIcon } from 'react-feather';
+import { useHistory } from 'react-router';
+
+import { userSession } from '../../../../utils/blockstack';
 
 import {
   MenuContainer,
   RouterLink,
   ExternalLink,
-  LinkWithIcon,
+  LogOutButton,
 } from './styled';
 
 interface Props {
@@ -13,6 +16,8 @@ interface Props {
 }
 
 const Menu: React.FC<Props> = ({ showMenu }) => {
+  const history = useHistory();
+
   return (
     <MenuContainer showMenu={showMenu}>
       <RouterLink to="/my-accounts">Accounts</RouterLink>
@@ -20,9 +25,14 @@ const Menu: React.FC<Props> = ({ showMenu }) => {
         Help Center
       </ExternalLink>
       <RouterLink to="/settings">Settings</RouterLink>
-      <LinkWithIcon to="/logout">
+      <LogOutButton
+        onClick={() => {
+          userSession.signUserOut();
+          history.push('/signin');
+        }}
+      >
         <LogOutIcon />
-      </LinkWithIcon>
+      </LogOutButton>
     </MenuContainer>
   );
 };

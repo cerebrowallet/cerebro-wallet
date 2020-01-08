@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 
+import { userSession } from '../../../../utils/blockstack';
+
 import AuthButton from '../AuthButton/AuthButton';
 import Option from './Option/Option';
 import { Wrapper, Controls, Control, OptionsWrapper } from './styled';
@@ -45,14 +47,18 @@ const AuthOptions: React.FC<RouteComponentProps> = ({ match, history }) => {
             Easy to try, sign up for a free decentralized account via Blockstack
             that you can manage popular cryptocurrencies.
           </p>
-          <AuthButton onClick={() => {}}>Create Blockstack ID</AuthButton>
+          <AuthButton onClick={() => userSession.redirectToSignIn()}>
+            Create Blockstack ID
+          </AuthButton>
         </Option>
         <Option active={tab === Tabs.SignIn}>
           <p>
             Great to see you again! Sign in to and get an overview of your
             cryptocurrency accounts, transaction history, and general settings.
           </p>
-          <AuthButton onClick={() => {}}>Sign In with Blockstack</AuthButton>
+          <AuthButton onClick={() => userSession.redirectToSignIn()}>
+            Sign In with Blockstack
+          </AuthButton>
         </Option>
       </OptionsWrapper>
     </Wrapper>

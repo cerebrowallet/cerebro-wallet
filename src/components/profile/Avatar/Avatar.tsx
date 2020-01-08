@@ -1,16 +1,21 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Paperclip as PaperclipIcon } from 'react-feather';
 
+import { getAvatarUrl } from '../../../store/user/selectors';
+
 import userImg from '../../../images/user.png';
-import { Button, Icon, Img } from './styled';
+import { Button, Icon, UserPic } from './styled';
 
 const Avatar: React.FC = () => {
+  const avatarUrl = useSelector(getAvatarUrl);
+
   return (
     <Button type="button">
       <Icon>
         <PaperclipIcon />
       </Icon>
-      <Img src={userImg} alt="" />
+      <UserPic avatarUrl={avatarUrl || userImg} />
     </Button>
   );
 };

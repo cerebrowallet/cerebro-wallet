@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Container, Label, Text, CopyButton, CopyIcon } from './styled';
+import { Container, Label, Text, CopyButton, CopyIcon, Icon } from './styled';
 
 interface Props {
   label: string;
   children: React.ReactNode;
   canCopyText?: boolean;
   className?: string;
-  icon?: React.ReactElement<any>;
+  iconUrl?: string;
 }
 
 const LabeledText: React.FC<Props> = ({
@@ -15,7 +15,7 @@ const LabeledText: React.FC<Props> = ({
   children,
   canCopyText,
   className,
-  icon,
+  iconUrl,
 }) => {
   return (
     <Container className={className} canCopyText={canCopyText}>
@@ -27,8 +27,7 @@ const LabeledText: React.FC<Props> = ({
         </CopyButton>
       ) : (
         <Text>
-          {icon &&
-            React.cloneElement(icon, { className: 'labeled-text__copy-icon' })}
+          {iconUrl && <Icon src={iconUrl} />}
           {children}
         </Text>
       )}

@@ -1,33 +1,47 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { Store } from 'redux';
-import { History } from 'history';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Normalize from './styles/normalize';
 import Globals from './styles/globals';
-import Routes from './routes';
 
-import { ApplicationState } from './store';
+import { userSession } from './utils/blockstack';
+import { setUserData } from './store/user/actions';
 
 import LayoutContainer from './containers/LayoutContainer';
+import Routes from './routes';
+import SessionExpiredModal from './components/auth/SessionExpiredModal/SessionExpiredModal';
 
-interface Props {
-  store: Store<ApplicationState>;
-  history: History;
-}
+const App: React.FC = () => {
+  const dispatch = useDispatch();
 
-const App: React.FC<Props> = ({ store, history }) => {
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      const {
+        username,
+        email,
+        identityAddress,
+        profile: { name, image },
+      } = userSession.loadUserData();
+
+      dispatch(
+        setUserData({
+          username,
+          email,
+          id: identityAddress,
+          name,
+          avatarUrl: image.length > 0 ? image[0].contentUrl : undefined,
+        })
+      );
+    }
+  }, []);
+
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <LayoutContainer>
-          <Normalize />
-          <Globals />
-          <Routes />
-        </LayoutContainer>
-      </ConnectedRouter>
-    </Provider>
+    <LayoutContainer>
+      <Normalize />
+      <Globals />
+      <Routes />
+      <SessionExpiredModal />
+    </LayoutContainer>
   );
 };
 

@@ -11,6 +11,7 @@
     "@types/react-router-dom": "^5.1.2",
     "@types/react-select": "^3.0.8",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "activity-detector": "^3.0.0",
     "blockstack": "^19.3.0",
     "connected-react-router": "^6.6.1",
     "date-fns": "^2.8.1",

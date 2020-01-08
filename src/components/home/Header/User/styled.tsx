@@ -18,11 +18,10 @@ export const UserProfileLink = styled(Link)`
 
 export const UserPic = styled.img`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1.5rem;
-  height: 1.5rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 export const UserName = styled.div`

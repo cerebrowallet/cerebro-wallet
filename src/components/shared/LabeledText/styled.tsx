@@ -38,6 +38,21 @@ export const Text = styled.span`
   text-align: left;
 `;
 
+export const Icon = styled.img`
+  position: absolute;
+  border: 0;
+  left: -1.0625rem;
+  top: 0.45rem;
+  padding: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+
+  ${(props: { src: string }) => `
+    background: url(${props.src}) center center no-repeat;
+    background-size: cover;
+  `}
+`;
+
 export const CopyIcon = styled(Copy)`
   position: absolute;
   background: none;

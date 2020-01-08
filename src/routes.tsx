@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { useTransition, animated } from 'react-spring';
+
+import { userSession } from './utils/blockstack';
 
 import Home from './components/home/Home';
 import Features from './components/features/Features';
@@ -8,6 +10,8 @@ import Account from './components/account/Account';
 import Profile from './components/profile/Profile';
 import MyAccounts from './components/shared/MyAccounts/MyAccounts';
 import Auth from './components/auth/Auth';
+import AuthCallbackHandler from './components/auth/AuthCallbackHandler';
+import PrivateRoute from './components/auth/PrivateRoute';
 
 const Routes: React.FC = () => {
   const location = useLocation();
@@ -20,20 +24,31 @@ const Routes: React.FC = () => {
 
   return (
     <Switch>
+      <Route path="/auth-callback">
+        <AuthCallbackHandler />
+      </Route>
       <Route path={['/signup', '/signin']}>
-        <Auth />
+        {userSession.isUserSignedIn() ? (
+          <Redirect
+            to={{
+              pathname: '/',
+            }}
+          />
+        ) : (
+          <Auth />
+        )}
       </Route>
       <Route>
         {transitions.map(({ item: location, props, key }) => (
           <animated.div key={key} style={props}>
             <Switch location={location}>
-              <Route exact path="/">
+              <PrivateRoute exact path="/">
                 <Home />
-              </Route>
-              <Route path="/features">
+              </PrivateRoute>
+              <PrivateRoute path="/features">
                 <Features />
-              </Route>
-              <Route
+              </PrivateRoute>
+              <PrivateRoute
                 path={[
                   '/accounts/create',
                   '/accounts/import-private-key',
@@ -42,13 +57,13 @@ const Routes: React.FC = () => {
                 ]}
               >
                 <Account />
-              </Route>
-              <Route path="/my-accounts">
+              </PrivateRoute>
+              <PrivateRoute path="/my-accounts">
                 <MyAccounts />
-              </Route>
-              <Route path={['/profile', '/settings']}>
+              </PrivateRoute>
+              <PrivateRoute path={['/profile', '/settings']}>
                 <Profile />
-              </Route>
+              </PrivateRoute>
             </Switch>
           </animated.div>
         ))}

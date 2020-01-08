@@ -5,14 +5,9 @@ import { UserActionTypes, UserState } from './types';
 import { Currencies, Genders, TimeOuts } from '../../enums';
 
 const initialState: UserState = {
-  username: null,
-  avatar: null,
-  blockstackId: null,
-  blockstackUsername: null,
-  email: null,
   gender: Genders.incognito,
   currency: Currencies.USD,
-  timeout: TimeOuts.ThreeMinutes,
+  timeout: TimeOuts.ThirtyMinutes,
 };
 
 const reducer: Reducer<UserState> = (
@@ -25,6 +20,11 @@ const reducer: Reducer<UserState> = (
         return draft;
       case UserActionTypes.LOG_OUT:
         return draft;
+      case UserActionTypes.SET_USER_DATA:
+        return {
+          ...draft,
+          ...action.payload,
+        };
       default:
         return draft;
     }

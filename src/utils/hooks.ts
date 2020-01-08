@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+// @ts-ignore
+import createActivityDetector from 'activity-detector';
 
 export interface WindowDimensions {
   width: number;
@@ -55,3 +57,19 @@ export function useKeyPress(targetKey: string): boolean {
 
   return keyPressed;
 }
+
+export const useIdle = (options: {
+  timeToIdle: number;
+  inactivityEvents: string[];
+}): boolean => {
+  const [isIdle, setIsIdle] = useState(false);
+
+  useEffect(() => {
+    const activityDetector = createActivityDetector(options);
+    activityDetector.on('idle', () => setIsIdle(true));
+    activityDetector.on('active', () => setIsIdle(false));
+    return () => activityDetector.stop();
+  }, []);
+
+  return isIdle;
+};

@@ -57,7 +57,7 @@ export const MenuLink = styled.a`
   }
 
   @media (min-width: ${props => props.theme.breakpoints.md}) {
-    padding-left: 2.188rem;
+    margin-left: 2.188rem;
     font-size: 0.875rem;
     margin-top: 0;
     opacity: 1;
@@ -92,8 +92,15 @@ export const RouterLink: React.FC<{
   </MenuLink>
 );
 
-export const LinkWithIcon = styled(RouterLink)`
+const Btn = styled.button`
   vertical-align: middle;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
 
   svg {
     color: ${colors.gray60};
@@ -101,3 +108,17 @@ export const LinkWithIcon = styled(RouterLink)`
     height: 1.125rem;
   }
 `;
+
+const Button: React.FC = props => (
+  <Btn type="button" {...props}>
+    {props.children}
+  </Btn>
+);
+
+export const LogOutButton: React.FC<{
+  onClick: () => void;
+}> = props => (
+  <MenuLink as={Button} {...props}>
+    {props.children}
+  </MenuLink>
+);

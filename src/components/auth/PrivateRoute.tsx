@@ -1,17 +1,19 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect, RouteProps } from 'react-router';
 
-const PrivateRoute: React.FC = ({ children, ...rest }) => {
+import { userSession } from '../../utils/blockstack';
+
+const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        true ? (
+        userSession.isUserSignedIn() ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: '/signin',
               state: { from: location },
             }}
           />

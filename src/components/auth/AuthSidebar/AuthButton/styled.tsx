@@ -12,6 +12,10 @@ export const Button = styled.button`
   display: flex;
   align-content: center;
   cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const BlockstackLogo = styled.img`

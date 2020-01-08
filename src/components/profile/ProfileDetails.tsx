@@ -1,7 +1,13 @@
 import React from 'react';
 import { Smile as SmileIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
+import { useSelector } from 'react-redux';
 
+import {
+  getBlockstackId,
+  getUserName,
+  getName,
+} from '../../store/user/selectors';
 import { Genders } from '../../enums';
 import blockStackIcon from '../../images/blockstack-icon.svg';
 
@@ -19,6 +25,10 @@ const GENDERS_OPTIONS = Object.keys(Genders).map(key => ({
 }));
 
 const ProfileDetails: React.FC = () => {
+  const blockstackId = useSelector(getBlockstackId);
+  const name = useSelector(getName);
+  const username = useSelector(getUserName);
+
   return (
     <Page
       headerText="Profile"
@@ -26,18 +36,13 @@ const ProfileDetails: React.FC = () => {
       FooterIcon={SmileIcon}
     >
       <Avatar />
-      <LabeledText
-        label="Blockstack ID"
-        icon={<img src={blockStackIcon} alt="" />}
-      >
-        <p>
-          eugeniusives.id.blockstack
-          <br />
-          ID-175LZCS78r9YFjBQYsaqa5uYg5eHErDRPa
-        </p>
+      <LabeledText label="Blockstack ID" iconUrl={blockStackIcon}>
+        {username}
+        <br />
+        ID-{blockstackId}
       </LabeledText>
-      <LabeledText label="Blockstack username" canCopyText>
-        Eugene Ives
+      <LabeledText label="Blockstack name" canCopyText>
+        {name}
       </LabeledText>
       <WhiteBlock>
         <Formik

@@ -9,14 +9,15 @@ enum Genders {
 export enum UserActionTypes {
   LOG_IN = '@@user/log_in',
   LOG_OUT = '@@user/log_out',
+  SET_USER_DATA = '@@user/set_user_data',
 }
 
 export interface UserState {
-  username: string | null;
-  avatar: string | null;
-  blockstackId: string | null;
-  blockstackUsername: string | null;
-  email: string | null;
+  username?: string;
+  avatarUrl?: string;
+  email?: string;
+  name?: string;
+  id?: string;
   gender: Genders;
   currency: Currencies;
   timeout: number;
