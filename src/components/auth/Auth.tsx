@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
-
-import { userSession } from '../../utils/blockstack';
 
 import { ContainerAuth } from '../layout/Container';
 import { ContentAuth } from '../layout/Content';
@@ -51,15 +49,6 @@ const SIGN_UP_FEATURES = [
 ];
 
 const Auth: React.FC<RouteComponentProps> = ({ match }) => {
-  useEffect(() => {
-    if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then(response => {
-        window.history.replaceState({}, document.title, '/');
-        console.log(response);
-      });
-    }
-  }, []);
-
   return (
     <ContainerAuth>
       <ContentAuth>
