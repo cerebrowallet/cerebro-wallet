@@ -3,12 +3,9 @@ import { Smile as SmileIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 
-import {
-  getBlockstackId,
-  getUserName,
-  getName,
-} from '../../store/user/selectors';
+import { getUserData, getProfileData } from '../../store/user/selectors';
 import { Genders } from '../../enums';
+import { enumToMap } from '../../utils/utils';
 import blockStackIcon from '../../images/blockstack-icon.svg';
 
 import Avatar from './Avatar/Avatar';
@@ -19,15 +16,28 @@ import Input from '../forms/Input/Input';
 import DropDown from '../forms/DropDown/DropDown';
 import Page from '../layout/Page/Page';
 
-const GENDERS_OPTIONS = Object.keys(Genders).map(key => ({
-  label: key,
-  value: key,
-}));
+const gendersMap = enumToMap(Genders);
+
+const GENDERS_OPTIONS = Array.from(gendersMap.entries()).map(
+  ([label, value]) => ({
+    value,
+    label: label.toString(),
+  })
+);
 
 const ProfileDetails: React.FC = () => {
-  const blockstackId = useSelector(getBlockstackId);
-  const name = useSelector(getName);
-  const username = useSelector(getUserName);
+  const userData = useSelector(getUserData);
+  const { gender } = useSelector(getProfileData);
+
+  if (!userData) {
+    return null;
+  }
+
+  const {
+    username,
+    identityAddress,
+    profile: { name },
+  } = userData;
 
   return (
     <Page
@@ -39,15 +49,19 @@ const ProfileDetails: React.FC = () => {
       <LabeledText label="Blockstack ID" iconUrl={blockStackIcon}>
         {username}
         <br />
-        ID-{blockstackId}
+        ID-{identityAddress}
       </LabeledText>
       <LabeledText label="Blockstack name" canCopyText>
         {name}
       </LabeledText>
       <WhiteBlock>
         <Formik
-          initialValues={{ username: '', gender: GENDERS_OPTIONS[0] }}
+          initialValues={{
+            username,
+            gender: GENDERS_OPTIONS.filter(g => g.value === gender),
+          }}
           onSubmit={() => {}}
+          enableReinitialize
         >
           {() => (
             <Form>

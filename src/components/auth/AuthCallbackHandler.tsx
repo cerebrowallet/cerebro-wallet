@@ -12,20 +12,14 @@ const AuthCallbackHandler: React.FC<RouteComponentProps> = ({ history }) => {
     if (userSession.isSignInPending()) {
       userSession
         .handlePendingSignIn()
-        .then(
-          ({ username, email, identityAddress, profile: { name, image } }) => {
-            dispatch(
-              setUserData({
-                username,
-                email,
-                id: identityAddress,
-                name,
-                avatarUrl: image.length > 0 ? image[0].contentUrl : undefined,
-              })
-            );
-            history.push('/');
-          }
-        );
+        .then(userData => {
+          dispatch(setUserData(userData));
+          history.push('/');
+        })
+        .catch(e => {
+          // TODO log error && show notification
+          history.push('/signin');
+        });
     }
   }, []);
 

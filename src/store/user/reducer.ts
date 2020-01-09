@@ -4,10 +4,18 @@ import { produce } from 'immer';
 import { UserActionTypes, UserState } from './types';
 import { Currencies, Genders, TimeOuts } from '../../enums';
 
-const initialState: UserState = {
+export const profileInitialState = {
   gender: Genders.incognito,
+};
+
+export const settingsInitialState = {
   currency: Currencies.USD,
   timeout: TimeOuts.ThirtyMinutes,
+};
+
+const initialState: UserState = {
+  profile: profileInitialState,
+  settings: settingsInitialState,
 };
 
 const reducer: Reducer<UserState> = (
@@ -23,7 +31,9 @@ const reducer: Reducer<UserState> = (
       case UserActionTypes.SET_USER_DATA:
         return {
           ...draft,
-          ...action.payload,
+          userData: {
+            ...action.payload,
+          },
         };
       default:
         return draft;

@@ -23,11 +23,11 @@ export enum Genders {
 }
 
 export enum TimeOuts {
-  OneMinute = 1,
-  ThreeMinutes = 3,
-  FiveMinutes = 5,
-  TenMinutes = 10,
-  ThirtyMinutes = 30,
+  OneMinute = 60 * 1000,
+  ThreeMinutes = 3 * 60 * 1000,
+  FiveMinutes = 5 * 60 * 1000,
+  TenMinutes = 10 * 60 * 1000,
+  ThirtyMinutes = 30 * 60 * 1000,
 }
 
 export enum SendSteps {
