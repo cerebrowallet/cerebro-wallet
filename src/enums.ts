@@ -4,6 +4,13 @@ export enum Currencies {
   USD = 'usd',
 }
 
+export enum NotificationTypes {
+  Default = 'default',
+  DefaultInvert = 'defaultInvert',
+  Error = 'error',
+  Success = 'success'
+}
+
 export enum Breakpoints {
   sm = 576,
   md = 768,

@@ -10,6 +10,7 @@ import { setUserData, getProfileData, getSettings } from './store/user/actions';
 import LayoutContainer from './containers/LayoutContainer';
 import Routes from './routes';
 import SessionExpiredModal from './components/auth/SessionExpiredModal/SessionExpiredModal';
+import Notifications from './components/shared/Notifications/Notifications';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App: React.FC = () => {
       <Globals />
       <Routes />
       <SessionExpiredModal />
+      <Notifications />
     </LayoutContainer>
   );
 };
