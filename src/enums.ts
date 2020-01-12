@@ -8,7 +8,7 @@ export enum NotificationTypes {
   Default = 'default',
   DefaultInvert = 'defaultInvert',
   Error = 'error',
-  Success = 'success'
+  Success = 'success',
 }
 
 export enum Breakpoints {
@@ -41,4 +41,10 @@ export enum SendSteps {
   Choose = 'choose',
   Confirm = 'confirm',
   Success = 'success',
+}
+
+export enum Statuses {
+  Success = 'success',
+  Fail = 'fail',
+  InProgress = 'inProgress',
 }

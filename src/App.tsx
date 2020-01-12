@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import Normalize from './styles/normalize';
 import Globals from './styles/globals';
 
-import { userSession, getFile } from './utils/blockstack';
+import { userSession } from './utils/blockstack';
 import { setUserData, getProfileData, getSettings } from './store/user/actions';
 
 import LayoutContainer from './containers/LayoutContainer';

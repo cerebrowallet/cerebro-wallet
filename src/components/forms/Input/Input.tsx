@@ -2,7 +2,8 @@ import React from 'react';
 import { Field, FieldProps } from 'formik';
 
 import { InputError } from '../InputError';
-import { Wrapper, InputElement, TextArea } from './styled';
+import { InputElement, TextArea, Wrapper } from './styled';
+import { Statuses } from '../../../enums';
 
 interface Props {
   name: string;
@@ -54,9 +55,17 @@ const Input: React.FC<Props> = ({
         return (
           <Wrapper className={className}>
             {type === 'textarea' ? (
-              <TextArea {...props} rows={rows} haserror={hasError} />
+              <TextArea
+                {...props}
+                rows={rows}
+                status={hasError ? Statuses.Fail : undefined}
+              />
             ) : (
-              <InputElement {...props} type={type} haserror={hasError} />
+              <InputElement
+                {...props}
+                type={type}
+                status={hasError ? Statuses.Fail : undefined}
+              />
             )}
             {hasError && error !== 'no-message' && (
               <InputError>{error}</InputError>

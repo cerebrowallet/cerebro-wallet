@@ -1,12 +1,13 @@
 import React from 'react';
 import { Smile as SmileIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { getUserData, getProfileData } from '../../store/user/selectors';
 import { Genders } from '../../enums';
 import { enumToMap } from '../../utils/utils';
 import blockStackIcon from '../../images/blockstack-icon.svg';
+import { updateProfile } from '../../store/user/actions';
 
 import Avatar from './Avatar/Avatar';
 import LabeledText from '../shared/LabeledText/LabeledText';
@@ -27,14 +28,15 @@ const GENDERS_OPTIONS = Array.from(gendersMap.entries()).map(
 
 const ProfileDetails: React.FC = () => {
   const userData = useSelector(getUserData);
-  const { gender } = useSelector(getProfileData);
+  const dispatch = useDispatch();
+  const { gender, username } = useSelector(getProfileData);
 
   if (!userData) {
     return null;
   }
 
   const {
-    username,
+    username: blockStackUsername,
     identityAddress,
     profile: { name },
   } = userData;
@@ -47,7 +49,7 @@ const ProfileDetails: React.FC = () => {
     >
       <Avatar />
       <LabeledText label="Blockstack ID" iconUrl={blockStackIcon}>
-        {username}
+        {blockStackUsername}
         <br />
         ID-{identityAddress}
       </LabeledText>
@@ -57,7 +59,7 @@ const ProfileDetails: React.FC = () => {
       <WhiteBlock>
         <Formik
           initialValues={{
-            username,
+            username: username || '',
             gender: GENDERS_OPTIONS.filter(g => g.value === gender),
           }}
           onSubmit={() => {}}
@@ -69,7 +71,19 @@ const ProfileDetails: React.FC = () => {
                 <Input name="username" placeholder="Enter" />
               </FormGroup>
               <FormGroup label="Gender (for emoji)">
-                <DropDown name="gender" options={GENDERS_OPTIONS} />
+                <DropDown
+                  name="gender"
+                  options={GENDERS_OPTIONS}
+                  onChange={({ value }) =>
+                    dispatch(
+                      updateProfile({
+                        update: {
+                          gender: value,
+                        },
+                      })
+                    )
+                  }
+                />
               </FormGroup>
             </Form>
           )}
