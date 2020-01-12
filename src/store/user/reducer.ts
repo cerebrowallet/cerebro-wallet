@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { produce } from 'immer';
 
 import { UserActionTypes, UserState } from './types';
-import { Currencies, Genders, TimeOuts, Statuses } from '../../enums';
+import { Genders } from '../../enums';
 
 export const profileInitialState = {
   gender: Genders.incognito,
@@ -26,55 +26,32 @@ const reducer: Reducer<UserState> = (
       case UserActionTypes.LOG_OUT:
         return draft;
       case UserActionTypes.SET_USER_DATA:
-        return {
-          ...draft,
-          userData: {
-            ...action.payload,
-          },
-        };
+        draft.userData = action.payload;
+        break;
       case UserActionTypes.SET_SETTINGS:
-        return {
-          ...draft,
-          settings: {
-            ...draft.settings,
-            ...action.payload,
-          },
-        };
+        draft.settings = action.payload;
+        break;
       case UserActionTypes.SET_PROFILE_DATA:
-        return {
-          ...draft,
-          profile: {
-            ...action.payload,
-          },
-        };
+        draft.profile = action.payload;
+        break;
       case UserActionTypes.UPDATE_SETTINGS:
-        return {
-          ...draft,
-          settings: {
-            ...draft.settings,
-            ...action.payload.update,
-          },
+        draft.profile = {
+          ...draft.settings,
+          ...action.payload.update,
         };
+        break;
       case UserActionTypes.UPDATE_PROFILE:
-        return {
-          ...draft,
-          profile: {
-            ...draft.profile,
-            ...action.payload.update,
-          },
+        draft.profile = {
+          ...draft.profile,
+          ...action.payload.update,
         };
+        break;
       case UserActionTypes.SET_SUBSCRIBE_ON_NEWS_STATUS:
-        return {
-          ...draft,
-          settings: {
-            ...draft.settings,
-            emailSubscribeStatus: action.payload.status,
-          },
-        };
-      case UserActionTypes.SUBSCRIBE_ON_NEWS: {
+        draft.settings.emailSubscribeStatus = action.payload.status;
+        break;
+      case UserActionTypes.SUBSCRIBE_ON_NEWS:
         draft.settings.email = action.payload;
         break;
-      }
       default:
         return draft;
     }
