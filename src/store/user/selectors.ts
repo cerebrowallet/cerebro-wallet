@@ -6,7 +6,11 @@ import { ApplicationState } from '../index';
 export const getUserData = (state: ApplicationState) => state.user.userData;
 export const getBlockstackUsername = createSelector(
   getUserData,
-  (userData?: UserData) => (userData ? userData.username : null)
+  (userData?: UserData) => (userData ? userData.username.split('.')[0] : null)
+);
+export const getBlockStackName = createSelector(
+  getUserData,
+  (userData?: UserData) => (userData ? userData.profile.name : null)
 );
 export const getBlockstackAvatarUrl = createSelector(
   getUserData,
