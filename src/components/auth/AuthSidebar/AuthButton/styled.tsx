@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from '../../../../styles/colors/colors';
 
 export const Button = styled.button`
   background: ${props => props.theme.colors.primary};
@@ -12,9 +13,14 @@ export const Button = styled.button`
   display: flex;
   align-content: center;
   cursor: pointer;
-  
+  transition: 0.1s background-color ease-in;
+
   &:focus {
     outline: none;
+  }
+
+  &:hover {
+    background: ${colors.blockStackBlue};
   }
 `;
 
