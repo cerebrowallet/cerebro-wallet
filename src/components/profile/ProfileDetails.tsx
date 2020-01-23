@@ -16,6 +16,7 @@ import FormGroup from '../forms/FormGroup/FormGroup';
 import Input from '../forms/Input/Input';
 import DropDown from '../forms/DropDown/DropDown';
 import Page from '../layout/Page/Page';
+import UserNameInput from './UserNameInput';
 
 const gendersMap = enumToMap(Genders);
 
@@ -68,7 +69,7 @@ const ProfileDetails: React.FC = () => {
           {() => (
             <Form>
               <FormGroup label="Cerebro username">
-                <Input name="username" placeholder="Enter" />
+                <UserNameInput />
               </FormGroup>
               <FormGroup label="Gender (for emoji)">
                 <DropDown
