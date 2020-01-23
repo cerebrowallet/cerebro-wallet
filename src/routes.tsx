@@ -4,6 +4,7 @@ import { useTransition, animated } from 'react-spring';
 
 import { userSession } from './utils/blockstack';
 
+import AuthenticatedWrapper from './components/auth/AuthenticatedWrapper';
 import Home from './components/home/Home';
 import Features from './components/features/Features';
 import Account from './components/account/Account';
@@ -39,34 +40,36 @@ const Routes: React.FC = () => {
         )}
       </Route>
       <Route>
-        {transitions.map(({ item: location, props, key }) => (
-          <animated.div key={key} style={props}>
-            <Switch location={location}>
-              <PrivateRoute exact path="/">
-                <Home />
-              </PrivateRoute>
-              <PrivateRoute path="/features">
-                <Features />
-              </PrivateRoute>
-              <PrivateRoute
-                path={[
-                  '/accounts/create',
-                  '/accounts/import-private-key',
-                  '/accounts/import-public-address',
-                  '/account/:accountId',
-                ]}
-              >
-                <Account />
-              </PrivateRoute>
-              <PrivateRoute path="/my-accounts">
-                <MyAccounts />
-              </PrivateRoute>
-              <PrivateRoute path={['/profile', '/settings']}>
-                <Profile />
-              </PrivateRoute>
-            </Switch>
-          </animated.div>
-        ))}
+        <AuthenticatedWrapper>
+          {transitions.map(({ item: location, props, key }) => (
+            <animated.div key={key} style={props}>
+              <Switch location={location}>
+                <PrivateRoute exact path="/">
+                  <Home />
+                </PrivateRoute>
+                <PrivateRoute path="/features">
+                  <Features />
+                </PrivateRoute>
+                <PrivateRoute
+                  path={[
+                    '/accounts/create',
+                    '/accounts/import-private-key',
+                    '/accounts/import-public-address',
+                    '/account/:accountId',
+                  ]}
+                >
+                  <Account />
+                </PrivateRoute>
+                <PrivateRoute path="/my-accounts">
+                  <MyAccounts />
+                </PrivateRoute>
+                <PrivateRoute path={['/profile', '/settings']}>
+                  <Profile />
+                </PrivateRoute>
+              </Switch>
+            </animated.div>
+          ))}
+        </AuthenticatedWrapper>
       </Route>
     </Switch>
   );
