@@ -36,8 +36,8 @@ export const FEATURES = [
 export const CREATE_ACCOUNT_ACTIONS = [
   {
     link: '/account/create',
-    text: 'Receive',
-    descText: 'Top up my accounts',
+    text: 'Create a new account',
+    descText: 'Manage multiple coins at once',
     icon: PlusIcon,
   },
   {

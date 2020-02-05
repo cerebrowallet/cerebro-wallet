@@ -11,8 +11,8 @@ import styled from 'styled-components';
 import { Breakpoints } from '../../enums';
 import { useWindowSize } from '../../utils/hooks';
 
-import { ContainerTwoCols } from '../layout/Container';
-import { ContentTwoCols } from '../layout/Content';
+import { ContainerOneCol, ContainerTwoCols } from '../layout/Container';
+import { ContentOneCol, ContentTwoCols } from '../layout/Content';
 import Sidebar from '../layout/Sidebar';
 import AccountsSidebar from './AccountsSidebar/AccountsSidebar';
 import AccountActions from './AccountActions/AccountActions';
@@ -57,12 +57,38 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
 }) => {
   const windowSize = useWindowSize();
 
+  if (/(create|import)/.test(match.params.accountId)) {
+    return (
+      <ContainerOneCol>
+        <ContentOneCol>
+          <Switch>
+            <Route exact path="/account/create">
+              <CreateAccount />
+            </Route>
+            <Route exact path="/account/import-private-key">
+              <ImportPrivateKey />
+            </Route>
+            <Route exact path="/account/import-public-address">
+              <ImportPublicAddress />
+            </Route>
+          </Switch>
+        </ContentOneCol>
+        <AccountSidebar>
+          <Route exact path={`${match.url}/transactions`}>
+            <Activity />
+          </Route>
+          <Route path={match.url}>
+            <AccountsSidebar />
+          </Route>
+        </AccountSidebar>
+      </ContainerOneCol>
+    )
+  }
+
   return (
     <ContainerTwoCols>
       <ContentTwoCols>
-        {match.params.accountId && (
-          <AccountActions />
-        )}
+        <AccountActions />
         <Switch>
           <Route exact path="/account/create">
             <CreateAccount />
