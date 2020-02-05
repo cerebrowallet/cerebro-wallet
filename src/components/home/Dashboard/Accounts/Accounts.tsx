@@ -18,7 +18,7 @@ const Accounts: React.FC = () => {
     <AccountsContainer>
       <Header>
         <Title>Accounts</Title>
-        <AddAccountButton>
+        <AddAccountButton to="account/create">
           <PlusIcon />
         </AddAccountButton>
       </Header>

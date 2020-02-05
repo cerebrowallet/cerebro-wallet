@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import IconButton from '../../../shared/IconButton/IconButton';
 import { TrackYEl } from '../../../shared/Scrollbar/styled';
 
@@ -48,13 +50,15 @@ export const Title = styled.span`
   color: ${props => props.theme.colors.secondary};
 `;
 
-export const AddAccountButton = styled.button`
+export const AddAccountButton = styled(Link)`
   width: 2.25rem;
   height: 1.5625rem;
+  line-height: 1.5625rem;
   border-radius: 1.6875rem;
   background: #f7f7f7;
   border: 0;
   cursor: pointer;
+  text-align: center;
 
   &:focus {
     outline: none;

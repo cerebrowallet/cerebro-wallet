@@ -72,6 +72,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
               <ImportPublicAddress />
             </Route>
           </Switch>
+          <AccountCornerCloseButton />
         </ContentOneCol>
         <AccountSidebar>
           <Route exact path={`${match.url}/transactions`}>
@@ -90,15 +91,6 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
       <ContentTwoCols>
         <AccountActions />
         <Switch>
-          <Route exact path="/account/create">
-            <CreateAccount />
-          </Route>
-          <Route exact path="/account/import-private-key">
-            <ImportPrivateKey />
-          </Route>
-          <Route exact path="/account/import-public-address">
-            <ImportPublicAddress />
-          </Route>
           {windowSize.width > Breakpoints.md && match.params.accountId && (
             <Route exact path={match.url}>
               <Redirect to={`${match.url}/details`} />
