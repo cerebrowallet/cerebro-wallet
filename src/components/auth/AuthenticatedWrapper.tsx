@@ -7,6 +7,7 @@ import {
   getSettings,
   setUserData,
 } from '../../store/user/actions';
+import { getAccounts } from '../../store/account/actions';
 
 interface Props {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ const AuthenticatedWrapper: React.FC<Props> = ({ children }) => {
       dispatch(getProfileData());
       dispatch(getSettings());
       dispatch(setUserData(userSession.loadUserData()));
+      dispatch(getAccounts());
     }
   }, []);
 

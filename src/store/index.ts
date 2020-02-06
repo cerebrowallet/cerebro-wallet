@@ -10,19 +10,25 @@ import { userReducer } from './user/reducer';
 import userSaga from './user/sagas';
 import { UserState } from './user/types';
 
+import { accountReducer } from './account/reducer';
+import accountSaga from './account/sagas';
+import { AccountState } from './account/types';
+
 export interface ApplicationState {
   user: UserState;
   router: RouterState;
   layout: LayoutState;
+  account: AccountState;
 }
 
 export const createRootReducer = (history: History) =>
   combineReducers({
     user: userReducer,
     layout: layoutReducer,
+    account: accountReducer,
     router: connectRouter(history),
   });
 
 export function* rootSaga() {
-  yield all([fork(userSaga)]);
+  yield all([fork(userSaga), fork(accountSaga)]);
 }

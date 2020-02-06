@@ -24,7 +24,6 @@ import {
   Statuses,
   TimeOuts,
 } from '../../enums';
-import { profileInitialState, settingsInitialState } from './reducer';
 
 function* getData({
   file,

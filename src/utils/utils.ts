@@ -11,9 +11,26 @@ export function enumToMap(enumeration: any): Map<string, string | number> {
     const val = enumeration[key] as string | number;
 
     //TypeScript does not allow enum value to be null or undefined
-    if (val !== undefined && val !== null)
-      map.set(key, val);
+    if (val !== undefined && val !== null) map.set(key, val);
   }
 
   return map;
+}
+
+export function normalizeArray(
+  array: any[],
+  idProp: string
+): { byIds: { [id: string]: any }; allIds: string[] } {
+  return array.reduce(
+    (acc, el) => {
+      const a = acc;
+      a.byIds[el[idProp]] = el;
+      a.allIds.push(el[idProp]);
+      return a;
+    },
+    {
+      byIds: {},
+      allIds: [],
+    }
+  );
 }
