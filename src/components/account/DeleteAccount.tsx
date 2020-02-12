@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Lock as LockIcon } from 'react-feather';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { deleteAccount } from '../../store/account/actions';
+import { getAccountById } from '../../store/account/selectors';
 import { ButtonColors } from '../../dictionaries';
 
 import Page from '../layout/Page/Page';
@@ -8,8 +11,14 @@ import Button from '../forms/Button/Button';
 import Modal from '../shared/Modal/Modal';
 import ConfirmModal from './ConfirmModal/ConfirmModal';
 
-const DeleteAccount: React.FC = () => {
+interface Props {
+  accountId: string;
+}
+
+const DeleteAccount: React.FC<Props> = ({ accountId }) => {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const account = useSelector(getAccountById(accountId));
 
   const hideModal = () => setShowModal(false);
 
@@ -30,8 +39,11 @@ const DeleteAccount: React.FC = () => {
       <Modal showModal={showModal} onHide={hideModal}>
         <ConfirmModal
           onCancel={hideModal}
-          onConfirm={hideModal}
-          account="My Account Name"
+          onConfirm={() => {
+            dispatch(deleteAccount(accountId));
+            hideModal();
+          }}
+          account={account}
           description="To delete your account, we must be sure of safety. Enter account name:"
           confirmBtnName="Delete"
           confirmBtnColor={ButtonColors.red}

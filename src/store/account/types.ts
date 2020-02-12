@@ -5,6 +5,7 @@ export enum AccountActionTypes {
   SET_ACCOUNTS = '@@account/set_accounts',
   CREATE_ACCOUNT = '@@account/create_account',
   UPDATE_ACCOUNT = '@@account/update_account',
+  DELETE_ACCOUNT = '@@account/delete_account',
   GET_EXCHANGE_RATES = '@@account/get_exchange_rates',
   SET_EXCHANGE_RATES = '@@account/set_exchange_rates',
 }

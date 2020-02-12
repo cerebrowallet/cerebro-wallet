@@ -17,6 +17,8 @@ export const createAccount = (payload: Coins) =>
   action(AccountActionTypes.CREATE_ACCOUNT, payload);
 export const updateAccount = (payload: UpdateAccountActionPayload) =>
   action(AccountActionTypes.UPDATE_ACCOUNT, payload);
+export const deleteAccount = (payload: string) =>
+  action(AccountActionTypes.DELETE_ACCOUNT, payload);
 export const getExchangeRates = () =>
   action(AccountActionTypes.GET_EXCHANGE_RATES);
 export const setExchangeRates = (rates: ExchangeRates) =>

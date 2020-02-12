@@ -56,8 +56,9 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
 }) => {
   const windowSize = useWindowSize();
+  const { accountId } = match.params;
 
-  if (/(create|import)/.test(match.params.accountId)) {
+  if (/(create|import)/.test(accountId)) {
     return (
       <ContainerOneCol>
         <ContentOneCol>
@@ -97,28 +98,28 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             </Route>
           )}
           <Route exact path={`${match.url}/details`}>
-            <Details accountId={match.params.accountId} />
+            <Details accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/receive`}>
-            <TopUpAccount account={match.params.accountId} />
+            <TopUpAccount account={accountId} />
           </Route>
           <Route exact path={`${match.url}/send`}>
-            <Send account={match.params.accountId} />
+            <Send account={accountId} />
           </Route>
           <Route exact path={`${match.url}/exchange`}>
             <Exchange />
           </Route>
           <Route exact path={`${match.url}/rename`}>
-            <Rename accountId={match.params.accountId} />
+            <Rename accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/explorer`}>
             Explorer
           </Route>
           <Route exact path={`${match.url}/export-private-key`}>
-            <ExportPrivateKey />
+            <ExportPrivateKey accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/delete`}>
-            <DeleteAccount />
+            <DeleteAccount accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/transactions`}>
             <TransactionDetails />

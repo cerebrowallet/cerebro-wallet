@@ -1,17 +1,22 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import { produce } from 'immer';
+import { push } from 'connected-react-router'
 
-import { AccountActionTypes, Accounts } from './types';
+import { AccountActionTypes, Accounts, Account } from './types';
 import { getFile, putFile } from '../../utils/blockstack';
 import { callApi } from '../../utils/api';
 import {
   createAccount as createAccountAction,
   updateAccount as updateAccountAction,
+  deleteAccount as deleteAccountAction,
 } from './actions';
 import { config } from '../../config';
 import { createWallet } from '../../utils/wallets';
 import { setAccounts, setExchangeRates } from './actions';
-import { getAccounts as getAccountsSelector } from './selectors';
+import {
+  getAccountById,
+  getAccounts as getAccountsSelector,
+} from './selectors';
 import { getCoinsList, getCurrenciesList } from '../user/selectors';
 import { Value } from '../../components/forms/DropDown/DropDown';
 import { showNotification } from '../layout/actions';
@@ -137,6 +142,53 @@ function* updateAccount({
   }
 }
 
+function* deleteAccount({
+  payload: accountId,
+}: ReturnType<typeof deleteAccountAction>) {
+  try {
+    const account: Account = yield select(getAccountById(accountId));
+
+    yield put(
+      showNotification({
+        type: NotificationTypes.Default,
+        text: `Deleting account ${account.name}...`,
+      })
+    );
+
+    const existingAccounts: Accounts = yield select(getAccountsSelector);
+    const accounts: Accounts = produce(existingAccounts, (draft: Accounts) => {
+      delete draft.byIds[accountId];
+      draft.allIds = draft.allIds.filter(id => id !== accountId);
+    });
+
+    yield call(putFile, {
+      fileName: config.gaia.files.accounts,
+      file: accounts,
+    });
+
+    yield put(setAccounts(accounts));
+
+    yield put(
+      showNotification({
+        type: NotificationTypes.Success,
+        text: 'Account was successfully deleted',
+      })
+    );
+
+    yield put(push('/'));
+  } catch (e) {
+    yield put(
+      showNotification({
+        type: NotificationTypes.Error,
+        text: 'Error while deleting account',
+      })
+    );
+
+    // TODO log error
+    console.error(e);
+  }
+}
+
 function* getExchangeRates() {
   try {
     const coins = yield select(getCoinsList);
@@ -171,6 +223,7 @@ function* accountSaga() {
     takeLatest(AccountActionTypes.CREATE_ACCOUNT, createAccount),
     takeLatest(AccountActionTypes.GET_EXCHANGE_RATES, getExchangeRates),
     takeLatest(AccountActionTypes.UPDATE_ACCOUNT, updateAccount),
+    takeLatest(AccountActionTypes.DELETE_ACCOUNT, deleteAccount),
   ]);
 }
 
