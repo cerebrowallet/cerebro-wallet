@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  ChevronLeft as ChevronLeftIcon,
-} from 'react-feather';
-import IconButton from '../IconButton/IconButton';
-import Scrollbar from '../Scrollbar/Scrollbar';
-import { SidebarTrackY } from '../Scrollbar/styled';
+import { ChevronLeft as ChevronLeftIcon } from 'react-feather';
+
 import {
   Wrapper,
   MobileTrigger,
@@ -14,6 +10,11 @@ import {
   MobileCloseIcon,
   MenuItem,
 } from './styled';
+import { SidebarTrackY } from '../Scrollbar/styled';
+
+import IconButton from '../IconButton/IconButton';
+import Scrollbar from '../Scrollbar/Scrollbar';
+import Loader from '../Loader/Loader';
 
 interface MenuItem {
   link: string;
@@ -90,15 +91,19 @@ const SidebarMenu: React.FC<Props> = ({
   return (
     <Wrapper className={className} withMargin={withMargin}>
       <Scrollbar TrackY={SidebarTrackY}>
-        {menuItems.map((item, i) => (
-          <MenuItem
-            key={`${item.link}-${i}`}
-            link={item.link}
-            text={item.text}
-            descText={item.descText}
-            icon={item.icon}
-          />
-        ))}
+        {menuItems.length > 0 ? (
+          menuItems.map((item, i) => (
+            <MenuItem
+              key={`${item.link}-${i}`}
+              link={item.link}
+              text={item.text}
+              descText={item.descText}
+              icon={item.icon}
+            />
+          ))
+        ) : (
+          <Loader />
+        )}
       </Scrollbar>
       <SidebarMenuFooter>
         {footerMenuItems.map((item, i) => (

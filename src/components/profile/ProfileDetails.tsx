@@ -3,34 +3,28 @@ import { Smile as SmileIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getUserData, getProfileData } from '../../store/user/selectors';
-import { Genders } from '../../enums';
-import { enumToMap } from '../../utils/utils';
 import blockStackIcon from '../../images/blockstack-icon.svg';
+
+import {
+  getUserData,
+  getProfileData,
+  getGendersList,
+} from '../../store/user/selectors';
 import { updateProfile } from '../../store/user/actions';
 
 import Avatar from './Avatar/Avatar';
 import LabeledText from '../shared/LabeledText/LabeledText';
 import WhiteBlock from '../shared/WhiteBlock';
 import FormGroup from '../forms/FormGroup/FormGroup';
-import Input from '../forms/Input/Input';
 import DropDown from '../forms/DropDown/DropDown';
 import Page from '../layout/Page/Page';
 import UserNameInput from './UserNameInput';
-
-const gendersMap = enumToMap(Genders);
-
-const GENDERS_OPTIONS = Array.from(gendersMap.entries()).map(
-  ([label, value]) => ({
-    value,
-    label: label.toString(),
-  })
-);
 
 const ProfileDetails: React.FC = () => {
   const userData = useSelector(getUserData);
   const dispatch = useDispatch();
   const { gender, username } = useSelector(getProfileData);
+  const genders = useSelector(getGendersList);
 
   if (!userData) {
     return null;
@@ -61,7 +55,7 @@ const ProfileDetails: React.FC = () => {
         <Formik
           initialValues={{
             username: username || '',
-            gender: GENDERS_OPTIONS.filter(g => g.value === gender),
+            gender: genders.filter(g => g.id === gender),
           }}
           onSubmit={() => {}}
           enableReinitialize
@@ -74,12 +68,12 @@ const ProfileDetails: React.FC = () => {
               <FormGroup label="Gender (for emoji)">
                 <DropDown
                   name="gender"
-                  options={GENDERS_OPTIONS}
-                  onChange={({ value }) =>
+                  options={genders}
+                  onChange={({ id }) =>
                     dispatch(
                       updateProfile({
                         update: {
-                          gender: value,
+                          gender: id,
                         },
                       })
                     )

@@ -12,7 +12,7 @@ import {
 } from 'react-feather';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-import { Breakpoints } from '../../../enums';
+import { Breakpoints } from '../../../dictionaries';
 import { useWindowSize } from '../../../utils/hooks';
 import { ActionButton } from './styled';
 

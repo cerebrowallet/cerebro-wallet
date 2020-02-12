@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 import colors from '../../../styles/colors/colors';
-import { Statuses } from '../../../enums';
+import { Statuses } from '../../../dictionaries';
 import { Theme } from '../../../utils/styled';
 
 export const Container = styled.div`

@@ -3,41 +3,28 @@ import { Send as SendIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Currencies, TimeOuts } from '../../enums';
-import { getSettings } from '../../store/user/selectors';
+import {
+  getSettings,
+  getCurrenciesList,
+  getTimeoutsList,
+} from '../../store/user/selectors';
 import { updateSettings } from '../../store/user/actions';
 
 import Page from '../layout/Page/Page';
 import FormGroup from '../forms/FormGroup/FormGroup';
-import Input from '../forms/Input/Input';
 import DropDown from '../forms/DropDown/DropDown';
 import WhiteBlock from '../shared/WhiteBlock';
 import NewsletterEmailInput from './NewsletterEmailInput/NewsletterEmailInput';
-
-const CURRENCIES_OPTIONS = Object.values(Currencies).map(key => ({
-  label: key.toUpperCase(),
-  value: key,
-}));
-
-const TIMEOUTS_OPTIONS = Object.values(TimeOuts)
-  .map(key => {
-    const k = key as any;
-    const ms = parseInt(k, 10);
-    const minutes = ms / 60000;
-
-    return {
-      label: `${minutes} minute${key === 1 ? '' : 's'}`,
-      value: ms,
-    };
-  })
-  .filter(option => !Number.isNaN(option.value));
+import Loader from '../shared/Loader/Loader';
 
 const Settings: React.FC = () => {
   const settings = useSelector(getSettings);
+  const currencies = useSelector(getCurrenciesList);
+  const timeouts = useSelector(getTimeoutsList);
   const dispatch = useDispatch();
 
   if (!settings) {
-    return null;
+    return <Loader withMargin />;
   }
 
   return (
@@ -49,12 +36,8 @@ const Settings: React.FC = () => {
       <WhiteBlock>
         <Formik
           initialValues={{
-            currency: CURRENCIES_OPTIONS.filter(
-              opt => opt.value === settings.currency
-            )[0],
-            timeout: TIMEOUTS_OPTIONS.filter(
-              opt => opt.value === settings.timeout
-            )[0],
+            currency: currencies.filter(opt => opt.id === settings.currency)[0],
+            timeout: timeouts.filter(opt => opt.id === settings.timeout)[0],
           }}
           onSubmit={() => {}}
           enableReinitialize
@@ -64,12 +47,12 @@ const Settings: React.FC = () => {
               <FormGroup label="Local currency">
                 <DropDown
                   name="currency"
-                  options={CURRENCIES_OPTIONS}
-                  onChange={({ value }) => {
+                  options={currencies}
+                  onChange={({ id }) => {
                     dispatch(
                       updateSettings({
                         update: {
-                          currency: value,
+                          currency: id,
                         },
                       })
                     );
@@ -79,12 +62,12 @@ const Settings: React.FC = () => {
               <FormGroup label="Session timeout">
                 <DropDown
                   name="timeout"
-                  options={TIMEOUTS_OPTIONS}
-                  onChange={({ value }) => {
+                  options={timeouts}
+                  onChange={({ id }) => {
                     dispatch(
                       updateSettings({
                         update: {
-                          timeout: value,
+                          timeout: id,
                         },
                       })
                     );

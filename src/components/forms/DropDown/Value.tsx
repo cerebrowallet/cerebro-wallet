@@ -44,20 +44,16 @@ const Label = styled.span`
 ` as any;
 
 interface DropDownValueProps {
-  label: string;
-  value: string | number;
+  name: string;
+  id: string | number;
   showValue: boolean;
 }
 
-const Value: React.FC<DropDownValueProps> = ({
-  label,
-  value,
-  showValue,
-}) => {
+const Value: React.FC<DropDownValueProps> = ({ name, id, showValue }) => {
   return (
     <Wrapper>
-      <ValueElement showvalue={showValue}>{value}</ValueElement>
-      <Label showvalue={showValue}>{label}</Label>
+      <ValueElement showvalue={showValue}>{id}</ValueElement>
+      <Label showvalue={showValue}>{name}</Label>
     </Wrapper>
   );
 };

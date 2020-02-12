@@ -3,7 +3,7 @@ import Input from '../../forms/Input/Input';
 import Button from '../../forms/Button/Button';
 import { Formik, Form } from 'formik';
 
-import { ButtonColors } from '../../../enums';
+import { ButtonColors } from '../../../dictionaries';
 import { Header, Content, Footer, BackButton } from './styled';
 
 interface Props {

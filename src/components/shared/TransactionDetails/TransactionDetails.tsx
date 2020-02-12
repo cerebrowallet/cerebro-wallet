@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Currencies } from '../../../enums';
+import { Coins } from '../../../dictionaries';
 
 import Page from '../../layout/Page/Page';
 import LabeledText from '../LabeledText/LabeledText';
@@ -27,7 +27,7 @@ const TransactionDetails: React.FC = () => {
             <span>– $103</span>
           </TopUpHeaderDetails>
           <TopUpHeaderIcon>
-            <CurrencyIcon currency={Currencies.BTC} size="xl" />
+            <CurrencyIcon coin={Coins.BTC} size="xl" />
           </TopUpHeaderIcon>
         </TopUpHeader>
         <AdditionalInfo>

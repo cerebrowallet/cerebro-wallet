@@ -1,3 +1,5 @@
+import { config } from '../config';
+
 /**
  * Converts the given enum to a map of the keys to the values.
  * @param enumeration The enum to convert to a map.
@@ -33,4 +35,8 @@ export function normalizeArray(
       allIds: [],
     }
   );
+}
+
+export function isObject(object: any): boolean {
+  return typeof object === 'object' && object !== null;
 }

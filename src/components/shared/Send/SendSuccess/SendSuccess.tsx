@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThumbsUp as ThumbsUpIcon } from 'react-feather';
 
-import { SendSteps } from '../../../../enums';
+import { SendSteps } from '../../../../dictionaries';
 
 import SendPagination from '../SendPagination/SendPagination';
 import Button from '../../../forms/Button/Button';

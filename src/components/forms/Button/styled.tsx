@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ButtonColors } from '../../../enums';
+import { ButtonColors } from '../../../dictionaries';
 
 export const BlackButton = styled.button`
   display: inline-block;

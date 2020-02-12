@@ -2,12 +2,12 @@ import React from 'react';
 
 import CurrencyIcon from '../../../CurrencyIcon/CurrencyIcon';
 import HashText from '../../../HashText/HashText';
-import { Currencies } from '../../../../../enums';
+import { Coins } from '../../../../../dictionaries';
 import { Link, Info, Text, Comment } from './styled';
 
 interface Props {
   transaction: {
-    currency: Currencies;
+    coin: Coins;
     hash: string;
     comment?: string;
     amount: number;
@@ -16,12 +16,12 @@ interface Props {
 }
 
 const Transaction: React.FC<Props> = ({
-  transaction: { currency, hash, comment, amount, account },
+  transaction: { coin, hash, comment, amount, account },
 }) => {
   return (
     <Link to={`/account/${account}/${hash}`}>
       <Info>
-        <CurrencyIcon currency={currency} />
+        <CurrencyIcon coin={coin} />
         <Text>
           <HashText>{hash}</HashText>
           {comment && <Comment>{comment}</Comment>}

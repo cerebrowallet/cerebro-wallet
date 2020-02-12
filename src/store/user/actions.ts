@@ -7,7 +7,7 @@ import {
   Profile,
   UpdateDataActionPayload,
 } from './types';
-import { Statuses } from '../../enums';
+import { Statuses } from '../../dictionaries';
 
 export const logIn = () => action(UserActionTypes.LOG_IN);
 export const logOut = () => action(UserActionTypes.LOG_OUT);

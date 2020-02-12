@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { normalizeArray } from '../../utils/utils';
+import { normalizeArray } from '../../utils/common';
 import { AccountState, AccountActionTypes } from './types';
 
 const initialState: AccountState = {
@@ -9,6 +9,7 @@ const initialState: AccountState = {
     byIds: {},
     allIds: [],
   },
+  rates: null,
 };
 
 const reducer: Reducer<AccountState> = (
@@ -22,7 +23,11 @@ const reducer: Reducer<AccountState> = (
           return draft;
         }
 
-        draft.accounts = normalizeArray(action.payload, 'address');
+        draft.accounts = normalizeArray(action.payload, 'id');
+        break;
+      case AccountActionTypes.SET_EXCHANGE_RATES:
+        draft.rates = action.payload;
+        break;
       default:
         return draft;
     }

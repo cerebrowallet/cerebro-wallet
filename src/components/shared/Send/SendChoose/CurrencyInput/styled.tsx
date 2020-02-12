@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Currencies } from '../../../../../enums';
+import { Coins, Currencies } from '../../../../../dictionaries';
 
 interface ContainerProps {
-  currency: Currencies;
+  currency: Coins | Currencies;
 }
 
 export const Container = styled.div`
@@ -29,12 +29,6 @@ export const Container = styled.div`
       props.currency === Currencies.USD &&
       `
       content: '$';
-    `}
-    
-    ${(props: ContainerProps) =>
-      props.currency === Currencies.STX &&
-      `
-      content: 'stx';
     `}
   }
 `;

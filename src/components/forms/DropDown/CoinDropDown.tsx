@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Currencies } from '../../../enums';
+import { Coins } from '../../../dictionaries';
 
 import DropDown from './DropDown';
 import CurrencyIcon from '../../shared/CurrencyIcon/CurrencyIcon';
 import { components } from 'react-select';
 
 interface CoinOption {
-  label: string;
-  value: Currencies;
+  name: string;
+  id: Coins;
 }
 
 interface Props {
@@ -42,12 +42,12 @@ const CoinCode = styled.span`
   text-transform: uppercase;
 `;
 
-function CoinValue({ label, value }: CoinOption) {
+function CoinValue({ name, id }: CoinOption) {
   return (
     <ValueWrapper>
-      <CoinIcon currency={value} />
-      <CoinName>{label}</CoinName>
-      <CoinCode>{value}</CoinCode>
+      <CoinIcon coin={id} />
+      <CoinName>{name}</CoinName>
+      <CoinCode>{id}</CoinCode>
     </ValueWrapper>
   );
 }

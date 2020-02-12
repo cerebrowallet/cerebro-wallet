@@ -6,12 +6,12 @@ import {
   useHistory,
 } from 'react-router';
 
-import { Breakpoints } from '../enums';
+import { Breakpoints } from '../dictionaries';
 import { useWindowSize } from '../utils/hooks';
 
 import SidebarMenu from '../components/shared/SidebarMenu/SidebarMenu';
 
-interface MenuItem {
+export interface MenuItem {
   link: string;
   text: string;
   descText: string;

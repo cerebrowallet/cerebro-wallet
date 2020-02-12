@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Lock as LockIcon } from 'react-feather';
 
-import { ButtonColors } from '../../enums';
+import { ButtonColors } from '../../dictionaries';
 
 import Page from '../layout/Page/Page';
 import Button from '../forms/Button/Button';

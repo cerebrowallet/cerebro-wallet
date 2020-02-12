@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { produce } from 'immer';
 
 import { UserActionTypes, UserState } from './types';
-import { Genders } from '../../enums';
+import { Genders } from '../../dictionaries';
 
 export const profileInitialState = {
   gender: Genders.incognito,

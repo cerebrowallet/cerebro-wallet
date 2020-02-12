@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Compass as CompassIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router';
 
-import { SendSteps } from '../../../../enums';
-import { ACCOUNTS_OPTIONS } from '../../../../dummyData';
+import { getAccountsList } from '../../../../store/account/selectors';
+import { SendSteps } from '../../../../dictionaries';
 
 import Page from '../../../layout/Page/Page';
 import FormGroup from '../../../forms/FormGroup/FormGroup';
@@ -46,6 +47,7 @@ const SendChoose: React.FC<Props> = ({ account }) => {
     fee: 0.001,
   };
   const history = useHistory();
+  const accounts = useSelector(getAccountsList);
 
   return (
     <Page
@@ -64,7 +66,7 @@ const SendChoose: React.FC<Props> = ({ account }) => {
                 <FormGroup label="From account">
                   <DropDown
                     required
-                    options={ACCOUNTS_OPTIONS}
+                    options={accounts}
                     name="fromAccount"
                     placeholder="Choose account"
                     showValue

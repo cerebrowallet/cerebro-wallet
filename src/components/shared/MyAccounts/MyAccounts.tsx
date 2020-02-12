@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useTransition } from 'react-spring';
+import { useSelector } from 'react-redux';
 
-import { ACCOUNTS } from '../../../dummyData';
-import { CREATE_ACCOUNT_ACTIONS } from '../../../menus';
+import { Account } from '../../../store/account/types';
+import {
+  getAccountsList,
+  getExchangeRates,
+} from '../../../store/account/selectors';
+import { getSettings } from '../../../store/user/selectors';
+import { config } from '../../../config';
+import { MANAGE_ACCOUNT_ACTIONS } from '../../../menus';
 import { Wrapper, Content, Header, Grid, Button } from './styled';
+import { CurrencySymbols } from '../../../dictionaries';
 
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import AddAccountIcon from '../AddAccountIcon/AddAccountIcon';
@@ -31,16 +39,20 @@ const MyAccounts: React.FC = () => {
     };
   }, []);
 
+  const accounts: Account[] = useSelector(getAccountsList);
+  const rates = useSelector(getExchangeRates);
+  const settings = useSelector(getSettings);
+
   const accountsTransitions = useTransition(
-    show ? ACCOUNTS : [],
+    show ? accounts : [],
     item => item.address,
-    getTransitionOptions(ACCOUNTS.length)
+    getTransitionOptions(accounts.length)
   );
 
   const createAccountTransitions = useTransition(
-    show ? CREATE_ACCOUNT_ACTIONS : [],
+    show ? MANAGE_ACCOUNT_ACTIONS : [],
     item => item.link,
-    getTransitionOptions(CREATE_ACCOUNT_ACTIONS.length)
+    getTransitionOptions(MANAGE_ACCOUNT_ACTIONS.length)
   );
 
   return (
@@ -53,12 +65,16 @@ const MyAccounts: React.FC = () => {
               <Button
                 style={props}
                 key={key}
-                link={`/account/${item.address}}`}
-                icon={<CurrencyIcon currency={item.currency} size="lg" />}
+                link={`/account/${item.id}`}
+                icon={<CurrencyIcon coin={item.coin} size="lg" />}
                 text={item.name}
-                descText={`${
-                  item.balance
-                } ${item.currency.toUpperCase()} / $100`}
+                descText={`${item.balance} ${
+                  config.coins[item.coin].abbr
+                } / ${settings.currency && CurrencySymbols[settings.currency]}${
+                  rates && settings.currency
+                    ? item.balance * rates[item.coin][settings.currency]
+                    : 0
+                }`}
               />
             </MyAccountsButton>
           ))}
@@ -70,7 +86,7 @@ const MyAccounts: React.FC = () => {
               <Button
                 key={key}
                 style={props}
-                link={`/account/${item.link}}`}
+                link={item.link}
                 icon={<AddAccountIcon Icon={item.icon} />}
                 text={item.text}
                 descText={item.descText}

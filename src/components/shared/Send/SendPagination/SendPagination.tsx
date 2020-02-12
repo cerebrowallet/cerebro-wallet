@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SendSteps } from '../../../../enums';
+import { SendSteps } from '../../../../dictionaries';
 
 import { Container, Step } from './styled';
 

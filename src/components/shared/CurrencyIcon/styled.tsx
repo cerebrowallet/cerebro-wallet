@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Currencies } from '../../../enums';
+import { Coins } from '../../../dictionaries';
 import btcIcon from '../../../images/currencies-icons/btc.svg';
-import stxIcon from '../../../images/currencies-icons/stx.svg';
+// import stxIcon from '../../../images/currencies-icons/stx.svg';
 
 interface IconProps {
-  currency: Currencies;
+  coin: Coins;
   size?: string;
 }
 
@@ -28,22 +28,12 @@ export const Icon = styled.i`
   }
 
   ${(props: IconProps) =>
-    props.currency === Currencies.BTC &&
+    props.coin === Coins.BTC &&
     `
     background-image: url(${btcIcon});    
     
     &:before {
       background: #FF8A00;
-    }
-  `}
-
-  ${(props: IconProps) =>
-    props.currency === Currencies.STX &&
-    `
-    background-image: url(${stxIcon});    
-    
-    &:before {
-      background: #1313F0;
     }
   `}
   

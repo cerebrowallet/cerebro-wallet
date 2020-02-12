@@ -1,7 +1,33 @@
+export enum Coins {
+  BTC = 'BTC',
+}
+
 export enum Currencies {
-  BTC = 'btc',
-  STX = 'stx',
-  USD = 'usd',
+  BTC = 'BTC',
+  USD = 'USD',
+  EUR = 'EUR',
+  CNY = 'CNY',
+  GBP = 'GBP',
+  RUB = 'RUB',
+  HKD = 'HKD',
+  INR = 'INR',
+  JPY = 'JPY',
+  PKR = 'PKR',
+  SEK = 'SEK',
+}
+
+export enum CurrencySymbols {
+  BTC = 'BTC',
+  USD = '$',
+  EUR = '€',
+  CNY = '¥',
+  GBP = '£',
+  RUB = '₽',
+  HKD = 'HK$',
+  INR = '₹',
+  JPY = '¥',
+  PKR = '₨',
+  SEK = 'kr'
 }
 
 export enum NotificationTypes {

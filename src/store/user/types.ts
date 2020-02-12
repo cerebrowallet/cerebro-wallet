@@ -1,6 +1,6 @@
 import { UserData } from 'blockstack/lib/auth/authApp';
 
-import { Currencies, Genders, Statuses } from '../../enums';
+import { Currencies, Genders, Statuses } from '../../dictionaries';
 
 export enum UserActionTypes {
   LOG_IN = '@@user/log_in',

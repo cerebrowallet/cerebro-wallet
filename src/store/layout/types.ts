@@ -1,4 +1,4 @@
-import { NotificationTypes } from '../../enums';
+import { NotificationTypes } from '../../dictionaries';
 
 export type ThemeColors = 'light' | 'dark';
 

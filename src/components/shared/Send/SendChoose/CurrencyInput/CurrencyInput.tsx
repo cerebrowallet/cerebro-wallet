@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Currencies } from '../../../../../enums';
+import { Currencies } from '../../../../../dictionaries';
 
 import { Container } from './styled';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonColors } from '../../../enums';
+import { ButtonColors } from '../../../dictionaries';
 import { BlackButton, RedButton } from './styled';
 
 interface Props {

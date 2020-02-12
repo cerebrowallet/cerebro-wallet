@@ -23,7 +23,7 @@ import {
   NotificationTypes,
   Statuses,
   TimeOuts,
-} from '../../enums';
+} from '../../dictionaries';
 
 function* getData({
   file,
@@ -40,6 +40,10 @@ function* getData({
 }): SagaIterator {
   try {
     let data = yield call(getFile, file);
+
+    if (!data) {
+      debugger;
+    }
 
     if (!data) {
       data = initialState;

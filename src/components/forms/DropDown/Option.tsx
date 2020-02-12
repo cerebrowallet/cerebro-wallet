@@ -21,8 +21,8 @@ const Option: React.FC = (props: any) => {
         <selectProps.optionComponent {...data} />
       ) : (
         <Value
-          label={data.label}
-          value={data.value}
+          name={data.name}
+          id={data.id}
           showValue={selectProps.showValue}
         />
       )}

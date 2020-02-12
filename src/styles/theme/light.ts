@@ -1,6 +1,6 @@
 import { Theme } from '../../utils/styled';
 import colors from '../colors/colors';
-import { ButtonColors } from '../../enums';
+import { ButtonColors } from '../../dictionaries';
 
 const lightTheme: Theme = {
   colors: {

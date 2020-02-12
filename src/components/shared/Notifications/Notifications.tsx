@@ -16,7 +16,7 @@ import {
   Button,
 } from './styled';
 import { removeNotification } from '../../../store/layout/actions';
-import { NotificationTypes } from '../../../enums';
+import { NotificationTypes } from '../../../dictionaries';
 
 const config = { tension: 125, friction: 20, precision: 0.1 };
 

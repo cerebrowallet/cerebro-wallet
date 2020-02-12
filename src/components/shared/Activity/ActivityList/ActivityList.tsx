@@ -2,7 +2,7 @@ import React from 'react';
 
 import Scrollbar from '../../Scrollbar/Scrollbar';
 import { SidebarTrackY } from '../../Scrollbar/styled';
-import { Currencies } from '../../../../enums';
+import { Coins } from '../../../../dictionaries';
 import Transaction from './Transaction/Transaction';
 import DayTotals from './DayTotals/DayTotals';
 import BlogPost from './BlogPost/BlogPost';
@@ -20,7 +20,7 @@ const ActivityList: React.FC = () => {
           />
           <Transaction
             transaction={{
-              currency: Currencies.BTC,
+              coin: Coins.BTC,
               hash: '307bf3bd...1c805593',
               comment: 'Transaction comment',
               amount: -103,
@@ -29,15 +29,7 @@ const ActivityList: React.FC = () => {
           />
           <Transaction
             transaction={{
-              currency: Currencies.STX,
-              hash: '307bf3bd...1c805593',
-              amount: 10,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <Transaction
-            transaction={{
-              currency: Currencies.BTC,
+              coin: Coins.BTC,
               hash: '307bf3bd...1c805593',
               comment: 'Transaction comment',
               amount: -84,
@@ -52,16 +44,7 @@ const ActivityList: React.FC = () => {
           <DayTotals amount={28} date={new Date('November 5, 2019 00:00:00')} />
           <Transaction
             transaction={{
-              currency: Currencies.STX,
-              hash: '307bf3bd...1c805593',
-              comment: 'Transaction comment',
-              amount: 25,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <Transaction
-            transaction={{
-              currency: Currencies.BTC,
+              coin: Coins.BTC,
               hash: '307bf3bd...1c805593',
               comment: 'Transaction comment',
               amount: -2,
@@ -74,7 +57,7 @@ const ActivityList: React.FC = () => {
           />
           <Transaction
             transaction={{
-              currency: Currencies.BTC,
+              coin: Coins.BTC,
               hash: '307bf3bd...1c805593',
               comment: 'Transaction comment',
               amount: -4,
@@ -83,7 +66,7 @@ const ActivityList: React.FC = () => {
           />
           <Transaction
             transaction={{
-              currency: Currencies.BTC,
+              coin: Coins.BTC,
               hash: '307bf3bd...1c805593',
               comment: 'Transaction comment',
               amount: 2,

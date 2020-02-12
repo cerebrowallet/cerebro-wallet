@@ -71,7 +71,7 @@ export const AddAccountButton = styled(Link)`
   }
 `;
 
-export const Account = styled(IconButton)`
+export const AccountItem = styled(IconButton)`
   border: 0;
   background: none;
   display: flex;

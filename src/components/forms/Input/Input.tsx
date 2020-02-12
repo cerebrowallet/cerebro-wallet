@@ -3,7 +3,7 @@ import { Field, FieldProps } from 'formik';
 
 import { InputError } from '../InputError';
 import { InputElement, TextArea, Wrapper } from './styled';
-import { Statuses } from '../../../enums';
+import { Statuses } from '../../../dictionaries';
 
 interface Props {
   name: string;

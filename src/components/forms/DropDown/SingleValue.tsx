@@ -21,8 +21,8 @@ const SingleValue = (props: any) => {
         <selectProps.valueComponent {...data} />
       ) : (
         <Value
-          label={data.label}
-          value={data.value}
+          name={data.name}
+          id={data.id}
           showValue={selectProps.showValue}
         />
       )}

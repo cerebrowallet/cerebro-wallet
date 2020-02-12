@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Statuses } from '../../../enums';
+import { Statuses } from '../../../dictionaries';
 import { Theme } from '../../../utils/styled';
 
 export const Wrapper = styled.div`

@@ -8,7 +8,7 @@ import {
 } from 'react-router';
 import styled from 'styled-components';
 
-import { Breakpoints } from '../../enums';
+import { Breakpoints } from '../../dictionaries';
 import { useWindowSize } from '../../utils/hooks';
 
 import { ContainerOneCol, ContainerTwoCols } from '../layout/Container';
@@ -97,7 +97,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             </Route>
           )}
           <Route exact path={`${match.url}/details`}>
-            <Details />
+            <Details accountId={match.params.accountId} />
           </Route>
           <Route exact path={`${match.url}/receive`}>
             <TopUpAccount account={match.params.accountId} />

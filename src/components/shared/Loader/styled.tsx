@@ -11,6 +11,15 @@ const animation = keyframes`
 
 export const Wrapper = styled.div`
   display: inline-block;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin-top: ${(props: { withMargin: boolean }) =>
+    props.withMargin ? '1rem' : '0rem'};
+`;
+
+export const Circle = styled.div`
+  display: inline-block;
   position: relative;
   width: 1.5625rem;
   height: 1.5625rem;

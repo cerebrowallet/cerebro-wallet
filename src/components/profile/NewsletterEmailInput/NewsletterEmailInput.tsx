@@ -6,8 +6,8 @@ import { Button, Container, SubscribeStatus } from './styled';
 import { getSettings } from '../../../store/user/selectors';
 import { InputElement } from '../../forms/Input/styled';
 import { subscribeOnNews } from '../../../store/user/actions';
-import { Statuses } from '../../../enums';
-import Loader from './Loader/Loader';
+import { Statuses } from '../../../dictionaries';
+import Loader from '../../shared/Loader/Loader';
 
 const NewsletterEmailInput: React.FC = () => {
   const settings = useSelector(getSettings);

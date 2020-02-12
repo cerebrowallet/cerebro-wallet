@@ -1,22 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Shield as ShieldIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 
-import { COINS } from '../../dummyData';
+import { getCoinsList } from '../../store/user/selectors';
 
 import Page from '../layout/Page/Page';
 import CoinDropDown from '../forms/DropDown/CoinDropDown';
 import FormGroup from '../forms/FormGroup/FormGroup';
 import Input from '../forms/Input/Input';
 import Button from '../forms/Button/Button';
-import WhiteBlock from "../shared/WhiteBlock";
-
-const OPTIONS = COINS.map(coin => ({
-  label: coin.name,
-  value: coin.code,
-}));
+import WhiteBlock from '../shared/WhiteBlock';
 
 const ImportPrivateKey: React.FC = () => {
+  const coins = useSelector(getCoinsList);
+
   return (
     <Page
       headerText="Import Private Key"
@@ -24,14 +22,14 @@ const ImportPrivateKey: React.FC = () => {
       FooterIcon={ShieldIcon}
     >
       <Formik
-        initialValues={{ account: OPTIONS[0], key: '', accountName: '' }}
+        initialValues={{ account: coins[0], key: '', accountName: '' }}
         onSubmit={() => {}}
       >
         {() => (
           <Form>
             <WhiteBlock>
               <FormGroup label="Choose a coin">
-                <CoinDropDown name="account" options={OPTIONS} />
+                <CoinDropDown name="account" options={coins} />
               </FormGroup>
               <FormGroup label="Private Key, Mnemonic, WIF or XPRV">
                 <Input
@@ -45,9 +43,7 @@ const ImportPrivateKey: React.FC = () => {
               <FormGroup label="Account name">
                 <Input name="accountName" placeholder="My Bitcoin (optional)" />
               </FormGroup>
-              <Button type="submit">
-                Import
-              </Button>
+              <Button type="submit">Import</Button>
             </WhiteBlock>
           </Form>
         )}

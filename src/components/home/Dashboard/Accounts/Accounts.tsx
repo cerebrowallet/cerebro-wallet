@@ -1,19 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Plus as PlusIcon } from 'react-feather';
 
-import Scrollbar from '../../../shared/Scrollbar/Scrollbar';
-import { ACCOUNTS } from '../../../../dummyData';
-import CurrencyIcon from '../../../shared/CurrencyIcon/CurrencyIcon';
+import { getAccountsList } from '../../../../store/account/selectors';
+import { Account } from '../../../../store/account/types';
+
 import {
   AccountsContainer,
   Header,
-  Account,
+  AccountItem,
   AddAccountButton,
   Title,
   ScrollbarTrackY,
 } from './styled';
 
+import Scrollbar from '../../../shared/Scrollbar/Scrollbar';
+import CurrencyIcon from '../../../shared/CurrencyIcon/CurrencyIcon';
+import { config } from '../../../../config';
+
 const Accounts: React.FC = () => {
+  const accounts: Account[] = useSelector(getAccountsList);
+
   return (
     <AccountsContainer>
       <Header>
@@ -23,15 +30,13 @@ const Accounts: React.FC = () => {
         </AddAccountButton>
       </Header>
       <Scrollbar TrackY={ScrollbarTrackY}>
-        {ACCOUNTS.map((account, i) => (
-          <Account
+        {accounts.map((account, i) => (
+          <AccountItem
             key={`${account.address}-${i}`}
-            icon={<CurrencyIcon currency={account.currency} size="lg" />}
-            link={`/account/${account.address}`}
+            icon={<CurrencyIcon coin={account.coin} size="lg" />}
+            link={`/account/${account.id}`}
             text={account.name}
-            descText={`${
-              account.balance
-            } ${account.currency.toUpperCase()} / $100`}
+            descText={`${account.balance} ${config.coins[account.coin.toUpperCase()].abbr} / $100`}
           />
         ))}
       </Scrollbar>

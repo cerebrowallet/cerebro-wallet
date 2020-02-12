@@ -1,6 +1,9 @@
 import React from 'react';
 import { Share2 as ShareIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
+import { useSelector } from 'react-redux';
+
+import { getAccountsList } from '../../../store/account/selectors';
 
 import FormGroup from '../../forms/FormGroup/FormGroup';
 import QRCode from './QRCode/QRCode';
@@ -10,13 +13,13 @@ import Page from '../../layout/Page/Page';
 import HashText from '../HashText/HashText';
 import WhiteBlock from '../WhiteBlock';
 
-import { ACCOUNTS_OPTIONS } from '../../../dummyData';
-
 interface Props {
   account?: string;
 }
 
 const TopUpAccount: React.FC<Props> = ({ account }) => {
+  const accounts = useSelector(getAccountsList);
+
   return (
     <Page
       headerText="Top up account"
@@ -35,7 +38,7 @@ const TopUpAccount: React.FC<Props> = ({ account }) => {
               <Form>
                 <FormGroup label="Account" className="form-group--no-margin">
                   <DropDown
-                    options={ACCOUNTS_OPTIONS}
+                    options={accounts}
                     name="account"
                     onChange={() => {}}
                   />

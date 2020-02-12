@@ -27,7 +27,7 @@ const SIGN_IN_FEATURES = [
   {
     header: 'MultiCurrency solution',
     text:
-      'Cerebro Wallet supports Bitcoin (BTC), Blockstack (STX) and fiat currencies, including USD, EUR, GBP, CNY, HKD, INR, JPY, PKR, SEK and other.',
+      'Cerebro Wallet supports Bitcoin (BTC), Blockstack (STX) and fiat wallets, including USD, EUR, GBP, CNY, HKD, INR, JPY, PKR, SEK and other.',
   },
 ];
 

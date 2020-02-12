@@ -34,7 +34,7 @@ const ExportPrivateKey: React.FC = () => {
                 <DropDown
                   name="format"
                   required
-                  options={[{ label: 'WIF', value: 'wif' }]}
+                  options={[{ id: 'WIF', name: 'wif' }]}
                 />
               </FormGroup>
               <Button type="submit">Next</Button>

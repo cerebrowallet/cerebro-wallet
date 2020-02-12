@@ -15,9 +15,9 @@ import SingleValue from './SingleValue';
 import MenuList from './MenuList';
 import { InputError } from '../InputError';
 
-interface Value {
-  value: string | number;
-  label: string;
+export interface Value {
+  id: string | number;
+  name: string;
 }
 
 interface Props {
@@ -83,7 +83,7 @@ const DropDown: React.FC<Props> = ({
     >
       {({
         field: { value },
-        form: { setFieldValue, setFieldTouched },
+        form: { setFieldValue },
         meta: { touched, error },
       }: FieldProps) => (
         <DropDownWrapper>
@@ -97,6 +97,8 @@ const DropDown: React.FC<Props> = ({
                 onChange(selectedValue);
               }
             }}
+            getOptionLabel={(option: Value) => option.name}
+            getOptionValue={(option: Value) => option.id}
             options={options}
             placeholder={placeholder}
             showValue={showValue}

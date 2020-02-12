@@ -1,10 +1,11 @@
 import {
   Eye as EyeIcon,
-  Filter as FilterIcon, Key as KeyIcon,
+  Filter as FilterIcon,
+  Key as KeyIcon,
   Navigation as NavigationIcon,
   Plus as PlusIcon,
-  Repeat as RepeatIcon
-} from "react-feather";
+  Repeat as RepeatIcon,
+} from 'react-feather';
 
 export const FEATURES = [
   {
@@ -33,7 +34,7 @@ export const FEATURES = [
   },
 ];
 
-export const CREATE_ACCOUNT_ACTIONS = [
+export const MANAGE_ACCOUNT_ACTIONS = [
   {
     link: '/account/create',
     text: 'Create a new account',
@@ -49,7 +50,7 @@ export const CREATE_ACCOUNT_ACTIONS = [
   {
     link: '/account/import-public-address',
     text: 'Import Public Address',
-    descText: 'See what is happening to it',
+    descText: 'Import Public Address',
     icon: EyeIcon,
   },
 ];
