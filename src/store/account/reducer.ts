@@ -23,7 +23,7 @@ const reducer: Reducer<AccountState> = (
           return draft;
         }
 
-        draft.accounts = normalizeArray(action.payload, 'id');
+        draft.accounts = action.payload;
         break;
       case AccountActionTypes.SET_EXCHANGE_RATES:
         draft.rates = action.payload;

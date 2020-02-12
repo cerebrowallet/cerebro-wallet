@@ -109,7 +109,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <Exchange />
           </Route>
           <Route exact path={`${match.url}/rename`}>
-            <Rename />
+            <Rename accountId={match.params.accountId} />
           </Route>
           <Route exact path={`${match.url}/explorer`}>
             Explorer
