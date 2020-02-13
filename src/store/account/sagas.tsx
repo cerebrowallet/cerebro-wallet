@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import { produce } from 'immer';
-import { push } from 'connected-react-router'
+import { push } from 'connected-react-router';
 
 import { AccountActionTypes, Accounts, Account } from './types';
 import { getFile, putFile } from '../../utils/blockstack';

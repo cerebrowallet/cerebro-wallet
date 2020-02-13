@@ -1,8 +1,11 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import { Account } from '../../../store/account/types';
 import { ButtonColors } from '../../../dictionaries';
+import { showNotification } from '../../../store/layout/actions';
+import { NotificationTypes } from '../../../dictionaries';
 
 import { Header, Content, Footer, BackButton } from './styled';
 
@@ -26,13 +29,22 @@ const ConfirmModal: React.FC<Props> = ({
   description,
   confirmBtnColor,
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{ name: '' }}
       enableReinitialize
       onSubmit={(values: { name: string }) => {
-        if (values.name === account.name) {
+        if (values.name.trim() === account.name.trim()) {
           onConfirm();
+        } else {
+          dispatch(
+            showNotification({
+              type: NotificationTypes.Error,
+              text: 'Invalid account name, try again.',
+            })
+          );
         }
       }}
     >

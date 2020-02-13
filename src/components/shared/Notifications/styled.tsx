@@ -9,6 +9,7 @@ export const Container = styled.div`
   height: auto;
   width: 100%;
   max-width: 21rem;
+  z-index: 1000;
 `;
 
 export const Notification = styled(animated.div)`
@@ -20,7 +21,7 @@ export const Notification = styled(animated.div)`
 const Content = styled.div`
   font-size: 0.875rem;
   line-height: 1.125rem;
-  padding: 0.6875rem 1.25rem;
+  padding: 0.6875rem 2rem 0.6875rem 1.25rem;
   border-radius: 0.625rem;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
 `;

@@ -18,6 +18,20 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
     height: 100%;
     will-change: transform, opacity;
   }
+  
+  p a {
+    text-decoration: none;
+    color: ${props => props.theme.colors.secondary};
+    transition: color .15s ease-in;
+    
+    &:hover {
+      color: #4E6B81;
+    }
+    
+    &:active {
+      color: #1B242A;
+    }
+  }
  `;
 
 export default Globals;
