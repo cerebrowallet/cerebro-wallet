@@ -7,7 +7,7 @@ import { userSession } from './utils/blockstack';
 import AuthenticatedWrapper from './components/auth/AuthenticatedWrapper';
 import Home from './components/home/Home';
 import Features from './components/features/Features';
-import Account from './components/account/Account';
+import Account from './components/account/Account/Account';
 import Profile from './components/profile/Profile';
 import MyAccounts from './components/shared/MyAccounts/MyAccounts';
 import Auth from './components/auth/Auth';

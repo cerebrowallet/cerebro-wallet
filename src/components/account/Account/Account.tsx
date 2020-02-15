@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Switch,
   Route,
@@ -6,57 +7,38 @@ import {
   withRouter,
   Redirect,
 } from 'react-router';
-import styled from 'styled-components';
 
-import { Breakpoints } from '../../dictionaries';
-import { useWindowSize } from '../../utils/hooks';
+import { getAccountById } from '../../../store/account/selectors';
+import { Breakpoints } from '../../../dictionaries';
+import { useWindowSize } from '../../../utils/hooks';
+import { config } from '../../../config';
 
-import { ContainerOneCol, ContainerTwoCols } from '../layout/Container';
-import { ContentOneCol, ContentTwoCols } from '../layout/Content';
-import Sidebar from '../layout/Sidebar';
-import AccountsSidebar from './AccountsSidebar/AccountsSidebar';
-import AccountActions from './AccountActions/AccountActions';
-import Send from '../shared/Send/Send';
-import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
-import Exchange from '../shared/Exchange/Exchange';
-import Details from './Details/Details';
-import Activity from '../shared/Activity/Activity';
-import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
-import Rename from './Rename';
-import ExportPrivateKey from './ExportPrivateKey';
-import DeleteAccount from './DeleteAccount';
-import CreateAccount from './CreateAccount';
-import ImportPrivateKey from './ImportPrivateKey';
-import ImportPublicAddress from './ImportPublicAddress';
-import CornerCloseButton from '../shared/CornerCloseButton/CornerCloseButton';
+import { AccountSidebar, AccountCornerCloseButton } from './styled';
+import { ContainerOneCol, ContainerTwoCols } from '../../layout/Container';
+import { ContentOneCol, ContentTwoCols } from '../../layout/Content';
 
-const AccountSidebar = styled(Sidebar)`
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
-    background: none;
-  }
-
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
-    background: ${props => props.theme.colors.blockBackground};
-  }
-`;
-
-const AccountCornerCloseButton = styled(CornerCloseButton)`
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
-    top: 1.25rem;
-    right: 0.625rem;
-  }
-
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
-    top: 2.625rem;
-    right: 1.25rem;
-  }
-`;
+import AccountsSidebar from '../AccountsSidebar/AccountsSidebar';
+import AccountActions from '../AccountActions/AccountActions';
+import Send from '../../shared/Send/Send';
+import TopUpAccount from '../../shared/TopUpAccount/TopUpAccount';
+import Exchange from '../../shared/Exchange/Exchange';
+import Details from '../Details/Details';
+import Activity from '../../shared/Activity/Activity';
+import TransactionDetails from '../../shared/TransactionDetails/TransactionDetails';
+import Rename from '../Rename';
+import ExportPrivateKey from '../ExportPrivateKey';
+import DeleteAccount from '../DeleteAccount';
+import CreateAccount from '../CreateAccount';
+import ImportPrivateKey from '../ImportPrivateKey';
+import ImportPublicAddress from '../ImportPublicAddress';
+import Loader from '../../shared/Loader/Loader';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
 }) => {
   const windowSize = useWindowSize();
   const { accountId } = match.params;
+  const account = useSelector(getAccountById(accountId));
 
   if (/(create|import)/.test(accountId)) {
     return (
@@ -84,13 +66,17 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           </Route>
         </AccountSidebar>
       </ContainerOneCol>
-    )
+    );
+  }
+
+  if (!account) {
+    return <Loader withMargin />;
   }
 
   return (
     <ContainerTwoCols>
       <ContentTwoCols>
-        <AccountActions />
+        <AccountActions accountId={accountId} />
         <Switch>
           {windowSize.width > Breakpoints.md && match.params.accountId && (
             <Route exact path={match.url}>
@@ -113,7 +99,11 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <Rename accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/explorer`}>
-            Explorer
+            <a
+              href={`${config.coins[account.coin].explorer}/address/${account.address}`}
+            >
+              Explorer
+            </a>
           </Route>
           <Route exact path={`${match.url}/export-private-key`}>
             <ExportPrivateKey accountId={accountId} />
