@@ -11,13 +11,21 @@ import {
   Trash as TrashIcon,
 } from 'react-feather';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import { Breakpoints } from '../../../dictionaries';
 import { useWindowSize } from '../../../utils/hooks';
 import { ActionButton } from './styled';
+import { getAccountById } from '../../../store/account/selectors';
+import { config } from '../../../config';
 
-const AccountActions: React.FC<RouteComponentProps<{}>> = ({ match }) => {
+interface Props extends RouteComponentProps {
+  accountId: string;
+}
+
+const AccountActions: React.FC<Props> = ({ match, accountId }) => {
   const windowSize = useWindowSize();
+  const account = useSelector(getAccountById(accountId));
 
   if (windowSize.width < Breakpoints.md && !match.isExact) {
     return null;
@@ -62,7 +70,7 @@ const AccountActions: React.FC<RouteComponentProps<{}>> = ({ match }) => {
         descText="Unique account name"
       />
       <ActionButton
-        link={`${match.url}/explorer`}
+        link={`${config.coins[account.coin].explorer}/address/${account.address}`}
         icon={<LinkIcon />}
         text="Blockexplorer"
         descText="Show public information"

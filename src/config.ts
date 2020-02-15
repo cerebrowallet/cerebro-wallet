@@ -5,6 +5,7 @@ export interface Config {
     [id: string]: {
       name: string;
       abbr: Coins;
+      explorer: string;
     };
   };
   networks: {
@@ -35,6 +36,7 @@ const config: Config = {
     BTC: {
       name: 'Bitcoin',
       abbr: Coins.BTC,
+      explorer: 'https://live.blockcypher.com/btc',
     },
   },
   networks: {
