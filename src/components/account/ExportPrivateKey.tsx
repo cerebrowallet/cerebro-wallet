@@ -23,6 +23,10 @@ const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
 
   const hideModal = () => setShowModal(false);
 
+  if (!account) {
+    return null;
+  }
+
   return (
     <Page
       headerText="Export Private Kay"

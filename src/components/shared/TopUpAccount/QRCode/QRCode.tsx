@@ -1,12 +1,16 @@
 import React from 'react';
+import ReactQRCode from 'qrcode.react';
 
-import qrCodePlaceholder from '../../../../images/qr-code-placeholder.png';
 import { Figure } from './styled';
 
-const QRCode: React.FC = () => {
+interface Props {
+  address: string;
+}
+
+const QRCode: React.FC<Props> = ({ address }) => {
   return (
     <Figure>
-      <img src={qrCodePlaceholder} alt="" />
+      <ReactQRCode value={address} />
     </Figure>
   );
 };

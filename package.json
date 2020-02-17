@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/jest": "24.0.22",
     "@types/node": "12.12.6",
+    "@types/qrcode.react": "^1.0.0",
     "@types/react": "16.9.11",
     "@types/react-custom-scrollbars": "^4.0.6",
     "@types/react-dom": "16.9.4",
@@ -21,6 +22,7 @@
     "date-fns": "^2.8.1",
     "formik": "^2.0.4",
     "immer": "^5.0.1",
+    "qrcode.react": "^1.0.0",
     "react": "^16.11.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^1.9.10",

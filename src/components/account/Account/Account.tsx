@@ -87,7 +87,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <Details accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/receive`}>
-            <TopUpAccount account={accountId} />
+            <TopUpAccount accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/send`}>
             <Send account={accountId} />

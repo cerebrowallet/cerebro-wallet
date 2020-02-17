@@ -27,7 +27,7 @@ const AccountActions: React.FC<Props> = ({ match, accountId }) => {
   const windowSize = useWindowSize();
   const account = useSelector(getAccountById(accountId));
 
-  if (windowSize.width < Breakpoints.md && !match.isExact) {
+  if (!account || (windowSize.width < Breakpoints.md && !match.isExact)) {
     return null;
   }
 

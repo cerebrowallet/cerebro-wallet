@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Share2 as ShareIcon } from 'react-feather';
 import { Formik, Form } from 'formik';
 import { useSelector } from 'react-redux';
 
-import { getAccountsList } from '../../../store/account/selectors';
+import {
+  getAccountsList,
+  getAccountById,
+} from '../../../store/account/selectors';
 
 import FormGroup from '../../forms/FormGroup/FormGroup';
 import QRCode from './QRCode/QRCode';
@@ -14,11 +17,19 @@ import HashText from '../HashText/HashText';
 import WhiteBlock from '../WhiteBlock';
 
 interface Props {
-  account?: string;
+  accountId?: string;
 }
 
-const TopUpAccount: React.FC<Props> = ({ account }) => {
+const TopUpAccount: React.FC<Props> = ({ accountId }) => {
   const accounts = useSelector(getAccountsList);
+  const [selectedAccountId, setSelectedAccountId] = useState<
+    string | undefined
+  >(undefined);
+  const account = useSelector(getAccountById(selectedAccountId));
+
+  useEffect(() => {
+    setSelectedAccountId(accountId);
+  }, [accountId]);
 
   return (
     <Page
@@ -26,11 +37,11 @@ const TopUpAccount: React.FC<Props> = ({ account }) => {
       FooterIcon={ShareIcon}
       footerText="Instantly send money with custom fee to anyone or own wallet."
     >
-      {!account && (
+      {!accountId && (
         <WhiteBlock>
           <Formik
             initialValues={{
-              account: null,
+              accountId: accountId || null,
             }}
             onSubmit={() => {}}
           >
@@ -39,8 +50,12 @@ const TopUpAccount: React.FC<Props> = ({ account }) => {
                 <FormGroup label="Account" className="form-group--no-margin">
                   <DropDown
                     options={accounts}
-                    name="account"
-                    onChange={() => {}}
+                    name="accountId"
+                    onChange={({ id }) => {
+                      if (typeof id === 'string') {
+                        setSelectedAccountId(id);
+                      }
+                    }}
                   />
                 </FormGroup>
               </Form>
@@ -48,13 +63,19 @@ const TopUpAccount: React.FC<Props> = ({ account }) => {
           </Formik>
         </WhiteBlock>
       )}
-      <QRCode />
-      <LabeledText label="Public address">
-        <HashText breakAll>1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>
-      </LabeledText>
-      <LabeledText label="Legacy format" canCopyText>
-        <HashText breakAll>afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>
-      </LabeledText>
+      {account && (
+        <>
+          <QRCode address={account.address} />
+          <LabeledText label="Public address">
+            <HashText breakAll>{account.address}</HashText>
+          </LabeledText>
+          <LabeledText label="Legacy format" canCopyText>
+            <HashText breakAll>
+              afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19
+            </HashText>
+          </LabeledText>
+        </>
+      )}
     </Page>
   );
 };

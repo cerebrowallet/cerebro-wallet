@@ -24,10 +24,10 @@ export const getAccountsList = createSelector(
       return l;
     }, [])
 );
-export const getAccountById = (accountId: string) =>
+export const getAccountById = (accountId?: string) =>
   createSelector(
     getAccounts,
-    accounts => accounts.byIds[accountId] || null
+    accounts => (accountId ? accounts.byIds[accountId] : null)
   );
 export const getExchangeRates = (state: ApplicationState) =>
   state.account.rates;
