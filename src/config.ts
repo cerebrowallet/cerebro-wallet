@@ -36,7 +36,7 @@ const config: Config = {
     BTC: {
       name: 'Bitcoin',
       abbr: Coins.BTC,
-      explorer: 'https://live.blockcypher.com/btc',
+      explorer: 'https://testnet.blockexplorer.com',
     },
   },
   networks: {
