@@ -10,6 +10,7 @@ import { Account } from '../../../../store/account/types';
 import { config } from '../../../../config';
 import { getSettings } from '../../../../store/user/selectors';
 import { CurrencySymbols } from '../../../../dictionaries';
+import { round } from '../../../../utils/common';
 
 import {
   AccountsContainer,
@@ -47,7 +48,9 @@ const Accounts: React.FC = () => {
               config.coins[account.coin].abbr
             } / ${settings.currency && CurrencySymbols[settings.currency]}${
               rates && settings.currency
-                ? account.balance * rates[account.coin][settings.currency]
+                ? round(
+                    account.balance * rates[account.coin][settings.currency]
+                  )
                 : 0
             }`}
           />

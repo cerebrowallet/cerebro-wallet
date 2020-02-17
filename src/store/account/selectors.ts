@@ -4,6 +4,7 @@ import { ApplicationState } from '../index';
 import { Account } from './types';
 import { Currencies, Coins } from '../../dictionaries';
 import { getSettings } from '../user/selectors';
+import { round } from '../../utils/common';
 
 export const getAccounts = (state: ApplicationState) => state.account.accounts;
 export const getAccountsList = createSelector(
@@ -50,11 +51,13 @@ export const getTotalBalance = (currency?: Currencies) =>
         return 0;
       }
 
-      return accounts.allIds.reduce((acc, accountId) => {
-        let balance = acc;
-        const account = accounts.byIds[accountId];
-        balance += account.balance * rates[account.coin][currency];
-        return balance;
-      }, 0);
+      return round(
+        accounts.allIds.reduce((acc, accountId) => {
+          let balance = acc;
+          const account = accounts.byIds[accountId];
+          balance += account.balance * rates[account.coin][currency];
+          return balance;
+        }, 0)
+      );
     }
   );

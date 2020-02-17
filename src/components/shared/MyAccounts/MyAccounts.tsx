@@ -12,6 +12,7 @@ import { config } from '../../../config';
 import { MANAGE_ACCOUNT_ACTIONS } from '../../../menus';
 import { Wrapper, Content, Header, Grid, Button } from './styled';
 import { CurrencySymbols } from '../../../dictionaries';
+import { round } from '../../../utils/common';
 
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import AddAccountIcon from '../AddAccountIcon/AddAccountIcon';
@@ -72,7 +73,7 @@ const MyAccounts: React.FC = () => {
                   config.coins[item.coin].abbr
                 } / ${settings.currency && CurrencySymbols[settings.currency]}${
                   rates && settings.currency
-                    ? item.balance * rates[item.coin][settings.currency]
+                    ? round(item.balance * rates[item.coin][settings.currency])
                     : 0
                 }`}
               />

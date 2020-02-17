@@ -7,8 +7,10 @@ import { getFile, putFile } from '../../utils/blockstack';
 import { callApi } from '../../utils/api';
 import {
   createAccount as createAccountAction,
-  updateAccount as updateAccountAction,
+  updateAccountInGaia as updateAccountInGaiaAction,
   deleteAccount as deleteAccountAction,
+  getAccountBalance as getAccountBalanceAction,
+  updateAccount,
 } from './actions';
 import { config } from '../../config';
 import { createWallet } from '../../utils/wallets';
@@ -21,6 +23,7 @@ import { getCoinsList, getCurrenciesList } from '../user/selectors';
 import { Value } from '../../components/forms/DropDown/DropDown';
 import { showNotification } from '../layout/actions';
 import { NotificationTypes } from '../../dictionaries';
+import { toBTC } from '../../utils/common';
 
 function* getAccounts() {
   try {
@@ -39,6 +42,12 @@ function* getAccounts() {
     }
 
     yield put(setAccounts(accounts));
+
+    yield all(
+      accounts.allIds.map((accountId: string) =>
+        put(getAccountBalanceAction(accountId))
+      )
+    );
   } catch (e) {
     yield put(
       showNotification({
@@ -97,9 +106,9 @@ function* createAccount({ payload }: ReturnType<typeof createAccountAction>) {
   }
 }
 
-function* updateAccount({
+function* updateAccountInGaia({
   payload: { accountId, update },
-}: ReturnType<typeof updateAccountAction>) {
+}: ReturnType<typeof updateAccountInGaiaAction>) {
   try {
     yield put(
       showNotification({
@@ -217,13 +226,42 @@ function* getExchangeRates() {
   }
 }
 
+function* getAccountBalance({
+  payload: accountId,
+}: ReturnType<typeof getAccountBalanceAction>) {
+  try {
+    const account = yield select(getAccountById(accountId));
+    const getBalanceUrl = config.coins[account.coin].apiUrls.getBalance(
+      account.address
+    );
+
+    const balance = yield call(callApi, {
+      method: 'get',
+      url: getBalanceUrl,
+    });
+
+    yield put(
+      updateAccount({
+        accountId,
+        update: {
+          balance: toBTC(balance),
+        },
+      })
+    );
+  } catch (e) {
+    // TODO log error
+    console.error(e);
+  }
+}
+
 function* accountSaga() {
   yield all([
     takeLatest(AccountActionTypes.GET_ACCOUNTS, getAccounts),
     takeLatest(AccountActionTypes.CREATE_ACCOUNT, createAccount),
     takeLatest(AccountActionTypes.GET_EXCHANGE_RATES, getExchangeRates),
-    takeLatest(AccountActionTypes.UPDATE_ACCOUNT, updateAccount),
+    takeLatest(AccountActionTypes.UPDATE_ACCOUNT_IN_GAIA, updateAccountInGaia),
     takeLatest(AccountActionTypes.DELETE_ACCOUNT, deleteAccount),
+    takeLatest(AccountActionTypes.GET_ACCOUNT_BALANCE, getAccountBalance),
   ]);
 }
 

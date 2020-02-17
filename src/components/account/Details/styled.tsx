@@ -46,22 +46,10 @@ export const BalanceInCrypto = styled.div`
   white-space: nowrap;
 `;
 
-export const BalanceInDollars = styled.div`
+export const BalanceInLocalCurrency = styled.div`
   font-size: 1.125rem;
   line-height: 1.375rem;
   color: ${props => props.theme.colors.secondary};
-`;
-
-export const UpdateBalance = styled.button`
-  border: 0;
-  background: none;
-  cursor: pointer;
-
-  svg {
-    width: 0.875rem;
-    height: 0.875rem;
-    color: ${props => props.theme.colors.secondary};
-  }
 `;
 
 export const Addresses = styled.div`

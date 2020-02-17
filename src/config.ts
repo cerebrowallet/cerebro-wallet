@@ -6,6 +6,9 @@ export interface Config {
       name: string;
       abbr: Coins;
       explorer: string;
+      apiUrls: {
+        getBalance: (address: string) => string;
+      };
     };
   };
   networks: {
@@ -37,6 +40,10 @@ const config: Config = {
       name: 'Bitcoin',
       abbr: Coins.BTC,
       explorer: 'https://testnet.blockexplorer.com',
+      apiUrls: {
+        getBalance: (address: string) =>
+          `https://testnet.blockexplorer.com/api/addr/${address}/balance`,
+      },
     },
   },
   networks: {
@@ -70,7 +77,7 @@ const config: Config = {
       accounts: 'accounts.json',
     },
   },
-  coursesApiUrl: 'https://min-api.cryptocompare.com/data/pricemulti'
+  coursesApiUrl: 'https://min-api.cryptocompare.com/data/pricemulti',
 };
 
 export { config };

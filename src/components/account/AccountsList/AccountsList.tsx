@@ -10,13 +10,14 @@ import {
 import { config } from '../../../config';
 import { getSettings } from '../../../store/user/selectors';
 import { CurrencySymbols } from '../../../dictionaries';
+import { round } from '../../../utils/common';
 
 import { Account } from '../../../store/account/types';
 import CurrencyIcon from '../../shared/CurrencyIcon/CurrencyIcon';
 import AddAccountIcon from '../../shared/AddAccountIcon/AddAccountIcon';
 import { Wrapper, AccountsSidebarMenu } from './styled';
 
-const AccountsSidebar: React.FC = () => {
+const AccountsList: React.FC = () => {
   const accounts: Account[] = useSelector(getAccountsList);
   const rates = useSelector(getExchangeRates);
   const settings = useSelector(getSettings);
@@ -31,7 +32,7 @@ const AccountsSidebar: React.FC = () => {
         config.coins[account.coin].abbr
       } / ${settings.currency && CurrencySymbols[settings.currency]}${
         rates && settings.currency
-          ? account.balance * rates[account.coin][settings.currency]
+          ? round(account.balance * rates[account.coin][settings.currency])
           : 0
       }`,
       icon: account.coin && <CurrencyIcon coin={account.coin} size="large" />,
@@ -57,4 +58,4 @@ const AccountsSidebar: React.FC = () => {
   );
 };
 
-export default AccountsSidebar;
+export default AccountsList;

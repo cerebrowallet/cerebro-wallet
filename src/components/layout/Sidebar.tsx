@@ -14,4 +14,14 @@ const Sidebar = styled.aside`
   }
 `;
 
+export const AccountSidebar = styled(Sidebar)`
+  @media (min-width: ${props => props.theme.breakpoints.md}) {
+    background: none;
+  }
+
+  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+    background: ${props => props.theme.colors.blockBackground};
+  }
+`;
+
 export default Sidebar;

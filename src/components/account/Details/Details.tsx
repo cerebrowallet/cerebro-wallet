@@ -1,5 +1,4 @@
 import React from 'react';
-import { RotateCw as RotateIcon } from 'react-feather';
 import { useSelector } from 'react-redux';
 
 import { config } from '../../../config';
@@ -7,6 +6,9 @@ import {
   getAccountById,
   getExchangeRates,
 } from '../../../store/account/selectors';
+import { round } from '../../../utils/common';
+import { getSettings } from '../../../store/user/selectors';
+import { CurrencySymbols } from '../../../dictionaries';
 
 import {
   WhiteBlockDetails,
@@ -14,18 +16,16 @@ import {
   Icon,
   Balance,
   BalanceInCrypto,
-  UpdateBalance,
-  BalanceInDollars,
+  BalanceInLocalCurrency,
   Addresses,
 } from './styled';
 
+import UpdateBalance from './UpdateBalance/UpdateBalance';
 import Loader from '../../shared/Loader/Loader';
 import LabeledText from '../../shared/LabeledText/LabeledText';
 import HashText from '../../shared/HashText/HashText';
 import Chart from '../../shared/Chart/Chart';
 import Page from '../../layout/Page/Page';
-import { getSettings } from '../../../store/user/selectors';
-import { CurrencySymbols } from '../../../dictionaries';
 
 interface Props {
   accountId: string;
@@ -49,17 +49,15 @@ const Details: React.FC<Props> = ({ accountId }) => {
         </WalletName>
         <Balance>
           <BalanceInCrypto>
-            <UpdateBalance type="button">
-              <RotateIcon />
-            </UpdateBalance>
+            <UpdateBalance accountId={account.id} />
             {account.balance} {config.coins[account.coin].abbr}
           </BalanceInCrypto>
-          <BalanceInDollars>
+          <BalanceInLocalCurrency>
             {rates && settings.currency
-              ? account.balance * rates[account.coin][settings.currency]
+              ? round(account.balance * rates[account.coin][settings.currency])
               : 0}
             {settings.currency && CurrencySymbols[settings.currency]}
-          </BalanceInDollars>
+          </BalanceInLocalCurrency>
         </Balance>
       </WhiteBlockDetails>
       <Addresses>

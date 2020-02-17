@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik';
 import { AtSign as AtSignIcon } from 'react-feather';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updateAccount } from '../../store/account/actions';
+import { updateAccountInGaia } from '../../store/account/actions';
 import { getAccountById } from '../../store/account/selectors';
 
 import Page from '../layout/Page/Page';
@@ -39,7 +39,7 @@ const Rename: React.FC<Props> = ({ accountId }) => {
         onSubmit={(values: { name: string }) => {
           if (values.name !== account.name) {
             dispatch(
-              updateAccount({
+              updateAccountInGaia({
                 accountId,
                 update: {
                   name: values.name,

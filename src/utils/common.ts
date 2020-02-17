@@ -40,3 +40,10 @@ export function normalizeArray(
 export function isObject(object: any): boolean {
   return typeof object === 'object' && object !== null;
 }
+
+export const toSatoshi = (btc: number) => btc * 100000000;
+
+export const toBTC = (satoshi: number) => satoshi / 100000000;
+
+export const round = (number: number) =>
+  Math.round((number + Number.EPSILON) * 100) / 100;
