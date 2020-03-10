@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 
-import { Coins } from '../../dictionaries';
+import { Coins, Currencies } from '../../dictionaries';
 import {
   AccountActionTypes,
   Account,
@@ -29,3 +29,5 @@ export const getAccountDetails = (payload: string) =>
   action(AccountActionTypes.GET_ACCOUNT_DETAILS, payload);
 export const searchActivityByHash = (searchStr: string) =>
   action(AccountActionTypes.SEARCH_ACTIVITY_BY_HASH, searchStr);
+export const setTotalBalanceCurrency = (currency: Currencies) =>
+  action(AccountActionTypes.SET_TOTAL_BALANCE_CURRENCY, currency);

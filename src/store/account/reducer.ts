@@ -7,6 +7,7 @@ const initialState: AccountState = {
   accounts: null,
   rates: null,
   searchActivityStr: '',
+  totalBalanceCurrency: null,
 };
 
 const reducer: Reducer<AccountState> = (
@@ -38,6 +39,9 @@ const reducer: Reducer<AccountState> = (
         break;
       case AccountActionTypes.SEARCH_ACTIVITY_BY_HASH:
         draft.searchActivityStr = action.payload;
+        break;
+      case AccountActionTypes.SET_TOTAL_BALANCE_CURRENCY:
+        draft.totalBalanceCurrency = action.payload;
         break;
       default:
         return draft;

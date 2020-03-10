@@ -1,3 +1,5 @@
+import { Genders } from '../dictionaries';
+
 /**
  * Converts the given enum to a map of the keys to the values.
  * @param enumeration The enum to convert to a map.
@@ -15,6 +17,10 @@ export function enumToMap(enumeration: any): Map<string, string | number> {
   }
 
   return map;
+}
+
+export function enumToArray(enumeration: any): [string, string | number][] {
+  return Array.from(enumToMap(enumeration).entries());
 }
 
 export function normalizeArray(

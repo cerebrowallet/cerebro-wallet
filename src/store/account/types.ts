@@ -1,4 +1,4 @@
-import { Coins, ActivityTypes } from '../../dictionaries';
+import { Coins, ActivityTypes, Currencies } from '../../dictionaries';
 
 export enum AccountActionTypes {
   GET_ACCOUNTS = '@@account/get_accounts',
@@ -11,6 +11,7 @@ export enum AccountActionTypes {
   SET_EXCHANGE_RATES = '@@account/set_exchange_rates',
   GET_ACCOUNT_DETAILS = '@@account/get_account_details',
   SEARCH_ACTIVITY_BY_HASH = '@@account/search_activity_by_hash',
+  SET_TOTAL_BALANCE_CURRENCY = '@@account/set_total_balance_currency',
 }
 
 export interface Transaction {
@@ -54,6 +55,7 @@ export interface AccountState {
   accounts: Accounts | null;
   rates: ExchangeRates | null;
   searchActivityStr: string;
+  totalBalanceCurrency: Currencies | null;
 }
 
 export interface UpdateAccountActionPayload {

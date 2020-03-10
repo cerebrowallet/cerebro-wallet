@@ -12,6 +12,8 @@ import {
 import { getActivityFilters, getSettings, getUpdates } from '../user/selectors';
 import { groupBy, round } from '../../utils/common';
 
+export const getTotalBalanceCurrency = (state: ApplicationState) =>
+  state.account.totalBalanceCurrency;
 export const getAccounts = (state: ApplicationState) => state.account.accounts;
 export const getAccountsList = createSelector(
   getAccounts,
@@ -46,24 +48,23 @@ export const getExchangeRate = (coin: Coins, currency: Currencies) =>
     getExchangeRates,
     rates => rates && rates[coin][currency]
   );
-export const getTotalBalance = (currency?: Currencies) =>
-  createSelector(
-    [getAccounts, getExchangeRates],
-    (accounts, rates) => {
-      if (!accounts || !rates || !currency) {
-        return 0;
-      }
-
-      return round(
-        accounts.allIds.reduce((acc, accountId) => {
-          let balance = acc;
-          const account = accounts.byIds[accountId];
-          balance += account.balance * rates[account.coin][currency];
-          return balance;
-        }, 0)
-      );
+export const getTotalBalance = createSelector(
+  [getAccounts, getExchangeRates, getTotalBalanceCurrency],
+  (accounts, rates, currency) => {
+    if (!accounts || !rates || !currency) {
+      return 0;
     }
-  );
+
+    return round(
+      accounts.allIds.reduce((acc, accountId) => {
+        let balance = acc;
+        const account = accounts.byIds[accountId];
+        balance += account.balance * rates[account.coin][currency];
+        return balance;
+      }, 0)
+    );
+  }
+);
 export const getSearchByHashStr = (state: ApplicationState) =>
   state.account.searchActivityStr;
 export const getActivities = createSelector(

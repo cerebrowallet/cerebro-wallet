@@ -1,25 +1,41 @@
-import React from 'react';
-import { ChevronDown as ChevronDownIcon } from 'react-feather';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getTotalBalance } from '../../../../store/account/selectors';
+import { getTotalBalance, getTotalBalanceCurrency} from '../../../../store/account/selectors';
 import { getSettings } from '../../../../store/user/selectors';
+import { Currencies } from '../../../../dictionaries';
+import { enumToArray } from '../../../../utils/common';
+import { setTotalBalanceCurrency } from '../../../../store/account/actions';
 
-
-import { Container, Amount, Currency, Title } from './styled';
+import { Container, Amount, Title } from './styled';
+import WhiteDropDownMenu from '../../../shared/WhiteDropDownMenu/WhiteDropDownMenu';
 
 const TotalBalance: React.FC = () => {
+  const dispatch = useDispatch();
   const settings = useSelector(getSettings);
-  const totalBalance = useSelector(getTotalBalance(settings.currency));
+  const totalBalance = useSelector(getTotalBalance);
+  const displayCurrency = useSelector(getTotalBalanceCurrency);
+
+  useEffect(() => {
+    if (settings.currency) {
+      dispatch(setTotalBalanceCurrency(settings.currency));
+    }
+  }, [settings.currency]);
 
   return (
     <Container>
       <Title>
         Total balance
-        <Currency>
-          {settings.currency}
-          <ChevronDownIcon />
-        </Currency>
+        <WhiteDropDownMenu
+          selected={displayCurrency}
+          menuItems={enumToArray(Currencies).map(([key, value]) => ({
+            label: key,
+            value,
+          }))}
+          onChange={(value: any) =>
+            dispatch(setTotalBalanceCurrency(value))
+          }
+        />
       </Title>
       <Amount>{totalBalance}</Amount>
     </Container>
