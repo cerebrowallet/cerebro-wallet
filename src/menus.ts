@@ -50,7 +50,7 @@ export const MANAGE_ACCOUNT_ACTIONS = [
   {
     link: '/account/import-public-address',
     text: 'Import Public Address',
-    descText: 'Import Public Address',
+    descText: 'See what is happening to it',
     icon: EyeIcon,
   },
 ];
