@@ -1,4 +1,4 @@
-import { Coins } from '../../dictionaries';
+import { Coins, ActivityTypes } from '../../dictionaries';
 
 export enum AccountActionTypes {
   GET_ACCOUNTS = '@@account/get_accounts',
@@ -9,7 +9,17 @@ export enum AccountActionTypes {
   DELETE_ACCOUNT = '@@account/delete_account',
   GET_EXCHANGE_RATES = '@@account/get_exchange_rates',
   SET_EXCHANGE_RATES = '@@account/set_exchange_rates',
-  GET_ACCOUNT_BALANCE = '@account/get_account_balance',
+  GET_ACCOUNT_DETAILS = '@@account/get_account_details',
+  SEARCH_ACTIVITY_BY_HASH = '@@account/search_activity_by_hash',
+}
+
+export interface Transaction {
+  hash: string;
+  amount: number;
+  height: number;
+  confirmations: number;
+  date: string;
+  spent: boolean;
 }
 
 export interface Account {
@@ -19,6 +29,12 @@ export interface Account {
   balance: number;
   coin: Coins;
   id: string;
+  transactions?: {
+    byIds: {
+      [transactionId: string]: Transaction;
+    };
+    allIds: string[];
+  };
 }
 
 export interface Accounts {
@@ -35,8 +51,9 @@ export interface ExchangeRates {
 }
 
 export interface AccountState {
-  accounts: Accounts;
+  accounts: Accounts | null;
   rates: ExchangeRates | null;
+  searchActivityStr: string;
 }
 
 export interface UpdateAccountActionPayload {
@@ -46,3 +63,26 @@ export interface UpdateAccountActionPayload {
   };
   saveToGaia?: boolean;
 }
+
+export interface Activity {
+  id: string;
+  type: ActivityTypes;
+  date: Date;
+}
+
+export interface TransactionActivity extends Activity {
+  accountId: string;
+  amount: number;
+  coin: Coins;
+  hash: string;
+  comment?: string;
+}
+
+export interface BlogPostActivity extends Activity {
+  title: string;
+  excerpt: string;
+  link?: string;
+  closable?: boolean;
+}
+
+export type Activities = Activity | TransactionActivity | BlogPostActivity;

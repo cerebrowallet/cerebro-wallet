@@ -27,7 +27,7 @@ export enum CurrencySymbols {
   INR = '₹',
   JPY = '¥',
   PKR = '₨',
-  SEK = 'kr'
+  SEK = 'kr',
 }
 
 export enum NotificationTypes {
@@ -73,4 +73,16 @@ export enum Statuses {
   Success = 'success',
   Fail = 'fail',
   InProgress = 'inProgress',
+}
+
+export enum ActivityTypes {
+  Date = 'date',
+  Update = 'update',
+  Transaction = 'transaction',
+}
+
+export enum ActivityFilterTypes {
+  ShowAll = 'showAll',
+  Updates = 'updates',
+  Account = 'account',
 }

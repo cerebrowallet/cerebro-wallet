@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest, select } from 'redux-saga/effects';
+import { all, call, put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 import { produce } from 'immer';
 import { push } from 'connected-react-router';
 
@@ -9,7 +9,7 @@ import {
   createAccount as createAccountAction,
   updateAccountInGaia as updateAccountInGaiaAction,
   deleteAccount as deleteAccountAction,
-  getAccountBalance as getAccountBalanceAction,
+  getAccountDetails as getAccountDetailsAction,
   updateAccount,
 } from './actions';
 import { config } from '../../config';
@@ -45,7 +45,7 @@ function* getAccounts() {
 
     yield all(
       accounts.allIds.map((accountId: string) =>
-        put(getAccountBalanceAction(accountId))
+        put(getAccountDetailsAction(accountId))
       )
     );
   } catch (e) {
@@ -226,29 +226,53 @@ function* getExchangeRates() {
   }
 }
 
-function* getAccountBalance({
+function* getAccountDetails({
   payload: accountId,
-}: ReturnType<typeof getAccountBalanceAction>) {
+}: ReturnType<typeof getAccountDetailsAction>) {
   try {
     const account = yield select(getAccountById(accountId));
-    const getBalanceUrl = config.coins[account.coin].apiUrls.getBalance(
-      account.address
-    );
 
-    const balance = yield call(callApi, {
+    const accountDetails = yield call(callApi, {
       method: 'get',
-      url: getBalanceUrl,
+      url: config.coins[account.coin].apiUrls.accountDetails(account.address),
     });
 
     yield put(
       updateAccount({
         accountId,
         update: {
-          balance: toBTC(balance),
+          balance: toBTC(accountDetails.balance),
+          transactions: accountDetails.txrefs.reduce(
+            (txs: any[], tx: any) => {
+              const acc: any = txs;
+
+              acc.byIds[tx.tx_hash] = {
+                hash: tx.tx_hash,
+                amount: toBTC(tx.spent ? tx.value * -1 : tx.value),
+                height: tx.block_height,
+                confirmations: tx.confirmations,
+                date: tx.confirmed,
+              };
+              acc.allIds.push(tx.tx_hash);
+
+              return acc;
+            },
+            {
+              byIds: {},
+              allIds: [],
+            }
+          ),
         },
       })
     );
   } catch (e) {
+    yield put(
+      showNotification({
+        type: NotificationTypes.Error,
+        text: 'Error while getting account details',
+      })
+    );
+
     // TODO log error
     console.error(e);
   }
@@ -261,7 +285,7 @@ function* accountSaga() {
     takeLatest(AccountActionTypes.GET_EXCHANGE_RATES, getExchangeRates),
     takeLatest(AccountActionTypes.UPDATE_ACCOUNT_IN_GAIA, updateAccountInGaia),
     takeLatest(AccountActionTypes.DELETE_ACCOUNT, deleteAccount),
-    takeLatest(AccountActionTypes.GET_ACCOUNT_BALANCE, getAccountBalance),
+    takeEvery(AccountActionTypes.GET_ACCOUNT_DETAILS, getAccountDetails),
   ]);
 }
 

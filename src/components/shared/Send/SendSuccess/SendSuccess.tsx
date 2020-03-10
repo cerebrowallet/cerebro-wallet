@@ -7,7 +7,7 @@ import SendPagination from '../SendPagination/SendPagination';
 import Button from '../../../forms/Button/Button';
 import Page from '../../../layout/Page/Page';
 import WhiteBlock from '../../WhiteBlock';
-import { Container, SuccessIcon, Text, Title, Hash } from './styled';
+import { Container, SuccessIcon, Text, Title, HashText } from './styled';
 
 const SendSuccess: React.FC = () => {
   return (
@@ -21,7 +21,10 @@ const SendSuccess: React.FC = () => {
           <SuccessIcon />
           <Title>Congratulations!</Title>
           <Text>Your transaction was successfully sent! Hash:</Text>
-          <Hash truncate>0x309cc6klklkklkaf2f6b1ec6llklkkb489858489bd</Hash>
+          <HashText
+            truncate
+            value="0x309cc6klklkklkaf2f6b1ec6llklkkb489858489bd"
+          />
           <Button>Ok</Button>
         </Container>
         <SendPagination step={SendSteps.Success} />

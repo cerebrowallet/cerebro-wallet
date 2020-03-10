@@ -1,5 +1,3 @@
-import { config } from '../config';
-
 /**
  * Converts the given enum to a map of the keys to the values.
  * @param enumeration The enum to convert to a map.
@@ -47,3 +45,10 @@ export const toBTC = (satoshi: number) => satoshi / 100000000;
 
 export const round = (number: number) =>
   Math.round((number + Number.EPSILON) * 100) / 100;
+
+export const groupBy = (xs: any, key: any) => {
+  return xs.reduce((rv: any, x: any) => {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};

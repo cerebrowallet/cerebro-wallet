@@ -1,8 +1,9 @@
-import styled from "styled-components";
-import dynamite from "../../../../../images/dynamite.png";
-import {Link} from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const BlogPostContainer = styled.div`
+import dynamite from '../../../../../images/dynamite.png';
+
+export const Container = styled.div`
   display: block;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +11,7 @@ export const BlogPostContainer = styled.div`
   position: relative;
   background: linear-gradient(#e2e2ea, #ececf2);
   padding: 1.563rem;
-  margin: 1rem 0;
+  margin: 1.1rem 0;
 
   h4 {
     font-weight: bold;
@@ -22,7 +23,7 @@ export const BlogPostContainer = styled.div`
 
   p {
     font-size: 0.813rem;
-    line-height: 1.188rem;
+    line-height: 1.5rem;
 
     @media (min-width: ${props => props.theme.colors.xl}) {
       line-height: 1.5rem;
@@ -33,7 +34,7 @@ export const BlogPostContainer = styled.div`
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
+        // text-decoration: underline;
       }
     }
   }
@@ -41,6 +42,10 @@ export const BlogPostContainer = styled.div`
   p + a {
     margin-top: 0.813rem;
   }
+`;
+
+export const ContainerLight = styled(Container)`
+  background: ${props => props.theme.colors.tertiary};
 `;
 
 export const HideButton = styled.button`

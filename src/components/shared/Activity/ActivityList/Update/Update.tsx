@@ -1,22 +1,26 @@
 import React from 'react';
 
-import { BlogPostContainer, HideButton, ReadMoreLink } from './styled';
+import { Container, ContainerLight, HideButton, ReadMoreLink } from './styled';
 
 interface Props {
   title: string;
   excerpt: React.ReactElement | string;
   readMoreLink?: string;
   closable?: boolean;
+  lightBg?: boolean;
 }
 
-const BlogPost: React.FC<Props> = ({
+const Update: React.FC<Props> = ({
   title,
   excerpt,
   readMoreLink,
   closable,
+  lightBg,
 }) => {
+  const ContainerElement = lightBg ? ContainerLight : Container;
+
   return (
-    <BlogPostContainer>
+    <ContainerElement>
       <h4>{title}</h4>
       {closable && (
         <HideButton type="button" onClick={() => {}}>
@@ -27,12 +31,12 @@ const BlogPost: React.FC<Props> = ({
       {readMoreLink && (
         <ReadMoreLink to={readMoreLink}>Read more &rarr;</ReadMoreLink>
       )}
-    </BlogPostContainer>
+    </ContainerElement>
   );
 };
 
-BlogPost.defaultProps = {
+Update.defaultProps = {
   closable: true,
 };
 
-export default BlogPost;
+export default Update;

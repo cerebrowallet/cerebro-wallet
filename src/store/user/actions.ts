@@ -7,7 +7,7 @@ import {
   Profile,
   UpdateDataActionPayload,
 } from './types';
-import { Statuses } from '../../dictionaries';
+import { ActivityFilterTypes, Statuses } from '../../dictionaries';
 
 export const logIn = () => action(UserActionTypes.LOG_IN);
 export const logOut = () => action(UserActionTypes.LOG_OUT);
@@ -29,3 +29,9 @@ export const setSubscribeOnNewsStatus = (payload: {
   status?: Statuses;
   email?: string;
 }) => action(UserActionTypes.SET_SUBSCRIBE_ON_NEWS_STATUS, payload);
+export const setActivityFilterType = (update: {
+  type: ActivityFilterTypes;
+  value?: string;
+}) => action(UserActionTypes.SET_ACTIVITY_FILTER_TYPE, update);
+export const searchActivities = (search: string) =>
+  action(UserActionTypes.SEARCH_ACTIVITIES, search);

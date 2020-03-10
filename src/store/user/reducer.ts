@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { produce } from 'immer';
 
 import { UserActionTypes, UserState } from './types';
-import { Genders } from '../../dictionaries';
+import { Genders, ActivityFilterTypes } from '../../dictionaries';
 
 export const profileInitialState = {
   gender: Genders.incognito,
@@ -13,6 +13,12 @@ export const settingsInitialState = {};
 const initialState: UserState = {
   profile: profileInitialState,
   settings: settingsInitialState,
+  activityFilters: {
+    type: ActivityFilterTypes.ShowAll,
+    value: null,
+    search: null,
+  },
+  updates: null,
 };
 
 const reducer: Reducer<UserState> = (
@@ -51,6 +57,15 @@ const reducer: Reducer<UserState> = (
         break;
       case UserActionTypes.SUBSCRIBE_ON_NEWS:
         draft.settings.email = action.payload;
+        break;
+      case UserActionTypes.SET_ACTIVITY_FILTER_TYPE:
+        draft.activityFilters = {
+          ...action.payload,
+          search: null,
+        };
+        break;
+      case UserActionTypes.SEARCH_ACTIVITIES:
+        draft.activityFilters.search = action.payload;
         break;
       default:
         return draft;

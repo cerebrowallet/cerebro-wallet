@@ -3,7 +3,7 @@ import { SagaIterator } from 'redux-saga';
 
 import { getFile, putFile } from '../../utils/blockstack';
 import { callApi } from '../../utils/api';
-import { Profile, UserActionTypes } from './types';
+import { UserActionTypes } from './types';
 import {
   setProfileData,
   setSettings,

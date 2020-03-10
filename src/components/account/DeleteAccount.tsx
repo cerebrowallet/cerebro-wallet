@@ -13,6 +13,7 @@ import Page from '../layout/Page/Page';
 import Button from '../forms/Button/Button';
 import Modal from '../shared/Modal/Modal';
 import ConfirmModal from './ConfirmModal/ConfirmModal';
+import Loader from '../shared/Loader/Loader';
 
 interface Props {
   accountId: string;
@@ -22,6 +23,11 @@ const DeleteAccount: React.FC<Props> = ({ accountId }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const accounts = useSelector(getAccounts);
+
+  if (!accounts) {
+    return <Loader />;
+  }
+
   const account = accounts.byIds[accountId];
 
   const hideModal = () => setShowModal(false);

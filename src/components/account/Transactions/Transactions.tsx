@@ -11,7 +11,7 @@ interface Props {
   accountId: string;
 }
 
-const Transactions: React.FC<Props> = () => {
+const Transactions: React.FC<Props> = ({ accountId }) => {
   return (
     <ContainerOneCol>
       <ContentOneCol>

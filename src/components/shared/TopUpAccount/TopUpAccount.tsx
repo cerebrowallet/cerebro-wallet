@@ -13,7 +13,7 @@ import QRCode from './QRCode/QRCode';
 import LabeledText from '../LabeledText/LabeledText';
 import DropDown from '../../forms/DropDown/DropDown';
 import Page from '../../layout/Page/Page';
-import HashText from '../HashText/HashText';
+import Hash from '../Hash/Hash';
 import WhiteBlock from '../WhiteBlock';
 
 interface Props {
@@ -67,12 +67,10 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
         <>
           <QRCode address={account.address} />
           <LabeledText label="Public address">
-            <HashText breakAll>{account.address}</HashText>
+            <Hash breakAll value={account.address} />
           </LabeledText>
           <LabeledText label="Legacy format" canCopyText>
-            <HashText breakAll>
-              afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19
-            </HashText>
+            <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
           </LabeledText>
         </>
       )}

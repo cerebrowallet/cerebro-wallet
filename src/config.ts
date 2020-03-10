@@ -7,7 +7,8 @@ export interface Config {
       abbr: Coins;
       explorer: string;
       apiUrls: {
-        getBalance: (address: string) => string;
+        accountDetails: (address: string) => string;
+        unconfirmedTransactions: (address: string) => string;
       };
     };
   };
@@ -39,10 +40,12 @@ const config: Config = {
     BTC: {
       name: 'Bitcoin',
       abbr: Coins.BTC,
-      explorer: 'https://testnet.blockexplorer.com',
+      explorer: 'https://api.blockcypher.com/v1/btc/test3',
       apiUrls: {
-        getBalance: (address: string) =>
-          `https://testnet.blockexplorer.com/api/addr/${address}/balance`,
+        accountDetails: (address: string) =>
+          `https://api.blockcypher.com/v1/btc/test3/addrs/${address}`,
+        unconfirmedTransactions: (address: string) =>
+          `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
       },
     },
   },

@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { ActivityContainer } from './styled';
-import ActivityFilter from './ActivityFilter/ActivityFilter';
+
+import ActivityHeader from './ActivityHeader/ActivityHeader';
 import ActivityList from './ActivityList/ActivityList';
 
 const Activity: React.FC = () => {
   return (
     <ActivityContainer>
-      <ActivityFilter />
+      <ActivityHeader />
       <ActivityList />
     </ActivityContainer>
   );

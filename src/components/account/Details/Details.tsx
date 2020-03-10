@@ -23,7 +23,7 @@ import {
 import UpdateBalance from './UpdateBalance/UpdateBalance';
 import Loader from '../../shared/Loader/Loader';
 import LabeledText from '../../shared/LabeledText/LabeledText';
-import HashText from '../../shared/HashText/HashText';
+import Hash from '../../shared/Hash/Hash';
 import Chart from '../../shared/Chart/Chart';
 import Page from '../../layout/Page/Page';
 
@@ -62,12 +62,10 @@ const Details: React.FC<Props> = ({ accountId }) => {
       </WhiteBlockDetails>
       <Addresses>
         <LabeledText label="Public address">
-          <HashText breakAll>{account.address}</HashText>
+          <Hash breakAll value={account.address} />
         </LabeledText>
         <LabeledText label="Legacy format" canCopyText>
-          <HashText breakAll>
-            afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19
-          </HashText>
+          <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
         </LabeledText>
       </Addresses>
       <Chart />

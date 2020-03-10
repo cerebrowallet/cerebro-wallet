@@ -5,7 +5,7 @@ import { Coins } from '../../../dictionaries';
 import Page from '../../layout/Page/Page';
 import LabeledText from '../LabeledText/LabeledText';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
-import HashText from '../HashText/HashText';
+import Hash from '../Hash/Hash';
 import {
   TopUp,
   TopUpHeader,
@@ -45,15 +45,16 @@ const TransactionDetails: React.FC = () => {
         <LabeledText label="Network fee">0.0001 BTC</LabeledText>
       </Details>
       <LabeledText label="From">
-        <HashText breakAll>1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>
+        <Hash breakAll value="1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
       </LabeledText>
       <LabeledText label="To" canCopyText>
-        <HashText breakAll>afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</HashText>
+        <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
       </LabeledText>
       <LabeledText label="Hash">
-        <HashText breakAll>
-          ddfklawfm2l3mfg24oi032ivemvk2rkr2i03twrvksnkbsdvbbfr3mitg
-        </HashText>
+        <Hash
+          breakAll
+          value="ddfklawfm2l3mfg24oi032ivemvk2rkr2i03twrvksnkbsdvbbfr3mitg"
+        />
       </LabeledText>
     </Page>
   );

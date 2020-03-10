@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { createSelector } from 'reselect';
 import { UserData } from 'blockstack/lib/auth/authApp';
 
@@ -54,3 +53,6 @@ export const getTimeoutsList = () =>
       };
     })
     .filter(option => !Number.isNaN(option.id));
+export const getActivityFilters = (state: ApplicationState) =>
+  state.user.activityFilters;
+export const getUpdates = (state: ApplicationState) => state.user.updates;

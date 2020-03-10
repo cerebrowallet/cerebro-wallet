@@ -1,6 +1,11 @@
 import { UserData } from 'blockstack/lib/auth/authApp';
 
-import { Currencies, Genders, Statuses } from '../../dictionaries';
+import {
+  Currencies,
+  Genders,
+  Statuses,
+  ActivityFilterTypes,
+} from '../../dictionaries';
 
 export enum UserActionTypes {
   LOG_IN = '@@user/log_in',
@@ -14,6 +19,8 @@ export enum UserActionTypes {
   UPDATE_SETTINGS = '@@user/update_settings',
   SUBSCRIBE_ON_NEWS = '@@user/subscribe_on_news',
   SET_SUBSCRIBE_ON_NEWS_STATUS = '@@user/subscribe_on_news_status',
+  SET_ACTIVITY_FILTER_TYPE = '@@account/set_activity_filter_type',
+  SEARCH_ACTIVITIES = '@@account/search_activities',
 }
 
 export interface Profile {
@@ -28,10 +35,23 @@ export interface Settings {
   emailSubscribeStatus?: Statuses;
 }
 
+export interface Update {
+  title: string;
+  excerpt?: string;
+  link: string;
+  hidden: boolean;
+}
+
 export interface UserState {
   userData?: UserData;
   profile: Profile;
   settings: Settings;
+  activityFilters: {
+    type: ActivityFilterTypes;
+    value: string | null;
+    search: string | null;
+  };
+  updates: Update[] | null;
 }
 
 export interface UpdateDataActionPayload {

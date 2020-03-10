@@ -1,79 +1,66 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import Scrollbar from '../../Scrollbar/Scrollbar';
+import { ActivityTypes } from '../../../../dictionaries';
+import { getActivities } from '../../../../store/account/selectors';
+import {
+  TransactionActivity,
+  Activities,
+} from '../../../../store/account/types';
+
 import { SidebarTrackY } from '../../Scrollbar/styled';
-import { Coins } from '../../../../dictionaries';
-import Transaction from './Transaction/Transaction';
-import DayTotals from './DayTotals/DayTotals';
-import BlogPost from './BlogPost/BlogPost';
-import SwipeForMore from '../SwipeForMore/SwipeForMore';
 import { ActivityListContainer } from './styled';
 
+import Scrollbar from '../../Scrollbar/Scrollbar';
+import Transaction from './Transaction/Transaction';
+import DayTotals from './DayTotals/DayTotals';
+import Update from './Update/Update';
+import SwipeForMore from '../SwipeForMore/SwipeForMore';
+
 const ActivityList: React.FC = () => {
+  const activities: Activities[] = useSelector(getActivities);
+
   return (
     <ActivityListContainer>
       <Scrollbar TrackY={SidebarTrackY}>
         <>
-          <DayTotals
-            amount={-177}
-            date={new Date('November 2, 2019 00:00:00')}
-          />
-          <Transaction
-            transaction={{
-              coin: Coins.BTC,
-              hash: '307bf3bd...1c805593',
-              comment: 'Transaction comment',
-              amount: -103,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <Transaction
-            transaction={{
-              coin: Coins.BTC,
-              hash: '307bf3bd...1c805593',
-              comment: 'Transaction comment',
-              amount: -84,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <BlogPost
-            title="One Dev is Sad without Your Feedback"
-            excerpt="Like most creators, we want to be aware of how our work is received by its intended..."
-            readMoreLink="https://blog.cerebrowallet.com"
-          />
-          <DayTotals amount={28} date={new Date('November 5, 2019 00:00:00')} />
-          <Transaction
-            transaction={{
-              coin: Coins.BTC,
-              hash: '307bf3bd...1c805593',
-              comment: 'Transaction comment',
-              amount: -2,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <DayTotals
-            amount={-2}
-            date={new Date('November 10, 2019 00:00:00')}
-          />
-          <Transaction
-            transaction={{
-              coin: Coins.BTC,
-              hash: '307bf3bd...1c805593',
-              comment: 'Transaction comment',
-              amount: -4,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <Transaction
-            transaction={{
-              coin: Coins.BTC,
-              hash: '307bf3bd...1c805593',
-              comment: 'Transaction comment',
-              amount: 2,
-              account: '1L9NxSdNx92jLy8KdKn3gd528hGDCuzM12',
-            }}
-          />
-          <BlogPost
+          {activities.map((activity: any) => {
+            const key = `${activity.type}-${activity.id}`;
+
+            if (activity.type === ActivityTypes.Date) {
+              return (
+                <DayTotals
+                  key={key}
+                  amount={activity.totalAmount}
+                  date={activity.date}
+                />
+              );
+            }
+
+            if (activity.type === ActivityTypes.Transaction) {
+              return (
+                <Transaction
+                  key={key}
+                  transaction={activity as TransactionActivity}
+                />
+              );
+            }
+
+            if (activity.type === ActivityTypes.Update) {
+              return (
+                <Update
+                  key={key}
+                  title={activity.title}
+                  excerpt={activity.excerpt}
+                  readMoreLink={activity.link}
+                  closable={activity.closable}
+                />
+              );
+            }
+
+            return null;
+          })}
+          <Update
             title="Congratulations!"
             excerpt={
               <>
@@ -83,6 +70,7 @@ const ActivityList: React.FC = () => {
               </>
             }
             closable={false}
+            lightBg
           />
         </>
       </Scrollbar>

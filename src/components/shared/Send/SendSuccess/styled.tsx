@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import {CheckCircle as CheckCircleIcon} from "react-feather";
-import HashText from "../../HashText/HashText";
+import styled from 'styled-components';
+import { CheckCircle as CheckCircleIcon } from 'react-feather';
+import Hash from '../../Hash/Hash';
 
 export const Container = styled.div`
   padding-top: 3.4375rem;
@@ -26,7 +26,7 @@ export const Text = styled.p`
   line-height: 1.5rem;
 `;
 
-export const Hash = styled(HashText)`
+export const HashText = styled(Hash)`
   font-size: 1rem;
   line-height: 1.5rem;
   text-decoration: underline;

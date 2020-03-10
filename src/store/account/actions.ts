@@ -25,5 +25,7 @@ export const getExchangeRates = () =>
   action(AccountActionTypes.GET_EXCHANGE_RATES);
 export const setExchangeRates = (rates: ExchangeRates) =>
   action(AccountActionTypes.SET_EXCHANGE_RATES, rates);
-export const getAccountBalance = (payload: string) =>
-  action(AccountActionTypes.GET_ACCOUNT_BALANCE, payload);
+export const getAccountDetails = (payload: string) =>
+  action(AccountActionTypes.GET_ACCOUNT_DETAILS, payload);
+export const searchActivityByHash = (searchStr: string) =>
+  action(AccountActionTypes.SEARCH_ACTIVITY_BY_HASH, searchStr);
