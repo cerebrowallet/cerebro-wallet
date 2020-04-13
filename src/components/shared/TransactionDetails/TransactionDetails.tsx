@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { format } from 'date-fns';
 
-import { Coins } from '../../../dictionaries';
+import {
+  getAccountById,
+  getTransactionById,
+} from '../../../store/account/selectors';
+import { getSettings } from '../../../store/user/selectors';
+import { getTransactionDetails } from '../../../store/account/actions';
+import { CurrencySymbols } from '../../../dictionaries';
 
-import Page from '../../layout/Page/Page';
-import LabeledText from '../LabeledText/LabeledText';
-import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
-import Hash from '../Hash/Hash';
 import {
   TopUp,
   TopUpHeader,
@@ -17,44 +21,88 @@ import {
   Details,
 } from './styled';
 
-const TransactionDetails: React.FC = () => {
+import Page from '../../layout/Page/Page';
+import LabeledText from '../LabeledText/LabeledText';
+import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
+import Hash from '../Hash/Hash';
+
+interface Props {
+  accountId: string;
+  transactionHash: string;
+}
+
+const TransactionDetails: React.FC<Props> = ({
+  accountId,
+  transactionHash,
+}) => {
+  const dispatch = useDispatch();
+  const account = useSelector(getAccountById(accountId));
+  const transaction = useSelector(
+    getTransactionById(accountId, transactionHash)
+  );
+  const settings = useSelector(getSettings);
+
+  useEffect(() => {
+    dispatch(getTransactionDetails({ accountId, transactionHash }));
+  }, [accountId, transactionHash]);
+
+  if (!account || !transaction) {
+    return null;
+  }
+
   return (
     <Page>
       <TopUp>
         <TopUpHeader>
           <TopUpHeaderDetails>
-            <h3>– 0.00002914 BTC</h3>
-            <span>– $103</span>
+            <h3>
+              {transaction.amount}
+              {account.coin}
+            </h3>
+            <span>
+              {transaction.amountInLocalCurrency < 0 ? '— ' : ''}
+              {settings.currency && CurrencySymbols[settings.currency]}
+              {Math.abs(transaction.amountInLocalCurrency)}
+            </span>
           </TopUpHeaderDetails>
           <TopUpHeaderIcon>
-            <CurrencyIcon coin={Coins.BTC} size="xl" />
+            <CurrencyIcon coin={account.coin} size="xl" />
           </TopUpHeaderIcon>
         </TopUpHeader>
         <AdditionalInfo>
           <AdditionalInfoDate label="Date">
-            11:00 pm Nov 3, 2019
+            {format(new Date(transaction.date), 'h:mm aaaa MMM d, yyyy')}
           </AdditionalInfoDate>
-          <AdditionalInfoComment label="Comment">
-            Type something
-          </AdditionalInfoComment>
+          {transaction.comment && (
+            <AdditionalInfoComment label="Comment">
+              {transaction.comment}
+            </AdditionalInfoComment>
+          )}
         </AdditionalInfo>
       </TopUp>
       <Details>
         <LabeledText label="Status">Success</LabeledText>
-        <LabeledText label="Confirmations">1394492</LabeledText>
-        <LabeledText label="Network fee">0.0001 BTC</LabeledText>
+        <LabeledText label="Confirmations">
+          {transaction.confirmations}
+        </LabeledText>
+        {transaction.fee && (
+          <LabeledText label="Network fee">
+            {transaction.fee} {account.coin}
+          </LabeledText>
+        )}
       </Details>
-      <LabeledText label="From">
-        <Hash breakAll value="1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
-      </LabeledText>
-      <LabeledText label="To" canCopyText>
-        <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
-      </LabeledText>
+      {transaction.from && (
+        <LabeledText label="From">
+          <Hash breakAll value={transaction.from} />
+        </LabeledText>
+      )}
+      {transaction.to && (
+        <LabeledText label="To" canCopyText>
+          <Hash breakAll value={transaction.to} />
+        </LabeledText>
+      )}
       <LabeledText label="Hash">
-        <Hash
-          breakAll
-          value="ddfklawfm2l3mfg24oi032ivemvk2rkr2i03twrvksnkbsdvbbfr3mitg"
-        />
+        <Hash breakAll value={transaction.hash} />
       </LabeledText>
     </Page>
   );

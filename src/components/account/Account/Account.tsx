@@ -13,10 +13,10 @@ import { Breakpoints } from '../../../dictionaries';
 import { useWindowSize } from '../../../utils/hooks';
 import { config } from '../../../config';
 
-import { AccountCornerCloseButton } from './styled';
+import { AccountGoBackButton } from './styled';
 import { AccountSidebar } from '../../layout/Sidebar';
-import { ContainerOneCol, ContainerTwoCols } from '../../layout/Container';
-import { ContentOneCol, ContentTwoCols } from '../../layout/Content';
+import { ContainerTwoCols } from '../../layout/Container';
+import { ContentTwoCols } from '../../layout/Content';
 
 import AccountsList from '../AccountsList/AccountsList';
 import AccountActions from '../AccountActions/AccountActions';
@@ -27,11 +27,7 @@ import Details from '../Details/Details';
 import Rename from '../Rename';
 import ExportPrivateKey from '../ExportPrivateKey';
 import DeleteAccount from '../DeleteAccount';
-import CreateAccount from '../CreateAccount';
-import ImportPrivateKey from '../ImportPrivateKey';
-import ImportPublicAddress from '../ImportPublicAddress';
 import Loader from '../../shared/Loader/Loader';
-import Transactions from '../Transactions/Transactions';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -39,36 +35,6 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   const windowSize = useWindowSize();
   const { accountId } = match.params;
   const account = useSelector(getAccountById(accountId));
-
-  if (/(create|import)/.test(accountId)) {
-    return (
-      <ContainerOneCol>
-        <ContentOneCol>
-          <Switch>
-            <Route exact path="/account/create">
-              <CreateAccount />
-            </Route>
-            <Route exact path="/account/import-private-key">
-              <ImportPrivateKey />
-            </Route>
-            <Route exact path="/account/import-public-address">
-              <ImportPublicAddress />
-            </Route>
-          </Switch>
-          <AccountCornerCloseButton />
-        </ContentOneCol>
-        <AccountSidebar>
-          <Route path={match.url}>
-            <AccountsList />
-          </Route>
-        </AccountSidebar>
-      </ContainerOneCol>
-    );
-  }
-
-  if (/transactions/.test(window.location.pathname)) {
-    return <Transactions accountId={accountId} />;
-  }
 
   if (!account) {
     return <Loader withMargin />;
@@ -81,7 +47,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
         <Switch>
           {windowSize.width > Breakpoints.md && match.params.accountId && (
             <Route exact path={match.url}>
-              <Redirect to={`${match.url}/details`} />
+              <Redirect to={`${match.url.replace(/\/$/, '')}/details`} />
             </Route>
           )}
           <Route exact path={`${match.url}/details`}>
@@ -113,7 +79,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <DeleteAccount accountId={accountId} />
           </Route>
         </Switch>
-        <AccountCornerCloseButton />
+        <AccountGoBackButton goTo="/" />
       </ContentTwoCols>
       <AccountSidebar>
         <AccountsList />

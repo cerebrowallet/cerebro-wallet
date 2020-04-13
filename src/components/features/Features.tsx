@@ -16,9 +16,9 @@ import FeaturesSidebarMenu from './FeaturesSidebarMenu';
 import TopUpAccount from '../shared/TopUpAccount/TopUpAccount';
 import Send from '../shared/Send/Send';
 import Exchange from '../shared/Exchange/Exchange';
-import TransactionDetails from '../shared/TransactionDetails/TransactionDetails';
 import Activity from '../shared/Activity/Activity';
-import CornerCloseButton from '../shared/CornerCloseButton/CornerCloseButton';
+import GoBackButton from '../shared/GoBackButton/GoBackButton';
+import FeaturesActivity from './FeaturesActivity';
 
 const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
   const location = useLocation();
@@ -39,14 +39,14 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
           <Route path={`${match.path}/exchange`}>
             <Exchange />
           </Route>
-          <Route path={`${match.path}/activity`}>
-            <TransactionDetails />
+          <Route path={`/features/activity/:accountId?/:transactionHash?`}>
+            <FeaturesActivity />
           </Route>
         </Switch>
-        <CornerCloseButton />
+        <GoBackButton />
       </ContentOneCol>
       <Sidebar>
-        {location.pathname === `${match.path}/activity` ? (
+        {location.pathname.includes(`${match.path}/activity`) ? (
           <Activity />
         ) : (
           <FeaturesSidebarMenu />

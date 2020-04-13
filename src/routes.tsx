@@ -4,6 +4,7 @@ import { useTransition, animated } from 'react-spring';
 
 import { userSession } from './utils/blockstack';
 
+import PrivateRoute from './components/auth/PrivateRoute';
 import AuthenticatedWrapper from './components/auth/AuthenticatedWrapper';
 import Home from './components/home/Home';
 import Features from './components/features/Features';
@@ -12,7 +13,8 @@ import Profile from './components/profile/Profile';
 import MyAccounts from './components/shared/MyAccounts/MyAccounts';
 import Auth from './components/auth/Auth';
 import AuthCallbackHandler from './components/auth/AuthCallbackHandler';
-import PrivateRoute from './components/auth/PrivateRoute';
+import ManageAccount from './components/account/ManageAccount/ManageAccount';
+import Transactions from './components/account/Transactions/AccountTransactions';
 
 const Routes: React.FC = () => {
   const location = useLocation();
@@ -52,12 +54,17 @@ const Routes: React.FC = () => {
                 </PrivateRoute>
                 <PrivateRoute
                   path={[
-                    '/accounts/create',
-                    '/accounts/import-private-key',
-                    '/accounts/import-public-address',
-                    '/account/:accountId',
+                    '/account/create',
+                    '/account/import-private-key',
+                    '/account/import-public-address',
                   ]}
                 >
+                  <ManageAccount />
+                </PrivateRoute>
+                <PrivateRoute path="/account/:accountId/:transactionHash?">
+                  <Transactions />
+                </PrivateRoute>
+                <PrivateRoute path="/account/:accountId">
                   <Account />
                 </PrivateRoute>
                 <PrivateRoute path="/my-accounts">

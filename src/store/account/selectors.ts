@@ -1,16 +1,11 @@
-import { createSelector } from 'reselect';
-import { set } from 'date-fns';
+import {createSelector} from 'reselect';
+import {set} from 'date-fns';
 
-import { ApplicationState } from '../index';
-import { Account, Transaction, TransactionActivity, Activities } from './types';
-import {
-  ActivityFilterTypes,
-  ActivityTypes,
-  Coins,
-  Currencies,
-} from '../../dictionaries';
-import { getActivityFilters, getSettings, getUpdates } from '../user/selectors';
-import { groupBy, round } from '../../utils/common';
+import {ApplicationState} from '../index';
+import {Account, Activities, Transaction, TransactionActivity} from './types';
+import {ActivityFilterTypes, ActivityTypes, Coins, Currencies,} from '../../dictionaries';
+import {getActivityFilters, getSettings, getUpdates} from '../user/selectors';
+import {groupBy, round} from '../../utils/common';
 
 export const getTotalBalanceCurrency = (state: ApplicationState) =>
   state.account.totalBalanceCurrency;
@@ -144,7 +139,7 @@ export const getActivities = createSelector(
         items: Activities[],
         [day, dayActivities]: [string, Activities[]],
         i: number
-      ) => [
+      ) => ([
         ...items,
         {
           id: `day-${i}-${day}`,
@@ -162,8 +157,35 @@ export const getActivities = createSelector(
           ),
         },
         ...dayActivities,
-      ],
+      ]),
       []
     );
   }
 );
+export const getTransactionById = (accountId: string, transactionId?: string) =>
+  createSelector(
+    [getAccounts, getExchangeRates, getSettings],
+    (accounts, rates, settings) => {
+      if (!transactionId) {
+        return null;
+      }
+
+      const account = accounts && accounts.byIds[accountId];
+
+      if (!account || !settings || !rates) {
+        return null;
+      }
+
+      return account.transactions && account.transactions.byIds[transactionId]
+        ? {
+            ...account.transactions.byIds[transactionId],
+            amountInLocalCurrency: settings.currency
+              ? round(
+                  account.transactions.byIds[transactionId].amount *
+                    rates[account.coin][settings.currency]
+                )
+              : 0,
+          }
+        : null;
+    }
+  );

@@ -1,6 +1,14 @@
-import { all, call, put, takeLatest, takeEvery, select } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  takeLatest,
+  takeEvery,
+  select,
+} from 'redux-saga/effects';
 import { produce } from 'immer';
 import { push } from 'connected-react-router';
+import { SagaIterator } from 'redux-saga';
 
 import { AccountActionTypes, Accounts, Account } from './types';
 import { getFile, putFile } from '../../utils/blockstack';
@@ -10,6 +18,7 @@ import {
   updateAccountInGaia as updateAccountInGaiaAction,
   deleteAccount as deleteAccountAction,
   getAccountDetails as getAccountDetailsAction,
+  getTransactionDetails as getTransactionDetailsAction,
   updateAccount,
 } from './actions';
 import { config } from '../../config';
@@ -39,6 +48,30 @@ function* getAccounts() {
         fileName: config.gaia.files.accounts,
         file: accounts,
       });
+    }
+
+    const calls = [];
+    const accountsArr = accounts.allIds.reduce(
+      (acc: Account[], accountId: string) => {
+        const a = acc;
+        a.push(accounts.byIds[accountId]);
+        return a;
+      },
+      []
+    );
+
+    for (let i = 0; i < accountsArr.length; i++) {
+      calls.push(call(getAccountDetails, accountsArr[i]));
+    }
+
+    const details = yield all(calls);
+
+    for (let i = 0; i < details.length; i++) {
+      accounts.byIds[details[i].accountId] = {
+        ...accounts.byIds[details[i].accountId],
+        balance: details[i].balance,
+        transactions: details[i].transactions,
+      };
     }
 
     yield put(setAccounts(accounts));
@@ -226,45 +259,38 @@ function* getExchangeRates() {
   }
 }
 
-function* getAccountDetails({
-  payload: accountId,
-}: ReturnType<typeof getAccountDetailsAction>) {
+function* getAccountDetails(account: Account): SagaIterator {
   try {
-    const account = yield select(getAccountById(accountId));
-
     const accountDetails = yield call(callApi, {
       method: 'get',
       url: config.coins[account.coin].apiUrls.accountDetails(account.address),
     });
 
-    yield put(
-      updateAccount({
-        accountId,
-        update: {
-          balance: toBTC(accountDetails.balance),
-          transactions: accountDetails.txrefs.reduce(
-            (txs: any[], tx: any) => {
-              const acc: any = txs;
+    return {
+      accountId: account.id,
+      balance: toBTC(accountDetails.balance),
+      transactions: accountDetails.txrefs.reduce(
+        (txs: any[], tx: any) => {
+          const acc: any = txs;
 
-              acc.byIds[tx.tx_hash] = {
-                hash: tx.tx_hash,
-                amount: toBTC(tx.spent ? tx.value * -1 : tx.value),
-                height: tx.block_height,
-                confirmations: tx.confirmations,
-                date: tx.confirmed,
-              };
-              acc.allIds.push(tx.tx_hash);
+          acc.byIds[tx.tx_hash] = {
+            hash: tx.tx_hash,
+            amount: toBTC(tx.spent ? tx.value * -1 : tx.value),
+            height: tx.block_height,
+            confirmations: tx.confirmations,
+            date: tx.confirmed,
+            spent: tx.spent,
+          };
+          acc.allIds.push(tx.tx_hash);
 
-              return acc;
-            },
-            {
-              byIds: {},
-              allIds: [],
-            }
-          ),
+          return acc;
         },
-      })
-    );
+        {
+          byIds: {},
+          allIds: [],
+        }
+      ),
+    };
   } catch (e) {
     yield put(
       showNotification({
@@ -278,6 +304,43 @@ function* getAccountDetails({
   }
 }
 
+function* getTransactionDetails({
+  payload: { transactionHash, accountId },
+}: ReturnType<typeof getTransactionDetailsAction>) {
+  try {
+    const account = yield select(getAccountById(accountId));
+
+    const transactionDetails = yield call(callApi, {
+      method: 'get',
+      url: config.coins[account.coin].apiUrls.transactionDetails(
+        transactionHash
+      ),
+    });
+
+    yield put(
+      updateAccount({
+        accountId,
+        update: {
+          transactions: {
+            allIds: account.transactions.allIds,
+            byIds: {
+              ...account.transactions.byIds,
+              [transactionHash]: {
+                ...account.transactions.byIds[transactionHash],
+                fee: toBTC(transactionDetails.fees),
+                from: transactionDetails.inputs[0].addresses[0],
+                to: transactionDetails.outputs[1].addresses[0],
+              },
+            },
+          },
+        },
+      })
+    );
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 function* accountSaga() {
   yield all([
     takeLatest(AccountActionTypes.GET_ACCOUNTS, getAccounts),
@@ -285,7 +348,10 @@ function* accountSaga() {
     takeLatest(AccountActionTypes.GET_EXCHANGE_RATES, getExchangeRates),
     takeLatest(AccountActionTypes.UPDATE_ACCOUNT_IN_GAIA, updateAccountInGaia),
     takeLatest(AccountActionTypes.DELETE_ACCOUNT, deleteAccount),
-    takeEvery(AccountActionTypes.GET_ACCOUNT_DETAILS, getAccountDetails),
+    takeLatest(
+      AccountActionTypes.GET_TRANSACTION_DETAILS,
+      getTransactionDetails
+    ),
   ]);
 }
 

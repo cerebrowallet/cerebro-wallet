@@ -6,16 +6,20 @@ import { Button } from './styled';
 
 interface Props {
   className?: string;
+  goTo?: string;
 }
 
-const CornerCloseButton: React.FC<Props> = ({ className }) => {
+const GoBackButton: React.FC<Props> = ({ className, goTo }) => {
   const history = useHistory();
 
   return (
-    <Button onClick={() => history.push('/')} className={className}>
+    <Button
+      onClick={() => (goTo ? history.push(goTo) : history.goBack())}
+      className={className}
+    >
       <CloseIcon />
     </Button>
   );
 };
 
-export default CornerCloseButton;
+export default GoBackButton;

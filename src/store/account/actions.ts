@@ -31,3 +31,7 @@ export const searchActivityByHash = (searchStr: string) =>
   action(AccountActionTypes.SEARCH_ACTIVITY_BY_HASH, searchStr);
 export const setTotalBalanceCurrency = (currency: Currencies) =>
   action(AccountActionTypes.SET_TOTAL_BALANCE_CURRENCY, currency);
+export const getTransactionDetails = (payload: {
+  accountId: string;
+  transactionHash: string;
+}) => action(AccountActionTypes.GET_TRANSACTION_DETAILS, payload);

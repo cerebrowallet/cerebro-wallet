@@ -12,6 +12,7 @@ export enum AccountActionTypes {
   GET_ACCOUNT_DETAILS = '@@account/get_account_details',
   SEARCH_ACTIVITY_BY_HASH = '@@account/search_activity_by_hash',
   SET_TOTAL_BALANCE_CURRENCY = '@@account/set_total_balance_currency',
+  GET_TRANSACTION_DETAILS = '@@account/get_transaction_details',
 }
 
 export interface Transaction {
@@ -21,6 +22,10 @@ export interface Transaction {
   confirmations: number;
   date: string;
   spent: boolean;
+  comment?: string;
+  from: string;
+  to: string;
+  fee: string;
 }
 
 export interface Account {
@@ -75,6 +80,7 @@ export interface Activity {
 export interface TransactionActivity extends Activity {
   accountId: string;
   amount: number;
+  amountInLocalCurrency?: number;
   coin: Coins;
   hash: string;
   comment?: string;

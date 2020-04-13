@@ -15,9 +15,11 @@ import { Menu, Option, SubHeader, ToggleButton, Wrapper } from './styled';
 const SHOW_ALL = 'Show All';
 const UPDATES = 'Updates';
 
-const ActivityFilter: React.FC<RouteComponentProps<{ accountId: string }>> = ({
-  match,
-}) => {
+interface Props extends RouteComponentProps<{ accountId: string }> {
+  accountId?: string;
+}
+
+const ActivityFilter: React.FC<Props> = ({ match, accountId }) => {
   const [showMenu, setShowMenu] = useState(false);
   const filters = useSelector(getActivityFilters);
   const dispatch = useDispatch();
@@ -25,15 +27,23 @@ const ActivityFilter: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   const accounts = useSelector(getAccounts);
 
   useEffect(() => {
-    if (match.params.accountId) {
+    const id = accountId || match.params.accountId;
+
+    if (id) {
       dispatch(
         setActivityFilterType({
           type: ActivityFilterTypes.Account,
-          value: match.params.accountId,
+          value: id,
+        })
+      );
+    } else {
+      dispatch(
+        setActivityFilterType({
+          type: ActivityFilterTypes.ShowAll,
         })
       );
     }
-  }, []);
+  }, [accountId, match.params.accountId]);
 
   const transition = useTransition(showMenu, null, {
     from: { opacity: 0 },

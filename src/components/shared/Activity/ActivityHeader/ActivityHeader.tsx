@@ -5,10 +5,14 @@ import { Wrapper } from './styled';
 import ActivityFilter from './ActivityFilter/ActivityFilter';
 import ActivitySearch from './ActivitySearch/ActivitySearch';
 
-const ActivityHeader: React.FC = () => {
+interface Props {
+  accountId?: string;
+}
+
+const ActivityHeader: React.FC<Props> = ({ accountId }) => {
   return (
     <Wrapper>
-      <ActivityFilter />
+      <ActivityFilter accountId={accountId} />
       <ActivitySearch />
     </Wrapper>
   );

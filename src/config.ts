@@ -8,6 +8,7 @@ export interface Config {
       explorer: string;
       apiUrls: {
         accountDetails: (address: string) => string;
+        transactionDetails: (hash: string) => string;
         unconfirmedTransactions: (address: string) => string;
       };
     };
@@ -44,6 +45,8 @@ const config: Config = {
       apiUrls: {
         accountDetails: (address: string) =>
           `https://api.blockcypher.com/v1/btc/test3/addrs/${address}`,
+        transactionDetails: (address: string) =>
+          `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
         unconfirmedTransactions: (address: string) =>
           `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
       },

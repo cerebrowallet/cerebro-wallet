@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 
 import ProfileMenu from './ProfileMenu';
-import CornerCloseButton from '../shared/CornerCloseButton/CornerCloseButton';
+import GoBackButton from '../shared/GoBackButton/GoBackButton';
 import { ContentOneCol } from '../layout/Content';
 import { ContainerOneCol } from '../layout/Container';
 import Sidebar from '../layout/Sidebar';
@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
             <Settings />
           </Route>
         </Switch>
-        <CornerCloseButton />
+        <GoBackButton />
       </ContentOneCol>
       <Sidebar>
         <ProfileMenu />

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Sidebar from '../../layout/Sidebar';
-import CornerCloseButton from '../../shared/CornerCloseButton/CornerCloseButton';
+import GoBackButton from '../../shared/GoBackButton/GoBackButton';
 
 export const AccountSidebar = styled(Sidebar)`
   @media (min-width: ${props => props.theme.breakpoints.md}) {
@@ -12,7 +12,7 @@ export const AccountSidebar = styled(Sidebar)`
   }
 `;
 
-export const AccountCornerCloseButton = styled(CornerCloseButton)`
+export const AccountGoBackButton = styled(GoBackButton)`
   @media (min-width: ${props => props.theme.breakpoints.md}) {
     top: 1.25rem;
     right: 0.625rem;

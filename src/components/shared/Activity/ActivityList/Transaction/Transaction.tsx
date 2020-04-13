@@ -12,15 +12,17 @@ import Hash from '../../../Hash/Hash';
 
 interface Props {
   transaction: TransactionActivity;
+  uriPrefix?: string;
 }
 
 const Transaction: React.FC<Props> = ({
   transaction: { coin, hash, comment, amount, accountId },
+  uriPrefix,
 }) => {
   const settings = useSelector(getSettings);
 
   return (
-    <Link to={`/account/${accountId}/${hash}`}>
+    <Link to={`/${uriPrefix}/${accountId}/${hash}`}>
       <Info>
         <CurrencyIcon coin={coin} />
         <Text>
@@ -35,6 +37,10 @@ const Transaction: React.FC<Props> = ({
       </span>
     </Link>
   );
+};
+
+Transaction.defaultProps = {
+  uriPrefix: 'features/activity',
 };
 
 export default Transaction;

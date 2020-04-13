@@ -17,7 +17,11 @@ import DayTotals from './DayTotals/DayTotals';
 import Update from './Update/Update';
 import SwipeForMore from '../SwipeForMore/SwipeForMore';
 
-const ActivityList: React.FC = () => {
+interface Props {
+  context?: string;
+}
+
+const ActivityList: React.FC<Props> = ({ context }) => {
   const activities: Activities[] = useSelector(getActivities);
 
   return (
@@ -42,6 +46,7 @@ const ActivityList: React.FC = () => {
                 <Transaction
                   key={key}
                   transaction={activity as TransactionActivity}
+                  uriPrefix={context}
                 />
               );
             }
@@ -60,18 +65,18 @@ const ActivityList: React.FC = () => {
 
             return null;
           })}
-          <Update
-            title="Congratulations!"
-            excerpt={
-              <>
-                Your wallet has been successfully created. Try starting with{' '}
-                <a href="https://docs.cerebrowallet.com">Knowledge Base</a>. We
-                are really happy to meet you!
-              </>
-            }
-            closable={false}
-            lightBg
-          />
+          {/*<Update*/}
+          {/*  title="Congratulations!"*/}
+          {/*  excerpt={*/}
+          {/*    <>*/}
+          {/*      Your wallet has been successfully created. Try starting with{' '}*/}
+          {/*      <a href="https://docs.cerebrowallet.com">Knowledge Base</a>. We*/}
+          {/*      are really happy to meet you!*/}
+          {/*    </>*/}
+          {/*  }*/}
+          {/*  closable={false}*/}
+          {/*  lightBg*/}
+          {/*/>*/}
         </>
       </Scrollbar>
       <SwipeForMore />
