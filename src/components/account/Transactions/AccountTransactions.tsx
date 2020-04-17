@@ -25,7 +25,7 @@ const AccountTransactions: React.FC<
   if (!transactionHash) {
     return (
       <Redirect
-        to={`/account/${accountId}/${account?.transactions?.allIds[0]}`}
+        to={`/account/${accountId}/tx/${account?.transactions?.allIds[0]}`}
       />
     );
   }

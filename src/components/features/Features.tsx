@@ -39,7 +39,7 @@ const Features: React.FC<RouteComponentProps<{}>> = ({ match }) => {
           <Route path={`${match.path}/exchange`}>
             <Exchange />
           </Route>
-          <Route path={`/features/activity/:accountId?/:transactionHash?`}>
+          <Route path={`/features/activity/:accountId?/tx/:transactionHash?`}>
             <FeaturesActivity />
           </Route>
         </Switch>

@@ -61,7 +61,7 @@ const Routes: React.FC = () => {
                 >
                   <ManageAccount />
                 </PrivateRoute>
-                <PrivateRoute path="/account/:accountId/:transactionHash?">
+                <PrivateRoute path="/account/:accountId/tx/:transactionHash?">
                   <Transactions />
                 </PrivateRoute>
                 <PrivateRoute path="/account/:accountId">

@@ -22,7 +22,7 @@ const Transaction: React.FC<Props> = ({
   const settings = useSelector(getSettings);
 
   return (
-    <Link to={`/${uriPrefix}/${accountId}/${hash}`}>
+    <Link to={`/${uriPrefix}/${accountId}/tx/${hash}`}>
       <Info>
         <CurrencyIcon coin={coin} />
         <Text>
