@@ -10,6 +10,7 @@ export interface Config {
         accountDetails: (address: string) => string;
         transactionDetails: (hash: string) => string;
         unconfirmedTransactions: (address: string) => string;
+        recommendedFee: () => string;
       };
     };
   };
@@ -49,6 +50,7 @@ const config: Config = {
           `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
         unconfirmedTransactions: (address: string) =>
           `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
+        recommendedFee: () => 'https://bitcoinfees.earn.com/api/v1/fees/recommended',
       },
     },
   },

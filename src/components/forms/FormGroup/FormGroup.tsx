@@ -4,6 +4,7 @@ import { Wrapper, Label } from './styled';
 
 interface Props {
   label: string;
+  labelContent?: React.ComponentType | React.ReactNode;
   children: React.ReactNode;
   className?: string;
   noMarginBottom?: boolean;
@@ -11,13 +12,17 @@ interface Props {
 
 const FormGroup: React.FC<Props> = ({
   label,
+  labelContent,
   children,
   className,
   noMarginBottom,
 }) => {
   return (
     <Wrapper className={className} noMarginBottom={noMarginBottom}>
-      <Label>{label}</Label>
+      <Label>
+        {label}
+        {labelContent}
+      </Label>
       {children}
     </Wrapper>
   );

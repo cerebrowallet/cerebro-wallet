@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Currencies } from '../../../../../dictionaries';
+import { Currencies, Coins } from '../../../../../dictionaries';
 
 import { Container } from './styled';
 
 interface Props {
-  currency: Currencies;
+  currency?: Currencies | Coins;
   children: React.ReactNode;
   className?: string;
 }

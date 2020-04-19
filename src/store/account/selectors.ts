@@ -1,48 +1,57 @@
-import {createSelector} from 'reselect';
-import {set} from 'date-fns';
+import { createSelector } from 'reselect';
+import { set } from 'date-fns';
 
-import {ApplicationState} from '../index';
-import {Account, Activities, Transaction, TransactionActivity} from './types';
-import {ActivityFilterTypes, ActivityTypes, Coins, Currencies,} from '../../dictionaries';
-import {getActivityFilters, getSettings, getUpdates} from '../user/selectors';
-import {groupBy, round} from '../../utils/common';
+import { ApplicationState } from '../index';
+import { Account, Activities, Transaction, TransactionActivity } from './types';
+import {
+  ActivityFilterTypes,
+  ActivityTypes,
+  Coins,
+  Currencies,
+  CurrencySymbols,
+} from '../../dictionaries';
+import { getActivityFilters, getSettings, getUpdates } from '../user/selectors';
+import { groupBy, round } from '../../utils/common';
 
 export const getTotalBalanceCurrency = (state: ApplicationState) =>
   state.account.totalBalanceCurrency;
 export const getAccounts = (state: ApplicationState) => state.account.accounts;
-export const getAccountsList = createSelector(
-  getAccounts,
-  accounts =>
-    accounts
-      ? accounts.allIds.reduce((list: Account[], accountId: string) => {
-          const account: Account = accounts.byIds[accountId];
-          const l = list;
+export const getAccountsList = createSelector(getAccounts, (accounts) =>
+  accounts
+    ? accounts.allIds.reduce((list: Account[], accountId: string) => {
+        const account: Account = accounts.byIds[accountId];
+        const l = list;
 
-          l.push({
-            id: account.id,
-            address: account.address,
-            balance: account.balance,
-            name: account.name,
-            coin: account.coin,
-            transactions: account.transactions,
-          });
+        l.push({
+          id: account.id,
+          address: account.address,
+          balance: account.balance,
+          name: account.name,
+          coin: account.coin,
+          transactions: account.transactions,
+        });
 
-          return l;
-        }, [])
-      : []
+        return l;
+      }, [])
+    : []
+);
+export const getAccountsListForDropdown = createSelector(
+  getAccountsList,
+  (list) =>
+    list.map((account: Account) => ({
+      ...account,
+      id: account.address,
+      intId: account.id,
+    }))
 );
 export const getAccountById = (accountId?: string) =>
-  createSelector(
-    getAccounts,
-    accounts => (accounts && accountId ? accounts.byIds[accountId] : null)
+  createSelector(getAccounts, (accounts) =>
+    accounts && accountId ? accounts.byIds[accountId] : null
   );
 export const getExchangeRates = (state: ApplicationState) =>
   state.account.rates;
 export const getExchangeRate = (coin: Coins, currency: Currencies) =>
-  createSelector(
-    getExchangeRates,
-    rates => rates && rates[coin][currency]
-  );
+  createSelector(getExchangeRates, (rates) => rates && rates[coin][currency]);
 export const getTotalBalance = createSelector(
   [getAccounts, getExchangeRates, getTotalBalanceCurrency],
   (accounts, rates, currency) => {
@@ -75,7 +84,7 @@ export const getActivities = createSelector(
     let results: Activities[] = [];
 
     if (filters.type !== ActivityFilterTypes.Updates && accounts) {
-      accounts.forEach(account => {
+      accounts.forEach((account) => {
         if (
           filters.type === ActivityFilterTypes.Account &&
           filters.value !== account.id
@@ -139,7 +148,7 @@ export const getActivities = createSelector(
         items: Activities[],
         [day, dayActivities]: [string, Activities[]],
         i: number
-      ) => ([
+      ) => [
         ...items,
         {
           id: `day-${i}-${day}`,
@@ -157,7 +166,7 @@ export const getActivities = createSelector(
           ),
         },
         ...dayActivities,
-      ]),
+      ],
       []
     );
   }
@@ -189,3 +198,7 @@ export const getTransactionById = (accountId: string, transactionId?: string) =>
         : null;
     }
   );
+export const getRecommendedBTCFee = (state: ApplicationState) =>
+  state.account.recommendedBTCFee;
+export const getTxDraftValues = (state: ApplicationState) =>
+  state.account.txDraftValues;

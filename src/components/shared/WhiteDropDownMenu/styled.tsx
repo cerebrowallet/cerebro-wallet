@@ -26,7 +26,7 @@ export const Toggle = styled.button`
     width: 0.75rem;
     height: 0.75rem;
     top: 0.1875rem;
-    right: -0.625rem;
+    right: -0.725rem;
     color: ${props => props.theme.colors.secondary};
     transition: transform 0.2s ease-in-out;
     transform: rotate(
@@ -41,7 +41,7 @@ export const Menu = styled(animated.div)`
   opacity: 0;
   left: -0.4375rem;
   top: 100%;
-  width: 100%;
+  //width: 100%;
   background: ${props => props.theme.colors.tertiary};
   z-index: 10;
   background: ${props => props.theme.colors.blockBackground};
@@ -61,6 +61,7 @@ export const MenuItem = styled.button`
   padding: 0;
   margin-bottom: 0.3125rem;
   cursor: pointer;
+  white-space: nowrap;
 
   &:last-child {
     margin-bottom: 0;

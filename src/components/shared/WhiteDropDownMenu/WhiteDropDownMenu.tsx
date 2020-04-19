@@ -8,7 +8,7 @@ import { Container, Toggle, Menu, MenuItem } from './styled';
 
 interface Props {
   selected: any;
-  menuItems: { value: ReactText; label: string }[];
+  menuItems: { id: ReactText; name: string }[];
   onChange: (value: string | number) => void;
 }
 
@@ -33,6 +33,8 @@ const WhiteDropDownMenu: React.FC<Props> = ({
     return null;
   }
 
+  const selectedMenuItem = menuItems.find((item) => item.id === selected);
+
   return (
     <Container ref={menuRef}>
       <Toggle
@@ -40,7 +42,7 @@ const WhiteDropDownMenu: React.FC<Props> = ({
         onClick={() => setShowMenu(!showMenu)}
         isMenuOpen={showMenu}
       >
-        {selected}
+        {selectedMenuItem && selectedMenuItem.name}
         <ChevronDownIcon />
       </Toggle>
       {transition.map(
@@ -50,14 +52,14 @@ const WhiteDropDownMenu: React.FC<Props> = ({
               {menuItems.map((menuItem, i) => (
                 <MenuItem
                   type="button"
-                  key={`${menuItem.value}-${i}`}
-                  active={menuItem.value === selected}
+                  key={`${menuItem.id}-${i}`}
+                  active={menuItem.id === selected}
                   onClick={() => {
-                    onChange(menuItem.value);
+                    onChange(menuItem.id);
                     setShowMenu(false);
                   }}
                 >
-                  {menuItem.label}
+                  {menuItem.name}
                 </MenuItem>
               ))}
             </Menu>

@@ -3,7 +3,6 @@ import {
   call,
   put,
   takeLatest,
-  takeEvery,
   select,
 } from 'redux-saga/effects';
 import { produce } from 'immer';
@@ -19,6 +18,7 @@ import {
   deleteAccount as deleteAccountAction,
   getAccountDetails as getAccountDetailsAction,
   getTransactionDetails as getTransactionDetailsAction,
+  setRecommendedBTCFee,
   updateAccount,
 } from './actions';
 import { config } from '../../config';
@@ -200,7 +200,7 @@ function* deleteAccount({
     const existingAccounts: Accounts = yield select(getAccountsSelector);
     const accounts: Accounts = produce(existingAccounts, (draft: Accounts) => {
       delete draft.byIds[accountId];
-      draft.allIds = draft.allIds.filter(id => id !== accountId);
+      draft.allIds = draft.allIds.filter((id) => id !== accountId);
     });
 
     yield call(putFile, {
@@ -341,6 +341,36 @@ function* getTransactionDetails({
   }
 }
 
+function* getRecommendedBTCFee() {
+  try {
+    const { fastestFee } = yield call(callApi, {
+      method: 'get',
+      url: config.coins.BTC.apiUrls.recommendedFee(),
+    });
+
+    yield put(setRecommendedBTCFee(fastestFee));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* makeTransaction() {
+  try {
+    yield put(push('/features/send/success'));
+  } catch (e) {
+    yield put(
+      showNotification({
+        type: NotificationTypes.Error,
+        text:
+          'There was an error creating the transaction. Please, make sure the address is valid or support@cerebrowallet.com',
+      })
+    );
+
+    // TODO log error
+    console.error(e);
+  }
+}
+
 function* accountSaga() {
   yield all([
     takeLatest(AccountActionTypes.GET_ACCOUNTS, getAccounts),
@@ -352,6 +382,11 @@ function* accountSaga() {
       AccountActionTypes.GET_TRANSACTION_DETAILS,
       getTransactionDetails
     ),
+    takeLatest(
+      AccountActionTypes.GET_RECOMMENDED_BTC_FEE,
+      getRecommendedBTCFee
+    ),
+    takeLatest(AccountActionTypes.MAKE_TRANSACTION, makeTransaction),
   ]);
 }
 

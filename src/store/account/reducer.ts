@@ -3,18 +3,24 @@ import { produce } from 'immer';
 
 import { AccountState, AccountActionTypes } from './types';
 
+import { toBTC } from '../../utils/common';
+
+const TYPICAL_TX_SIZE = 226;
+
 const initialState: AccountState = {
   accounts: null,
   rates: null,
   searchActivityStr: '',
   totalBalanceCurrency: null,
+  recommendedBTCFee: 0,
+  txDraftValues: null,
 };
 
 const reducer: Reducer<AccountState> = (
   state: AccountState = initialState,
   action
 ) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case AccountActionTypes.SET_ACCOUNTS:
         draft.accounts = action.payload;
@@ -42,6 +48,12 @@ const reducer: Reducer<AccountState> = (
         break;
       case AccountActionTypes.SET_TOTAL_BALANCE_CURRENCY:
         draft.totalBalanceCurrency = action.payload;
+        break;
+      case AccountActionTypes.SET_RECOMMENDED_BTC_FEE:
+        draft.recommendedBTCFee = toBTC(action.payload * TYPICAL_TX_SIZE);
+        break;
+      case AccountActionTypes.SET_TX_DRAFT_VALUES:
+        draft.txDraftValues = action.payload;
         break;
       default:
         return draft;

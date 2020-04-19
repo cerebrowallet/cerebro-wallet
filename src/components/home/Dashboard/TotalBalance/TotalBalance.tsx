@@ -29,8 +29,8 @@ const TotalBalance: React.FC = () => {
         <WhiteDropDownMenu
           selected={displayCurrency}
           menuItems={enumToArray(Currencies).map(([key, value]) => ({
-            label: key,
-            value,
+            name: key,
+            id: value,
           }))}
           onChange={(value: any) =>
             dispatch(setTotalBalanceCurrency(value))

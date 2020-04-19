@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { File as FileIcon } from 'react-feather';
 
-import { SendSteps } from '../../../../dictionaries';
+import { getTxDraftValues } from '../../../../store/account/selectors';
+import { getSettings } from '../../../../store/user/selectors';
+import { makeTransaction } from '../../../../store/account/actions';
+import { SendSteps, CurrencySymbols } from '../../../../dictionaries';
 
-import SendPagination from '../SendPagination/SendPagination';
-import Button from '../../../forms/Button/Button';
-import Page from '../../../layout/Page/Page';
-import WhiteBlock from '../../WhiteBlock';
 import {
   Title,
   Amount,
-  AmountInDollars,
+  AmountInLocalCurrency,
   Details,
   Actions,
   BackButton,
 } from './styled';
 
+import SendPagination from '../SendPagination/SendPagination';
+import Button from '../../../forms/Button/Button';
+import Page from '../../../layout/Page/Page';
+import WhiteBlock from '../../WhiteBlock';
+import Loader from '../../Loader/Loader';
+
 const SendConfirm: React.FC = () => {
+  const dispatch = useDispatch();
+  const data = useSelector(getTxDraftValues);
+  const history = useHistory();
+  const settings = useSelector(getSettings);
+
+  useEffect(() => {
+    if (!data) {
+      history.push('/features/send');
+    }
+  }, [data]);
+
+  if (!data) {
+    return null;
+  }
+
+  if (!settings) {
+    return <Loader />;
+  }
+
+  const willReceiveAmount = parseFloat(data.amount) - parseFloat(data.fee);
+
   return (
     <Page
       headerText="Confirm"
@@ -25,21 +53,38 @@ const SendConfirm: React.FC = () => {
     >
       <WhiteBlock>
         <Title>You want to spend</Title>
-        <Amount>0.00032142 BTC</Amount>
-        <AmountInDollars>$2.91</AmountInDollars>
+        <Amount>
+          {data.amount} {data.fromAccount.coin}
+        </Amount>
+        <AmountInLocalCurrency>
+          {!!settings.currency && CurrencySymbols[settings.currency]}
+          {data.amountInLocalCurrency}
+        </AmountInLocalCurrency>
         <Details>
           <dt>From</dt>
-          <dd>1L9NxSdNx92jLy8KdKn3gd528hGDCuzM19</dd>
+          <dd>{data.fromAccount.address}</dd>
           <dt>To</dt>
-          <dd>1LjDjujdaPPa61K2fvpyRLCdd8so1iuXR1</dd>
+          <dd>
+            {typeof data.transferTo === 'string'
+              ? data.transferTo
+              : data.transferTo.address}
+          </dd>
           <dt>Network fee</dt>
-          <dd>0.0001 BTC</dd>
+          <dd>
+            {data.fee} {data.fromAccount.coin}
+          </dd>
           <dt>Will receive</dt>
-          <dd>0.00022142 BTC</dd>
+          <dd>
+            {willReceiveAmount} {data.fromAccount.coin}
+          </dd>
         </Details>
         <Actions>
-          <BackButton type="button">&larr; Back</BackButton>
-          <Button type="button">Confirm</Button>
+          <BackButton type="button" onClick={() => history.goBack()}>
+            &larr; Back
+          </BackButton>
+          <Button type="button" onClick={() => dispatch(makeTransaction())}>
+            Confirm
+          </Button>
         </Actions>
         <SendPagination step={SendSteps.Confirm} />
       </WhiteBlock>

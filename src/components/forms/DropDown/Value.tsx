@@ -19,7 +19,7 @@ const ValueElement = styled.span`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  text-transform: uppercase;
+  //text-transform: uppercase;
 
   ${(props: ElementProps) =>
     props.showvalue &&

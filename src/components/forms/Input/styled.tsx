@@ -16,7 +16,7 @@ interface InputProps {
 
 export const InputElement = styled.input`
   display: block;
-  background: ${props => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.tertiary};
   border: 1px solid
     ${(props: InputProps) => {
       if (!props.theme) {
@@ -36,7 +36,7 @@ export const InputElement = styled.input`
   border-radius: 0.625rem;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: ${props => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   padding: 1rem 1.25rem;
   width: 100%;
   resize: none;
@@ -51,8 +51,8 @@ interface TextAreaProps extends InputProps {
   rows?: number;
 }
 
-const TextAreaElement: React.FC = props => <textarea {...props} />;
+const TextAreaElement: React.FC = (props) => <textarea {...props} />;
 
-export const TextArea: React.FC<TextAreaProps> = () => {
-  return <InputElement as={TextAreaElement} />;
+export const TextArea: React.FC<TextAreaProps> = ({ status }) => {
+  return <InputElement as={TextAreaElement} status={status} />;
 };

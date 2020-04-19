@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import FormGroup from "../../../../forms/FormGroup/FormGroup";
-import CurrencyInput from "../CurrencyInput/CurrencyInput";
+import styled from 'styled-components';
+import FormGroup from '../../../../forms/FormGroup/FormGroup';
+import CurrencyInput from '../CurrencyInput/CurrencyInput';
 
 export const Container = styled(FormGroup)`
   position: relative;
@@ -12,19 +12,24 @@ export const SendAllButton = styled.button`
   right: 0;
   background: none;
   border: 0;
-  color: ${props => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   display: inline-block;
   font-size: 0.875rem;
   line-height: 1.0625rem;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
+  
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const InputsContainer = styled.div`
-  overflow: hidden;
+  position: relative;
+  //overflow: hidden;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
     display: flex;
     width: 100%;
   }
@@ -39,12 +44,12 @@ export const AmountInCrypto = styled(CurrencyInput)`
     border-top-right-radius: 0;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
     border-right: 1px solid #fff;
   }
 `;
 
-export const AmountInDollars = styled(CurrencyInput)`
+export const AmountInLocal = styled(CurrencyInput)`
   flex: 50%;
 
   input {

@@ -49,8 +49,13 @@ export const toSatoshi = (btc: number) => btc * 100000000;
 
 export const toBTC = (satoshi: number) => satoshi / 100000000;
 
-export const round = (number: number) =>
-  Math.round((number + Number.EPSILON) * 100) / 100;
+export const round = (value: number, decimals: number = 2) => {
+  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals);
+};
+
+export const parseFloatStr = (value: string) => {
+  return parseFloat(value.replace(',', '.')) || 0;
+}
 
 export const groupBy = (xs: any, key: any) => {
   return xs.reduce((rv: any, x: any) => {

@@ -1,19 +1,19 @@
 import React from 'react';
 import { Switch, Route, RouteComponentProps, withRouter } from 'react-router';
 
-import SendChoose from './SendChoose/SendChoose';
+import SendForm from './SendForm/SendForm';
 import SendConfirm from './SendConfirm/SendConfirm';
 import SendSuccess from './SendSuccess/SendSuccess';
 
 interface Props extends RouteComponentProps {
-  account?: string;
+  accountId?: string;
 }
 
-const Send: React.FC<Props> = ({ match, account }) => {
+const Send: React.FC<Props> = ({ match, accountId }) => {
   return (
     <Switch>
       <Route exact path={match.path}>
-        <SendChoose account={account} />
+        <SendForm accountId={accountId} />
       </Route>
       <Route path={`${match.path}/confirm`}>
         <SendConfirm />

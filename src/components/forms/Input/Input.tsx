@@ -15,6 +15,8 @@ interface Props {
   disabled?: boolean;
   validate?: (value: string) => string | undefined;
   rows?: number;
+  onChange?: (value: string, error?: string) => void;
+  hideTextError?: boolean;
 }
 
 const Input: React.FC<Props> = ({
@@ -27,6 +29,8 @@ const Input: React.FC<Props> = ({
   validate,
   requiredErrorMessage,
   rows,
+  onChange,
+  hideTextError,
 }) => {
   return (
     <Field
@@ -48,6 +52,13 @@ const Input: React.FC<Props> = ({
           ...field,
           placeholder,
           disabled,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+            field.onChange(e);
+
+            if (onChange) {
+              onChange(e.target.value);
+            }
+          },
         };
 
         const hasError = touched && error;
@@ -67,7 +78,7 @@ const Input: React.FC<Props> = ({
                 status={hasError ? Statuses.Fail : undefined}
               />
             )}
-            {hasError && error !== 'no-message' && (
+            {hasError && !hideTextError && error !== 'no-message' && (
               <InputError>{error}</InputError>
             )}
           </Wrapper>

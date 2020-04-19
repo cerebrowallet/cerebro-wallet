@@ -7,6 +7,7 @@ import {
   ExchangeRates,
   UpdateAccountActionPayload,
 } from './types';
+import { TxDraftFormValues } from '../../components/shared/Send/SendForm/SendForm';
 
 export const getAccounts = () => action(AccountActionTypes.GET_ACCOUNTS);
 export const setAccounts = (accounts: {
@@ -35,3 +36,11 @@ export const getTransactionDetails = (payload: {
   accountId: string;
   transactionHash: string;
 }) => action(AccountActionTypes.GET_TRANSACTION_DETAILS, payload);
+export const getRecommendedBTCFee = () =>
+  action(AccountActionTypes.GET_RECOMMENDED_BTC_FEE);
+export const setRecommendedBTCFee = (payload: any) =>
+  action(AccountActionTypes.SET_RECOMMENDED_BTC_FEE, payload);
+export const setTxDraftValues = (payload: TxDraftFormValues | null) =>
+  action(AccountActionTypes.SET_TX_DRAFT_VALUES, payload);
+export const makeTransaction = () =>
+  action(AccountActionTypes.MAKE_TRANSACTION);

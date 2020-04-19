@@ -15,7 +15,7 @@ export const Amount = styled.strong`
   margin-bottom: 0;
 `;
 
-export const AmountInDollars = styled.span`
+export const AmountInLocalCurrency = styled.span`
   display: block;
   font-size: 1rem;
   line-height: 1.5rem;

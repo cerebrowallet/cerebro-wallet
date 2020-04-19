@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Coins, Currencies } from '../../../../../dictionaries';
 
 interface ContainerProps {
-  currency: Coins | Currencies;
+  currency?: Currencies | Coins;
 }
 
 export const Container = styled.div`

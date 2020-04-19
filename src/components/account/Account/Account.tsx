@@ -57,7 +57,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
             <TopUpAccount accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/send`}>
-            <Send account={accountId} />
+            <Send accountId={accountId} />
           </Route>
           <Route exact path={`${match.url}/exchange`}>
             <Exchange />

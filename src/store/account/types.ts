@@ -1,4 +1,5 @@
 import { Coins, ActivityTypes, Currencies } from '../../dictionaries';
+import { TxDraftFormValues } from '../../components/shared/Send/SendForm/SendForm';
 
 export enum AccountActionTypes {
   GET_ACCOUNTS = '@@account/get_accounts',
@@ -13,6 +14,10 @@ export enum AccountActionTypes {
   SEARCH_ACTIVITY_BY_HASH = '@@account/search_activity_by_hash',
   SET_TOTAL_BALANCE_CURRENCY = '@@account/set_total_balance_currency',
   GET_TRANSACTION_DETAILS = '@@account/get_transaction_details',
+  GET_RECOMMENDED_BTC_FEE = '@@account/get_recommended_btc_fee',
+  SET_RECOMMENDED_BTC_FEE = '@@account/set_recommended_btc_fee',
+  SET_TX_DRAFT_VALUES = '@@account/set_tx_draft_values',
+  MAKE_TRANSACTION = '@account/make_transaction',
 }
 
 export interface Transaction {
@@ -61,6 +66,8 @@ export interface AccountState {
   rates: ExchangeRates | null;
   searchActivityStr: string;
   totalBalanceCurrency: Currencies | null;
+  recommendedBTCFee: number;
+  txDraftValues: TxDraftFormValues | null;
 }
 
 export interface UpdateAccountActionPayload {
