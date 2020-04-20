@@ -17,7 +17,9 @@ import { parseFloatStr } from '../../../../../utils/common';
 const Fee: React.FC = () => {
   const { values } = useFormikContext<TxDraftFormValues>();
   const recommendedBTCFee = useSelector(getRecommendedBTCFee);
-  const sendFromAccount = useSelector(getAccountById(values.fromAccount.intId));
+  const sendFromAccount = useSelector(
+    getAccountById(values.transferFrom.intId)
+  );
 
   return (
     <Container currency={Currencies.BTC}>
@@ -41,7 +43,7 @@ const Fee: React.FC = () => {
             error = 'Not enough fee. Increase the fee.';
           }
 
-          if (intVal > sendFromAccount?.balance) {
+          if (intVal > sendFromAccount?.balance - parseFloat(values.amount)) {
             error = 'Fee greater than the account balance.';
           }
 

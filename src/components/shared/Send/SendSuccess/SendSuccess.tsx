@@ -1,31 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { ThumbsUp as ThumbsUpIcon } from 'react-feather';
 
 import { SendSteps } from '../../../../dictionaries';
+import { getBlockStackName } from '../../../../store/user/selectors';
+import { setTxDraftValues } from '../../../../store/account/actions';
+
+import { Container, SuccessIcon, Text, Title, HashText } from './styled';
 
 import SendPagination from '../SendPagination/SendPagination';
 import Button from '../../../forms/Button/Button';
 import Page from '../../../layout/Page/Page';
 import WhiteBlock from '../../WhiteBlock';
-import { Container, SuccessIcon, Text, Title, HashText } from './styled';
 
-const SendSuccess: React.FC = () => {
+const SendSuccess: React.FC<RouteComponentProps> = ({
+  history,
+  location: { state },
+}) => {
+  const name = useSelector(getBlockStackName);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!state.hash) {
+      history.push('/');
+    }
+
+    return () => {
+      dispatch(setTxDraftValues(null));
+    };
+  }, []);
+
   return (
     <Page
       headerText="Success"
       FooterIcon={ThumbsUpIcon}
-      footerText="You are doing everything right, Eugene."
+      footerText={`You are doing everything right, ${name}.`}
     >
       <WhiteBlock>
         <Container>
           <SuccessIcon />
           <Title>Congratulations!</Title>
           <Text>Your transaction was successfully sent! Hash:</Text>
-          <HashText
-            truncate
-            value="0x309cc6klklkklkaf2f6b1ec6llklkkb489858489bd"
-          />
-          <Button>Ok</Button>
+          {state.hash && <HashText truncate value={state.hash} />}
+          <Button onClick={() => history.push('/')}>Ok</Button>
         </Container>
         <SendPagination step={SendSteps.Success} />
       </WhiteBlock>
@@ -33,4 +51,4 @@ const SendSuccess: React.FC = () => {
   );
 };
 
-export default SendSuccess;
+export default withRouter(SendSuccess);

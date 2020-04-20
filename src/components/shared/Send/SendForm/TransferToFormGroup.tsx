@@ -17,7 +17,7 @@ import FormGroup from '../../../forms/FormGroup/FormGroup';
 const TransferToFormGroup: React.FC = () => {
   const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
   const accounts = useSelector(getAccountsListForDropdown);
-  const sendFromAccount = useSelector(getAccountById(values.fromAccount.intId));
+  const sendFromAccount = useSelector(getAccountById(values.transferFrom.intId));
 
   const TRANSFER_TO_OPTIONS = [
     {
@@ -35,10 +35,10 @@ const TransferToFormGroup: React.FC = () => {
       label="Transfer to "
       labelContent={
         <WhiteDropDownMenu
-          selected={values.transferToWhat}
+          selected={values.transferToType}
           menuItems={TRANSFER_TO_OPTIONS}
           onChange={(value: any) => {
-            setFieldValue('transferToWhat', value);
+            setFieldValue('transferToType', value);
             setFieldValue(
               'transferTo',
               value === TRANSFER_TO_TYPES.ADDRESS ? '' : null
@@ -47,7 +47,7 @@ const TransferToFormGroup: React.FC = () => {
         />
       }
     >
-      {values.transferToWhat === TRANSFER_TO_TYPES.ADDRESS ? (
+      {values.transferToType === TRANSFER_TO_TYPES.ADDRESS ? (
         <Input
           name="transferTo"
           type="textarea"
@@ -59,7 +59,7 @@ const TransferToFormGroup: React.FC = () => {
         <DropDown
           required
           options={accounts.filter(
-            (account) => account.intId !== values.fromAccount.intId
+            (account) => account.intId !== values.transferFrom.intId
           )}
           name="transferTo"
           placeholder="Choose account"

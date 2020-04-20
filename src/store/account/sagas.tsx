@@ -1,10 +1,4 @@
-import {
-  all,
-  call,
-  put,
-  takeLatest,
-  select,
-} from 'redux-saga/effects';
+import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import { produce } from 'immer';
 import { push } from 'connected-react-router';
 import { SagaIterator } from 'redux-saga';
@@ -20,19 +14,21 @@ import {
   getTransactionDetails as getTransactionDetailsAction,
   setRecommendedBTCFee,
   updateAccount,
+  setAccounts,
+  setExchangeRates,
 } from './actions';
-import { config } from '../../config';
-import { createWallet } from '../../utils/wallets';
-import { setAccounts, setExchangeRates } from './actions';
 import {
   getAccountById,
   getAccounts as getAccountsSelector,
+  getTxDraftValues,
 } from './selectors';
+import { config } from '../../config';
+import { createWallet, createBTCLikeTransaction } from '../../utils/wallets';
 import { getCoinsList, getCurrenciesList } from '../user/selectors';
 import { Value } from '../../components/forms/DropDown/DropDown';
 import { showNotification } from '../layout/actions';
 import { NotificationTypes } from '../../dictionaries';
-import { toBTC } from '../../utils/common';
+import { toBTC, toSatoshi } from '../../utils/common';
 
 function* getAccounts() {
   try {
@@ -356,7 +352,51 @@ function* getRecommendedBTCFee() {
 
 function* makeTransaction() {
   try {
-    yield put(push('/features/send/success'));
+    const txDraftValues = yield select(getTxDraftValues);
+    const account = yield select(
+      getAccountById(txDraftValues.transferFrom.intId)
+    );
+
+    const { txrefs: uxto } = yield call(callApi, {
+      method: 'get',
+      url: config.coins[account.coin].apiUrls.accountDetails(account.address),
+      queryParams: {
+        unspentOnly: true,
+      },
+    });
+
+    const txAmount = parseFloat(txDraftValues.amount);
+    const txFee = parseFloat(txDraftValues.fee);
+
+    const txHash = createBTCLikeTransaction({
+      privateKey: account.privateKey,
+      uxto,
+      receivers: [
+        {
+          address:
+            txDraftValues.transferToType === 'account'
+              ? txDraftValues.transferTo.address
+              : txDraftValues.transferTo,
+          amount: toSatoshi(txAmount),
+        },
+        {
+          address: txDraftValues.transferFrom.address,
+          amount:
+            toSatoshi(account.balance) - toSatoshi(txAmount) - toSatoshi(txFee),
+        },
+      ],
+      coin: account.coin,
+    });
+
+    const { tx } = yield call(callApi, {
+      method: 'post',
+      url: config.coins[account.coin].apiUrls.broadcastTX(),
+      body: {
+        tx: txHash,
+      },
+    });
+
+    yield put(push('/features/send/success', { hash: tx.hash }));
   } catch (e) {
     yield put(
       showNotification({

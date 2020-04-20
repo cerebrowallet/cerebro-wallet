@@ -10,6 +10,7 @@ export interface Config {
         accountDetails: (address: string) => string;
         transactionDetails: (hash: string) => string;
         unconfirmedTransactions: (address: string) => string;
+        broadcastTX: () => string;
         recommendedFee: () => string;
       };
     };
@@ -50,12 +51,13 @@ const config: Config = {
           `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
         unconfirmedTransactions: (address: string) =>
           `https://api.blockcypher.com/v1/btc/test3/txs/${address}`,
+        broadcastTX: () => 'https://api.blockcypher.com/v1/btc/test3/txs/push',
         recommendedFee: () => 'https://bitcoinfees.earn.com/api/v1/fees/recommended',
       },
     },
   },
   networks: {
-    testnet: {
+    BTC: {
       messagePrefix: '\x18Bitcoin Signed Message:\n',
       bech32: 'tb',
       bip32: {
@@ -66,17 +68,17 @@ const config: Config = {
       scriptHash: 0xc4,
       wif: 0xef,
     },
-    bitcoin: {
-      messagePrefix: '\x18Bitcoin Signed Message:\n',
-      bech32: 'bc',
-      bip32: {
-        public: 0x0488b21e,
-        private: 0x0488ade4,
-      },
-      pubKeyHash: 0x00,
-      scriptHash: 0x05,
-      wif: 0x80,
-    },
+    // BTC: {
+    //   messagePrefix: '\x18Bitcoin Signed Message:\n',
+    //   bech32: 'bc',
+    //   bip32: {
+    //     public: 0x0488b21e,
+    //     private: 0x0488ade4,
+    //   },
+    //   pubKeyHash: 0x00,
+    //   scriptHash: 0x05,
+    //   wif: 0x80,
+    // },
   },
   gaia: {
     files: {

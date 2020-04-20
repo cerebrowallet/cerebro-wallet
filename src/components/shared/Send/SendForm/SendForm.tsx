@@ -42,9 +42,9 @@ interface TxDraftAccount {
 }
 
 export interface TxDraftFormValues {
-  fromAccount: TxDraftAccount;
+  transferFrom: TxDraftAccount;
   transferTo: TxDraftAccount | string;
-  transferToWhat: string;
+  transferToType: string;
   amount: string;
   amountInLocalCurrency: string;
   fee: string;
@@ -76,9 +76,9 @@ const SendForm: React.FC<Props> = ({ account }) => {
   const initialValues: TxDraftFormValues = txDraftValues
     ? txDraftValues
     : {
-        fromAccount: txDraftAccount,
+        transferFrom: txDraftAccount,
         transferTo: '',
-        transferToWhat: TRANSFER_TO_TYPES.ADDRESS,
+        transferToType: TRANSFER_TO_TYPES.ADDRESS,
         amount: '',
         amountInLocalCurrency: '',
         fee: recommendedFee.toString(),
@@ -108,12 +108,12 @@ const SendForm: React.FC<Props> = ({ account }) => {
                   <DropDown
                     required
                     options={accounts}
-                    name="fromAccount"
+                    name="transferFrom"
                     placeholder="Choose account"
                     showValue
                     onChange={(value: any) => {
                       if (
-                        values.transferToWhat === TRANSFER_TO_TYPES.ADDRESS &&
+                        values.transferToType === TRANSFER_TO_TYPES.ADDRESS &&
                         typeof values.transferTo !== 'string' &&
                         value.intId === values.transferTo.intId
                       ) {

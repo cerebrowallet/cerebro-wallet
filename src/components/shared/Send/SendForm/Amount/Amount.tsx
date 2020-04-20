@@ -29,13 +29,16 @@ enum Inputs {
 
 const Amount: React.FC = () => {
   const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
-  const sendFromAccount = useSelector(getAccountById(values.fromAccount.intId));
+  const sendFromAccount = useSelector(
+    getAccountById(values.transferFrom.intId)
+  );
   const rates = useSelector(getExchangeRates);
   const settings = useSelector(getSettings);
   const exchangeRate =
     rates && sendFromAccount && settings && settings.currency
       ? rates[sendFromAccount.coin][settings.currency]
       : 0;
+  const fee = parseFloat(values.fee);
 
   const validateInput = (inputName: Inputs) => (value: string) => {
     if (!sendFromAccount) {
@@ -49,7 +52,9 @@ const Amount: React.FC = () => {
       error = 'Amount field is not valid.';
     }
 
-    if (inputName === Inputs.amount && intVal > sendFromAccount.balance) {
+    const maxAvailableAmount = sendFromAccount.balance - fee;
+
+    if (inputName === Inputs.amount && intVal > maxAvailableAmount) {
       error = 'The sending amount exceeds the available balance.';
     }
 
@@ -78,9 +83,11 @@ const Amount: React.FC = () => {
         type="button"
         onClick={() => {
           if (sendFromAccount) {
-            const balanceStr = sendFromAccount.balance.toString();
-            setFieldValue(Inputs.amount, balanceStr);
-            updateInputValue(Inputs.amountInLocalCurrency)(balanceStr);
+            const maxAvailableAmount = (
+              sendFromAccount.balance - fee
+            ).toString();
+            setFieldValue(Inputs.amount, maxAvailableAmount);
+            updateInputValue(Inputs.amountInLocalCurrency)(maxAvailableAmount);
           }
         }}
       >

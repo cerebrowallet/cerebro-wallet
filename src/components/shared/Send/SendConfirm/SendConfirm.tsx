@@ -43,8 +43,6 @@ const SendConfirm: React.FC = () => {
     return <Loader />;
   }
 
-  const willReceiveAmount = parseFloat(data.amount) - parseFloat(data.fee);
-
   return (
     <Page
       headerText="Confirm"
@@ -54,7 +52,7 @@ const SendConfirm: React.FC = () => {
       <WhiteBlock>
         <Title>You want to spend</Title>
         <Amount>
-          {data.amount} {data.fromAccount.coin}
+          {data.amount} {data.transferFrom.coin}
         </Amount>
         <AmountInLocalCurrency>
           {!!settings.currency && CurrencySymbols[settings.currency]}
@@ -62,7 +60,7 @@ const SendConfirm: React.FC = () => {
         </AmountInLocalCurrency>
         <Details>
           <dt>From</dt>
-          <dd>{data.fromAccount.address}</dd>
+          <dd>{data.transferFrom.address}</dd>
           <dt>To</dt>
           <dd>
             {typeof data.transferTo === 'string'
@@ -71,11 +69,11 @@ const SendConfirm: React.FC = () => {
           </dd>
           <dt>Network fee</dt>
           <dd>
-            {data.fee} {data.fromAccount.coin}
+            {data.fee} {data.transferFrom.coin}
           </dd>
           <dt>Will receive</dt>
           <dd>
-            {willReceiveAmount} {data.fromAccount.coin}
+            {data.amount} {data.transferFrom.coin}
           </dd>
         </Details>
         <Actions>
