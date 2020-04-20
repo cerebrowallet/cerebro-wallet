@@ -9,11 +9,12 @@ import {
   setTxDraftValues,
 } from '../../../../store/account/actions';
 import {
+  getAccountById,
   getAccountsListForDropdown,
   getRecommendedBTCFee,
   getTxDraftValues,
 } from '../../../../store/account/selectors';
-import {Coins, SendSteps} from '../../../../dictionaries';
+import { Coins, SendSteps } from '../../../../dictionaries';
 import { Account } from '../../../../store/account/types';
 
 import Page from '../../../layout/Page/Page';
@@ -50,11 +51,11 @@ export interface TxDraftFormValues {
 }
 
 interface Props {
-  accountId?: string;
+  account: Account | null;
   theme?: any;
 }
 
-const SendForm: React.FC<Props> = ({ accountId }) => {
+const SendForm: React.FC<Props> = ({ account }) => {
   const recommendedFee = useSelector(getRecommendedBTCFee);
   const txDraftValues = useSelector(getTxDraftValues);
   const dispatch = useDispatch();
@@ -63,12 +64,19 @@ const SendForm: React.FC<Props> = ({ accountId }) => {
     dispatch(getRecommendedBTCFeeAction());
   }, []);
 
+  const txDraftAccount: TxDraftAccount = {};
+  if (account) {
+    txDraftAccount.intId = account.id;
+    txDraftAccount.address = account.address;
+    txDraftAccount.balance = account.balance;
+    txDraftAccount.coin = account.coin;
+    txDraftAccount.id = account.address;
+  }
+
   const initialValues: TxDraftFormValues = txDraftValues
     ? txDraftValues
     : {
-        fromAccount: {
-          intId: accountId,
-        },
+        fromAccount: txDraftAccount,
         transferTo: '',
         transferToWhat: TRANSFER_TO_TYPES.ADDRESS,
         amount: '',
@@ -95,7 +103,7 @@ const SendForm: React.FC<Props> = ({ accountId }) => {
         {({ values, setFieldValue }) => (
           <Form>
             <WhiteBlock>
-              {!accountId && (
+              {!account && (
                 <FormGroup label="From account">
                   <DropDown
                     required

@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route, RouteComponentProps, withRouter } from 'react-router';
+
+import { getAccountById } from '../../../store/account/selectors';
 
 import SendForm from './SendForm/SendForm';
 import SendConfirm from './SendConfirm/SendConfirm';
@@ -10,10 +13,12 @@ interface Props extends RouteComponentProps {
 }
 
 const Send: React.FC<Props> = ({ match, accountId }) => {
+  const account = useSelector(getAccountById(accountId));
+
   return (
     <Switch>
       <Route exact path={match.path}>
-        <SendForm accountId={accountId} />
+        <SendForm account={account} />
       </Route>
       <Route path={`${match.path}/confirm`}>
         <SendConfirm />
