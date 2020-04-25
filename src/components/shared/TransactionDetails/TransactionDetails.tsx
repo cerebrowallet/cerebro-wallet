@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { format } from 'date-fns';
 
 import {
@@ -26,7 +27,7 @@ import LabeledText from '../LabeledText/LabeledText';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import Hash from '../Hash/Hash';
 
-interface Props {
+interface Props extends RouteComponentProps {
   accountId: string;
   transactionHash: string;
 }
@@ -34,6 +35,8 @@ interface Props {
 const TransactionDetails: React.FC<Props> = ({
   accountId,
   transactionHash,
+  history,
+  match,
 }) => {
   const dispatch = useDispatch();
   const account = useSelector(getAccountById(accountId));
@@ -43,7 +46,15 @@ const TransactionDetails: React.FC<Props> = ({
   const settings = useSelector(getSettings);
 
   useEffect(() => {
-    dispatch(getTransactionDetails({ accountId, transactionHash }));
+    if (
+      account &&
+      account.transactions &&
+      account.transactions.byIds[transactionHash]
+    ) {
+      dispatch(getTransactionDetails({ accountId, transactionHash }));
+    } else {
+      history.push(`${match.path.split(':accountId')[0]}${accountId}`);
+    }
   }, [accountId, transactionHash]);
 
   if (!account || !transaction) {
@@ -108,4 +119,4 @@ const TransactionDetails: React.FC<Props> = ({
   );
 };
 
-export default TransactionDetails;
+export default withRouter(TransactionDetails);

@@ -271,15 +271,17 @@ function* getAccountDetails(account: Account): SagaIterator {
         (txs: any[], tx: any) => {
           const acc: any = txs;
 
-          acc.byIds[tx.tx_hash] = {
-            hash: tx.tx_hash,
-            amount: toBTC(tx.spent ? tx.value * -1 : tx.value),
-            height: tx.block_height,
-            confirmations: tx.confirmations,
-            date: tx.confirmed,
-            spent: tx.spent,
-          };
-          acc.allIds.push(tx.tx_hash);
+          if (tx.tx_output_n > 0) {
+            acc.byIds[tx.tx_hash] = {
+              hash: tx.tx_hash,
+              amount: toBTC(tx.spent ? tx.value * -1 : tx.value),
+              height: tx.block_height,
+              confirmations: tx.confirmations,
+              date: tx.confirmed,
+              spent: tx.spent,
+            };
+            acc.allIds.push(tx.tx_hash);
+          }
 
           return acc;
         },
