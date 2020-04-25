@@ -63,11 +63,13 @@ function* getAccounts() {
     const details = yield all(calls);
 
     for (let i = 0; i < details.length; i++) {
-      accounts.byIds[details[i].accountId] = {
-        ...accounts.byIds[details[i].accountId],
-        balance: details[i].balance,
-        transactions: details[i].transactions,
-      };
+      if (details[i] && details[i].accountId) {
+        accounts.byIds[details[i].accountId] = {
+          ...accounts.byIds[details[i].accountId],
+          balance: details[i].balance,
+          transactions: details[i].transactions,
+        };
+      }
     }
 
     yield put(setAccounts(accounts));
@@ -189,7 +191,7 @@ function* deleteAccount({
     yield put(
       showNotification({
         type: NotificationTypes.Default,
-        text: `Deleting account ${account.name}...`,
+        text: `Deleting account${account ? ` ${account.name}` : ''}...`,
       })
     );
 

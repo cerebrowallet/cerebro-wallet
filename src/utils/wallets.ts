@@ -8,12 +8,12 @@ import { toSatoshi } from './common';
 
 export const createBTCWallet = () => {
   const keyPair = bitcoin.ECPair.makeRandom({
-    network: config.networks.testnet,
+    network: config.networks.BTC,
   });
 
   const { address } = bitcoin.payments.p2pkh({
     pubkey: keyPair.publicKey,
-    network: config.networks.testnet,
+    network: config.networks.BTC,
   });
 
   return {
