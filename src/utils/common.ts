@@ -1,4 +1,5 @@
 import { Genders } from '../dictionaries';
+import Big from 'big.js';
 
 /**
  * Converts the given enum to a map of the keys to the values.
@@ -45,7 +46,7 @@ export function isObject(object: any): boolean {
   return typeof object === 'object' && object !== null;
 }
 
-export const toSatoshi = (btc: number) => btc * 100000000;
+export const toSatoshi = (btc: number) => Number(Big(btc).times(100000000));
 
 export const toBTC = (satoshi: number) => satoshi / 100000000;
 
@@ -55,7 +56,7 @@ export const round = (value: number, decimals: number = 2) => {
 
 export const parseFloatStr = (value: string) => {
   return parseFloat(value.replace(',', '.')) || 0;
-}
+};
 
 export const groupBy = (xs: any, key: any) => {
   return xs.reduce((rv: any, x: any) => {
