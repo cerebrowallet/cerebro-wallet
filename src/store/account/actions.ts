@@ -44,3 +44,11 @@ export const setTxDraftValues = (payload: TxDraftFormValues | null) =>
   action(AccountActionTypes.SET_TX_DRAFT_VALUES, payload);
 export const makeTransaction = () =>
   action(AccountActionTypes.MAKE_TRANSACTION);
+export const addTx = (payload: {
+  accountId: string;
+  tx: {
+    amount: number;
+    hash: string;
+    date: string;
+  }
+}) => action(AccountActionTypes.ADD_TX, payload);

@@ -66,10 +66,10 @@ const Amount: React.FC = () => {
 
     if (isPositiveNumber(value)) {
       const intVal = parseFloatStr(value);
-      const decimals = inputToUpdate === Inputs.amount || intVal > 0 ? 2 : 10;
+      const decimals = inputToUpdate === Inputs.amount || intVal > 0 ? 2 : 8;
       const convertedValue =
         inputToUpdate === Inputs.amount
-          ? round(intVal / exchangeRate, 10)
+          ? round(intVal / exchangeRate, 8)
           : round(intVal * exchangeRate, decimals);
       newValue = convertedValue.toString();
     }

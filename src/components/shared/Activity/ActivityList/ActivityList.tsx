@@ -44,7 +44,7 @@ const ActivityList: React.FC<Props> = ({ context }) => {
             if (activity.type === ActivityTypes.Transaction) {
               return (
                 <Transaction
-                  key={key}
+                  key={`${activity.type}-${activity.accountId}-${activity.id}`}
                   transaction={activity as TransactionActivity}
                   uriPrefix={context}
                 />

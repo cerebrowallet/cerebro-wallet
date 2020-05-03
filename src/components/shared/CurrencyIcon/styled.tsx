@@ -28,7 +28,7 @@ export const Icon = styled.i`
   }
 
   ${(props: IconProps) =>
-    props.coin === Coins.BTC &&
+    (props.coin === Coins.BTC || props.coin === Coins.BTC_TestNet) &&
     `
     background-image: url(${btcIcon});    
     

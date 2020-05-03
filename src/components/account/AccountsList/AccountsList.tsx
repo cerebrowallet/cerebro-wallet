@@ -46,7 +46,7 @@ const AccountsList: React.FC = () => {
       <AccountsSidebarMenu
         menuItems={[
           ...accountsMenuItems,
-          ...MANAGE_ACCOUNT_ACTIONS.map(action => ({
+          ...MANAGE_ACCOUNT_ACTIONS.map((action) => ({
             ...action,
             icon: <AddAccountIcon Icon={action.icon} />,
             footerItem: true,

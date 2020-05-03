@@ -20,6 +20,7 @@ import {
   AdditionalInfoDate,
   AdditionalInfoComment,
   Details,
+  Placeholder,
 } from './styled';
 
 import Page from '../../layout/Page/Page';
@@ -92,26 +93,44 @@ const TransactionDetails: React.FC<Props> = ({
         </AdditionalInfo>
       </TopUp>
       <Details>
-        <LabeledText label="Status">Success</LabeledText>
+        <LabeledText label="Status">
+          {Number.isInteger(transaction.confirmations) ? (
+            transaction.confirmations > 0 ? 'Success' : 'Unconfirmed'
+          ) : (
+            <Placeholder />
+          )}
+        </LabeledText>
         <LabeledText label="Confirmations">
-          {transaction.confirmations}
+          {Number.isInteger(transaction.confirmations) ? (
+            transaction.confirmations
+          ) : (
+            <Placeholder />
+          )}
         </LabeledText>
-        {transaction.fee && (
-          <LabeledText label="Network fee">
-            {transaction.fee} {account.coin}
-          </LabeledText>
-        )}
+        <LabeledText label="Network fee">
+          {transaction.fee ? (
+            <>
+              {transaction.fee} {account.coin}
+            </>
+          ) : (
+            <Placeholder />
+          )}
+        </LabeledText>
       </Details>
-      {transaction.from && (
-        <LabeledText label="From">
+      <LabeledText label="From">
+        {transaction.from ? (
           <Hash breakAll value={transaction.from} />
-        </LabeledText>
-      )}
-      {transaction.to && (
-        <LabeledText label="To" canCopyText>
+        ) : (
+          <Placeholder />
+        )}
+      </LabeledText>
+      <LabeledText label="To" canCopyText={!!transaction.to}>
+        {transaction.to ? (
           <Hash breakAll value={transaction.to} />
-        </LabeledText>
-      )}
+        ) : (
+          <Placeholder />
+        )}
+      </LabeledText>
       <LabeledText label="Hash">
         <Hash breakAll value={transaction.hash} />
       </LabeledText>

@@ -55,6 +55,24 @@ const reducer: Reducer<AccountState> = (
       case AccountActionTypes.SET_TX_DRAFT_VALUES:
         draft.txDraftValues = action.payload;
         break;
+      case AccountActionTypes.ADD_TX: {
+        if (draft.accounts) {
+          const account = draft.accounts.byIds[action.payload.accountId];
+
+          if (!account.transactions) {
+            account.transactions = {
+              byIds: {},
+              allIds: [],
+            }
+          }
+
+          account.transactions.allIds.push(action.payload.tx.hash);
+          account.transactions.byIds[action.payload.tx.hash] = {
+            ...action.payload.tx
+          };
+        }
+        break;
+      }
       default:
         return draft;
     }

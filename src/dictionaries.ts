@@ -1,5 +1,6 @@
 export enum Coins {
   BTC = 'BTC',
+  BTC_TestNet = 'BTC_TestNet'
 }
 
 export enum Currencies {

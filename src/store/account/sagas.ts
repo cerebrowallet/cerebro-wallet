@@ -1,33 +1,37 @@
-import { all, call, put, takeLatest, select } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { produce } from 'immer';
 import { push } from 'connected-react-router';
 import { SagaIterator } from 'redux-saga';
 
-import { AccountActionTypes, Accounts, Account } from './types';
+import { Account, AccountActionTypes, Accounts } from './types';
 import { getFile, putFile } from '../../utils/blockstack';
-import { callApi } from '../../utils/api';
+import { getQueryString, callApi } from '../../utils/api';
 import {
   createAccount as createAccountAction,
-  updateAccountInGaia as updateAccountInGaiaAction,
   deleteAccount as deleteAccountAction,
   getAccountDetails as getAccountDetailsAction,
   getTransactionDetails as getTransactionDetailsAction,
-  setRecommendedBTCFee,
-  updateAccount,
   setAccounts,
   setExchangeRates,
+  setRecommendedBTCFee,
+  updateAccount,
+  updateAccountInGaia as updateAccountInGaiaAction,
+  addTx,
 } from './actions';
 import {
   getAccountById,
   getAccounts as getAccountsSelector,
   getTxDraftValues,
 } from './selectors';
+import {
+  getCoinsList,
+  getCurrenciesList,
+} from '../user/selectors';
 import { config } from '../../config';
-import { createWallet, createBTCLikeTransaction } from '../../utils/wallets';
-import { getCoinsList, getCurrenciesList } from '../user/selectors';
+import { createBTCLikeTransaction, createWallet } from '../../utils/wallets';
 import { Value } from '../../components/forms/DropDown/DropDown';
 import { showNotification } from '../layout/actions';
-import { NotificationTypes } from '../../dictionaries';
+import { Coins, NotificationTypes } from '../../dictionaries';
 import { toBTC, toSatoshi } from '../../utils/common';
 
 function* getAccounts() {
@@ -236,12 +240,18 @@ function* getExchangeRates() {
 
     const rates = yield call(callApi, {
       method: 'get',
-      url: `${config.coursesApiUrl}`,
+      url: `${config.getCoursesApiUrl}`,
       queryParams: {
         fsyms: coins.map((coin: Value) => coin.id).join(','),
-        tsyms: currencies.map((currency: Value) => currency.id),
+        tsyms: currencies
+          .filter((coin: Value) => coin.id !== Coins.BTC_TestNet)
+          .map((currency: Value) => currency.id),
       },
     });
+
+    if (Coins.BTC_TestNet) {
+      rates[Coins.BTC_TestNet] = rates[Coins.BTC];
+    }
 
     yield put(setExchangeRates(rates));
   } catch (e) {
@@ -259,29 +269,29 @@ function* getExchangeRates() {
 
 function* getAccountDetails(account: Account): SagaIterator {
   try {
-    const accountDetails = yield call(callApi, {
+    const { data } = yield call(callApi, {
       method: 'get',
-      url: config.coins[account.coin].apiUrls.accountDetails(account.address),
+      url: config.coins[account.coin].apiUrls.getAddressInfo(account.address),
+      queryParams: {
+        transaction_details: true,
+      },
     });
+
+    const accountDetails = data[account.address];
 
     return {
       accountId: account.id,
-      balance: toBTC(accountDetails.balance),
-      transactions: accountDetails.txrefs.reduce(
+      balance: toBTC(accountDetails.address.balance),
+      transactions: accountDetails.transactions.reduce(
         (txs: any[], tx: any) => {
           const acc: any = txs;
 
-          if (tx.tx_output_n > 0) {
-            acc.byIds[tx.tx_hash] = {
-              hash: tx.tx_hash,
-              amount: toBTC(tx.spent ? tx.value * -1 : tx.value),
-              height: tx.block_height,
-              confirmations: tx.confirmations,
-              date: tx.confirmed,
-              spent: tx.spent,
-            };
-            acc.allIds.push(tx.tx_hash);
-          }
+          acc.byIds[tx.hash] = {
+            hash: tx.hash,
+            amount: toBTC(tx.balance_change),
+            date: tx.time,
+          };
+          acc.allIds.push(tx.hash);
 
           return acc;
         },
@@ -310,32 +320,68 @@ function* getTransactionDetails({
   try {
     const account = yield select(getAccountById(accountId));
 
-    const transactionDetails = yield call(callApi, {
-      method: 'get',
-      url: config.coins[account.coin].apiUrls.transactionDetails(
-        transactionHash
-      ),
-    });
+    const [
+      { data: blockChainStats, context: blockChainStatsContext },
+      { data: txDetails, context: txDetailsContext },
+    ] = yield all([
+      call(callApi, {
+        method: 'get',
+        url: config.coins[account.coin].apiUrls.getBlockChainStats,
+      }),
+      call(callApi, {
+        method: 'get',
+        url: config.coins[account.coin].apiUrls.getTxInfo(transactionHash),
+      }),
+    ]);
 
-    yield put(
-      updateAccount({
-        accountId,
-        update: {
-          transactions: {
-            allIds: account.transactions.allIds,
-            byIds: {
-              ...account.transactions.byIds,
-              [transactionHash]: {
-                ...account.transactions.byIds[transactionHash],
-                fee: toBTC(transactionDetails.fees),
-                from: transactionDetails.inputs[0].addresses[0],
-                to: transactionDetails.outputs[1].addresses[0],
+    if (blockChainStats === null) {
+      throw new Error(blockChainStatsContext.error);
+    }
+
+    if (txDetails === null) {
+      throw new Error(txDetailsContext.error);
+    }
+
+    const blockChainHeight = blockChainStats.blocks;
+
+    const actions = Object.values(txDetails).map((tx: any) => {
+      let to;
+      const isSpentTx = !!tx.inputs.find(
+        (input: any) => input.recipient === account.address
+      );
+
+      if (isSpentTx) {
+        const output = tx.outputs.find(
+          (out: any) => out.recipient !== account.address
+        );
+        to = output.recipient;
+      } else {
+        to = account.address;
+      }
+
+      return put(
+        updateAccount({
+          accountId,
+          update: {
+            transactions: {
+              allIds: account.transactions.allIds,
+              byIds: {
+                ...account.transactions.byIds,
+                [transactionHash]: {
+                  ...account.transactions.byIds[transactionHash],
+                  fee: toBTC(tx.transaction.fee),
+                  confirmations: tx.transaction.block_id > 0 ? blockChainHeight - tx.transaction.block_id : 0,
+                  from: tx.inputs[0].recipient,
+                  to,
+                },
               },
             },
           },
-        },
-      })
-    );
+        })
+      );
+    });
+
+    yield all(actions);
   } catch (e) {
     console.error(e);
   }
@@ -345,7 +391,7 @@ function* getRecommendedBTCFee() {
   try {
     const { fastestFee } = yield call(callApi, {
       method: 'get',
-      url: config.coins.BTC.apiUrls.recommendedFee(),
+      url: config.getRecommendedBTCLikeFeesApiUrl,
     });
 
     yield put(setRecommendedBTCFee(fastestFee));
@@ -361,20 +407,26 @@ function* makeTransaction() {
       getAccountById(txDraftValues.transferFrom.intId)
     );
 
-    const { txrefs: uxto } = yield call(callApi, {
+    const addressInfoResult = yield call(callApi, {
       method: 'get',
-      url: config.coins[account.coin].apiUrls.accountDetails(account.address),
+      url: config.coins[account.coin].apiUrls.getAddressInfo(account.address),
       queryParams: {
         unspentOnly: true,
       },
     });
+
+    if (addressInfoResult.data === null) {
+      throw new Error(addressInfoResult.context.error);
+    }
+
+    const addressInfo = addressInfoResult.data[txDraftValues.transferFrom.id];
 
     const txAmount = parseFloat(txDraftValues.amount);
     const txFee = parseFloat(txDraftValues.fee);
 
     const txHash = createBTCLikeTransaction({
       privateKey: account.privateKey,
-      uxto,
+      utxo: addressInfo.utxo,
       receivers: [
         {
           address:
@@ -392,15 +444,35 @@ function* makeTransaction() {
       coin: account.coin,
     });
 
-    const { tx } = yield call(callApi, {
+    const broadcastTxResult = yield call(callApi, {
       method: 'post',
-      url: config.coins[account.coin].apiUrls.broadcastTX(),
-      body: {
-        tx: txHash,
+      url: config.coins[account.coin].apiUrls.broadcastTx,
+      body: getQueryString({
+        data: txHash,
+      }),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
       },
     });
 
-    yield put(push('/features/send/success', { hash: tx.hash }));
+    if (broadcastTxResult.data === null) {
+      throw new Error(broadcastTxResult.context.error);
+    }
+
+    yield put(
+      push('/features/send/success', {
+        hash: broadcastTxResult.data.transaction_hash,
+      })
+    );
+
+    yield put(addTx({
+      accountId: account.id,
+      tx: {
+        hash: broadcastTxResult.data.transaction_hash,
+        amount: txAmount,
+        date: new Date().toString()
+      }
+    }))
   } catch (e) {
     yield put(
       showNotification({

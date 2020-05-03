@@ -106,3 +106,12 @@ export const Details = styled.div`
     max-width: 80%;
   }
 `;
+
+export const Placeholder = styled.span`
+  display: inline-block;
+  width: 100%;
+  background: #e7e7e7;
+  border-radius: 0.375rem;
+  height: 0.5rem;
+  vertical-align: middle;
+`

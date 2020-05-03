@@ -1,10 +1,12 @@
 import { isObject } from './common';
 
-function getQueryString(queryParams: {
+export function getQueryString(queryParams: {
   [name: string]: string | number;
 }): string {
   return Object.keys(queryParams)
-    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(queryParams[k]))
+    .map(
+      (k) => encodeURIComponent(k) + '=' + encodeURIComponent(queryParams[k])
+    )
     .join('&');
 }
 
@@ -22,7 +24,10 @@ export async function callApi({
   const res = await fetch(url, {
     method,
     headers,
-    body: JSON.stringify(body),
+    body:
+      headers && headers['content-type'] === 'application/x-www-form-urlencoded'
+        ? body
+        : JSON.stringify(body),
   });
   return res.json();
 }

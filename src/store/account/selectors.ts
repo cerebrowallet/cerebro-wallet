@@ -19,18 +19,8 @@ export const getAccounts = (state: ApplicationState) => state.account.accounts;
 export const getAccountsList = createSelector(getAccounts, (accounts) =>
   accounts
     ? accounts.allIds.reduce((list: Account[], accountId: string) => {
-        const account: Account = accounts.byIds[accountId];
         const l = list;
-
-        l.push({
-          id: account.id,
-          address: account.address,
-          balance: account.balance,
-          name: account.name,
-          coin: account.coin,
-          transactions: account.transactions,
-        });
-
+        l.push(accounts.byIds[accountId]);
         return l;
       }, [])
     : []
@@ -50,8 +40,16 @@ export const getAccountById = (accountId?: string) =>
   );
 export const getExchangeRates = (state: ApplicationState) =>
   state.account.rates;
-export const getExchangeRate = (coin: Coins, currency: Currencies) =>
-  createSelector(getExchangeRates, (rates) => rates && rates[coin][currency]);
+export const getExchangeRate = (coin: Coins) =>
+  createSelector([getExchangeRates, getSettings], (rates, settings) => {
+    const currency = settings.currency;
+
+    if (!currency || !rates || !rates[coin]) {
+      return 0;
+    }
+
+    return rates[coin][currency];
+  });
 export const getTotalBalance = createSelector(
   [getAccounts, getExchangeRates, getTotalBalanceCurrency],
   (accounts, rates, currency) => {
