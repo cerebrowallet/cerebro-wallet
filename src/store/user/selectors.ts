@@ -19,7 +19,7 @@ export const getBlockStackName = createSelector(
 export const getBlockstackAvatarUrl = createSelector(
   getUserData,
   (userData?: UserData) =>
-    userData && userData.profile.image.length > 0
+    userData && userData?.profile?.image && userData.profile.image.length > 0
       ? userData.profile.image[0].contentUrl
       : null
 );
@@ -31,18 +31,18 @@ export const getGendersList = () =>
     name: name.toString(),
   }));
 export const getCurrenciesList = (): Value[] =>
-  Object.values(Currencies).map(key => ({
+  Object.values(Currencies).map((key) => ({
     id: key,
     name: key,
   }));
 export const getCoinsList = () =>
-  Object.values(config.coins).map(coin => ({
+  Object.values(config.coins).map((coin) => ({
     name: coin.name,
     id: coin.abbr,
   }));
 export const getTimeoutsList = () =>
   Object.values(TimeOuts)
-    .map(key => {
+    .map((key) => {
       const k = key as any;
       const ms = parseInt(k, 10);
       const minutes = ms / 60000;
@@ -52,7 +52,7 @@ export const getTimeoutsList = () =>
         id: ms,
       };
     })
-    .filter(option => !Number.isNaN(option.id));
+    .filter((option) => !Number.isNaN(option.id));
 export const getActivityFilters = (state: ApplicationState) =>
   state.user.activityFilters;
 export const getUpdates = (state: ApplicationState) => state.user.updates;

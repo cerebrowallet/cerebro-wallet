@@ -42,10 +42,6 @@ function* getData({
     let data = yield call(getFile, file);
 
     if (!data) {
-      debugger;
-    }
-
-    if (!data) {
       data = initialState;
 
       yield call(putFile, {

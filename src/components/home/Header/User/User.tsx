@@ -15,10 +15,6 @@ const User: React.FC = () => {
   const username = useSelector(getBlockstackUsername);
   const name = useSelector(getBlockStackName);
 
-  if (!avatarUrl || !username) {
-    return null;
-  }
-
   return (
     <UserContainer>
       <UserProfileLink to="/profile">
