@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const UserContainer = styled.div`
+export const UserContainer = styled(Link)`
   display: flex;
   align-items: center;
+  text-decoration: none;
+  
+  &:visited, &:focus, &:active {
+    color: ${props => props.theme.colors.primary};
+  }
 `;
 
-export const UserProfileLink = styled(Link)`
+export const UserProfileLink = styled.span`
   position: relative;
   width: 3rem;
   height: 3rem;

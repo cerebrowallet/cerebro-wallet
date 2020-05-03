@@ -16,8 +16,8 @@ const User: React.FC = () => {
   const name = useSelector(getBlockStackName);
 
   return (
-    <UserContainer>
-      <UserProfileLink to="/profile">
+    <UserContainer to="/profile">
+      <UserProfileLink>
         <UserPic src={avatarUrl || userImage} alt={name || username} />
       </UserProfileLink>
       <UserName>
