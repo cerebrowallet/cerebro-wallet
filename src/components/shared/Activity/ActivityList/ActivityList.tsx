@@ -16,6 +16,7 @@ import Transaction from './Transaction/Transaction';
 import DayTotals from './DayTotals/DayTotals';
 import Update from './Update/Update';
 import SwipeForMore from '../SwipeForMore/SwipeForMore';
+import NoActivities from "./NoActivities/NoActivities";
 
 interface Props {
   context?: string;
@@ -28,43 +29,47 @@ const ActivityList: React.FC<Props> = ({ context }) => {
     <ActivityListContainer>
       <Scrollbar TrackY={SidebarTrackY}>
         <>
-          {activities.map((activity: any) => {
-            const key = `${activity.type}-${activity.id}`;
+          {activities.length > 0 ? (
+            activities.map((activity: any) => {
+              const key = `${activity.type}-${activity.id}`;
 
-            if (activity.type === ActivityTypes.Date) {
-              return (
-                <DayTotals
-                  key={key}
-                  amount={activity.totalAmount}
-                  date={activity.date}
-                />
-              );
-            }
+              if (activity.type === ActivityTypes.Date) {
+                return (
+                  <DayTotals
+                    key={key}
+                    amount={activity.totalAmount}
+                    date={activity.date}
+                  />
+                );
+              }
 
-            if (activity.type === ActivityTypes.Transaction) {
-              return (
-                <Transaction
-                  key={`${activity.type}-${activity.accountId}-${activity.id}`}
-                  transaction={activity as TransactionActivity}
-                  uriPrefix={context}
-                />
-              );
-            }
+              if (activity.type === ActivityTypes.Transaction) {
+                return (
+                  <Transaction
+                    key={`${activity.type}-${activity.accountId}-${activity.id}`}
+                    transaction={activity as TransactionActivity}
+                    uriPrefix={context}
+                  />
+                );
+              }
 
-            if (activity.type === ActivityTypes.Update) {
-              return (
-                <Update
-                  key={key}
-                  title={activity.title}
-                  excerpt={activity.excerpt}
-                  readMoreLink={activity.link}
-                  closable={activity.closable}
-                />
-              );
-            }
+              if (activity.type === ActivityTypes.Update) {
+                return (
+                  <Update
+                    key={key}
+                    title={activity.title}
+                    excerpt={activity.excerpt}
+                    readMoreLink={activity.link}
+                    closable={activity.closable}
+                  />
+                );
+              }
 
-            return null;
-          })}
+              return null;
+            })
+          ) : (
+            <NoActivities />
+          )}
           {/*<Update*/}
           {/*  title="Congratulations!"*/}
           {/*  excerpt={*/}
