@@ -9,6 +9,7 @@ const lightTheme: Theme = {
     primary: colors.black,
     secondary: colors.gray60,
     tertiary: colors.gray20,
+    hover: colors.gray40,
     alt1: colors.orange,
     alt2: colors.red40,
     alt3: colors.green,

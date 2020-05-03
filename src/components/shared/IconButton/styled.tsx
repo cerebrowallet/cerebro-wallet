@@ -18,7 +18,7 @@ export const Button = styled.button`
 
   &:hover,
   &.active {
-    background: ${props => props.theme.colors.background};
+    background: ${props => props.theme.colors.hover};
   }
 
   &:focus {

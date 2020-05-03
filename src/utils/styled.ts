@@ -5,6 +5,7 @@ export interface Theme {
     primary: string;
     secondary: string;
     tertiary: string;
+    hover: string;
     buttons: {
       [type: string]: {
         bg: string;
