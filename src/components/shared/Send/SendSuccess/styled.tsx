@@ -7,11 +7,10 @@ export const Container = styled.div`
   text-align: center;
 `;
 
-export const SuccessIcon = styled(CheckCircleIcon)`
+export const SuccessIcon = styled.img`
   width: 3rem;
   height: 3rem;
-  color: ${props => props.theme.colors.alt3};
-  margin-bottom: 0.9375rem;
+  margin: 0 auto 0.9375rem!important;
 `;
 
 export const Title = styled.h3`
