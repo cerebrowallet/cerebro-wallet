@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 import IconButton from '../../../shared/IconButton/IconButton';
 import { TrackYEl } from '../../../shared/Scrollbar/styled';
+import { ButtonColors } from '../../../../dictionaries';
 
 export const AccountsContainer = styled.section`
   position: relative;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.blockBackground};
   border-radius: 1.25rem;
   grid-area: accounts;
   display: flex;
@@ -25,11 +26,11 @@ export const AccountsContainer = styled.section`
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
-      ${props => props.theme.colors.blockBackground} 100%
+      ${(props) => props.theme.colors.blockBackground} 100%
     );
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
     &:after {
       display: block;
     }
@@ -47,7 +48,7 @@ export const Header = styled.header`
 export const Title = styled.span`
   font-size: 0.875rem;
   line-height: 1.0625rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
 `;
 
 export const AddAccountButton = styled(Link)`
@@ -59,15 +60,35 @@ export const AddAccountButton = styled(Link)`
   border: 0;
   cursor: pointer;
   text-align: center;
+  transition: background 0.15s ease-in;
 
   &:focus {
     outline: none;
   }
 
   svg {
-    color: ${props => props.theme.colors.secondary};
+    color: ${(props) => props.theme.colors.secondary};
     width: 0.75rem;
     height: 0.75rem;
+    transition: color 0.15s ease-in;
+  }
+
+  &:hover {
+    background: ${(props) =>
+      props.theme.colors.buttons[ButtonColors.black].hover};
+
+    svg {
+      color: #fff;
+    }
+  }
+
+  &:active {
+    background: ${(props) =>
+      props.theme.colors.buttons[ButtonColors.black].active};
+
+    svg {
+      color: #fff;
+    }
   }
 `;
 
@@ -88,10 +109,10 @@ export const AccountItem = styled(IconButton)`
   }
 
   &:hover {
-    background-color: ${props => props.theme.colors.tertiary};
+    background-color: ${(props) => props.theme.colors.tertiary};
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}}) {
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}}) {
     &:last-child {
       margin-bottom: 1.5625rem;
     }
@@ -102,10 +123,10 @@ export const AccountItem = styled(IconButton)`
   }
 
   &.active {
-    background: ${props => props.theme.colors.tertiary};
+    background: ${(props) => props.theme.colors.tertiary};
 
     &:hover {
-      background: ${props => props.theme.colors.tertiary};
+      background: ${(props) => props.theme.colors.primary};
     }
   }
   

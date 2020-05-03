@@ -49,11 +49,24 @@ export const MenuLink = styled.a`
   font-weight: 600;
   line-height: 1;
   text-decoration: none;
-  color: ${colors.gray90};
+  color: ${props => props.theme.colors.altPrimary};
   margin-top: 1.25rem;
+  transition: color .15s ease-in;
 
   &:first-child {
     margin-top: 0;
+  }
+  
+  &:hover {
+    color: ${props => props.theme.colors.altHover};
+  }
+  
+  &:active {
+    color: ${props => props.theme.colors.primary};
+  }
+  
+  &:focus {
+    outline: none;
   }
 
   @media (min-width: ${props => props.theme.breakpoints.md}) {

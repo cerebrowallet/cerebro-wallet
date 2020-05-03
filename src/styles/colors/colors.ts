@@ -12,6 +12,7 @@ const colors = {
   red20: '#FF3434',
   green: '#1EC57F',
   orange: '#FF8A00',
+  darkBlue: '#4E6B81',
   blockStackBlue: '#3700FF',
 };
 

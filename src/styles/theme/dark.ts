@@ -6,9 +6,11 @@ const darkTheme: Theme = {
   colors: {
     background: colors.gray20,
     primary: colors.black,
+    altPrimary: colors.gray90,
     blockBackground: colors.white,
     secondary: colors.gray80,
     tertiary: colors.gray20,
+    altHover: colors.darkBlue,
     hover: colors.gray40,
     alt1: colors.orange,
     alt2: colors.red40,
