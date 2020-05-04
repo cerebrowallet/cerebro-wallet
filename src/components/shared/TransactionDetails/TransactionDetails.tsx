@@ -27,6 +27,7 @@ import Page from '../../layout/Page/Page';
 import LabeledText from '../LabeledText/LabeledText';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import Hash from '../Hash/Hash';
+import CopyText from '../CopyText/CopyText';
 
 interface Props extends RouteComponentProps {
   accountId: string;
@@ -95,7 +96,11 @@ const TransactionDetails: React.FC<Props> = ({
       <Details>
         <LabeledText label="Status">
           {Number.isInteger(transaction.confirmations) ? (
-            transaction.confirmations > 0 ? 'Success' : 'Unconfirmed'
+            transaction.confirmations > 0 ? (
+              'Success'
+            ) : (
+              'Unconfirmed'
+            )
           ) : (
             <Placeholder />
           )}
@@ -119,14 +124,18 @@ const TransactionDetails: React.FC<Props> = ({
       </Details>
       <LabeledText label="From">
         {transaction.from ? (
-          <Hash breakAll value={transaction.from} />
+          <CopyText value={transaction.from}>
+            <Hash breakAll value={transaction.from} />
+          </CopyText>
         ) : (
           <Placeholder />
         )}
       </LabeledText>
-      <LabeledText label="To" canCopyText={!!transaction.to}>
+      <LabeledText label="To">
         {transaction.to ? (
-          <Hash breakAll value={transaction.to} />
+          <CopyText value={transaction.to}>
+            <Hash breakAll value={transaction.to} />
+          </CopyText>
         ) : (
           <Placeholder />
         )}

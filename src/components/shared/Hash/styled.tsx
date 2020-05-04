@@ -20,4 +20,8 @@ export const Span = styled.span`
     `
     word-break: break-all;
   `}
+  
+  &:focus {
+    outline: none;
+  }
 `;

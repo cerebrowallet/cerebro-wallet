@@ -19,6 +19,7 @@ import FormGroup from '../forms/FormGroup/FormGroup';
 import DropDown from '../forms/DropDown/DropDown';
 import Page from '../layout/Page/Page';
 import UserNameInput from './UserNameInput';
+import CopyText from '../shared/CopyText/CopyText';
 
 const ProfileDetails: React.FC = () => {
   const userData = useSelector(getUserData);
@@ -48,14 +49,14 @@ const ProfileDetails: React.FC = () => {
         <br />
         ID-{identityAddress}
       </LabeledText>
-      <LabeledText label="Blockstack name" canCopyText>
-        {name}
+      <LabeledText label="Blockstack name">
+        <CopyText value={name}>{name}</CopyText>
       </LabeledText>
       <WhiteBlock>
         <Formik
           initialValues={{
             username: username || '',
-            gender: genders.filter(g => g.id === gender),
+            gender: genders.filter((g) => g.id === gender),
           }}
           onSubmit={() => {}}
           enableReinitialize

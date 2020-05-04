@@ -9,7 +9,6 @@ interface Props {
   breakAll?: boolean;
 }
 
-// TODO truncate text in the middle
 const Hash: React.FC<Props> = ({
   value,
   className,

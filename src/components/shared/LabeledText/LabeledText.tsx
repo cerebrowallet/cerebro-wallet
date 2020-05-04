@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Container, Label, Text, CopyButton, CopyIcon, Icon } from './styled';
+import { Container, Label, Text, Icon } from './styled';
 
 interface Props {
   label: string;
   children: React.ReactNode;
-  canCopyText?: boolean;
   className?: string;
   iconUrl?: string;
 }
@@ -13,30 +12,18 @@ interface Props {
 const LabeledText: React.FC<Props> = ({
   label,
   children,
-  canCopyText,
   className,
   iconUrl,
 }) => {
   return (
-    <Container className={className} canCopyText={canCopyText}>
+    <Container className={className}>
       <Label>{label}</Label>
-      {canCopyText ? (
-        <CopyButton>
-          <CopyIcon />
-          {children}
-        </CopyButton>
-      ) : (
-        <Text>
-          {iconUrl && <Icon src={iconUrl} />}
-          {children}
-        </Text>
-      )}
+      <Text>
+        {iconUrl && <Icon src={iconUrl} />}
+        {children}
+      </Text>
     </Container>
   );
-};
-
-LabeledText.defaultProps = {
-  canCopyText: false,
 };
 
 export default LabeledText;

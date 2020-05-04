@@ -15,6 +15,7 @@ import DropDown from '../../forms/DropDown/DropDown';
 import Page from '../../layout/Page/Page';
 import Hash from '../Hash/Hash';
 import WhiteBlock from '../WhiteBlock';
+import CopyText from '../../shared/CopyText/CopyText';
 
 interface Props {
   accountId?: string;
@@ -69,8 +70,13 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
           <LabeledText label="Public address">
             <Hash breakAll value={account.address} />
           </LabeledText>
-          <LabeledText label="Legacy format" canCopyText>
-            <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
+          <LabeledText label="Legacy format">
+            <CopyText value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19">
+              <Hash
+                breakAll
+                value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
+              />
+            </CopyText>
           </LabeledText>
         </>
       )}

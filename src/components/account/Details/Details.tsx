@@ -26,6 +26,7 @@ import LabeledText from '../../shared/LabeledText/LabeledText';
 import Hash from '../../shared/Hash/Hash';
 import Chart from '../../shared/Chart/Chart';
 import Page from '../../layout/Page/Page';
+import CopyText from '../../shared/CopyText/CopyText';
 
 interface Props {
   accountId: string;
@@ -64,8 +65,10 @@ const Details: React.FC<Props> = ({ accountId }) => {
         <LabeledText label="Public address">
           <Hash breakAll value={account.address} />
         </LabeledText>
-        <LabeledText label="Legacy format" canCopyText>
-          <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
+        <LabeledText label="Legacy format">
+          <CopyText value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19">
+            <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
+          </CopyText>
         </LabeledText>
       </Addresses>
       <Chart />
