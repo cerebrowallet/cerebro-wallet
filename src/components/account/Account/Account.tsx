@@ -44,11 +44,6 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
       <ContentTwoCols>
         <AccountActions accountId={accountId} />
         <Switch>
-          {windowSize.width > Breakpoints.md && match.params.accountId && (
-            <Route exact path={match.url}>
-              <Redirect to={`${match.url.replace(/\/$/, '')}/details`} />
-            </Route>
-          )}
           <Route exact path={`${match.url}/details`}>
             <Details accountId={accountId} />
           </Route>
@@ -70,6 +65,11 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           <Route exact path={`${match.url}/delete`}>
             <DeleteAccount accountId={accountId} />
           </Route>
+          {windowSize.width > Breakpoints.md && match.params.accountId && (
+            <Route path={match.url}>
+              <Redirect to={`${match.url.replace(/\/$/, '')}/details`} />
+            </Route>
+          )}
         </Switch>
         <AccountGoBackButton goTo="/" />
       </ContentTwoCols>
