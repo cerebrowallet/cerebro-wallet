@@ -70,7 +70,7 @@ const AccountActions: React.FC<Props> = ({ match, accountId }) => {
         descText="Unique account name"
       />
       <ActionButton
-        link={`${config.coins[account.coin].explorer}/address/${account.address}`}
+        link={`${config.coins[account.coin].explorerUrl}/address/${account.address}`}
         icon={<LinkIcon />}
         text="Blockexplorer"
         descText="Show public information"

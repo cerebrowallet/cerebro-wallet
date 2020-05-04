@@ -11,7 +11,6 @@ import {
 import { getAccountById } from '../../../store/account/selectors';
 import { Breakpoints } from '../../../dictionaries';
 import { useWindowSize } from '../../../utils/hooks';
-import { config } from '../../../config';
 
 import { AccountGoBackButton } from './styled';
 import { AccountSidebar } from '../../layout/Sidebar';
@@ -64,13 +63,6 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           </Route>
           <Route exact path={`${match.url}/rename`}>
             <Rename accountId={accountId} />
-          </Route>
-          <Route exact path={`${match.url}/explorer`}>
-            <a
-              href={`${config.coins[account.coin].explorer}/address/${account.address}`}
-            >
-              Explorer
-            </a>
           </Route>
           <Route exact path={`${match.url}/export-private-key`}>
             <ExportPrivateKey accountId={accountId} />

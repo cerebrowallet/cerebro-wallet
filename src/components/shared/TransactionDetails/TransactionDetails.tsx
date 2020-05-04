@@ -10,6 +10,7 @@ import {
 import { getSettings } from '../../../store/user/selectors';
 import { getTransactionDetails } from '../../../store/account/actions';
 import { CurrencySymbols } from '../../../dictionaries';
+import { config } from '../../../config';
 
 import {
   TopUp,
@@ -28,6 +29,7 @@ import LabeledText from '../LabeledText/LabeledText';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import Hash from '../Hash/Hash';
 import CopyText from '../CopyText/CopyText';
+import ExternalLink from '../ExternalLink/ExternalLink';
 
 interface Props extends RouteComponentProps {
   accountId: string;
@@ -141,7 +143,13 @@ const TransactionDetails: React.FC<Props> = ({
         )}
       </LabeledText>
       <LabeledText label="Hash">
-        <Hash breakAll value={transaction.hash} />
+        <ExternalLink
+          to={`${config.coins[account.coin].explorerUrl}/transaction/${
+            transaction.hash
+          }`}
+        >
+          <Hash breakAll value={transaction.hash} />
+        </ExternalLink>
       </LabeledText>
     </Page>
   );

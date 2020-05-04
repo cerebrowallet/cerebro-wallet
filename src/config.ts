@@ -5,7 +5,7 @@ enum Chains {
   BTC_TestNet = 'bitcoin/testnet',
 }
 
-const getExplorerUrl = (chain: Chains) => `https://blockchair.com/${chain}/`;
+const getExplorerUrl = (chain: Chains) => `https://blockchair.com/${chain}`;
 
 const getCoinApiUrls = (chain: Chains) => ({
   getAddressInfo: (address: string) =>
@@ -21,7 +21,7 @@ export interface Config {
     [id: string]: {
       name: string;
       abbr: Coins;
-      explorer: string;
+      explorerUrl: string;
       apiUrls: {
         getAddressInfo: (address: string) => string;
         getTxInfo: (hash: string) => string;
@@ -59,13 +59,13 @@ const config: Config = {
     BTC: {
       name: 'Bitcoin',
       abbr: Coins.BTC,
-      explorer: getExplorerUrl(Chains.BTC),
+      explorerUrl: getExplorerUrl(Chains.BTC),
       apiUrls: getCoinApiUrls(Chains.BTC),
     },
     BTC_TestNet: {
       name: 'Bitcoin TestNet',
       abbr: Coins.BTC_TestNet,
-      explorer: getExplorerUrl(Chains.BTC_TestNet),
+      explorerUrl: getExplorerUrl(Chains.BTC_TestNet),
       apiUrls: getCoinApiUrls(Chains.BTC_TestNet),
     },
   },
