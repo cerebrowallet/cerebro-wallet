@@ -19,7 +19,7 @@ import {
 
 import SendPagination from '../SendPagination/SendPagination';
 import Button from '../../../forms/Button/Button';
-import Page from '../../../layout/Page/Page';
+import PageContent from '../../../layout/PageContent/PageContent';
 import WhiteBlock from '../../WhiteBlock';
 import Loader from '../../Loader/Loader';
 
@@ -44,7 +44,7 @@ const SendConfirm: React.FC = () => {
   }
 
   return (
-    <Page
+    <PageContent
       headerText="Confirm"
       FooterIcon={FileIcon}
       footerText="Please check details and confirm transaction."
@@ -86,7 +86,7 @@ const SendConfirm: React.FC = () => {
         </Actions>
         <SendPagination step={SendSteps.Confirm} />
       </WhiteBlock>
-    </Page>
+    </PageContent>
   );
 };
 

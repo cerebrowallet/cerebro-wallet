@@ -18,11 +18,7 @@ import Update from './Update/Update';
 import SwipeForMore from '../SwipeForMore/SwipeForMore';
 import NoActivities from "./NoActivities/NoActivities";
 
-interface Props {
-  context?: string;
-}
-
-const ActivityList: React.FC<Props> = ({ context }) => {
+const ActivityList: React.FC = () => {
   const activities: Activities[] = useSelector(getActivities);
 
   return (
@@ -48,7 +44,6 @@ const ActivityList: React.FC<Props> = ({ context }) => {
                   <Transaction
                     key={`${activity.type}-${activity.accountId}-${activity.id}`}
                     transaction={activity as TransactionActivity}
-                    uriPrefix={context}
                   />
                 );
               }

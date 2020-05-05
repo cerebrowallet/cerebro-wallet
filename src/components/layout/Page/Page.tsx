@@ -1,33 +1,62 @@
 import React from 'react';
 
-import { Section, PageHeader, PageContent, PageFooter } from './styled';
+import {
+  Container,
+  OneColumnContainer,
+  TwoColumnsContainer,
+  Main,
+  OneColumnContent,
+  TwoColumnsContent,
+  DashboardContent,
+  LoginContent,
+  Sidebar,
+} from './styled';
+import Scrollbar from '../../shared/Scrollbar/Scrollbar';
+import { MainThumbYEl, MainTrackY } from '../../shared/Scrollbar/styled';
+import ClosePageButton from './ClosePageButton/ClosePageButton';
 
-interface Props {
-  headerText?: string;
-  children: React.ReactNode;
-  FooterIcon?: React.ComponentType<any>;
-  footerText?: string;
-  className?: string;
+export enum PageLayouts {
+  oneColumn = 'one-column',
+  twoColumns = 'two-columns',
+  dashboard = 'dashboard',
+  login = 'login',
 }
 
-const Page: React.FC<Props> = ({
-  headerText,
-  children,
-  FooterIcon,
-  footerText,
-  className,
-}) => {
+const containerComponents = {
+  [PageLayouts.oneColumn]: OneColumnContainer,
+  [PageLayouts.twoColumns]: TwoColumnsContainer,
+  [PageLayouts.dashboard]: Container,
+  [PageLayouts.login]: Container,
+};
+
+const contentComponents = {
+  [PageLayouts.oneColumn]: OneColumnContent,
+  [PageLayouts.twoColumns]: TwoColumnsContent,
+  [PageLayouts.dashboard]: DashboardContent,
+  [PageLayouts.login]: LoginContent,
+};
+
+interface Props {
+  layout: PageLayouts;
+  children: React.ReactNode;
+  sidebarContent: React.ReactElement<any>;
+}
+
+const Page: React.FC<Props> = ({ layout, children, sidebarContent }) => {
+  const ContainerLayout = containerComponents[layout];
+  const ContentLayout = contentComponents[layout];
+
   return (
-    <Section className={className}>
-      {headerText && <PageHeader>{headerText}</PageHeader>}
-      <PageContent>{children}</PageContent>
-      {footerText && (
-        <PageFooter>
-          {FooterIcon && <FooterIcon />}
-          {footerText}
-        </PageFooter>
-      )}
-    </Section>
+    <ContainerLayout>
+      <Main>
+        <Scrollbar ThumbY={MainThumbYEl} TrackY={MainTrackY}>
+          <ContentLayout>{children}</ContentLayout>
+        </Scrollbar>
+      </Main>
+      <Sidebar>{sidebarContent}</Sidebar>
+      {(layout === PageLayouts.oneColumn ||
+        layout === PageLayouts.twoColumns) && <ClosePageButton />}
+    </ContainerLayout>
   );
 };
 

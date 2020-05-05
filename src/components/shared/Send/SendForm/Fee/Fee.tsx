@@ -44,7 +44,7 @@ const Fee: React.FC = () => {
           }
 
           if (intVal > sendFromAccount?.balance - parseFloat(values.amount)) {
-            error = 'Fee greater than the account balance.';
+            error = 'Fee greater than the accounts balance.';
           }
 
           return error;

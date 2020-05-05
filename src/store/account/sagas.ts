@@ -100,7 +100,7 @@ function* createAccount({ payload }: ReturnType<typeof createAccountAction>) {
     yield put(
       showNotification({
         type: NotificationTypes.Default,
-        text: 'Creating account...',
+        text: 'Creating accounts...',
       })
     );
 
@@ -132,7 +132,7 @@ function* createAccount({ payload }: ReturnType<typeof createAccountAction>) {
     yield put(
       showNotification({
         type: NotificationTypes.Error,
-        text: 'Error while creating account',
+        text: 'Error while creating accounts',
       })
     );
 
@@ -177,7 +177,7 @@ function* updateAccountInGaia({
     yield put(
       showNotification({
         type: NotificationTypes.Error,
-        text: 'Error while updating account',
+        text: 'Error while updating accounts',
       })
     );
 
@@ -224,7 +224,7 @@ function* deleteAccount({
     yield put(
       showNotification({
         type: NotificationTypes.Error,
-        text: 'Error while deleting account',
+        text: 'Error while deleting accounts',
       })
     );
 
@@ -305,7 +305,7 @@ function* getAccountDetails(account: Account): SagaIterator {
     yield put(
       showNotification({
         type: NotificationTypes.Error,
-        text: 'Error while getting account details',
+        text: 'Error while getting accounts details',
       })
     );
 
@@ -315,7 +315,7 @@ function* getAccountDetails(account: Account): SagaIterator {
 }
 
 function* getTransactionDetails({
-  payload: { transactionHash, accountId },
+  payload: { txHash, accountId },
 }: ReturnType<typeof getTransactionDetailsAction>) {
   try {
     const account = yield select(getAccountById(accountId));
@@ -330,7 +330,7 @@ function* getTransactionDetails({
       }),
       call(callApi, {
         method: 'get',
-        url: config.coins[account.coin].apiUrls.getTxInfo(transactionHash),
+        url: config.coins[account.coin].apiUrls.getTxInfo(txHash),
       }),
     ]);
 
@@ -367,8 +367,8 @@ function* getTransactionDetails({
               allIds: account.transactions.allIds,
               byIds: {
                 ...account.transactions.byIds,
-                [transactionHash]: {
-                  ...account.transactions.byIds[transactionHash],
+                [txHash]: {
+                  ...account.transactions.byIds[txHash],
                   fee: toBTC(tx.transaction.fee),
                   confirmations: tx.transaction.block_id > 0 ? blockChainHeight - tx.transaction.block_id : 0,
                   from: tx.inputs[0].recipient,

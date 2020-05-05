@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useCallback } from 'react';
 import ReactScrollbarsCustom from 'react-scrollbars-custom';
 
 import {
@@ -27,10 +27,30 @@ const Scrollbar: React.FC<Props> = ({
   TrackY,
   ThumbY,
 }) => {
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isMouseOver, setIsMouseOver] = useState(false);
+  const showScrollbar = isScrolling || isMouseOver;
+
+  const onScrollStart = useCallback(() => {
+    setIsScrolling(true);
+  }, []);
+  const onScrollStop = useCallback(() => {
+    setIsScrolling(false);
+  }, []);
+  const onMouseEnter = useCallback(() => {
+    setIsMouseOver(true);
+  }, []);
+  const onMouseLeave = useCallback(() => {
+    setIsMouseOver(false);
+  }, []);
+
   return (
     <ReactScrollbarsCustom
       style={{ height, width }}
+      onScrollStart={onScrollStart}
+      onScrollStop={onScrollStop}
       noDefaultStyles
+      scrollDetectionThreshold={500}
       renderer={({ elementRef, ...restProps }) => (
         <Container {...restProps} ref={elementRef} />
       )}
@@ -60,11 +80,29 @@ const Scrollbar: React.FC<Props> = ({
         ),
       }}
       trackYProps={{
-        renderer: ({ elementRef, ...restProps }) =>
+        renderer: ({ elementRef, style, ...restProps }) =>
           TrackY ? (
-            <TrackY {...restProps} ref={elementRef} />
+            <TrackY
+              {...restProps}
+              ref={elementRef}
+              style={{
+                ...style,
+                opacity: showScrollbar ? 1 : 0,
+                transition: 'opacity 0.4s ease-in-out',
+              }}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+            />
           ) : (
-            <TrackYEl {...restProps} ref={elementRef} />
+            <TrackYEl
+              {...restProps}
+              ref={elementRef}
+              style={{
+                ...style,
+                opacity: showScrollbar ? 1 : 0,
+                transition: 'opacity 0.4s ease-in-out',
+              }}
+            />
           ),
       }}
       thumbYProps={{

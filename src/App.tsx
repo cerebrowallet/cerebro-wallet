@@ -5,7 +5,7 @@ import Globals from './styles/globals';
 
 import LayoutContainer from './containers/LayoutContainer';
 import Routes from './routes';
-import SessionExpiredModal from './components/auth/SessionExpiredModal/SessionExpiredModal';
+import SessionExpiredModal from './pages/login/SessionExpiredModal/SessionExpiredModal';
 import Notifications from './components/shared/Notifications/Notifications';
 
 const App: React.FC = () => {

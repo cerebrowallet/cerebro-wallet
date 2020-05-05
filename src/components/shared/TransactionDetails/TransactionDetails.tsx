@@ -24,7 +24,7 @@ import {
   Placeholder,
 } from './styled';
 
-import Page from '../../layout/Page/Page';
+import PageContent from '../../layout/PageContent/PageContent';
 import LabeledText from '../LabeledText/LabeledText';
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import Hash from '../Hash/Hash';
@@ -33,19 +33,19 @@ import ExternalLink from '../ExternalLink/ExternalLink';
 
 interface Props extends RouteComponentProps {
   accountId: string;
-  transactionHash: string;
+  txHash: string;
 }
 
 const TransactionDetails: React.FC<Props> = ({
   accountId,
-  transactionHash,
+  txHash,
   history,
   match,
 }) => {
   const dispatch = useDispatch();
   const account = useSelector(getAccountById(accountId));
   const transaction = useSelector(
-    getTransactionById(accountId, transactionHash)
+    getTransactionById(accountId, txHash)
   );
   const settings = useSelector(getSettings);
 
@@ -53,20 +53,20 @@ const TransactionDetails: React.FC<Props> = ({
     if (
       account &&
       account.transactions &&
-      account.transactions.byIds[transactionHash]
+      account.transactions.byIds[txHash]
     ) {
-      dispatch(getTransactionDetails({ accountId, transactionHash }));
+      dispatch(getTransactionDetails({ accountId, txHash }));
     } else {
       history.push(`${match.path.split(':accountId')[0]}${accountId}`);
     }
-  }, [accountId, transactionHash]);
+  }, [accountId, txHash]);
 
   if (!account || !transaction) {
     return null;
   }
 
   return (
-    <Page>
+    <PageContent>
       <TopUp>
         <TopUpHeader>
           <TopUpHeaderDetails>
@@ -151,7 +151,7 @@ const TransactionDetails: React.FC<Props> = ({
           <Hash breakAll value={transaction.hash} />
         </ExternalLink>
       </LabeledText>
-    </Page>
+    </PageContent>
   );
 };
 

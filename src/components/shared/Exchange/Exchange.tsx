@@ -3,12 +3,12 @@ import { TrendingUp as TrendingUpIcon } from 'react-feather';
 
 import exchangeIllustration from '../../../images/exchange-placeholder.png';
 
-import Page from '../../layout/Page/Page';
+import PageContent from '../../layout/PageContent/PageContent';
 import Poll from './Poll/Poll';
 
 const Exchange: React.FC = () => {
   return (
-    <Page
+    <PageContent
       headerText="Exchange your coins"
       FooterIcon={TrendingUpIcon}
       footerText="Fast way to exchange cryptocurrencies without leaving Cerebro."
@@ -21,7 +21,7 @@ const Exchange: React.FC = () => {
       </p>
       <Poll />
       <p>We'll announce it publicly in a couple weeks. Stay tuned!</p>
-    </Page>
+    </PageContent>
   );
 };
 

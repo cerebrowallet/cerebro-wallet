@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
@@ -95,4 +95,12 @@ export function useOnClickOutside(
       document.removeEventListener('touchstart', listener);
     };
   }, [ref, handler]);
+}
+
+export function usePrevious(value: any) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 }

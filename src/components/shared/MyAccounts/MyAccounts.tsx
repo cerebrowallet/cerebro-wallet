@@ -16,7 +16,7 @@ import { round } from '../../../utils/common';
 
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import AddAccountIcon from '../AddAccountIcon/AddAccountIcon';
-import GoBackButton from '../GoBackButton/GoBackButton';
+import ClosePageButton from '../../layout/Page/ClosePageButton/ClosePageButton';
 import MyAccountsButton from './MyAccountsButton/MyAccountsButton';
 
 function getTransitionOptions(itemsLength: number) {
@@ -96,7 +96,7 @@ const MyAccounts: React.FC = () => {
           ))}
         </Grid>
       </Content>
-      <GoBackButton />
+      <ClosePageButton />
     </Wrapper>
   );
 };

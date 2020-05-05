@@ -13,7 +13,7 @@ import { Container, SuccessIcon, Text, Title, HashText } from './styled';
 
 import SendPagination from '../SendPagination/SendPagination';
 import Button from '../../../forms/Button/Button';
-import Page from '../../../layout/Page/Page';
+import PageContent from '../../../layout/PageContent/PageContent';
 import WhiteBlock from '../../WhiteBlock';
 
 const SendSuccess: React.FC<RouteComponentProps> = ({
@@ -34,7 +34,7 @@ const SendSuccess: React.FC<RouteComponentProps> = ({
   }, []);
 
   return (
-    <Page
+    <PageContent
       headerText="Success"
       FooterIcon={ThumbsUpIcon}
       footerText={`You are doing everything right, ${name}.`}
@@ -49,7 +49,7 @@ const SendSuccess: React.FC<RouteComponentProps> = ({
         </Container>
         <SendPagination step={SendSteps.Success} />
       </WhiteBlock>
-    </Page>
+    </PageContent>
   );
 };
 

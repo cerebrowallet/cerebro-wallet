@@ -1,27 +1,42 @@
 import * as React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { LocationState } from 'history';
 import { useTransition, animated } from 'react-spring';
 
 import { userSession } from './utils/blockstack';
+import { usePrevious } from './utils/hooks';
 
-import PrivateRoute from './components/auth/PrivateRoute';
-import AuthenticatedWrapper from './components/auth/AuthenticatedWrapper';
-import Home from './components/home/Home';
-import Features from './components/features/Features';
-import Account from './components/account/Account/Account';
-import Profile from './components/profile/Profile';
+import AuthenticatedWrapper from './pages/login/AuthenticatedWrapper';
+import AuthCallbackHandler from './pages/login/AuthCallbackHandler';
+import PrivateRoute from './pages/login/PrivateRoute';
+import HomePage from './pages/home/HomePage';
+import FeaturesPage from './pages/features/FeaturesPage';
+import ProfilePage from './pages/profile/ProfilePage';
 import MyAccounts from './components/shared/MyAccounts/MyAccounts';
-import Auth from './components/auth/Auth';
-import AuthCallbackHandler from './components/auth/AuthCallbackHandler';
-import ManageAccount from './components/account/ManageAccount/ManageAccount';
-import Transactions from './components/account/Transactions/AccountTransactions';
+import LoginPage from './pages/login/LoginPage';
+import AccountsPage from './pages/accounts/AccountsPage';
+import ActivityPage from './pages/activity/ActivityPage';
 
 const Routes: React.FC = () => {
   const location = useLocation();
-  const transitions = useTransition(location, location => location.pathname, {
-    from: { opacity: 0, transform: 'scale3d(0.7,0.7,0.7)' },
-    enter: { opacity: 1, transform: 'scale3d(1,1,1)' },
-    leave: { opacity: 0, transform: 'scale3d(0.7,0.7,0.7)' },
+  const previousLocation: LocationState = usePrevious(location);
+  const isPageChanged =
+    !!previousLocation &&
+    previousLocation.pathname.split('/')[1] !== location.pathname.split('/')[1];
+
+  const transitions = useTransition(location, (location) => location.pathname, {
+    from: {
+      opacity: isPageChanged ? 0 : 1,
+      transform: isPageChanged ? 'scale3d(0.7,0.7,0.7)' : 'scale3d(1,1,1)',
+    },
+    enter: {
+      opacity: 1,
+      transform: 'scale3d(1,1,1)',
+    },
+    leave: {
+      opacity: isPageChanged ? 0 : 1,
+      transform: isPageChanged ? 'scale3d(0.7,0.7,0.7)' : 'scale3d(1,1,1)',
+    },
     config: { tension: 550, friction: 45 },
   });
 
@@ -38,7 +53,7 @@ const Routes: React.FC = () => {
             }}
           />
         ) : (
-          <Auth />
+          <LoginPage />
         )}
       </Route>
       <Route>
@@ -47,31 +62,22 @@ const Routes: React.FC = () => {
             <animated.div key={key} style={props}>
               <Switch location={location}>
                 <PrivateRoute exact path="/">
-                  <Home />
+                  <HomePage />
                 </PrivateRoute>
                 <PrivateRoute path="/features">
-                  <Features />
+                  <FeaturesPage />
                 </PrivateRoute>
-                <PrivateRoute
-                  path={[
-                    '/account/create',
-                    '/account/import-private-key',
-                    '/account/import-public-address',
-                  ]}
-                >
-                  <ManageAccount />
+                <PrivateRoute path="/activity/:accountId?/:txHash?">
+                  <ActivityPage />
                 </PrivateRoute>
-                <PrivateRoute path="/account/:accountId/tx/:transactionHash?">
-                  <Transactions />
-                </PrivateRoute>
-                <PrivateRoute path="/account/:accountId">
-                  <Account />
+                <PrivateRoute path="/account">
+                  <AccountsPage />
                 </PrivateRoute>
                 <PrivateRoute path="/my-accounts">
                   <MyAccounts />
                 </PrivateRoute>
-                <PrivateRoute path={['/profile', '/settings']}>
-                  <Profile />
+                <PrivateRoute path="/profile">
+                  <ProfilePage />
                 </PrivateRoute>
               </Switch>
             </animated.div>

@@ -17,7 +17,7 @@ import {
 import { Coins, SendSteps } from '../../../../dictionaries';
 import { Account } from '../../../../store/account/types';
 
-import Page from '../../../layout/Page/Page';
+import PageContent from '../../../layout/PageContent/PageContent';
 import FormGroup from '../../../forms/FormGroup/FormGroup';
 import DropDown from '../../../forms/DropDown/DropDown';
 import Amount from './Amount/Amount';
@@ -87,7 +87,7 @@ const SendForm: React.FC<Props> = ({ account }) => {
   const accounts = useSelector(getAccountsListForDropdown);
 
   return (
-    <Page
+    <PageContent
       headerText="Send"
       FooterIcon={CompassIcon}
       footerText="Instantly send money with custom fee to anyone or own wallet."
@@ -138,7 +138,7 @@ const SendForm: React.FC<Props> = ({ account }) => {
           </Form>
         )}
       </Formik>
-    </Page>
+    </PageContent>
   );
 };
 

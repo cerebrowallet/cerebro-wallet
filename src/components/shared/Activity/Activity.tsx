@@ -7,14 +7,13 @@ import ActivityList from './ActivityList/ActivityList';
 
 interface Props {
   accountId?: string;
-  context?: string;
 }
 
-const Activity: React.FC<Props> = ({ accountId, context }) => {
+const Activity: React.FC<Props> = ({ accountId }) => {
   return (
     <ActivityContainer>
       <ActivityHeader accountId={accountId} />
-      <ActivityList context={context} />
+      <ActivityList />
     </ActivityContainer>
   );
 };

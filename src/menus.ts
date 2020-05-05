@@ -27,7 +27,7 @@ export const FEATURES = [
     icon: RepeatIcon,
   },
   {
-    link: '/features/activity',
+    link: '/activity',
     text: 'Activity',
     descText: 'Transactions history',
     icon: FilterIcon,
@@ -37,7 +37,7 @@ export const FEATURES = [
 export const MANAGE_ACCOUNT_ACTIONS = [
   {
     link: '/account/create',
-    text: 'Create a new account',
+    text: 'Create a new accounts',
     descText: 'Manage multiple coins at once',
     icon: PlusIcon,
   },

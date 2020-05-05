@@ -159,7 +159,7 @@ function* updateProfile({
     initialData,
     notifications: {
       progress: 'Updating profile...',
-      success: 'Profile is successfully updated',
+      success: 'ProfilePage is successfully updated',
       fail: 'Error while updating profile',
     },
   });

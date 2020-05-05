@@ -51,8 +51,18 @@ export const SidebarTrackY = styled(TrackYEl)`
   right: -1.5rem;
 `;
 
+export const MainTrackY = styled(TrackYEl)`
+  right: 0.4rem;
+  top: 0.625rem;
+  background: ${props => props.theme.colors.tertiary};
+`;
+
 export const ThumbYEl = styled.div`
   background: #f4f4f4;
   cursor: pointer;
   border-radius: 0.25rem;
 ` as any;
+
+export const MainThumbYEl = styled(ThumbYEl)`
+  background: #E5E5E5;
+`

@@ -1,47 +1,130 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const Section = styled.section`
+export const Container = styled.section`
+  display: grid;
+  grid-template-areas:
+    'main'
+    'sidebar';
+  height: 100vh;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+    grid-template-areas: 'sidebar main';
+    grid-template-columns: auto 1fr;
+  }
+`;
+
+export const OneColumnContainer = styled(Container)`
+  grid-template-areas:
+    'sidebar'
+    'main';
+  grid-auto-rows: minmax(min-content, max-content);
+
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    grid-template-areas: 'sidebar main';
+    grid-template-columns: 1.5fr 2.5fr;
+    grid-template-rows: auto;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+    grid-template-columns: auto 3fr;
+  }
+`;
+
+export const TwoColumnsContainer = styled(Container)`
+  grid-template-areas:
+    'sidebar'
+    'main';
+  grid-auto-rows: minmax(min-content, max-content);
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+    grid-template-areas: 'sidebar main';
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+  }
+`;
+
+export const Main = styled.main`
+  grid-area: main;
+`;
+
+export const Sidebar = styled.aside`
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    background: ${(props) => props.theme.colors.blockBackground};
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+    width: 25.625rem;
+  }
+`;
+
+export const OneColumnContent = styled.section`
+  padding: 2.5rem 1.25rem 0;
   max-width: calc(100vw);
 
-  @media (min-width: ${props => props.theme.breakpoints.lg}) {
-    max-width: 36.25rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    padding: 3.125rem 2.5rem 2rem;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.lg}) {
+    padding-left: 4.6875rem;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+    padding-left: 14.0625rem;
   }
 `;
 
-export const PageHeader = styled.header`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 2.5rem;
-`;
+export const TwoColumnsContent = styled.section`
+  display: grid;
+  padding: 2.1875rem 1.25rem 1.5625rem;
 
-export const PageContent = styled.section`
-  img {
-    margin-bottom: 2.5rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    grid-template-columns: auto 1fr;
+    grid-gap: 2.4375rem;
   }
 
-  p {
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    margin-bottom: 1.4375rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+    padding: 3.125rem 2.6875rem;
+    grid-gap: 3.4375rem;
   }
 `;
 
-export const PageFooter = styled.footer`
-  position: relative;
-  border-top: 1px solid #eaeaea;
-  padding-top: 1.0625rem;
-  font-size: 0.875rem;
-  line-height: 1.0625rem;
-  padding-left: 1.5625rem;
-  color: ${props => props.theme.colors.secondary};
-  margin: 3.125rem 0;
+export const DashboardContent = styled.section`
+  display: grid;
+  grid-gap: 1.3125rem;
+  padding: 0.9375rem 1.25rem 1.5625rem;
+  grid-template-areas:
+    'header'
+    'dashboard'
+    'footer';
 
-  svg {
-    position: absolute;
-    width: 0.75rem;
-    height: 0.75rem;
-    color: ${props => props.theme.colors.secondary};
-    top: 1.21rem;
-    left: 0.5rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    grid-template-rows: auto 1fr auto;
+    padding: 2.188rem 1.875rem;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakpoints.xxl}) {
+    padding-left: 4.6875rem;
+  }
+`;
+
+export const LoginContent = styled.section`
+  display: none;
+
+  @media (min-width: ${(props) => props.theme.breakpoints.md}) {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 0;
+    padding: 0;
   }
 `;

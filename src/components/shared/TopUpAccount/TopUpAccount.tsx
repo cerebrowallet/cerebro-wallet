@@ -12,7 +12,7 @@ import FormGroup from '../../forms/FormGroup/FormGroup';
 import QRCode from './QRCode/QRCode';
 import LabeledText from '../LabeledText/LabeledText';
 import DropDown from '../../forms/DropDown/DropDown';
-import Page from '../../layout/Page/Page';
+import PageContent from '../../layout/PageContent/PageContent';
 import Hash from '../Hash/Hash';
 import WhiteBlock from '../WhiteBlock';
 import CopyText from '../../shared/CopyText/CopyText';
@@ -33,7 +33,7 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
   }, [accountId]);
 
   return (
-    <Page
+    <PageContent
       headerText="Top up account"
       FooterIcon={ShareIcon}
       footerText="You can share this address with anyone who wants to send money to you."
@@ -80,7 +80,7 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
           </LabeledText>
         </>
       )}
-    </Page>
+    </PageContent>
   );
 };
 

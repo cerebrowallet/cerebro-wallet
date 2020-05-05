@@ -34,7 +34,7 @@ export const setTotalBalanceCurrency = (currency: Currencies) =>
   action(AccountActionTypes.SET_TOTAL_BALANCE_CURRENCY, currency);
 export const getTransactionDetails = (payload: {
   accountId: string;
-  transactionHash: string;
+  txHash: string;
 }) => action(AccountActionTypes.GET_TRANSACTION_DETAILS, payload);
 export const getRecommendedBTCFee = () =>
   action(AccountActionTypes.GET_RECOMMENDED_BTC_FEE);

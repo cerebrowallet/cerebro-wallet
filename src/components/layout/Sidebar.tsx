@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Sidebar = styled.aside`
+export const Sidebar = styled.aside`
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
