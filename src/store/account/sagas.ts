@@ -17,16 +17,15 @@ import {
   updateAccount,
   updateAccountInGaia as updateAccountInGaiaAction,
   addTx,
+  addTxComment as addTxCommentAction,
+  addTxCommentConfirm,
 } from './actions';
 import {
   getAccountById,
   getAccounts as getAccountsSelector,
   getTxDraftValues,
 } from './selectors';
-import {
-  getCoinsList,
-  getCurrenciesList,
-} from '../user/selectors';
+import { getCoinsList, getCurrenciesList } from '../user/selectors';
 import { config } from '../../config';
 import { createBTCLikeTransaction, createWallet } from '../../utils/wallets';
 import { Value } from '../../components/forms/DropDown/DropDown';
@@ -71,7 +70,9 @@ function* getAccounts() {
         accounts.byIds[details[i].accountId] = {
           ...accounts.byIds[details[i].accountId],
           balance: details[i].balance,
-          transactions: details[i].transactions,
+          transactions: {
+            ...details[i].transactions,
+          },
         };
       }
     }
@@ -286,7 +287,10 @@ function* getAccountDetails(account: Account): SagaIterator {
         (txs: any[], tx: any) => {
           const acc: any = txs;
 
+          const existingTxData = account?.transactions?.byIds[tx.hash] || {};
+
           acc.byIds[tx.hash] = {
+            ...existingTxData,
             hash: tx.hash,
             amount: toBTC(tx.balance_change),
             date: tx.time,
@@ -370,7 +374,10 @@ function* getTransactionDetails({
                 [txHash]: {
                   ...account.transactions.byIds[txHash],
                   fee: toBTC(tx.transaction.fee),
-                  confirmations: tx.transaction.block_id > 0 ? blockChainHeight - tx.transaction.block_id : 0,
+                  confirmations:
+                    tx.transaction.block_id > 0
+                      ? blockChainHeight - tx.transaction.block_id
+                      : 0,
                   from: tx.inputs[0].recipient,
                   to,
                 },
@@ -465,14 +472,16 @@ function* makeTransaction() {
       })
     );
 
-    yield put(addTx({
-      accountId: account.id,
-      tx: {
-        hash: broadcastTxResult.data.transaction_hash,
-        amount: txAmount,
-        date: new Date().toString()
-      }
-    }))
+    yield put(
+      addTx({
+        accountId: account.id,
+        tx: {
+          hash: broadcastTxResult.data.transaction_hash,
+          amount: txAmount,
+          date: new Date().toString(),
+        },
+      })
+    );
   } catch (e) {
     yield put(
       showNotification({
@@ -483,6 +492,50 @@ function* makeTransaction() {
     );
 
     // TODO log error
+    console.error(e);
+  }
+}
+
+function* addTxComment({
+  payload: { comment, txHash, accountId },
+}: ReturnType<typeof addTxCommentAction>) {
+  try {
+    const accounts: Accounts = yield select(getAccountsSelector);
+
+    const update = produce(accounts, (draft: Accounts) => {
+      const tx = draft.byIds[accountId].transactions;
+      if (tx) {
+        tx.byIds[txHash].comment = comment;
+      }
+    });
+
+    yield call(putFile, {
+      fileName: config.gaia.files.accounts,
+      file: update,
+    });
+
+    yield put(
+      addTxCommentConfirm({
+        txHash,
+        comment,
+        accountId,
+      })
+    );
+
+    yield put(
+      showNotification({
+        type: NotificationTypes.Success,
+        text: 'Transaction comment was successfully added',
+      })
+    );
+  } catch (e) {
+    yield put(
+      showNotification({
+        type: NotificationTypes.Error,
+        text: 'Error while adding transaction comment',
+      })
+    );
+
     console.error(e);
   }
 }
@@ -503,6 +556,7 @@ function* accountSaga() {
       getRecommendedBTCFee
     ),
     takeLatest(AccountActionTypes.MAKE_TRANSACTION, makeTransaction),
+    takeLatest(AccountActionTypes.ADD_TX_COMMENT, addTxComment),
   ]);
 }
 

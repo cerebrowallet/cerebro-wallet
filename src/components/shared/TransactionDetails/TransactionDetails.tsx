@@ -30,6 +30,7 @@ import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import Hash from '../Hash/Hash';
 import CopyText from '../CopyText/CopyText';
 import ExternalLink from '../ExternalLink/ExternalLink';
+import TxComment from './TxComment/TxComment';
 
 interface Props extends RouteComponentProps {
   accountId: string;
@@ -44,17 +45,11 @@ const TransactionDetails: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const account = useSelector(getAccountById(accountId));
-  const transaction = useSelector(
-    getTransactionById(accountId, txHash)
-  );
+  const transaction = useSelector(getTransactionById(accountId, txHash));
   const settings = useSelector(getSettings);
 
   useEffect(() => {
-    if (
-      account &&
-      account.transactions &&
-      account.transactions.byIds[txHash]
-    ) {
+    if (account && account.transactions && account.transactions.byIds[txHash]) {
       dispatch(getTransactionDetails({ accountId, txHash }));
     } else {
       history.push(`${match.path.split(':accountId')[0]}${accountId}`);
@@ -72,8 +67,7 @@ const TransactionDetails: React.FC<Props> = ({
           <TopUpHeaderDetails>
             <h3>
               {transaction.amount < 0 ? '— ' : ''}
-              {Math.abs(transaction.amount)}{' '}
-              {account.coin}
+              {Math.abs(transaction.amount)} {account.coin}
             </h3>
             <span>
               {transaction.amountInLocalCurrency < 0 ? '— ' : ''}
@@ -89,11 +83,9 @@ const TransactionDetails: React.FC<Props> = ({
           <AdditionalInfoDate label="Date">
             {format(new Date(transaction.date), 'h:mm aaaa MMM d, yyyy')}
           </AdditionalInfoDate>
-          {transaction.comment && (
-            <AdditionalInfoComment label="Comment">
-              {transaction.comment}
-            </AdditionalInfoComment>
-          )}
+          <AdditionalInfoComment label="Comment">
+            <TxComment accountId={accountId} txHash={transaction.hash} />
+          </AdditionalInfoComment>
         </AdditionalInfo>
       </TopUp>
       <Details>

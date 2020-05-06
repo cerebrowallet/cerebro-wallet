@@ -123,6 +123,7 @@ export const getActivities = createSelector(
                     : 0,
                 hash: transaction.hash,
                 accountId: account.id,
+                comment: transaction.comment,
                 date: set(new Date(transaction.date), {
                   hours: 0,
                   minutes: 0,
@@ -205,3 +206,15 @@ export const getRecommendedBTCFee = (state: ApplicationState) =>
   state.account.recommendedBTCFee;
 export const getTxDraftValues = (state: ApplicationState) =>
   state.account.txDraftValues;
+export const getTxComment = (accountId: string, txHash: string) =>
+  createSelector(getAccountById(accountId), (account) => {
+    if (
+      !account ||
+      !account?.transactions?.byIds[txHash] ||
+      !account?.transactions?.byIds[txHash].comment
+    ) {
+      return '';
+    }
+
+    return account.transactions.byIds[txHash].comment;
+  });

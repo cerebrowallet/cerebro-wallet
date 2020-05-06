@@ -73,6 +73,16 @@ const reducer: Reducer<AccountState> = (
         }
         break;
       }
+      case AccountActionTypes.ADD_TX_COMMENT_CONFIRM:
+        if (draft.accounts) {
+          const account = draft.accounts.byIds[action.payload.accountId];
+          const tx = account?.transactions?.byIds[action.payload.txHash];
+
+          if (tx) {
+            tx.comment = action.payload.comment;
+          }
+        }
+        break;
       default:
         return draft;
     }

@@ -52,3 +52,13 @@ export const addTx = (payload: {
     date: string;
   }
 }) => action(AccountActionTypes.ADD_TX, payload);
+export const addTxComment = (payload: {
+  accountId: string;
+  txHash: string;
+  comment: string;
+}) => action(AccountActionTypes.ADD_TX_COMMENT, payload);
+export const addTxCommentConfirm = (payload: {
+  accountId: string;
+  txHash: string;
+  comment: string;
+}) => action(AccountActionTypes.ADD_TX_COMMENT_CONFIRM, payload);

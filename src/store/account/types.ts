@@ -18,7 +18,9 @@ export enum AccountActionTypes {
   SET_RECOMMENDED_BTC_FEE = '@@account/set_recommended_btc_fee',
   SET_TX_DRAFT_VALUES = '@@account/set_tx_draft_values',
   MAKE_TRANSACTION = '@account/make_transaction',
-  ADD_TX = '@account/add_tx'
+  ADD_TX = '@account/add_tx',
+  ADD_TX_COMMENT = '@account/add_tx_comment',
+  ADD_TX_COMMENT_CONFIRM = '@account/add_tx_comment_confirm',
 }
 
 export interface Transaction {
