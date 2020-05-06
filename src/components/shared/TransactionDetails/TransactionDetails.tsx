@@ -71,7 +71,8 @@ const TransactionDetails: React.FC<Props> = ({
         <TopUpHeader>
           <TopUpHeaderDetails>
             <h3>
-              {transaction.amount}
+              {transaction.amount < 0 ? '— ' : ''}
+              {Math.abs(transaction.amount)}{' '}
               {account.coin}
             </h3>
             <span>
