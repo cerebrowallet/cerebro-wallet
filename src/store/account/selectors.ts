@@ -101,7 +101,12 @@ export const getActivities = createSelector(
 
               if (
                 searchByHashStr &&
-                !transaction.hash.includes(searchByHashStr)
+                !transaction.hash
+                  .toLowerCase()
+                  .includes(searchByHashStr.toLowerCase()) &&
+                !account.address
+                  .toLowerCase()
+                  .includes(searchByHashStr.toLowerCase())
               ) {
                 return acc;
               }
