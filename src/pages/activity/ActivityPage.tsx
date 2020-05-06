@@ -22,16 +22,16 @@ const ActivityPage: React.FC = () => {
 
   const account = useSelector(getAccountById(accountId));
 
+  if (!account) {
+    return <Loader withMargin />;
+  }
+
   if (
     accountId === undefined ||
     !account?.transactions ||
     account?.transactions.allIds.length === 0
   ) {
     return <Redirect to="/" />;
-  }
-
-  if (!account) {
-    return <Loader withMargin />;
   }
 
   if (!txHash) {
