@@ -70,4 +70,19 @@ export const BackButton = styled.button`
   background: #fff;
   white-space: nowrap;
   padding: 0 1.25rem 0 0;
+  cursor: pointer;
+  color: ${props => props.theme.colors.primary};
+  transition: color .15s ease-in;
+  
+  &:hover {
+    color: ${props => props.theme.colors.altHover};
+  }
+  
+  &:active {
+    color: ${props => props.theme.colors.primary};
+  }
+  
+  &:focus {
+    outline: none;
+  }
 `;
