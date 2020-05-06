@@ -7,7 +7,6 @@ import { getAccountById, getAccounts } from '../../store/account/selectors';
 import Page, { PageLayouts } from '../../components/layout/Page/Page';
 import Activity from '../../components/shared/Activity/Activity';
 import TransactionDetails from '../../components/shared/TransactionDetails/TransactionDetails';
-import Loader from '../../components/shared/Loader/Loader';
 
 const ActivityPage: React.FC = () => {
   const accounts = useSelector(getAccounts);
@@ -22,19 +21,7 @@ const ActivityPage: React.FC = () => {
 
   const account = useSelector(getAccountById(accountId));
 
-  if (!account) {
-    return <Loader withMargin />;
-  }
-
-  if (
-    accountId === undefined ||
-    !account?.transactions ||
-    account?.transactions.allIds.length === 0
-  ) {
-    return <Redirect to="/" />;
-  }
-
-  if (!txHash) {
+  if (account && !txHash) {
     return (
       <Redirect
         to={`/activity/${accountId}/${account?.transactions?.allIds[0]}`}
@@ -47,7 +34,9 @@ const ActivityPage: React.FC = () => {
       layout={PageLayouts.oneColumn}
       sidebarContent={<Activity accountId={accountId} />}
     >
-      <TransactionDetails accountId={accountId} txHash={txHash} />
+      {accountId && txHash && (
+        <TransactionDetails accountId={accountId} txHash={txHash} />
+      )}
     </Page>
   );
 };
