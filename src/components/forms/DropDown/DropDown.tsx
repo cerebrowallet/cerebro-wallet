@@ -20,7 +20,7 @@ export interface Value {
   name: string;
 }
 
-interface Props {
+export interface DropDownProps {
   options: Value[];
   name: string;
   className?: string;
@@ -29,7 +29,6 @@ interface Props {
   required?: boolean;
   requiredErrorMessage?: string;
   onChange?: (value: Value) => void;
-  showValue?: boolean;
   optionComponent?: React.ComponentType<any>;
   valueContainerComponent?: React.ComponentType<any>;
   valueComponent?: React.ComponentType<any>;
@@ -53,7 +52,7 @@ const DropDownSelect = styled(Select)`
       props.hasError ? props.theme.colors.alt2 : props.theme.colors.tertiary};
 `;
 
-const DropDown: React.FC<Props> = ({
+const DropDown: React.FC<DropDownProps> = ({
   name,
   options,
   className,
@@ -62,7 +61,6 @@ const DropDown: React.FC<Props> = ({
   requiredErrorMessage,
   isSearchable,
   onChange,
-  showValue,
   optionComponent,
   valueComponent,
   valueContainerComponent,
@@ -101,7 +99,6 @@ const DropDown: React.FC<Props> = ({
             getOptionValue={(option: Value) => option.id}
             options={options}
             placeholder={placeholder}
-            showValue={showValue}
             optionComponent={optionComponent}
             valueComponent={valueComponent}
             valueContainerComponent={valueContainerComponent}

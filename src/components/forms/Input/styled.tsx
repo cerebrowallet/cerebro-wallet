@@ -37,7 +37,7 @@ export const InputElement = styled.input`
   font-size: 1rem;
   line-height: 1.5rem;
   color: ${(props) => props.theme.colors.primary};
-  padding: 1rem 1.25rem;
+  padding: 0.91rem 1.25rem;
   width: 100%;
   resize: none;
   transition: border-color 0.15s ease-in;

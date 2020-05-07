@@ -23,7 +23,6 @@ const Option: React.FC = (props: any) => {
         <Value
           name={data.name}
           id={data.id}
-          showValue={selectProps.showValue}
         />
       )}
     </Wrapper>

@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import { TxDraftFormValues } from './SendForm';
 import {
   getAccountById,
-  getAccountsListForDropdown,
+  getAccountsOptions,
 } from '../../../../store/account/selectors';
 import { TRANSFER_TO_TYPES } from './SendForm';
 
@@ -16,8 +16,10 @@ import FormGroup from '../../../forms/FormGroup/FormGroup';
 
 const TransferToFormGroup: React.FC = () => {
   const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
-  const accounts = useSelector(getAccountsListForDropdown);
-  const sendFromAccount = useSelector(getAccountById(values.transferFrom.intId));
+  const accounts = useSelector(getAccountsOptions);
+  const sendFromAccount = useSelector(
+    getAccountById(values.transferFrom.intId)
+  );
 
   const TRANSFER_TO_OPTIONS = [
     {
@@ -59,11 +61,10 @@ const TransferToFormGroup: React.FC = () => {
         <DropDown
           required
           options={accounts.filter(
-            (account) => account.intId !== values.transferFrom.intId
+            (account) => !!values && account.intId !== values.transferFrom.intId
           )}
           name="transferTo"
           placeholder="Choose account"
-          showValue
         />
       )}
     </FormGroup>

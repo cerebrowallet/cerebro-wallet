@@ -9,8 +9,7 @@ import {
   setTxDraftValues,
 } from '../../../../store/account/actions';
 import {
-  getAccountById,
-  getAccountsListForDropdown,
+  getAccountsOptions,
   getRecommendedBTCFee,
   getTxDraftValues,
 } from '../../../../store/account/selectors';
@@ -19,7 +18,7 @@ import { Account } from '../../../../store/account/types';
 
 import PageContent from '../../../layout/PageContent/PageContent';
 import FormGroup from '../../../forms/FormGroup/FormGroup';
-import DropDown from '../../../forms/DropDown/DropDown';
+import AccountsDropDown from '../../../forms/DropDown/AccountsDropDown';
 import Amount from './Amount/Amount';
 import Button from '../../../forms/Button/Button';
 import Fee from './Fee/Fee';
@@ -84,7 +83,7 @@ const SendForm: React.FC<Props> = ({ account }) => {
         fee: recommendedFee.toString(),
       };
   const history = useHistory();
-  const accounts = useSelector(getAccountsListForDropdown);
+  const accounts = useSelector(getAccountsOptions);
 
   return (
     <PageContent
@@ -105,12 +104,11 @@ const SendForm: React.FC<Props> = ({ account }) => {
             <WhiteBlock>
               {!account && (
                 <FormGroup label="From account">
-                  <DropDown
+                  <AccountsDropDown
                     required
                     options={accounts}
                     name="transferFrom"
                     placeholder="Choose account"
-                    showValue
                     onChange={(value: any) => {
                       if (
                         values.transferToType === TRANSFER_TO_TYPES.ADDRESS &&

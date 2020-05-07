@@ -25,21 +25,33 @@ export const getAccountsList = createSelector(getAccounts, (accounts) =>
       }, [])
     : []
 );
-export const getAccountsListForDropdown = createSelector(
-  getAccountsList,
-  (list) =>
-    list.map((account: Account) => ({
-      ...account,
-      id: account.address,
-      intId: account.id,
-    }))
+export const getExchangeRates = (state: ApplicationState) =>
+  state.account.rates;
+export const getAccountsOptions = createSelector(
+  [getAccountsList, getSettings, getExchangeRates],
+  (list, settings, rates) =>
+    list.map((account: Account) => {
+      let balance = `${account.balance} ${account.coin}`;
+
+      if (settings.currency && rates) {
+        balance += ` / ${CurrencySymbols[settings.currency]}${round(
+          account.balance * rates[account.coin][settings.currency]
+        )}`;
+      }
+
+      return {
+        name: account.name,
+        id: account.address,
+        intId: account.id,
+        address: account.address,
+        balance,
+      };
+    })
 );
 export const getAccountById = (accountId?: string) =>
   createSelector(getAccounts, (accounts) =>
     accounts && accountId ? accounts.byIds[accountId] : null
   );
-export const getExchangeRates = (state: ApplicationState) =>
-  state.account.rates;
 export const getExchangeRate = (coin: Coins) =>
   createSelector([getExchangeRates, getSettings], (rates, settings) => {
     const currency = settings.currency;

@@ -10,50 +10,21 @@ const Wrapper = styled.div`
   padding-left: 1.25rem;
 `;
 
-interface ElementProps {
-  showvalue: boolean;
-}
-
 const ValueElement = styled.span`
-  display: ${(props: ElementProps) => (props.showvalue ? 'block' : 'none')};
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  //text-transform: uppercase;
-
-  ${(props: ElementProps) =>
-    props.showvalue &&
-    `
-    flex: 0 1 70%;
-  `}
-` as any;
-
-const Label = styled.span`
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  ${(props: ElementProps) =>
-    props.showvalue &&
-    `
-    font-weight: bold;
-    padding-left: 1rem;
-    flex: 0 1 30%;
-    text-align: right;
-  `}
 ` as any;
 
 interface DropDownValueProps {
   name: string;
   id: string | number;
-  showValue: boolean;
 }
 
-const Value: React.FC<DropDownValueProps> = ({ name, id, showValue }) => {
+const Value: React.FC<DropDownValueProps> = ({ name }) => {
   return (
     <Wrapper>
-      <ValueElement showvalue={showValue}>{id}</ValueElement>
-      <Label showvalue={showValue}>{name}</Label>
+      <ValueElement>{name}</ValueElement>
     </Wrapper>
   );
 };
