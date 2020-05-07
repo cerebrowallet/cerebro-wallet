@@ -63,7 +63,9 @@ const Details: React.FC<Props> = ({ accountId }) => {
       </WhiteBlockDetails>
       <Addresses>
         <LabeledText label="Public address">
-          <Hash breakAll value={account.address} />
+          <CopyText value={account.address}>
+            <Hash breakAll value={account.address} />
+          </CopyText>
         </LabeledText>
         <LabeledText label="Legacy format">
           <CopyText value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19">
