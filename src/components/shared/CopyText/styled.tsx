@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Copy } from 'react-feather';
 
@@ -10,7 +11,7 @@ export const Container = styled.span`
   }
 `;
 
-export const CopyIcon = styled(Copy)`
+export const CopyIcon = styled(({ isHovered, ...rest }) => <Copy {...rest} />)`
   position: absolute;
   background: none;
   border: 0;
