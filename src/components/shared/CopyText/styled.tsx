@@ -16,7 +16,7 @@ export const CopyIcon = styled(({ isHovered, ...rest }) => <Copy {...rest} />)`
   background: none;
   border: 0;
   left: -1.0625rem;
-  top: 0.3rem;
+  top: 0.25rem;
   padding: 0;
   color: ${(props) => props.theme.colors.secondary};
   width: 0.75rem;
