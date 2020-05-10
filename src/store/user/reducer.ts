@@ -41,7 +41,7 @@ const reducer: Reducer<UserState> = (
         draft.profile = action.payload;
         break;
       case UserActionTypes.UPDATE_SETTINGS:
-        draft.profile = {
+        draft.settings = {
           ...draft.settings,
           ...action.payload.update,
         };

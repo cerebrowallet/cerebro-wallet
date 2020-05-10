@@ -63,9 +63,9 @@ export const getExchangeRate = (coin: Coins) =>
     return rates[coin][currency];
   });
 export const getTotalBalance = createSelector(
-  [getAccounts, getExchangeRates, getTotalBalanceCurrency],
-  (accounts, rates, currency) => {
-    if (!accounts || !rates || !currency) {
+  [getAccounts, getExchangeRates, getSettings],
+  (accounts, rates, settings) => {
+    if (!accounts || !rates) {
       return 0;
     }
 
@@ -73,7 +73,9 @@ export const getTotalBalance = createSelector(
       accounts.allIds.reduce((acc, accountId) => {
         let balance = acc;
         const account = accounts.byIds[accountId];
-        balance += account.balance * rates[account.coin][currency];
+        balance += settings.currency
+          ? account.balance * rates[account.coin][settings.currency]
+          : 0;
         return balance;
       }, 0)
     );
@@ -228,4 +230,5 @@ export const getTxComment = (accountId: string, txHash: string) =>
 
     return account.transactions.byIds[txHash].comment;
   });
-export const getCreateTxResult = (state: ApplicationState) => state.account.createTxResult;
+export const getCreateTxResult = (state: ApplicationState) =>
+  state.account.createTxResult;
