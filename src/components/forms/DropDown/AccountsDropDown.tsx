@@ -15,6 +15,7 @@ interface AccountOption {
 
 interface Props extends DropDownProps {
   options: AccountOption[];
+  disabled?: boolean;
 }
 
 const ValueWrapper = styled.div`

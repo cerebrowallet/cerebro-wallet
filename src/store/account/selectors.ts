@@ -43,6 +43,7 @@ export const getAccountsOptions = createSelector(
         name: account.name,
         address: account.address,
         id: account.id,
+        coin: account.coin,
         balance,
       };
     })

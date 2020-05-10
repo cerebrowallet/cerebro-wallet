@@ -11,7 +11,7 @@ import {
 
 import { usePrevious } from '../../../utils/hooks';
 import { Step, StepContainer } from './styled';
-import { Statuses } from '../../../dictionaries';
+import { Statuses, Coins } from '../../../dictionaries';
 import {
   getCreateTxResult,
   getRecommendedBTCFee,
@@ -41,6 +41,7 @@ export interface TransferAccount {
   address: string;
   id: string;
   balance: string;
+  coin: Coins;
 }
 
 export interface TxDraftFormValues {

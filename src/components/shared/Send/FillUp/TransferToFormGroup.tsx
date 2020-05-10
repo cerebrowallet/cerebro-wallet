@@ -50,18 +50,31 @@ const TransferToFormGroup: React.FC = () => {
         <Input
           name="transferTo"
           type="textarea"
-          placeholder={`Enter ${transferFromAccount?.coin} Address`}
+          placeholder={
+            values.transferFrom
+              ? `Enter ${transferFromAccount?.coin} Address`
+              : 'Choose sending account first'
+          }
           required
           requiredErrorMessage="Address field is not valid."
+          disabled={!values.transferFrom}
         />
       ) : (
         <AccountsDropDown
           required
           options={accountsOptions.filter(
-            (account) => !!values && account.id !== values.transferFrom?.id
+            (account) =>
+              !!values &&
+              account.id !== values.transferFrom?.id &&
+              account.coin === values.transferFrom?.coin
           )}
           name="transferTo"
-          placeholder="Choose account"
+          placeholder={
+            values.transferFrom
+              ? `Choose ${transferFromAccount?.coin} account`
+              : 'Choose sending account first'
+          }
+          disabled={!values.transferFrom}
         />
       )}
     </FormGroup>

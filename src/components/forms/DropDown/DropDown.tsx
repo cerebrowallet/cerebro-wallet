@@ -33,6 +33,7 @@ export interface DropDownProps {
   valueContainerComponent?: React.ComponentType<any>;
   valueComponent?: React.ComponentType<any>;
   theme?: Theme;
+  disabled?: boolean;
 }
 
 const DropDownWrapper = styled.div`
@@ -41,14 +42,14 @@ const DropDownWrapper = styled.div`
 
 const DropDownSelect = styled(Select)`
   position: relative;
-  background: ${props => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.tertiary};
   border-radius: 0.625rem;
   font-size: 1rem;
   background: #f7f7f7;
   cursor: pointer;
   line-height: 1.5rem;
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.hasError ? props.theme.colors.alt2 : props.theme.colors.tertiary};
 `;
 
@@ -65,6 +66,7 @@ const DropDown: React.FC<DropDownProps> = ({
   valueComponent,
   valueContainerComponent,
   theme,
+  disabled,
 }) => {
   return (
     <Field
@@ -111,6 +113,7 @@ const DropDown: React.FC<DropDownProps> = ({
               SingleValue,
               MenuList,
             }}
+            isDisabled={disabled}
             width="100%"
             isSearchable={isSearchable}
             appTheme={theme}

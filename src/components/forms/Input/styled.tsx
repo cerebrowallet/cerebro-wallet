@@ -49,10 +49,23 @@ export const InputElement = styled.input`
 
 interface TextAreaProps extends InputProps {
   rows?: number;
+  placeholder?: string;
+  disabled?: boolean;
 }
 
 const TextAreaElement: React.FC = (props) => <textarea {...props} />;
 
-export const TextArea: React.FC<TextAreaProps> = ({ status }) => {
-  return <InputElement as={TextAreaElement} status={status} />;
+export const TextArea: React.FC<TextAreaProps> = ({
+  status,
+  placeholder,
+  disabled,
+}) => {
+  return (
+    <InputElement
+      as={TextAreaElement}
+      status={status}
+      placeholder={placeholder}
+      disabled={disabled}
+    />
+  );
 };
