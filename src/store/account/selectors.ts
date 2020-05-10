@@ -1,17 +1,11 @@
-import { createSelector } from 'reselect';
-import { set } from 'date-fns';
+import {createSelector} from 'reselect';
+import {set} from 'date-fns';
 
-import { ApplicationState } from '../index';
-import { Account, Activities, Transaction, TransactionActivity } from './types';
-import {
-  ActivityFilterTypes,
-  ActivityTypes,
-  Coins,
-  Currencies,
-  CurrencySymbols,
-} from '../../dictionaries';
-import { getActivityFilters, getSettings, getUpdates } from '../user/selectors';
-import { groupBy, round } from '../../utils/common';
+import {ApplicationState} from '../index';
+import {Account, Activities, Transaction, TransactionActivity} from './types';
+import {ActivityFilterTypes, ActivityTypes, Coins, Currencies, CurrencySymbols,} from '../../dictionaries';
+import {getActivityFilters, getSettings, getUpdates} from '../user/selectors';
+import {groupBy, round} from '../../utils/common';
 
 export const getTotalBalanceCurrency = (state: ApplicationState) =>
   state.account.totalBalanceCurrency;
@@ -69,6 +63,8 @@ export const getTotalBalance = createSelector(
       return 0;
     }
 
+    const decimals = settings.currency === Currencies.BTC ? 8 : 0;
+
     return round(
       accounts.allIds.reduce((acc, accountId) => {
         let balance = acc;
@@ -77,7 +73,8 @@ export const getTotalBalance = createSelector(
           ? account.balance * rates[account.coin][settings.currency]
           : 0;
         return balance;
-      }, 0)
+      }, 0),
+      decimals
     );
   }
 );
