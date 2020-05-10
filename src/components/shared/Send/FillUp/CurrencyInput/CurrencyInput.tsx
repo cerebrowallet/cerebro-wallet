@@ -1,19 +1,33 @@
 import React from 'react';
 
-import { Currencies, Coins } from '../../../../../dictionaries';
+import {
+  Currencies,
+  CurrencySymbols,
+  Coins,
+} from '../../../../../dictionaries';
 
-import { Container } from './styled';
+import { Container, CurrencySign } from './styled';
 
 interface Props {
-  currency?: Currencies | Coins;
+  currency?: Currencies;
+  coin?: Coins;
   children: React.ReactNode;
   className?: string;
 }
 
-const CurrencyInput: React.FC<Props> = ({ currency, children, className }) => {
+const CurrencyInput: React.FC<Props> = ({
+  currency,
+  coin,
+  children,
+  className,
+}) => {
   return (
-    <Container currency={currency} className={className}>
+    <Container className={className}>
       {children}
+      <CurrencySign>
+        {!!currency && !coin && CurrencySymbols[currency]}
+        {!currency && !!coin && coin}
+      </CurrencySign>
     </Container>
   );
 };

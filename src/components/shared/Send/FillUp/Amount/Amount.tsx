@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 
 import { TxDraftFormValues } from '../../Send';
-import { Currencies } from '../../../../../dictionaries';
 import {
   getAccountById,
   getExchangeRates,
@@ -92,7 +91,7 @@ const Amount: React.FC = () => {
         Send all
       </SendAllButton>
       <InputsContainer>
-        <AmountInCrypto currency={sendFromAccount?.coin}>
+        <AmountInCrypto coin={sendFromAccount?.coin}>
           <Input
             name="amount"
             onChange={updateInputValue(Inputs.amountInLocalCurrency)}
@@ -101,7 +100,7 @@ const Amount: React.FC = () => {
             required
           />
         </AmountInCrypto>
-        <AmountInLocal currency={Currencies.USD}>
+        <AmountInLocal currency={settings.currency}>
           <Input
             name="amountInLocalCurrency"
             onChange={updateInputValue(Inputs.amount)}
