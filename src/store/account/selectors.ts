@@ -41,14 +41,13 @@ export const getAccountsOptions = createSelector(
 
       return {
         name: account.name,
-        id: account.address,
-        intId: account.id,
         address: account.address,
+        id: account.id,
         balance,
       };
     })
 );
-export const getAccountById = (accountId?: string) =>
+export const getAccountById = (accountId?: string | null) =>
   createSelector(getAccounts, (accounts) =>
     accounts && accountId ? accounts.byIds[accountId] : null
   );
@@ -216,8 +215,6 @@ export const getTransactionById = (accountId: string, transactionId?: string) =>
   );
 export const getRecommendedBTCFee = (state: ApplicationState) =>
   state.account.recommendedBTCFee;
-export const getTxDraftValues = (state: ApplicationState) =>
-  state.account.txDraftValues;
 export const getTxComment = (accountId: string, txHash: string) =>
   createSelector(getAccountById(accountId), (account) => {
     if (
@@ -230,3 +227,4 @@ export const getTxComment = (accountId: string, txHash: string) =>
 
     return account.transactions.byIds[txHash].comment;
   });
+export const getCreateTxResult = (state: ApplicationState) => state.account.createTxResult;

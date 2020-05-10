@@ -52,6 +52,7 @@ export interface Config {
   };
   getCoursesApiUrl: string;
   getRecommendedBTCLikeFeesApiUrl: string;
+  supportEmail: string;
 }
 
 const config: Config = {
@@ -103,6 +104,7 @@ const config: Config = {
   getCoursesApiUrl: 'https://min-api.cryptocompare.com/data/pricemulti',
   getRecommendedBTCLikeFeesApiUrl:
     'https://bitcoinfees.earn.com/api/v1/fees/recommended',
+  supportEmail: 'support@cerebrowallet.com'
 };
 
 export { config };

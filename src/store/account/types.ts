@@ -1,5 +1,4 @@
-import { Coins, ActivityTypes, Currencies } from '../../dictionaries';
-import { TxDraftFormValues } from '../../components/shared/Send/SendForm/SendForm';
+import { Coins, ActivityTypes, Currencies, Statuses } from '../../dictionaries';
 
 export enum AccountActionTypes {
   GET_ACCOUNTS = '@@account/get_accounts',
@@ -16,11 +15,11 @@ export enum AccountActionTypes {
   GET_TRANSACTION_DETAILS = '@@account/get_transaction_details',
   GET_RECOMMENDED_BTC_FEE = '@@account/get_recommended_btc_fee',
   SET_RECOMMENDED_BTC_FEE = '@@account/set_recommended_btc_fee',
-  SET_TX_DRAFT_VALUES = '@@account/set_tx_draft_values',
   MAKE_TRANSACTION = '@account/make_transaction',
-  ADD_TX = '@account/add_tx',
-  ADD_TX_COMMENT = '@account/add_tx_comment',
-  ADD_TX_COMMENT_CONFIRM = '@account/add_tx_comment_confirm',
+  ADD_TX = '@@account/add_tx',
+  ADD_TX_COMMENT = '@@account/add_tx_comment',
+  ADD_TX_COMMENT_CONFIRM = '@@account/add_tx_comment_confirm',
+  SET_CREATE_TX_RESULT = '@@account/set_create_tx_result',
 }
 
 export interface Transaction {
@@ -70,7 +69,10 @@ export interface AccountState {
   searchActivityStr: string;
   totalBalanceCurrency: Currencies | null;
   recommendedBTCFee: number;
-  txDraftValues: TxDraftFormValues | null;
+  createTxResult: {
+    status: Statuses.Success | Statuses.Fail;
+    txHash?: string;
+  } | null;
 }
 
 export interface UpdateAccountActionPayload {

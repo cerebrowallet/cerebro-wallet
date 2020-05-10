@@ -1,33 +1,173 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Switch, Route, RouteComponentProps, withRouter } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTransition } from 'react-spring';
+import { Form, Formik } from 'formik';
+import {
+  Compass as CompassIcon,
+  File as FileIcon,
+  ThumbsUp as ThumbsUpIcon,
+  AlertOctagon as AlertIcon,
+} from 'react-feather';
 
-import { getAccountById } from '../../../store/account/selectors';
+import { usePrevious } from '../../../utils/hooks';
+import { Step, StepContainer } from './styled';
+import { Statuses } from '../../../dictionaries';
+import {
+  getCreateTxResult,
+  getRecommendedBTCFee,
+} from '../../../store/account/selectors';
+import {
+  makeTransaction,
+  setCreateTxResult,
+} from '../../../store/account/actions';
+import { getBlockstackUsername } from '../../../store/user/selectors';
 
-import SendForm from './SendForm/SendForm';
-import SendConfirm from './SendConfirm/SendConfirm';
-import SendSuccess from './SendSuccess/SendSuccess';
+import FillUp from './FillUp/FillUp';
+import Confirm from './Confirm/Confirm';
+import SendResult from './Result/Result';
 
-interface Props extends RouteComponentProps {
+import WhiteBlock from '../WhiteBlock';
+import PageContent from '../../layout/PageContent/PageContent';
+import NavDots from './NavDots/NavDots';
+import { getRecommendedBTCFee as getRecommendedBTCFeeAction } from '../../../store/account/actions';
+
+export enum TransferToTypes {
+  Address = 'address',
+  Account = 'account',
+}
+
+export interface TransferAccount {
+  name: string;
+  address: string;
+  id: string;
+  balance: string;
+}
+
+export interface TxDraftFormValues {
+  transferFrom: TransferAccount | null;
+  transferTo: TransferAccount | string | null;
+  transferToType: TransferToTypes;
+  amount: string;
+  amountInLocalCurrency: string;
+  fee: string;
+}
+
+export enum SendSteps {
+  fillUp,
+  confirm,
+  result,
+}
+
+const components = [FillUp, Confirm, SendResult];
+
+interface Props {
   accountId?: string;
 }
 
-const Send: React.FC<Props> = ({ match, accountId }) => {
-  const account = useSelector(getAccountById(accountId));
+const Send: React.FC<Props> = ({ accountId }) => {
+  const dispatch = useDispatch();
+  const [step, setStep] = useState(SendSteps.fillUp);
+  const createTxResult = useSelector(getCreateTxResult);
+  const recommendedFee = useSelector(getRecommendedBTCFee);
+  const username = useSelector(getBlockstackUsername);
+  const previousStep = usePrevious(step) || 0;
+
+  const descriptions = {
+    [SendSteps.fillUp]: {
+      headerText: 'Send',
+      footerText:
+        'Instantly send money with custom fee to anyone or own wallet.',
+      footerIcon: CompassIcon,
+    },
+    [SendSteps.confirm]: {
+      headerText: 'Confirm',
+      footerText: 'Please check details and confirm transaction.',
+      footerIcon: FileIcon,
+    },
+    [SendSteps.result]: {
+      headerText:
+        createTxResult?.status === Statuses.Success ? 'Success' : 'Ooops',
+      footerText:
+        createTxResult?.status === Statuses.Success
+          ? `You are doing everything right, ${username}`
+          : 'Such errors happen. Maybe there are connection problems or something else. Check connection and try again.',
+      footerIcon:
+        createTxResult?.status === Statuses.Success ? ThumbsUpIcon : AlertIcon,
+    },
+  };
+
+  useEffect(() => {
+    if (createTxResult) {
+      setStep(SendSteps.result);
+    }
+  }, [createTxResult]);
+
+  useEffect(() => {
+    dispatch(getRecommendedBTCFeeAction());
+
+    return () => {
+      if (createTxResult) {
+        setCreateTxResult(null);
+      }
+    };
+  }, []);
+
+  const transitions = useTransition(step, (p) => p, {
+    from: {
+      opacity: 0,
+      transform:
+        step < previousStep ? 'translate3d(-50%,0,0)' : 'translate3d(100%,0,0)',
+    },
+    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    leave: {
+      opacity: 0,
+      transform:
+        step < previousStep ? 'translate3d(100%,0,0)' : 'translate3d(-50%,0,0)',
+    },
+    initial: null,
+  });
 
   return (
-    <Switch>
-      <Route exact path={match.path}>
-        <SendForm account={account} />
-      </Route>
-      <Route path={`${match.path}/confirm`}>
-        <SendConfirm />
-      </Route>
-      <Route path={`${match.path}/success`}>
-        <SendSuccess />
-      </Route>
-    </Switch>
+    <PageContent
+      headerText={descriptions[step].headerText}
+      FooterIcon={descriptions[step].footerIcon}
+      footerText={descriptions[step].footerText}
+    >
+      <Formik
+        initialValues={{
+          transferFrom: null,
+          transferTo: null,
+          transferToType: TransferToTypes.Address,
+          amount: '',
+          amountInLocalCurrency: '',
+          fee: recommendedFee.toString(),
+        }}
+        enableReinitialize
+        onSubmit={(values: TxDraftFormValues) =>
+          dispatch(makeTransaction(values))
+        }
+      >
+        {() => (
+          <Form>
+            <WhiteBlock>
+              <StepContainer>
+                {transitions.map(({ item, props, key }) => {
+                  const Page = components[item] as React.ElementType;
+
+                  return (
+                    <Step key={key} style={props}>
+                      <Page setStep={setStep} accountId={accountId} />
+                    </Step>
+                  );
+                })}
+              </StepContainer>
+              <NavDots step={step} setStep={setStep} />
+            </WhiteBlock>
+          </Form>
+        )}
+      </Formik>
+    </PageContent>
   );
 };
 
-export default withRouter(Send);
+export default Send;

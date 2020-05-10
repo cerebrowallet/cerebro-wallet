@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Theme} from "../../../../utils/styled";
+import { Theme } from '../../../../utils/styled';
 
 export const Container = styled.div`
   text-align: center;
@@ -7,7 +7,7 @@ export const Container = styled.div`
   margin: 2.3125rem 0 0 0;
   padding: 0;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
     margin-top: 1.875rem;
   }
 `;
@@ -15,9 +15,10 @@ export const Container = styled.div`
 interface StepProps {
   current: boolean;
   theme: Theme;
+  disabled: boolean;
 }
 
-export const Step = styled.span`
+export const Button = styled.button`
   display: inline-block;
   vertical-align: middle;
   width: 0.375rem;
@@ -25,9 +26,13 @@ export const Step = styled.span`
   border-radius: 100%;
   margin: 0 0.125rem;
   background: ${(props: StepProps) =>
-  props.current && props.theme ? props.theme.colors.primary : '#eaeaea'};
-  cursor: pointer;
+    props.current && props.theme ? props.theme.colors.primary : '#eaeaea'};
+  cursor: ${(props: StepProps) => props.disabled ? 'default' : 'pointer'};
   border: 0;
   padding: 0;
   transition: background 0.15s ease-in;
+
+  &:focus {
+    outline: none;
+  }
 `;

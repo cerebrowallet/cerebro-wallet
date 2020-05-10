@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 
-import { TxDraftFormValues } from '../SendForm';
+import { TxDraftFormValues } from '../../Send';
 import { Currencies } from '../../../../../dictionaries';
 import {
   getAccountById,
@@ -29,9 +29,7 @@ enum Inputs {
 
 const Amount: React.FC = () => {
   const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
-  const sendFromAccount = useSelector(
-    getAccountById(values.transferFrom.intId)
-  );
+  const sendFromAccount = useSelector(getAccountById(values.transferFrom?.id));
   const rates = useSelector(getExchangeRates);
   const settings = useSelector(getSettings);
   const exchangeRate =
@@ -99,6 +97,7 @@ const Amount: React.FC = () => {
             name="amount"
             onChange={updateInputValue(Inputs.amountInLocalCurrency)}
             validate={validateInput(Inputs.amount)}
+            placeholder="0"
             required
           />
         </AmountInCrypto>
@@ -107,6 +106,7 @@ const Amount: React.FC = () => {
             name="amountInLocalCurrency"
             onChange={updateInputValue(Inputs.amount)}
             validate={validateInput(Inputs.amountInLocalCurrency)}
+            placeholder="0"
             hideTextError
             required
           />

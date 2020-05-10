@@ -11,21 +11,20 @@ import {
 
 import Input from '../../../../forms/Input/Input';
 import { Container } from './styled';
-import { TxDraftFormValues } from '../SendForm';
+import { TxDraftFormValues } from '../../Send';
 import { parseFloatStr } from '../../../../../utils/common';
 
 const Fee: React.FC = () => {
   const { values } = useFormikContext<TxDraftFormValues>();
   const recommendedBTCFee = useSelector(getRecommendedBTCFee);
-  const sendFromAccount = useSelector(
-    getAccountById(values.transferFrom.intId)
-  );
+  const sendFromAccount = useSelector(getAccountById(values.transferFrom?.id));
 
   return (
     <Container currency={Currencies.BTC}>
       <Input
         name="fee"
         required
+        placeholder="0"
         validate={(value: string) => {
           if (!sendFromAccount) {
             return;

@@ -1,13 +1,13 @@
 import { action } from 'typesafe-actions';
 
-import { Coins, Currencies } from '../../dictionaries';
+import { Coins, Currencies, Statuses } from '../../dictionaries';
 import {
   AccountActionTypes,
   Account,
   ExchangeRates,
   UpdateAccountActionPayload,
 } from './types';
-import { TxDraftFormValues } from '../../components/shared/Send/SendForm/SendForm';
+import { TxDraftFormValues } from '../../components/shared/Send/Send';
 
 export const getAccounts = () => action(AccountActionTypes.GET_ACCOUNTS);
 export const setAccounts = (accounts: {
@@ -40,17 +40,15 @@ export const getRecommendedBTCFee = () =>
   action(AccountActionTypes.GET_RECOMMENDED_BTC_FEE);
 export const setRecommendedBTCFee = (payload: any) =>
   action(AccountActionTypes.SET_RECOMMENDED_BTC_FEE, payload);
-export const setTxDraftValues = (payload: TxDraftFormValues | null) =>
-  action(AccountActionTypes.SET_TX_DRAFT_VALUES, payload);
-export const makeTransaction = () =>
-  action(AccountActionTypes.MAKE_TRANSACTION);
+export const makeTransaction = (payload: TxDraftFormValues) =>
+  action(AccountActionTypes.MAKE_TRANSACTION, payload);
 export const addTx = (payload: {
   accountId: string;
   tx: {
     amount: number;
     hash: string;
     date: string;
-  }
+  };
 }) => action(AccountActionTypes.ADD_TX, payload);
 export const addTxComment = (payload: {
   accountId: string;
@@ -62,3 +60,6 @@ export const addTxCommentConfirm = (payload: {
   txHash: string;
   comment: string;
 }) => action(AccountActionTypes.ADD_TX_COMMENT_CONFIRM, payload);
+export const setCreateTxResult = (
+  payload: { status: Statuses; txHash?: string } | null
+) => action(AccountActionTypes.SET_CREATE_TX_RESULT, payload);

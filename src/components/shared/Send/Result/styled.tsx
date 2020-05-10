@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CheckCircle as CheckCircleIcon } from 'react-feather';
 import Hash from '../../Hash/Hash';
 
 export const Container = styled.div`
@@ -7,7 +6,11 @@ export const Container = styled.div`
   text-align: center;
 `;
 
-export const SuccessIcon = styled.img`
+export const Link = styled.a`
+
+`;
+
+export const Icon = styled.img`
   width: 3rem;
   height: 3rem;
   margin: 0 auto 0.9375rem!important;

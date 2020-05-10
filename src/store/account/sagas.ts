@@ -5,33 +5,35 @@ import { SagaIterator } from 'redux-saga';
 
 import { Account, AccountActionTypes, Accounts } from './types';
 import { getFile, putFile } from '../../utils/blockstack';
-import { getQueryString, callApi } from '../../utils/api';
+import { callApi, getQueryString } from '../../utils/api';
 import {
+  addTx,
+  addTxComment as addTxCommentAction,
+  addTxCommentConfirm,
   createAccount as createAccountAction,
   deleteAccount as deleteAccountAction,
   getAccountDetails as getAccountDetailsAction,
   getTransactionDetails as getTransactionDetailsAction,
+  makeTransaction as makeTransactionAction,
   setAccounts,
+  setCreateTxResult,
   setExchangeRates,
   setRecommendedBTCFee,
   updateAccount,
   updateAccountInGaia as updateAccountInGaiaAction,
-  addTx,
-  addTxComment as addTxCommentAction,
-  addTxCommentConfirm,
 } from './actions';
 import {
   getAccountById,
   getAccounts as getAccountsSelector,
-  getTxDraftValues,
 } from './selectors';
 import { getCoinsList, getCurrenciesList } from '../user/selectors';
 import { config } from '../../config';
 import { createBTCLikeTransaction, createWallet } from '../../utils/wallets';
 import { Value } from '../../components/forms/DropDown/DropDown';
 import { showNotification } from '../layout/actions';
-import { Coins, NotificationTypes } from '../../dictionaries';
+import { Coins, NotificationTypes, Statuses } from '../../dictionaries';
 import { toBTC, toSatoshi } from '../../utils/common';
+import { TransferToTypes } from '../../components/shared/Send/Send';
 
 function* getAccounts() {
   try {
@@ -407,16 +409,27 @@ function* getRecommendedBTCFee() {
   }
 }
 
-function* makeTransaction() {
+function* makeTransaction({
+  payload: txDraftValues,
+}: ReturnType<typeof makeTransactionAction>) {
   try {
-    const txDraftValues = yield select(getTxDraftValues);
-    const account = yield select(
-      getAccountById(txDraftValues.transferFrom.intId)
+    if (!txDraftValues.transferFrom || !txDraftValues.transferTo) {
+      throw new Error('');
+    }
+
+    const transferFromAccount = yield select(
+      getAccountById(txDraftValues.transferFrom?.id)
     );
+
+    if (!transferFromAccount) {
+      throw new Error('Transfer from account is not found.');
+    }
 
     const addressInfoResult = yield call(callApi, {
       method: 'get',
-      url: config.coins[account.coin].apiUrls.getAddressInfo(account.address),
+      url: config.coins[transferFromAccount.coin].apiUrls.getAddressInfo(
+        transferFromAccount.address
+      ),
       queryParams: {
         unspentOnly: true,
       },
@@ -426,34 +439,37 @@ function* makeTransaction() {
       throw new Error(addressInfoResult.context.error);
     }
 
-    const addressInfo = addressInfoResult.data[txDraftValues.transferFrom.id];
+    const addressInfo = addressInfoResult.data[transferFromAccount.address];
 
     const txAmount = parseFloat(txDraftValues.amount);
     const txFee = parseFloat(txDraftValues.fee);
 
     const txHash = createBTCLikeTransaction({
-      privateKey: account.privateKey,
+      privateKey: transferFromAccount.privateKey,
       utxo: addressInfo.utxo,
       receivers: [
         {
           address:
-            txDraftValues.transferToType === 'account'
+            txDraftValues.transferToType === TransferToTypes.Account &&
+            typeof txDraftValues.transferTo !== 'string'
               ? txDraftValues.transferTo.address
               : txDraftValues.transferTo,
           amount: toSatoshi(txAmount),
         },
         {
-          address: txDraftValues.transferFrom.address,
+          address: transferFromAccount.address,
           amount:
-            toSatoshi(account.balance) - toSatoshi(txAmount) - toSatoshi(txFee),
+            toSatoshi(transferFromAccount.balance) -
+            toSatoshi(txAmount) -
+            toSatoshi(txFee),
         },
       ],
-      coin: account.coin,
+      coin: transferFromAccount.coin,
     });
 
     const broadcastTxResult = yield call(callApi, {
       method: 'post',
-      url: config.coins[account.coin].apiUrls.broadcastTx,
+      url: config.coins[transferFromAccount.coin].apiUrls.broadcastTx,
       body: getQueryString({
         data: txHash,
       }),
@@ -467,14 +483,15 @@ function* makeTransaction() {
     }
 
     yield put(
-      push('/features/send/success', {
-        hash: broadcastTxResult.data.transaction_hash,
+      setCreateTxResult({
+        status: Statuses.Success,
+        txHash: broadcastTxResult.data.transaction_hash,
       })
     );
 
     yield put(
       addTx({
-        accountId: account.id,
+        accountId: transferFromAccount.id,
         tx: {
           hash: broadcastTxResult.data.transaction_hash,
           amount: txAmount,
@@ -484,10 +501,8 @@ function* makeTransaction() {
     );
   } catch (e) {
     yield put(
-      showNotification({
-        type: NotificationTypes.Error,
-        text:
-          'There was an error creating the transaction. Please, make sure the address is valid or support@cerebrowallet.com',
+      setCreateTxResult({
+        status: Statuses.Fail,
       })
     );
 

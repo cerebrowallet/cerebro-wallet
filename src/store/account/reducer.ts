@@ -13,7 +13,7 @@ const initialState: AccountState = {
   searchActivityStr: '',
   totalBalanceCurrency: null,
   recommendedBTCFee: 0,
-  txDraftValues: null,
+  createTxResult: null,
 };
 
 const reducer: Reducer<AccountState> = (
@@ -52,9 +52,6 @@ const reducer: Reducer<AccountState> = (
       case AccountActionTypes.SET_RECOMMENDED_BTC_FEE:
         draft.recommendedBTCFee = toBTC(action.payload * TYPICAL_TX_SIZE);
         break;
-      case AccountActionTypes.SET_TX_DRAFT_VALUES:
-        draft.txDraftValues = action.payload;
-        break;
       case AccountActionTypes.ADD_TX: {
         if (draft.accounts) {
           const account = draft.accounts.byIds[action.payload.accountId];
@@ -82,6 +79,9 @@ const reducer: Reducer<AccountState> = (
             tx.comment = action.payload.comment;
           }
         }
+        break;
+      case AccountActionTypes.SET_CREATE_TX_RESULT:
+        draft.createTxResult = action.payload;
         break;
       default:
         return draft;
