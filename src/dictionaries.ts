@@ -4,7 +4,6 @@ export enum Coins {
 }
 
 export enum Currencies {
-  BTC = 'BTC',
   USD = 'USD',
   EUR = 'EUR',
   CNY = 'CNY',

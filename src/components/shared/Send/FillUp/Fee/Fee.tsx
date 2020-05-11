@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 
-import { Currencies } from '../../../../../dictionaries';
 import { isPositiveNumber } from '../../../../../utils/validations';
 import {
   getAccountById,
@@ -20,7 +19,7 @@ const Fee: React.FC = () => {
   const sendFromAccount = useSelector(getAccountById(values.transferFrom?.id));
 
   return (
-    <Container currency={Currencies.BTC}>
+    <Container coin={values.transferFrom?.coin}>
       <Input
         name="fee"
         required

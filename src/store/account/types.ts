@@ -11,7 +11,6 @@ export enum AccountActionTypes {
   SET_EXCHANGE_RATES = '@@account/set_exchange_rates',
   GET_ACCOUNT_DETAILS = '@@account/get_account_details',
   SEARCH_ACTIVITY_BY_HASH = '@@account/search_activity_by_hash',
-  SET_TOTAL_BALANCE_CURRENCY = '@@account/set_total_balance_currency',
   GET_TRANSACTION_DETAILS = '@@account/get_transaction_details',
   GET_RECOMMENDED_BTC_FEE = '@@account/get_recommended_btc_fee',
   SET_RECOMMENDED_BTC_FEE = '@@account/set_recommended_btc_fee',
@@ -67,7 +66,6 @@ export interface AccountState {
   accounts: Accounts | null;
   rates: ExchangeRates | null;
   searchActivityStr: string;
-  totalBalanceCurrency: Currencies | null;
   recommendedBTCFee: number;
   createTxResult: {
     status: Statuses.Success | Statuses.Fail;
