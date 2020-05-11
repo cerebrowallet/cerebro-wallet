@@ -1,11 +1,16 @@
-import {createSelector} from 'reselect';
-import {set} from 'date-fns';
+import { createSelector } from 'reselect';
+import { set } from 'date-fns';
 
-import {ApplicationState} from '../index';
-import {Account, Activities, Transaction, TransactionActivity} from './types';
-import {ActivityFilterTypes, ActivityTypes, Coins, CurrencySymbols,} from '../../dictionaries';
-import {getActivityFilters, getSettings, getUpdates} from '../user/selectors';
-import {groupBy, round} from '../../utils/common';
+import { ApplicationState } from '../index';
+import { Account, Activities, Transaction, TransactionActivity } from './types';
+import {
+  ActivityFilterTypes,
+  ActivityTypes,
+  Coins,
+  CurrencySymbols,
+} from '../../dictionaries';
+import { getActivityFilters, getSettings, getUpdates } from '../user/selectors';
+import { groupBy, round } from '../../utils/common';
 
 export const getAccounts = (state: ApplicationState) => state.account.accounts;
 export const getAccountsList = createSelector(getAccounts, (accounts) =>
@@ -69,7 +74,7 @@ export const getTotalBalance = createSelector(
           ? account.balance * rates[account.coin][settings.currency]
           : 0;
         return balance;
-      }, 0),
+      }, 0)
     );
   }
 );
@@ -130,12 +135,7 @@ export const getActivities = createSelector(
                 hash: transaction.hash,
                 accountId: account.id,
                 comment: transaction.comment,
-                date: set(new Date(transaction.date), {
-                  hours: 0,
-                  minutes: 0,
-                  seconds: 0,
-                  milliseconds: 0,
-                }),
+                date: new Date(transaction.date),
                 coin: account.coin,
               });
 
@@ -149,8 +149,20 @@ export const getActivities = createSelector(
       });
     }
 
+    const sorted = results.sort((a, b) => b.date.getTime() - a.date.getTime());
     const groupedByDay: [string, Activities[]][] = Object.entries(
-      groupBy(results, 'date')
+      groupBy(
+        sorted.map((act) => ({
+          ...act,
+          date: set(act.date, {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            milliseconds: 0,
+          }),
+        })),
+        'date'
+      )
     );
 
     return groupedByDay.reduce(
