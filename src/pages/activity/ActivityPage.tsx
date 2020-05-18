@@ -22,11 +22,11 @@ const ActivityPage: React.FC = () => {
   const account = useSelector(getAccountById(accountId));
 
   if (account && !txHash) {
-    return (
-      <Redirect
-        to={`/activity/${accountId}/${account?.transactions?.allIds[0]}`}
-      />
-    );
+    txHash = account?.transactions?.allIds[0];
+
+    if (txHash) {
+      return <Redirect to={`/activity/${accountId}/${txHash}`} />;
+    }
   }
 
   return (
