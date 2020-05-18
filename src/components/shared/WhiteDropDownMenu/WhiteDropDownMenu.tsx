@@ -1,4 +1,4 @@
-import React, { ReactText, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 import { config, useTransition } from 'react-spring';
 
@@ -6,16 +6,25 @@ import { useOnClickOutside } from '../../../utils/hooks';
 
 import { Container, Toggle, Menu, MenuItem } from './styled';
 
+export interface Option {
+  id: string | number;
+  name: string;
+}
+
 interface Props {
   selected: any;
-  menuItems: { id: ReactText; name: string }[];
-  onChange: (value: string | number) => void;
+  menuItems: Option[];
+  onChange: (value: any) => void;
+  valueRenderer?: (value: Option) => React.ReactElement;
+  position?: 'right' | 'left';
 }
 
 const WhiteDropDownMenu: React.FC<Props> = ({
   selected,
   menuItems,
   onChange,
+  valueRenderer,
+  position,
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
@@ -41,14 +50,21 @@ const WhiteDropDownMenu: React.FC<Props> = ({
         type="button"
         onClick={() => setShowMenu(!showMenu)}
         isMenuOpen={showMenu}
+        position={position}
       >
-        {selectedMenuItem && selectedMenuItem.name}
+        {selectedMenuItem && (
+          <>
+            {valueRenderer
+              ? valueRenderer(selectedMenuItem)
+              : selectedMenuItem.name}
+          </>
+        )}
         <ChevronDownIcon />
       </Toggle>
       {transition.map(
         ({ key, props, item }) =>
           item && (
-            <Menu key={key} style={props}>
+            <Menu key={key} style={props} position={position}>
               {menuItems.map((menuItem, i) => (
                 <MenuItem
                   type="button"

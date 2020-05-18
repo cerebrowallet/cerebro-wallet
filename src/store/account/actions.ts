@@ -1,11 +1,12 @@
 import { action } from 'typesafe-actions';
 
-import { Coins, Currencies, Statuses } from '../../dictionaries';
+import { Coins, Statuses, ChartPeriods } from '../../dictionaries';
 import {
   AccountActionTypes,
   Account,
   ExchangeRates,
   UpdateAccountActionPayload,
+  ChartFilters,
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 
@@ -61,3 +62,14 @@ export const addTxCommentConfirm = (payload: {
 export const setCreateTxResult = (
   payload: { status: Statuses; txHash?: string } | null
 ) => action(AccountActionTypes.SET_CREATE_TX_RESULT, payload);
+export const getChartData = (payload: {
+  coinA?: Coins;
+  coinB?: Coins;
+  period?: ChartPeriods;
+}) => action(AccountActionTypes.GET_CHART_DATA, payload);
+export const setChartData = (
+  payload: {
+    [coin: string]: { dateTime: number; value: number }[];
+  } | null
+) => action(AccountActionTypes.SET_CHART_DATA, payload);
+export const resetChart = () => action(AccountActionTypes.RESET_CHART);

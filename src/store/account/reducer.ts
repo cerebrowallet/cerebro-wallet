@@ -1,11 +1,19 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { AccountState, AccountActionTypes } from './types';
-
+import { AccountActionTypes, AccountState } from './types';
 import { toBTC } from '../../utils/common';
+import { ChartPeriods, Coins } from '../../dictionaries';
 
 const TYPICAL_TX_SIZE = 226;
+
+const chartInitial = {
+  data: null,
+  filters: {
+    period: ChartPeriods.ThreeMonth,
+    coinA: Coins.BTC,
+  },
+};
 
 const initialState: AccountState = {
   accounts: null,
@@ -13,6 +21,7 @@ const initialState: AccountState = {
   searchActivityStr: '',
   recommendedBTCFee: 0,
   createTxResult: null,
+  chart: chartInitial,
 };
 
 const reducer: Reducer<AccountState> = (
@@ -56,12 +65,12 @@ const reducer: Reducer<AccountState> = (
             account.transactions = {
               byIds: {},
               allIds: [],
-            }
+            };
           }
 
           account.transactions.allIds.push(action.payload.tx.hash);
           account.transactions.byIds[action.payload.tx.hash] = {
-            ...action.payload.tx
+            ...action.payload.tx,
           };
         }
         break;
@@ -78,6 +87,18 @@ const reducer: Reducer<AccountState> = (
         break;
       case AccountActionTypes.SET_CREATE_TX_RESULT:
         draft.createTxResult = action.payload;
+        break;
+      case AccountActionTypes.GET_CHART_DATA:
+        draft.chart.filters = {
+          ...draft.chart.filters,
+          ...action.payload,
+        };
+        break;
+      case AccountActionTypes.SET_CHART_DATA:
+        draft.chart.data = action.payload;
+        break;
+      case AccountActionTypes.RESET_CHART:
+        draft.chart = chartInitial;
         break;
       default:
         return draft;

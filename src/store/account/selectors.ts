@@ -236,3 +236,31 @@ export const getTxComment = (accountId: string, txHash: string) =>
   });
 export const getCreateTxResult = (state: ApplicationState) =>
   state.account.createTxResult;
+export const getChartData = createSelector(
+  [(state: ApplicationState) => state.account.chart, getSettings],
+  (chart, settings) => {
+    if (!chart.data || !settings) {
+      return null;
+    }
+
+    const coins = Object.keys(chart.data);
+    const coinA = coins[0];
+    const coinB = coins[1];
+
+    return chart.data[coinA].map((item, i) => {
+      const point = {
+        dateTime: item.dateTime,
+        currency: settings.currency ? CurrencySymbols[settings.currency] : '',
+        [coinA]: item.value,
+      };
+
+      if (coinB && chart.data && chart.data[coinB]) {
+        point[coinB] = chart.data[coinB][i].value;
+      }
+
+      return point;
+    });
+  }
+);
+export const getChartFilters = (state: ApplicationState) =>
+  state.account.chart.filters;

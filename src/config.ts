@@ -1,4 +1,5 @@
 import { Coins } from './dictionaries';
+import colors from './styles/colors/colors';
 
 enum Chains {
   BTC = 'bitcoin',
@@ -28,6 +29,7 @@ export interface Config {
         broadcastTx: string;
         getBlockChainStats: string;
       };
+      color: string;
     };
   };
   networks: {
@@ -51,6 +53,7 @@ export interface Config {
     };
   };
   getCoursesApiUrl: string;
+  getChartDataApiUrl: string;
   getRecommendedBTCLikeFeesApiUrl: string;
   supportEmail: string;
 }
@@ -62,12 +65,14 @@ const config: Config = {
       abbr: Coins.BTC,
       explorerUrl: getExplorerUrl(Chains.BTC),
       apiUrls: getCoinApiUrls(Chains.BTC),
+      color: colors.orange,
     },
     BTC_TestNet: {
       name: 'Bitcoin TestNet',
       abbr: Coins.BTC_TestNet,
       explorerUrl: getExplorerUrl(Chains.BTC_TestNet),
       apiUrls: getCoinApiUrls(Chains.BTC_TestNet),
+      color: colors.orange,
     },
   },
   networks: {
@@ -102,9 +107,10 @@ const config: Config = {
     },
   },
   getCoursesApiUrl: 'https://min-api.cryptocompare.com/data/pricemulti',
+  getChartDataApiUrl: 'https://min-api.cryptocompare.com/data/v2',
   getRecommendedBTCLikeFeesApiUrl:
     'https://bitcoinfees.earn.com/api/v1/fees/recommended',
-  supportEmail: 'support@cerebrowallet.com'
+  supportEmail: 'support@cerebrowallet.com',
 };
 
 export { config };

@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { Coins } from '../../../dictionaries';
+
 import TotalBalance from './TotalBalance/TotalBalance';
 import Features from './Features/Features';
 import Accounts from './Accounts/Accounts';
-import Chart from '../../../components/shared/Chart/Chart';
+import Charts from '../../../components/shared/Charts/Charts';
 import { DashboardContainer } from './styled';
 
 const Dashboard: React.FC = () => {
@@ -12,7 +14,7 @@ const Dashboard: React.FC = () => {
       <TotalBalance />
       <Features />
       <Accounts />
-      <Chart />
+      <Charts coinA={Coins.BTC} coinB={Coins.BTC_TestNet} canChange />
     </DashboardContainer>
   );
 };

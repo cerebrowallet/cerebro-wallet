@@ -24,7 +24,7 @@ import UpdateBalance from './UpdateBalance/UpdateBalance';
 import Loader from '../../../components/shared/Loader/Loader';
 import LabeledText from '../../../components/shared/LabeledText/LabeledText';
 import Hash from '../../../components/shared/Hash/Hash';
-import Chart from '../../../components/shared/Chart/Chart';
+import Charts from '../../../components/shared/Charts/Charts';
 import PageContent from '../../../components/layout/PageContent/PageContent';
 import CopyText from '../../../components/shared/CopyText/CopyText';
 
@@ -73,7 +73,7 @@ const Details: React.FC<Props> = ({ accountId }) => {
           </CopyText>
         </LabeledText>
       </Addresses>
-      <Chart />
+      <Charts coinA={account.coin} canChange={false} />
     </PageContent>
   );
 };

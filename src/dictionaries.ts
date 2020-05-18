@@ -86,3 +86,11 @@ export enum ActivityFilterTypes {
   Updates = 'updates',
   Account = 'account',
 }
+
+export enum ChartPeriods {
+  Day = '1D',
+  Week = '1W',
+  Month = '1M',
+  ThreeMonth = '3M',
+  Year = '1Y'
+}

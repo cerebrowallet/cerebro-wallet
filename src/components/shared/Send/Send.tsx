@@ -71,7 +71,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
   const createTxResult = useSelector(getCreateTxResult);
   const recommendedFee = useSelector(getRecommendedBTCFee);
   const username = useSelector(getBlockstackUsername);
-  const previousStep = usePrevious(step) || 0;
+  const previousStep = usePrevious<SendSteps>(step) || 0;
 
   const descriptions = {
     [SendSteps.fillUp]: {

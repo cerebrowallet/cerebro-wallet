@@ -13,9 +13,11 @@ import {
   createAccount as createAccountAction,
   deleteAccount as deleteAccountAction,
   getAccountDetails as getAccountDetailsAction,
+  getChartData as getChartDataAction,
   getTransactionDetails as getTransactionDetailsAction,
   makeTransaction as makeTransactionAction,
   setAccounts,
+  setChartData,
   setCreateTxResult,
   setExchangeRates,
   setRecommendedBTCFee,
@@ -25,13 +27,23 @@ import {
 import {
   getAccountById,
   getAccounts as getAccountsSelector,
+  getChartFilters,
 } from './selectors';
-import { getCoinsList, getCurrenciesList } from '../user/selectors';
+import {
+  getCoinsList,
+  getCurrenciesList,
+  getSettings,
+} from '../user/selectors';
 import { config } from '../../config';
 import { createBTCLikeTransaction, createWallet } from '../../utils/wallets';
 import { Value } from '../../components/forms/DropDown/DropDown';
 import { showNotification } from '../layout/actions';
-import { Coins, NotificationTypes, Statuses } from '../../dictionaries';
+import {
+  ChartPeriods,
+  Coins,
+  NotificationTypes,
+  Statuses,
+} from '../../dictionaries';
 import { toBTC, toSatoshi } from '../../utils/common';
 import { TransferToTypes } from '../../components/shared/Send/Send';
 
@@ -555,6 +567,71 @@ function* addTxComment({
   }
 }
 
+function* getChartData() {
+  try {
+    const settings = yield select(getSettings);
+    const filters = yield select(getChartFilters);
+
+    const params = {
+      [ChartPeriods.Day]: { aggregate: 1, limit: 24, api: 'histohour' },
+      [ChartPeriods.Week]: { aggregate: 24, limit: 7, api: 'histohour' },
+      [ChartPeriods.Month]: { aggregate: 1, limit: 30, api: 'histoday' },
+      [ChartPeriods.ThreeMonth]: { aggregate: 1, limit: 90, api: 'histoday' },
+      [ChartPeriods.Year]: { aggregate: 1, limit: 365, api: 'histoday' },
+    };
+    const periodBasedParams = params[filters.period as ChartPeriods];
+
+    const getArgs = (coin: Coins) => ({
+      method: 'get',
+      url: `${config.getChartDataApiUrl}/${periodBasedParams.api}`,
+      queryParams: {
+        aggregate: periodBasedParams.aggregate,
+        limit: periodBasedParams.limit,
+        fsym: coin === Coins.BTC_TestNet ? Coins.BTC : coin,
+        tsym: settings?.currency,
+      },
+    });
+
+    const calls: any[] = [call(callApi, getArgs(filters.coinA))];
+
+    if (filters.coinB) {
+      calls.push(call(callApi, getArgs(filters.coinB)));
+    }
+
+    const results = yield all(calls);
+
+    const data = results.reduce(
+      (
+        acc: any,
+        el: {
+          Response: 'Success' | 'Error';
+          Data: { Data: { time: number; close: number }[] };
+        },
+        i: number
+      ) => {
+        const a = acc;
+
+        if (!el || el.Response !== 'Success') {
+          return a;
+        }
+
+        a[i === 0 ? filters.coinA : filters.coinB] = el.Data.Data.map(
+          (item) => ({
+            dateTime: item.time,
+            value: item.close,
+          })
+        );
+        return a;
+      },
+      {}
+    );
+
+    yield put(setChartData(data));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 function* accountSaga() {
   yield all([
     takeLatest(AccountActionTypes.GET_ACCOUNTS, getAccounts),
@@ -572,6 +649,7 @@ function* accountSaga() {
     ),
     takeLatest(AccountActionTypes.MAKE_TRANSACTION, makeTransaction),
     takeLatest(AccountActionTypes.ADD_TX_COMMENT, addTxComment),
+    takeLatest(AccountActionTypes.GET_CHART_DATA, getChartData),
   ]);
 }
 

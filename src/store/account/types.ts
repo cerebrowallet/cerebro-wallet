@@ -1,4 +1,9 @@
-import { Coins, ActivityTypes, Currencies, Statuses } from '../../dictionaries';
+import {
+  Coins,
+  ActivityTypes,
+  Statuses,
+  ChartPeriods,
+} from '../../dictionaries';
 
 export enum AccountActionTypes {
   GET_ACCOUNTS = '@@account/get_accounts',
@@ -19,6 +24,9 @@ export enum AccountActionTypes {
   ADD_TX_COMMENT = '@@account/add_tx_comment',
   ADD_TX_COMMENT_CONFIRM = '@@account/add_tx_comment_confirm',
   SET_CREATE_TX_RESULT = '@@account/set_create_tx_result',
+  GET_CHART_DATA = '@@account/get_chart_data',
+  SET_CHART_DATA = '@@account/set_chart_data',
+  RESET_CHART = '@@account/reset_chart',
 }
 
 export interface Transaction {
@@ -62,6 +70,16 @@ export interface ExchangeRates {
   };
 }
 
+export interface ChartFilters {
+  period: ChartPeriods;
+  coinA: Coins;
+  coinB?: Coins;
+}
+
+export interface ChartData {
+  [coin: string]: { dateTime: number; value: number; currency: string }[];
+}
+
 export interface AccountState {
   accounts: Accounts | null;
   rates: ExchangeRates | null;
@@ -71,6 +89,10 @@ export interface AccountState {
     status: Statuses.Success | Statuses.Fail;
     txHash?: string;
   } | null;
+  chart: {
+    data: ChartData | null;
+    filters: ChartFilters;
+  };
 }
 
 export interface UpdateAccountActionPayload {
