@@ -32,7 +32,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   const account = useSelector(getAccountById(accountId));
 
   if (!account) {
-    return <Loader withMargin />;
+    return <Loader />;
   }
 
   return (

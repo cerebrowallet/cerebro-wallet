@@ -22,7 +22,7 @@ const Rename: React.FC<Props> = ({ accountId }) => {
   const dispatch = useDispatch();
 
   if (!account) {
-    return <Loader withMargin />;
+    return <Loader />;
   }
 
   return (

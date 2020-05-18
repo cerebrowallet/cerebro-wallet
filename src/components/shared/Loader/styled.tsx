@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 
-const animation = keyframes`
+import LogoIconLight from '../../../images/logo-icon-light.svg';
+
+const spin = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -9,43 +11,21 @@ const animation = keyframes`
   }
 `;
 
-export const Wrapper = styled.div`
-  display: inline-block;
-  text-align: center;
+export const Container = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
-  margin-top: ${(props: { withMargin: boolean }) =>
-    props.withMargin ? '1rem' : '0rem'};
 `;
 
-export const Circle = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 1.5625rem;
-  height: 1.5625rem;
-
-  div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 1.5625rem;
-    height: 1.5625rem;
-    border: 0.1875rem solid ${props => props.theme.colors.secondary};
-    border-radius: 50%;
-    animation: ${animation} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: ${props => props.theme.colors.secondary} transparent
-      transparent transparent;
-  }
-
-  div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-
-  div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-
-  div:nth-child(3) {
-    animation-delay: -0.15s;
-  }
+export const Icon = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -1rem 0 0 -1rem;
+  width: 2rem;
+  height: 2rem;
+  background: url(${LogoIconLight}) center center no-repeat;
+  background-size: cover;
+  transform-origin: center;
+  animation: ${spin} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 `;

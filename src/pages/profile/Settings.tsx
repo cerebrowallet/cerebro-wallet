@@ -24,7 +24,7 @@ const Settings: React.FC = () => {
   const dispatch = useDispatch();
 
   if (!settings) {
-    return <Loader withMargin />;
+    return <Loader />;
   }
 
   return (

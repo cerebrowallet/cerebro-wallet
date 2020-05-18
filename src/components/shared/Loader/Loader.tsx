@@ -1,21 +1,12 @@
 import React from 'react';
 
-import { Wrapper, Circle } from './styled';
+import { Container, Icon } from './styled';
 
-interface Props {
-  withMargin?: boolean;
-}
-
-const Loader: React.FC<Props> = () => {
+const Loader: React.FC = () => {
   return (
-    <Wrapper withMargin>
-      <Circle>
-        <div />
-        <div />
-        <div />
-        <div />
-      </Circle>
-    </Wrapper>
+    <Container>
+      <Icon />
+    </Container>
   );
 };
 
