@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 
+import { Breakpoints } from '../../../dictionaries';
+
 export const Overlay = styled(animated.div)`
   position: fixed;
   left: 0;
@@ -16,14 +18,14 @@ export const Overlay = styled(animated.div)`
     top: 0;
     right: 0;
     bottom: 0;
-    background: ${props => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.primary};
     opacity: 0.4;
   }
 `;
 
 export const Body = styled(animated.div)`
   position: absolute;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.blockBackground};
   padding: 1.5625rem;
   border-radius: 1.25rem;
   margin-top: 2.5rem;
@@ -31,7 +33,7 @@ export const Body = styled(animated.div)`
   top: 0;
   transform: translateX(-50%);
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     max-width: 30rem;
     margin: 0;
     position: absolute;

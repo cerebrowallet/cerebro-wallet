@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Breakpoints } from '../../dictionaries';
+
 const WhiteBlock = styled.section`
   background: #fff;
   border-radius: 1.25rem;
@@ -10,7 +12,7 @@ const WhiteBlock = styled.section`
     margin-bottom: 0;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints.md}px) {
     margin-bottom: 3.125rem;
 
     & + .white-block {

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Breakpoints } from '../../../dictionaries';
+
 export const SliderWrapper = styled.nav`
   position: relative;
   z-index: 5;
@@ -7,8 +9,8 @@ export const SliderWrapper = styled.nav`
   min-height: 22rem;
   margin: 0 3.125rem;
   color: white;
-  
-  @media (min-width: ${props => props.theme.breakpoints.lg}) {
+
+  @media (min-width: ${Breakpoints.lg}px) {
     width: 25rem;
     min-height: 20rem;
   }
@@ -19,8 +21,8 @@ export const SlideHeader = styled.h1`
   line-height: 2.9rem;
   font-weight: bold;
   margin-bottom: 1.875rem;
-  
-  @media (min-width: ${props => props.theme.breakpoints.lg}) {
+
+  @media (min-width: ${Breakpoints.lg}px) {
     font-size: 3rem;
     line-height: 3.375rem;
   }

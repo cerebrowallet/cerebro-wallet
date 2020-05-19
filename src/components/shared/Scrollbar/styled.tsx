@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+
+import { Breakpoints } from '../../../dictionaries';
 
 export const Container = styled.div`
   position: static !important;
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     position: relative !important;
   }
 ` as any;
@@ -11,7 +13,7 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   position: static !important;
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     position: absolute !important;
     top: 0;
     right: 0;
@@ -23,7 +25,7 @@ export const Wrapper = styled.div`
 export const Scroller = styled.div`
   position: static !important;
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     position: absolute !important;
   }
 ` as any;
@@ -43,7 +45,7 @@ export const TrackYEl = styled.div`
   top: 0;
   right: 0;
   bottom: 0.625rem;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.blockBackground};
   z-index: 10;
 ` as any;
 
@@ -54,7 +56,7 @@ export const SidebarTrackY = styled(TrackYEl)`
 export const MainTrackY = styled(TrackYEl)`
   right: 0.4rem;
   top: 0.625rem;
-  background: ${props => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.tertiary};
 `;
 
 export const ThumbYEl = styled.div`
@@ -64,5 +66,5 @@ export const ThumbYEl = styled.div`
 ` as any;
 
 export const MainThumbYEl = styled(ThumbYEl)`
-  background: #E5E5E5;
-`
+  background: #e5e5e5;
+`;

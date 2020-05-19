@@ -1,9 +1,12 @@
 import styled from 'styled-components';
+
+import { Breakpoints } from '../../../dictionaries';
+
 import WhiteBlock from '../../../components/shared/WhiteBlock';
 import CurrencyIcon from '../../../components/shared/CurrencyIcon/CurrencyIcon';
 
 export const WhiteBlockDetails = styled(WhiteBlock)`
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,7 +21,7 @@ export const WalletName = styled.div`
   margin-right: 1.25rem;
   margin-bottom: 1.875rem;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     margin-bottom: 0;
   }
 `;
@@ -34,7 +37,7 @@ export const Icon = styled(CurrencyIcon)`
 export const Balance = styled.div`
   text-align: center;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     text-align: right;
   }
 `;
@@ -49,7 +52,7 @@ export const BalanceInCrypto = styled.div`
 export const BalanceInLocalCurrency = styled.div`
   font-size: 1.125rem;
   line-height: 1.375rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
 `;
 
 export const Addresses = styled.div`

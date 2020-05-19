@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 
+import { Breakpoints } from '../../../dictionaries';
 import IconButton from '../IconButton/IconButton';
 
 export const Wrapper = styled.section`
@@ -34,11 +35,11 @@ export const Grid = styled.div`
   grid-gap: 1.25rem;
   margin-bottom: 3.125rem;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints.md}px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

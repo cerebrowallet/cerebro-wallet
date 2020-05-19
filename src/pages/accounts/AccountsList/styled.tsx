@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { Breakpoints } from '../../../dictionaries';
 import SidebarMenuContainer from '../../../containers/SidebarMenuContainer';
 
 export const Wrapper = styled.section`
@@ -7,7 +8,7 @@ export const Wrapper = styled.section`
   flex-direction: column;
   flex-grow: 1;
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     padding: 2.8125rem 1.875rem 1.875rem;
   }
 
@@ -18,7 +19,7 @@ export const Wrapper = styled.section`
     line-height: 1.5rem;
     margin: 0 0.625rem 2.3125rem;
 
-    @media (min-width: ${props => props.theme.breakpoints.xl}) {
+    @media (min-width: ${Breakpoints.xl}px) {
       display: block;
     }
   }
@@ -33,12 +34,12 @@ export const AccountsSidebarMenu = styled(SidebarMenuContainer)`
   padding: 2.1875rem 1.25rem 0;
   justify-items: left;
 
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints.md}px) {
     max-width: none;
     margin: 0;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     padding: 0;
   }
 

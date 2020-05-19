@@ -1,7 +1,10 @@
-import { Theme } from '../../../utils/styled';
 import styled from 'styled-components';
-import IconButton from '../IconButton/IconButton';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
+
+import { Theme } from '../../../utils/styled';
+import { Breakpoints } from '../../../dictionaries';
+
+import IconButton from '../IconButton/IconButton';
 import CircleButton from '../CircleButton/CircleButton';
 
 interface ElementProps {
@@ -36,8 +39,7 @@ export const Wrapper = styled.nav`
      grid-auto-rows: minmax(min-content, max-content);
   `}
   
-  @media (min-width: ${(props: ElementProps) =>
-    props.theme && props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints}px) {
     ${(props: ElementProps) =>
       props.withMargin &&
       `
@@ -78,7 +80,7 @@ export const MobileTriggerIcon = styled(ChevronDownIcon)`
   top: 50%;
   width: 1.5rem;
   height: 1.5rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
   transform: translateY(-50%);
 ` as any;
 
@@ -105,7 +107,7 @@ export const SidebarMenuFooter = styled.footer`
   padding-top: 1.5625rem;
   margin-top: 1.5625rem;
 
-  @media (min-width: ${props => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     margin-top: 0;
   }
 
@@ -118,13 +120,13 @@ export const SidebarMenuFooter = styled.footer`
     right: -1.875rem;
     top: -2.625rem;
     background: none;
-    border-bottom: 1px solid ${props => props.theme.colors.tertiary};
+    border-bottom: 1px solid ${(props) => props.theme.colors.tertiary};
 
-    @media (min-width: ${props => props.theme.breakpoints.xl}) {
+    @media (min-width: ${Breakpoints.xl}px) {
       background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0) 0%,
-        ${props => props.theme.colors.blockBackground} 100%
+        ${(props) => props.theme.colors.blockBackground} 100%
       );
     }
   }

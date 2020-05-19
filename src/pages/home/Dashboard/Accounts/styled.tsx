@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import IconButton from '../../../../components/shared/IconButton/IconButton';
 import { TrackYEl } from '../../../../components/shared/Scrollbar/styled';
-import { ButtonColors } from '../../../../dictionaries';
+import { ButtonColors, Breakpoints } from '../../../../dictionaries';
 
 export const AccountsContainer = styled.section`
   position: relative;
@@ -30,7 +30,7 @@ export const AccountsContainer = styled.section`
     );
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.xl}) {
+  @media (min-width: ${Breakpoints.xl}px) {
     &:after {
       display: block;
     }
@@ -112,7 +112,7 @@ export const AccountItem = styled(IconButton)`
     background-color: ${(props) => props.theme.colors.tertiary};
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.xl}}) {
+  @media (min-width: ${Breakpoints.xl}}px) {
     &:last-child {
       margin-bottom: 1.5625rem;
     }

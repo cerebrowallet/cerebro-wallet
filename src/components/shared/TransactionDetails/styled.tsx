@@ -1,8 +1,10 @@
-import styled from "styled-components";
-import LabeledText from "../LabeledText/LabeledText";
+import styled from 'styled-components';
+
+import { Breakpoints } from '../../../dictionaries';
+import LabeledText from '../LabeledText/LabeledText';
 
 export const TopUp = styled.div`
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.blockBackground};
   border-radius: 1.25rem;
   padding: 1.875rem 1.5625rem;
   margin-bottom: 3.125rem;
@@ -35,7 +37,7 @@ export const TopUpHeaderDetails = styled.div`
   span {
     font-size: 1.125rem;
     line-height: 1.375rem;
-    color: ${props => props.theme.colors.secondary};
+    color: ${(props) => props.theme.colors.secondary};
   }
 `;
 
@@ -51,18 +53,18 @@ export const TopUpHeaderIcon = styled.div`
 `;
 
 export const AdditionalInfo = styled.div`
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-width: 60%;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints.md}px) {
     max-width: 75%;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.lg}) {
+  @media (min-width: ${Breakpoints.lg}px) {
     max-width: 65%;
   }
 `;
@@ -86,7 +88,7 @@ export const AdditionalInfoComment = styled(LabeledText)`
 export const AdditionalInfoDate = styled(AdditionalInfoComment)`
   margin-bottom: 0.9375rem;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     margin-bottom: 0;
     margin-right: 1.25rem;
   }
@@ -101,7 +103,7 @@ export const Details = styled.div`
     flex: 1 1 auto;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints.md}px) {
     justify-content: space-between;
     max-width: 80%;
   }
@@ -114,4 +116,4 @@ export const Placeholder = styled.span`
   border-radius: 0.375rem;
   height: 0.5rem;
   vertical-align: middle;
-`
+`;

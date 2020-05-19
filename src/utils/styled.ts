@@ -19,21 +19,4 @@ export interface Theme {
     alt2: string;
     alt3: string;
   };
-  fonts: {
-    body: string;
-  };
-  fontSizes: {
-    h1: string;
-    h2: string;
-    h3: string;
-    h4: string;
-  };
-  breakpoints: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    xxl: string;
-  };
 }

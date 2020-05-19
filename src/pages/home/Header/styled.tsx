@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+
+import { Breakpoints } from '../../../dictionaries';
+
 import { Button } from '../../../components/shared/CircleButton/styled';
 
 export const HeaderContainer = styled.header`
@@ -20,7 +23,7 @@ export const MenuMobileTriggerButton = styled(Button)`
     outline: none;
   }
 
-  @media (min-width: ${props => props.theme.breakpoints.md}) {
+  @media (min-width: ${Breakpoints.md}px) {
     display: none;
   }
 

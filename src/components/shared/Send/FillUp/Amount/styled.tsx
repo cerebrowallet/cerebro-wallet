@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+
+import { Breakpoints } from '../../../../../dictionaries';
 import FormGroup from '../../../../forms/FormGroup/FormGroup';
 import CurrencyInput from '../CurrencyInput/CurrencyInput';
 
@@ -19,7 +21,7 @@ export const SendAllButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   padding: 0;
-  
+
   &:focus {
     outline: none;
   }
@@ -29,7 +31,7 @@ export const InputsContainer = styled.div`
   position: relative;
   //overflow: hidden;
 
-  @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     display: flex;
     width: 100%;
   }
@@ -44,7 +46,7 @@ export const AmountInCrypto = styled(CurrencyInput)`
     border-top-right-radius: 0;
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     border-right: 1px solid #fff;
   }
 `;

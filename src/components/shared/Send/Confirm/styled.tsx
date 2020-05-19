@@ -1,10 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+
+import { Breakpoints } from '../../../../dictionaries';
 
 export const Title = styled.h4`
   font-size: 0.875rem;
   line-height: 1.0625rem;
   margin-bottom: 0.8125rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
   font-weight: 400;
 `;
 
@@ -25,7 +27,7 @@ export const AmountInLocalCurrency = styled.span`
 export const Details = styled.dl`
   margin-bottom: 2.5625rem;
 
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     display: flex;
     flex-wrap: wrap;
     align-items: start;
@@ -36,7 +38,7 @@ export const Details = styled.dl`
     flex: 0 1 25%;
     font-size: 0.875rem;
     line-height: 1.0625rem;
-    color: ${props => props.theme.colors.secondary};
+    color: ${(props) => props.theme.colors.secondary};
     margin-top: 0.22rem;
     margin-bottom: 0.625rem;
   }
@@ -48,7 +50,7 @@ export const Details = styled.dl`
     margin-bottom: 1.0625rem;
     word-break: break-all;
 
-    @media (min-width: ${props => props.theme.breakpoints.sm}) {
+    @media (min-width: ${Breakpoints.sm}px) {
       margin-bottom: 0.625rem;
     }
   }
@@ -71,17 +73,17 @@ export const BackButton = styled.button`
   white-space: nowrap;
   padding: 0 1.25rem 0 0;
   cursor: pointer;
-  color: ${props => props.theme.colors.primary};
-  transition: color .15s ease-in;
-  
+  color: ${(props) => props.theme.colors.primary};
+  transition: color 0.15s ease-in;
+
   &:hover {
-    color: ${props => props.theme.colors.altHover};
+    color: ${(props) => props.theme.colors.altHover};
   }
-  
+
   &:active {
-    color: ${props => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.primary};
   }
-  
+
   &:focus {
     outline: none;
   }

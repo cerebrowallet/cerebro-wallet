@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+import { Breakpoints } from '../../dictionaries';
+
 const TwoCols = styled.div`
-  @media (min-width: ${props => props.theme.breakpoints.sm}) {
+  @media (min-width: ${Breakpoints.sm}px) {
     display: flex;
     align-items: center;
   }
