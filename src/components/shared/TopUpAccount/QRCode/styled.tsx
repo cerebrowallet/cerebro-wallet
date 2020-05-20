@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Figure = styled.figure`
   position: relative;
   width: 100%;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${props => props.theme.colors.tertiary};
   margin-bottom: 3.125rem;
   border-radius: 1.25rem;
   padding-top: 100%;

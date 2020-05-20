@@ -1,5 +1,5 @@
 import { Coins } from './dictionaries';
-import colors from './styles/colors/colors';
+import { coinColors } from './styles/colors';
 
 enum Chains {
   BTC = 'bitcoin',
@@ -65,14 +65,14 @@ const config: Config = {
       abbr: Coins.BTC,
       explorerUrl: getExplorerUrl(Chains.BTC),
       apiUrls: getCoinApiUrls(Chains.BTC),
-      color: colors.orange,
+      color: coinColors[Coins.BTC],
     },
     BTC_TestNet: {
       name: 'Bitcoin TestNet',
       abbr: Coins.BTC_TestNet,
       explorerUrl: getExplorerUrl(Chains.BTC_TestNet),
       apiUrls: getCoinApiUrls(Chains.BTC_TestNet),
-      color: colors.orange,
+      color: coinColors[Coins.BTC],
     },
   },
   networks: {

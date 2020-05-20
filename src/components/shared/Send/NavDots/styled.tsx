@@ -28,7 +28,9 @@ export const Button = styled.button`
   border-radius: 100%;
   margin: 0 0.125rem;
   background: ${(props: StepProps) =>
-    props.current && props.theme ? props.theme.colors.primary : '#eaeaea'};
+    props.current
+      ? props?.theme?.colors.primary
+      : props?.theme?.colors.secondaryLight};
   cursor: ${(props: StepProps) => (props.disabled ? 'default' : 'pointer')};
   border: 0;
   padding: 0;

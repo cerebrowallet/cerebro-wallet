@@ -34,7 +34,7 @@ export const Wrapper = styled.nav`
      overflow-y: auto;
      overflow-x: hidden;
      z-index: 101;
-     background: ${props.theme && props.theme.colors.blockBackground};
+     background: ${props?.theme?.colors.tertiary};
      grid-template-rows: none;
      grid-auto-rows: minmax(min-content, max-content);
   `}
@@ -54,20 +54,20 @@ export const MobileTrigger = styled(IconButton)`
   display: flex;
   width: 100%;
   background: ${(props: ElementProps) =>
-    props.theme && props.theme.colors.blockBackground};
+    props?.theme?.colors.tertiary};
 
   &:hover {
     background: ${(props: ElementProps) =>
-      props.theme && props.theme.colors.blockBackground};
+      props?.theme?.colors.tertiary};
   }
 
   ${(props: ElementProps) =>
     props.showMobileMenu &&
     `
-    background: ${props.theme && props.theme.colors.tertiary};
+    background: ${props?.theme?.colors.tertiary};
     
     &:hover {
-      background: ${props.theme && props.theme.colors.tertiary};
+      background: ${props?.theme?.colors.tertiary};
     }
   `}
 ` as any;
@@ -126,7 +126,7 @@ export const SidebarMenuFooter = styled.footer`
       background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0) 0%,
-        ${(props) => props.theme.colors.blockBackground} 100%
+        ${(props) => props.theme.colors.tertiary} 100%
       );
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonColors } from '../../../dictionaries';
-import { BlackButton, RedButton } from './styled';
+import { Btn } from './styled';
 
 interface Props {
   type?: 'button' | 'submit';
@@ -12,12 +12,10 @@ interface Props {
 }
 
 const Button: React.FC<Props> = ({ type, children, onClick, color }) => {
-  const Component = color === ButtonColors.red ? RedButton : BlackButton;
-
   return (
-    <Component type={type} onClick={onClick} color={color}>
+    <Btn type={type} onClick={onClick} color={color}>
       {children}
-    </Component>
+    </Btn>
   );
 };
 

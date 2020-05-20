@@ -1,5 +1,6 @@
-import { Genders } from '../dictionaries';
 import Big from 'big.js';
+
+import { Theme } from './styled';
 
 /**
  * Converts the given enum to a map of the keys to the values.
@@ -64,3 +65,11 @@ export const groupBy = (xs: any, key: any) => {
     return rv;
   }, {});
 };
+
+export function hexToRGB(hex: string, alpha?: number) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  return `rgba(${r}, ${g}, ${b}${alpha ? `, ${alpha}` : ''})`;
+}

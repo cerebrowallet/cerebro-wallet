@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { Breakpoints } from '../../../../dictionaries';
-import colors from '../../../../styles/colors/colors';
 
 interface Props {
   showMenu: boolean;
@@ -16,7 +15,7 @@ export const MenuContainer = styled.nav`
   right: 0;
   bottom: 0;
   text-align: center;
-  background: #fff;
+  background: ${(props) => props.theme.colors.tertiary};
   padding-top: 5.4375rem;
   transition: all 0.375s, transform 0.25s;
   z-index: ${(props: Props) => (props.showMenu ? 100 : -1)};
@@ -51,7 +50,7 @@ export const MenuLink = styled.a`
   font-weight: 600;
   line-height: 1;
   text-decoration: none;
-  color: ${(props) => props.theme.colors.altPrimary};
+  color: ${(props) => props.theme.colors.primary};
   margin-top: 1.25rem;
   transition: color 0.15s ease-in;
 
@@ -60,7 +59,7 @@ export const MenuLink = styled.a`
   }
 
   &:hover {
-    color: ${(props) => props.theme.colors.altHover};
+    color: ${(props) => props.theme.colors.primary};
   }
 
   &:active {
@@ -118,7 +117,7 @@ const Btn = styled.button`
   }
 
   svg {
-    color: ${colors.gray60};
+    color: ${(props) => props.theme.colors.primary};
     width: 1.125rem;
     height: 1.125rem;
   }

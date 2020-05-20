@@ -7,10 +7,11 @@ import { TrackYEl, ThumbYEl } from '../../shared/Scrollbar/styled';
 
 const Wrapper = styled(components.Menu)`
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04) !important;
-  background: ${props => props.selectProps.appTheme.colors.tertiary} !important;
+  background: ${(props) =>
+    props.selectProps.appTheme.colors.secondaryExtraLight} !important;
   border: 0 !important;
   border-top: 1px solid
-    ${props => props.selectProps.appTheme.colors.blockBackground} !important;
+    ${(props) => props.selectProps.appTheme.colors.secondaryExtraLight} !important;
   margin: 0 !important;
   padding: 0.5625rem 0 1.1rem !important;
   border-radius: 0 0 0.625rem 0.625rem !important;
@@ -24,7 +25,7 @@ const SidebarTrackY = styled(TrackYEl)`
 `;
 
 const SidebarThumbY = styled(ThumbYEl)`
-  background: #c1c4c6;
+  background: ${(props) => props.theme.colors.secondaryLight};
 `;
 
 const Menu = (props: any) => {

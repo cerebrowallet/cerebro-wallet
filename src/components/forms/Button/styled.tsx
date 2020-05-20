@@ -1,10 +1,24 @@
 import styled from 'styled-components';
-import { ButtonColors, Breakpoints } from '../../../dictionaries';
 
-export const BlackButton = styled.button`
+import { Breakpoints, ButtonColors } from '../../../dictionaries';
+import { Theme } from '../../../utils/styled';
+
+interface Props {
+  color?: ButtonColors;
+  theme?: Theme;
+}
+
+export const Btn = styled.button`
   display: inline-block;
-  background: ${(props) => props.theme.colors.buttons[ButtonColors.black].bg};
-  color: ${(props) => props.theme.colors.blockBackground};
+  position: relative;
+  background: ${(props: Props) => {
+    if (props.color === ButtonColors.red) {
+      return props?.theme?.colors.red;
+    }
+
+    return props?.theme?.colors.primary;
+  }}
+  color: ${(props) => props?.theme?.colors.tertiary};
   font-size: 0.75rem;
   line-height: 0.9375rem;
   text-align: center;
@@ -17,35 +31,56 @@ export const BlackButton = styled.button`
   width: 100%;
   transition: background-color 0.1s ease-in;
 
+  &:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1.25rem;
+    transition: all .3s ease-in-out;
+    background: ${(props: Props) => {
+      if (props.color === ButtonColors.red) {
+        return props?.theme?.colors.redAlpha;
+      }
+
+      return props?.theme?.colors.primaryAlpha;
+    }};
+  }
+
   @media (min-width: ${Breakpoints.sm}px) {
     width: 10rem;
   }
 
   &:hover {
-    background: ${(props) =>
-      props.theme.colors.buttons[ButtonColors.black].hover};
-  }
+    background: ${(props: Props) => {
+      if (props.color === ButtonColors.red) {
+        return props?.theme?.colors.redLight;
+      }
+
+      return props?.theme?.colors.primaryLight;
+    }}
+  } 
 
   &:active {
-    background: ${(props) =>
-      props.theme.colors.buttons[ButtonColors.black].active};
+    background: ${(props: Props) => {
+      if (props.color === ButtonColors.red) {
+        return props?.theme?.colors.redLight;
+      }
+
+      return props?.theme?.colors.primaryLight;
+    }}
+    
+    &:before {
+      left: -3px;
+      top: -3px;
+      right: -3px;
+      bottom: -3px;
+    }
   }
 
   &:focus {
     outline: none;
-  }
-`;
-
-export const RedButton = styled(BlackButton)`
-  background: ${(props) => props.theme.colors.buttons[ButtonColors.red].bg};
-
-  &:hover {
-    background: ${(props) =>
-      props.theme.colors.buttons[ButtonColors.red].hover};
-  }
-
-  &:active {
-    background: ${(props) =>
-      props.theme.colors.buttons[ButtonColors.red].active};
   }
 `;

@@ -22,7 +22,7 @@ export const Control = styled.button`
   line-height: 1.0625rem;
   background: none;
   border: 0;
-  color: ${props => props.theme && props.theme.colors.secondary};
+  color: ${props => props?.theme?.colors.secondary};
   padding: 0;
   cursor: pointer;
   transition: all 0.15s ease-in;
@@ -38,7 +38,7 @@ export const Control = styled.button`
   ${(props: ElementProps) =>
     props.active &&
     `
-    color: ${props.theme && props.theme.colors.primary};
+    color: ${props?.theme?.colors.primary};
     font-weight: bold;
     cursor: default;
   `};

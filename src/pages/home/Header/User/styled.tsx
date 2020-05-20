@@ -15,7 +15,7 @@ export const UserProfileLink = styled.span`
   position: relative;
   width: 3rem;
   height: 3rem;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${props => props.theme.colors.tertiary};
   border-radius: 100%;
   margin-right: 0.938rem;
   overflow: hidden;

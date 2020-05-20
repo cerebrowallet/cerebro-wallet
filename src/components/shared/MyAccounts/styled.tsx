@@ -11,7 +11,11 @@ export const Wrapper = styled.section`
   right: 0;
   bottom: 0;
   z-index: 100;
-  background: linear-gradient(237.99deg, #4e6b81 0%, #2a4355 100%);
+  background: linear-gradient(
+    237.99deg,
+    ${(props) => props.theme.colors.primaryGradient[0]} 0%,
+    ${(props) => props.theme.colors.primaryGradient[1]} 100%
+  );
   overflow-y: auto;
 `;
 
@@ -27,7 +31,7 @@ export const Header = styled.h3`
   font-size: 1.5rem;
   line-height: 1.5rem;
   margin-bottom: 2.1875rem;
-  color: #fff;
+  color: ${(props) => props.theme.colors.tertiary};
 `;
 
 export const Grid = styled.div`
@@ -46,7 +50,7 @@ export const Grid = styled.div`
 
 export const Button = styled(animated(IconButton))`
   position: relative;
-  background: #fff;
+  background: ${(props) => props.theme.colors.tertiary};
   max-width: none;
   margin-bottom: 0 !important;
 

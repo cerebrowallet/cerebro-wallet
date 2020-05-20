@@ -69,7 +69,7 @@ export const BackButton = styled.button`
   letter-spacing: 0.0625rem;
   font-weight: bold;
   border: 0;
-  background: #fff;
+  background: none;
   white-space: nowrap;
   padding: 0 1.25rem 0 0;
   cursor: pointer;
@@ -77,7 +77,7 @@ export const BackButton = styled.button`
   transition: color 0.15s ease-in;
 
   &:hover {
-    color: ${(props) => props.theme.colors.altHover};
+    color: ${(props) => props.theme.colors.primary};
   }
 
   &:active {

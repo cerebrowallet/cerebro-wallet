@@ -1,22 +1,25 @@
+export type ColorGradient = string[];
+
 export interface Theme {
   colors: {
-    background: string;
-    blockBackground: string;
     primary: string;
+    primaryLight: string;
+    primaryAlpha: string;
+    primaryGradient: ColorGradient;
     secondary: string;
+    secondaryLight: string;
+    secondaryExtraLight: string;
+    secondaryInactive: string;
+    secondaryAlpha: string;
     tertiary: string;
-    altPrimary: string;
-    altHover: string;
-    hover: string;
-    buttons: {
-      [type: string]: {
-        bg: string;
-        hover: string;
-        active: string;
-      };
-    };
-    alt1: string;
-    alt2: string;
-    alt3: string;
+    tertiaryGradient: ColorGradient;
+    orange: string;
+    orangeDark: string;
+    red: string;
+    redLight: string;
+    redAlpha: string;
+    green: string;
+    blue: string;
+    blueAlpha: string;
   };
 }

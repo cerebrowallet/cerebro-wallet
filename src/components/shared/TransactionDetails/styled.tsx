@@ -4,7 +4,7 @@ import { Breakpoints } from '../../../dictionaries';
 import LabeledText from '../LabeledText/LabeledText';
 
 export const TopUp = styled.div`
-  background: ${(props) => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.tertiary};
   border-radius: 1.25rem;
   padding: 1.875rem 1.5625rem;
   margin-bottom: 3.125rem;
@@ -112,7 +112,7 @@ export const Details = styled.div`
 export const Placeholder = styled.span`
   display: inline-block;
   width: 100%;
-  background: #e7e7e7;
+  background: ${(props) => props.theme.colors.secondaryLight};
   border-radius: 0.375rem;
   height: 0.5rem;
   vertical-align: middle;

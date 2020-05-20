@@ -7,9 +7,9 @@ const Wrapper = styled(components.Placeholder)`
   line-height: 2.2rem;
   padding: 0 1.25rem;
   margin: 0 !important;
-  position: static!important;
-  transform: none!important;
-  top: auto!important;
+  position: static !important;
+  transform: none !important;
+  top: auto !important;
 `;
 
 const Placeholder = (props: any) => {

@@ -7,7 +7,7 @@ export const InputError = styled.span`
   position: absolute;
   left: 0;
   top: 100%;
-  color: ${(props) => props.theme.colors.alt2};
+  color: ${(props) => props.theme.colors.red};
   font-size: 0.75rem;
   line-height: 1rem;
   margin-top: 0.0625rem;

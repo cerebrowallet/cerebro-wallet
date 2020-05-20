@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+
 import { Coins } from '../../../dictionaries';
+import { coinColors } from '../../../styles/colors';
+
 import btcIcon from '../../../images/currencies-icons/btc.svg';
 // import stxIcon from '../../../images/currencies-icons/stx.svg';
 
@@ -33,7 +36,7 @@ export const Icon = styled.i`
     background-image: url(${btcIcon});    
     
     &:before {
-      background: #FF8A00;
+      background: ${coinColors[Coins.BTC]};
     }
   `}
   

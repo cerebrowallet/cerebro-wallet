@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { withTheme } from 'styled-components';
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts';
 
 import {
@@ -9,13 +10,14 @@ import {
 import { Container } from './styled';
 import { config } from '../../../../config';
 import { Coins } from '../../../../dictionaries';
+import { Theme } from '../../../../utils/styled';
 
 import CustomTooltip from './Tooltip/Tooltip';
 import Loader from '../../Loader/Loader';
 
-function getDotStyles(coin: Coins) {
+function getDotStyles(coin: Coins, fillColor: string) {
   return {
-    fill: '#fff',
+    fill: fillColor,
     strokeOpacity: 0.2,
     stroke: config.coins[coin].color,
     strokeWidth: 1,
@@ -23,7 +25,11 @@ function getDotStyles(coin: Coins) {
   };
 }
 
-const ChartContainer: React.FC = () => {
+interface Props {
+  theme: Theme;
+}
+
+const ChartContainer: React.FC<Props> = ({ theme }) => {
   const filters = useSelector(getChartFilters);
   const data = useSelector(getChartData);
 
@@ -54,7 +60,7 @@ const ChartContainer: React.FC = () => {
             stroke="none"
             fill={config.coins[filters.coinA].color}
             fillOpacity={0.2}
-            activeDot={getDotStyles(filters.coinA)}
+            activeDot={getDotStyles(filters.coinA, theme.colors.tertiary)}
           />
           {filters.coinB && (
             <Area
@@ -63,7 +69,7 @@ const ChartContainer: React.FC = () => {
               stroke="none"
               fill={config.coins[filters.coinB].color}
               fillOpacity={0.2}
-              activeDot={getDotStyles(filters.coinB)}
+              activeDot={getDotStyles(filters.coinB, theme.colors.tertiary)}
             />
           )}
         </AreaChart>
@@ -72,4 +78,4 @@ const ChartContainer: React.FC = () => {
   );
 };
 
-export default ChartContainer;
+export default withTheme(ChartContainer);

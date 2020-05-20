@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Breakpoints } from '../../dictionaries';
 
 const WhiteBlock = styled.section`
-  background: #fff;
+  background: ${(props) => props.theme.colors.tertiary};
   border-radius: 1.25rem;
   padding: 1.5625rem;
   margin-bottom: 1.25rem;

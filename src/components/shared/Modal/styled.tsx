@@ -25,7 +25,7 @@ export const Overlay = styled(animated.div)`
 
 export const Body = styled(animated.div)`
   position: absolute;
-  background: ${(props) => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.tertiary};
   padding: 1.5625rem;
   border-radius: 1.25rem;
   margin-top: 2.5rem;

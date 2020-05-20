@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { components } from 'react-select';
 
 import { Coins } from '../../../dictionaries';
 
 import DropDown from './DropDown';
 import CurrencyIcon from '../../shared/CurrencyIcon/CurrencyIcon';
-import { components } from 'react-select';
 
 interface CoinOption {
   name: string;

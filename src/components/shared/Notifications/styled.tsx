@@ -27,23 +27,23 @@ const Content = styled.div`
 `;
 
 export const Success = styled(Content)`
-  color: ${props => props.theme.colors.blockBackground};
-  background: ${props => props.theme.colors.alt3};
+  color: ${props => props.theme.colors.tertiary};
+  background: ${props => props.theme.colors.green};
 `;
 
 export const Error = styled(Content)`
-  color: ${props => props.theme.colors.blockBackground};
-  background: ${props => props.theme.colors.alt2};
+  color: ${props => props.theme.colors.tertiary};
+  background: ${props => props.theme.colors.red};
 `;
 
 export const Default = styled(Content)`
-  color: ${props => props.theme.colors.blockBackground};
+  color: ${props => props.theme.colors.tertiary};
   background: ${props => props.theme.colors.primary};
 `;
 
 export const DefaultInvert = styled(Content)`
   color: ${props => props.theme.colors.primary};
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${props => props.theme.colors.tertiary};
 
   svg {
     color: ${props => props.theme.colors.primary}!important;
@@ -68,6 +68,6 @@ export const Button = styled.button`
   svg {
     width: 1rem;
     height: 1rem;
-    color: ${props => props.theme.colors.blockBackground};
+    color: ${props => props.theme.colors.tertiary};
   }
 `;

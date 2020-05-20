@@ -16,7 +16,7 @@ interface InputProps {
 
 export const InputElement = styled.input`
   display: block;
-  background: ${(props) => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.secondaryExtraLight};
   border: 1px solid
     ${(props: InputProps) => {
       if (!props.theme) {
@@ -24,11 +24,11 @@ export const InputElement = styled.input`
       }
 
       if (props.status === Statuses.Success) {
-        return props.theme.colors.alt3;
+        return props.theme.colors.green;
       }
 
       if (props.status === Statuses.Fail) {
-        return props.theme.colors.alt2;
+        return props.theme.colors.red;
       }
 
       return props.theme.colors.tertiary;

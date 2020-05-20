@@ -56,7 +56,9 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
         descText="Trade your funds instantly"
       />
       <ActionButton
-        link={`/activity/${account.id}/${account.transactions?.allIds[0] || ''}`}
+        link={`/activity/${account.id}/${
+          account.transactions?.allIds[0] || ''
+        }`}
         icon={<ListIcon />}
         text="Transactions"
         descText="Your funds flow"

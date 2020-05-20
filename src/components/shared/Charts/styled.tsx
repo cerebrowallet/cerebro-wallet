@@ -4,7 +4,7 @@ import { Breakpoints } from '../../../dictionaries';
 
 export const Container = styled.section`
   grid-area: chart;
-  background: ${(props) => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.tertiary};
   border-radius: 1.25rem;
   height: 26.875rem;
   overflow: hidden;

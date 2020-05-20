@@ -42,15 +42,17 @@ const DropDownWrapper = styled.div`
 
 const DropDownSelect = styled(Select)`
   position: relative;
-  background: ${(props) => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.secondaryExtraLight};
   border-radius: 0.625rem;
   font-size: 1rem;
-  background: #f7f7f7;
+  background: ${(props) => props.theme.colors.secondaryExtraLight};
   cursor: pointer;
   line-height: 1.5rem;
   border: 1px solid
     ${(props) =>
-      props.hasError ? props.theme.colors.alt2 : props.theme.colors.tertiary};
+      props.hasError
+        ? props.theme.colors.red
+        : props.theme.colors.secondaryExtraLight};
 `;
 
 const DropDown: React.FC<DropDownProps> = ({

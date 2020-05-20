@@ -3,7 +3,7 @@ import { animated } from 'react-spring';
 
 export const Wrapper = styled(animated.div)`
   padding: 2.8125rem;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${props => props.theme.colors.tertiary};
   border-radius: 1.25rem;
   text-align: center;
 `;

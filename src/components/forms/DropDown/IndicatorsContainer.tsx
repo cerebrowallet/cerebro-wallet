@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   transform: ${(props: WrapperProps) =>
     props.menuIsOpen ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%)'};
   padding: 0;
-  transition: transform 0.15s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   transform-origin: center center;
 `;
 

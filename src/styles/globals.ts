@@ -27,7 +27,7 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
   body {
     line-height: 1.5;
     color: ${(props) => props.theme.colors.primary};
-    background: ${(props) => props.theme.colors.tertiary};
+    background: ${(props) => props.theme.colors.secondaryExtraLight};
     font-family: 'basier_circle', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -41,16 +41,16 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
   }
   
   p a {
-    text-decoration: none;
-    color: ${(props) => props.theme.colors.secondary};
+    text-decoration: underline;
+    color: ${(props) => props.theme.colors.primary};
     transition: color .15s ease-in;
     
     &:hover {
-      color: #4E6B81;
+      color: ${(props) => props.theme.colors.primary};
     }
     
     &:active {
-      color: #1B242A;
+      color: ${(props) => props.theme.colors.primary};
     }
   }
  `;

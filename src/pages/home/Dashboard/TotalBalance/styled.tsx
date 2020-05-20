@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.section`
   grid-area: total-balance;
   padding: 2rem 1.563rem;
-  background: ${props => props.theme.colors.blockBackground};
+  background: ${props => props.theme.colors.tertiary};
   border-radius: 1.25rem;
 `;
 

@@ -37,7 +37,7 @@ export const Toggle = styled.button`
     top: 0.1875rem;
     right: 0;
     color: ${(props: ToggleProps) =>
-      props.theme && props.theme.colors.secondary};
+      props?.theme?.colors.secondary};
     transition: transform 0.2s ease-in-out;
     transform: rotate(
       ${(props: ToggleProps) => (props.isMenuOpen ? '180deg' : '0deg')}
@@ -55,10 +55,10 @@ export const Menu = styled(animated.div)`
   opacity: 0;
   top: 100%;
   background: ${(props: MenuProps) =>
-    props.theme && props.theme.colors.tertiary};
+    props?.theme?.colors.tertiary};
   z-index: 10;
   background: ${(props: MenuProps) =>
-    props.theme && props.theme.colors.blockBackground};
+    props?.theme?.colors.tertiary};
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
   border-radius: 0.625rem;
   min-width: 4.0625rem;

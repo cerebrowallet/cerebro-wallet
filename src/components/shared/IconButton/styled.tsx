@@ -10,15 +10,15 @@ export const Button = styled.button`
   border: 0;
   cursor: pointer;
   padding: 0.875rem 1.1875rem;
-  color: ${props => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   text-decoration: none;
-  border-radius: 1.25rem;
+  border-radius: 2.375rem;
   transition: background 0.15s ease-in;
   width: 100%;
 
   &:hover,
   &.active {
-    background: ${props => props.theme.colors.hover};
+    background: ${(props) => props.theme.colors.secondaryLight};
   }
 
   &:focus {
@@ -42,7 +42,7 @@ export const Description = styled.span`
   display: block;
   font-size: 0.75rem;
   line-height: 0.9375rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
   font-weight: 400;
 `;
 
@@ -51,13 +51,13 @@ export const RouterLink: React.FC<{
   children: React.ReactNode;
   className?: string;
   style: any;
-}> = props => (
+}> = (props) => (
   <Button as={NavLink} {...props}>
     {props.children}
   </Button>
 );
 
-const HtmlLink: React.FC = props => (
+const HtmlLink: React.FC = (props) => (
   <a {...props} target="_blank" rel="noopener noreferrer">
     {props.children}
   </a>
@@ -68,7 +68,7 @@ export const ExternalLink: React.FC<{
   children: React.ReactNode;
   className?: string;
   style: any;
-}> = props => (
+}> = (props) => (
   <Button as={HtmlLink} {...props}>
     {props.children}
   </Button>

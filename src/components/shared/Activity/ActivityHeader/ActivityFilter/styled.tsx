@@ -14,7 +14,7 @@ export const ToggleButton = styled.button`
   border: 0;
   text-align: left;
   padding: 0 1.25rem;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid ${(props) => props.theme.colors.tertiary};
 
   &:focus {
     outline: none;
@@ -26,7 +26,7 @@ export const ToggleButton = styled.button`
     height: 0.75rem;
     top: 0.875rem;
     right: 1.125rem;
-    color: ${props => props.theme.colors.secondary};
+    color: ${(props) => props.theme.colors.primary};
     transition: transform 0.2s ease-in-out;
     transform: rotate(
       ${(props: { isMenuOpen: boolean }) =>
@@ -43,7 +43,7 @@ export const Menu = styled(animated.div)`
   width: 100%;
   border-radius: 0 0 1.25rem 1.25rem;
   padding: 0.625rem 0;
-  background: ${props => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.secondaryExtraLight};
   z-index: 10;
 `;
 
@@ -63,7 +63,7 @@ export const Option = styled.button`
   }
 
   &:hover {
-    background: #eaeaea;
+    background: ${(props) => props.theme.colors.secondaryLight};
   }
 `;
 
@@ -72,6 +72,6 @@ export const SubHeader = styled.h4`
   line-height: 1.0625rem;
   font-weight: 600;
   padding: 0 1.25rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
   margin: 0.625rem 0;
 `;

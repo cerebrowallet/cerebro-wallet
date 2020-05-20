@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { Breakpoints } from '../../../../../dictionaries';
 import dynamite from '../../../../../images/dynamite.png';
 
 export const Container = styled.div`
@@ -9,7 +10,7 @@ export const Container = styled.div`
   align-items: center;
   border-radius: 1.25rem;
   position: relative;
-  background: linear-gradient(#e2e2ea, #ececf2);
+  background: ${(props) => props.theme.colors.secondaryExtraLight};
   padding: 1.563rem;
   margin: 1.1rem 0;
 
@@ -25,17 +26,13 @@ export const Container = styled.div`
     font-size: 0.813rem;
     line-height: 1.5rem;
 
-    @media (min-width: ${props => props.theme.colors.xl}) {
+    @media (min-width: ${Breakpoints.xl}px) {
       line-height: 1.5rem;
     }
 
     a {
-      color: ${props => props.theme.colors.secondary}};
+      color: ${(props) => props.theme.colors.secondary}};
       text-decoration: none;
-
-      &:hover {
-        // text-decoration: underline;
-      }
     }
   }
 
@@ -44,17 +41,13 @@ export const Container = styled.div`
   }
 `;
 
-export const ContainerLight = styled(Container)`
-  background: ${props => props.theme.colors.tertiary};
-`;
-
 export const HideButton = styled.button`
   position: absolute;
   top: 1.563rem;
   right: 1.563rem;
   width: 3rem;
   height: 3rem;
-  background: ${props => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.tertiary};
   border-radius: 100%;
   border: 0;
   cursor: pointer;
@@ -77,7 +70,7 @@ export const HideButton = styled.button`
 
 export const ReadMoreLink = styled(Link)`
   display: block;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
   font-size: 0.813rem;
   line-height: 1rem;
   text-decoration: none;

@@ -59,7 +59,7 @@ export const Sidebar = styled.aside`
   flex-direction: column;
 
   @media (min-width: ${Breakpoints.md}px) {
-    background: ${(props) => props.theme.colors.blockBackground};
+    background: ${(props) => props.theme.colors.tertiary};
   }
 
   @media (min-width: ${Breakpoints.xl}px) {

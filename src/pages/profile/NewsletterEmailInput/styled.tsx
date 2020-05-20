@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 
-import colors from '../../../styles/colors/colors';
 import { Statuses } from '../../../dictionaries';
 import { Theme } from '../../../utils/styled';
 
@@ -15,8 +14,8 @@ export const Button = styled(animated.button)`
   top: 0.3125rem;
   right: 0.3125rem;
   border: 0;
-  background: ${colors.gray10};
-  color: ${props => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.secondaryLight};
+  color: ${(props) => props.theme.colors.primary};
   width: 3rem;
   height: 3rem;
   cursor: pointer;
@@ -57,11 +56,11 @@ export const SubscribeStatus = styled(animated.div)`
     }
 
     if (props.status === Statuses.Success) {
-      return props.theme.colors.alt3;
+      return props.theme.colors.green;
     }
 
     if (props.status === Statuses.Fail) {
-      return props.theme.colors.alt2;
+      return props.theme.colors.red;
     }
 
     return props.theme.colors.primary;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { components } from 'react-select';
 import styled from 'styled-components';
+
 import Value from './Value';
 
 const Wrapper = styled(components.SingleValue)`
@@ -9,7 +10,7 @@ const Wrapper = styled(components.SingleValue)`
   position: static !important;
   transform: none !important;
   max-width: none !important;
-  color: ${props => props.selectProps.appTheme.colors.primary} !important;
+  color: ${(props) => props.selectProps.appTheme.colors.primary} !important;
 `;
 
 const SingleValue = (props: any) => {
@@ -20,10 +21,7 @@ const SingleValue = (props: any) => {
       {selectProps.valueComponent ? (
         <selectProps.valueComponent {...data} />
       ) : (
-        <Value
-          name={data.name}
-          id={data.id}
-        />
+        <Value name={data.name} id={data.id} />
       )}
     </Wrapper>
   );

@@ -10,5 +10,5 @@ export const Label = styled.label`
   margin-bottom: 0.625rem;
   font-size: 0.875rem;
   line-height: 1.0625rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
 `;

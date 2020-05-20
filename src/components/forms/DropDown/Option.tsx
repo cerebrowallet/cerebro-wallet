@@ -5,10 +5,12 @@ import Value from './Value';
 
 export const Wrapper = styled.div`
   padding: 0.5rem 0;
-  background: ${(props: any) => props.selectProps.appTheme.colors.tertiary};
+  background: ${(props: any) =>
+    props.selectProps.appTheme.colors.secondaryExtraLight};
 
   &:hover {
-    background: #eaeaea;
+    background: ${(props: any) =>
+      props.selectProps.appTheme.colors.secondaryLight};
   }
 `;
 
@@ -20,10 +22,7 @@ const Option: React.FC = (props: any) => {
       {selectProps.optionComponent ? (
         <selectProps.optionComponent {...data} />
       ) : (
-        <Value
-          name={data.name}
-          id={data.id}
-        />
+        <Value name={data.name} id={data.id} />
       )}
     </Wrapper>
   );

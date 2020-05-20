@@ -46,13 +46,13 @@ const MyAccounts: React.FC = () => {
 
   const accountsTransitions = useTransition(
     show ? accounts : [],
-    item => item.address,
+    (item) => item.address,
     getTransitionOptions(accounts.length)
   );
 
   const createAccountTransitions = useTransition(
     show ? MANAGE_ACCOUNT_ACTIONS : [],
-    item => item.link,
+    (item) => item.link,
     getTransitionOptions(MANAGE_ACCOUNT_ACTIONS.length)
   );
 
@@ -62,16 +62,16 @@ const MyAccounts: React.FC = () => {
         <Header>My accounts</Header>
         <Grid>
           {accountsTransitions.map(({ item, key, props }) => (
-            <MyAccountsButton>
+            <MyAccountsButton key={key}>
               <Button
                 style={props}
                 key={key}
                 link={`/account/${item.id}`}
                 icon={<CurrencyIcon coin={item.coin} size="lg" />}
                 text={item.name}
-                descText={`${item.balance} ${
-                  config.coins[item.coin].abbr
-                } / ${settings.currency && CurrencySymbols[settings.currency]}${
+                descText={`${item.balance} ${config.coins[item.coin].abbr} / ${
+                  settings.currency && CurrencySymbols[settings.currency]
+                }${
                   rates && settings.currency
                     ? round(item.balance * rates[item.coin][settings.currency])
                     : 0
@@ -83,7 +83,7 @@ const MyAccounts: React.FC = () => {
         <Header>Manage</Header>
         <Grid>
           {createAccountTransitions.map(({ item, key, props }) => (
-            <MyAccountsButton>
+            <MyAccountsButton key={key}>
               <Button
                 key={key}
                 style={props}

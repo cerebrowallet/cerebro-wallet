@@ -1,32 +1,28 @@
 import { Theme } from '../../utils/styled';
-import colors from '../colors/colors';
-import { ButtonColors } from '../../dictionaries';
+import { colors } from '../colors';
+import { hexToRGB } from '../../utils/common';
 
 const lightTheme: Theme = {
   colors: {
-    background: colors.gray20,
-    blockBackground: colors.white,
     primary: colors.black,
-    altPrimary: colors.gray90,
-    secondary: colors.gray60,
-    tertiary: colors.gray20,
-    hover: colors.gray40,
-    altHover: colors.darkBlue,
-    alt1: colors.orange,
-    alt2: colors.red40,
-    alt3: colors.green,
-    buttons: {
-      [ButtonColors.black]: {
-        bg: colors.gray90,
-        hover: colors.gray80,
-        active: colors.black,
-      },
-      [ButtonColors.red]: {
-        bg: colors.red40,
-        hover: colors.red20,
-        active: colors.red60,
-      },
-    },
+    primaryLight: colors.blackLight,
+    primaryAlpha: hexToRGB(colors.black, 0.1),
+    primaryGradient: colors.blackGradient,
+    secondary: colors.gray,
+    secondaryLight: colors.grayLight,
+    secondaryExtraLight: colors.grayExtraLight,
+    secondaryInactive: colors.grayInactive,
+    secondaryAlpha: hexToRGB(colors.grayInactive, 0.1),
+    tertiary: colors.white,
+    tertiaryGradient: [colors.white, colors.white],
+    orange: colors.orange,
+    orangeDark: colors.orangeDark,
+    red: colors.red,
+    redLight: colors.redLight,
+    redAlpha: hexToRGB(colors.red, 0.1),
+    green: colors.green,
+    blue: colors.blue,
+    blueAlpha: hexToRGB(colors.blue, 0.1),
   },
 };
 

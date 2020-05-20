@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Container, ContainerLight, HideButton, ReadMoreLink } from './styled';
+import { Container, HideButton, ReadMoreLink } from './styled';
 
 interface Props {
   title: string;
   excerpt: React.ReactElement | string;
   readMoreLink?: string;
   closable?: boolean;
-  lightBg?: boolean;
 }
 
 const Update: React.FC<Props> = ({
@@ -15,12 +14,9 @@ const Update: React.FC<Props> = ({
   excerpt,
   readMoreLink,
   closable,
-  lightBg,
 }) => {
-  const ContainerElement = lightBg ? ContainerLight : Container;
-
   return (
-    <ContainerElement>
+    <Container>
       <h4>{title}</h4>
       {closable && (
         <HideButton type="button" onClick={() => {}}>
@@ -31,7 +27,7 @@ const Update: React.FC<Props> = ({
       {readMoreLink && (
         <ReadMoreLink to={readMoreLink}>Read more &rarr;</ReadMoreLink>
       )}
-    </ContainerElement>
+    </Container>
   );
 };
 

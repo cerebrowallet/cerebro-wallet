@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {Theme} from "../../../../utils/styled";
+import styled from 'styled-components';
+import { Theme } from '../../../../utils/styled';
 
 export const Container = styled.section`
   margin-bottom: 1.5625rem;
@@ -18,7 +18,7 @@ export const PollOption = styled.button`
   text-align: left;
   border: 0;
   border-radius: 1.25rem;
-  background: #f1f1f1;
+  background: ${(props: OptionProps) => props?.theme?.colors.secondaryLight};
   padding: 0.375rem 1.25rem 0.375rem 3.25rem;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -37,7 +37,8 @@ export const PollOption = styled.button`
     content: '';
     width: 1rem;
     height: 1rem;
-    background: #eaeaea;
+    background: ${(props: OptionProps) =>
+      props?.theme?.colors.secondaryExtraLight};
     border-radius: 100%;
     left: 1.25rem;
     top: 0.625rem;
@@ -46,27 +47,27 @@ export const PollOption = styled.button`
 
   &:hover,
   &:active {
-    background: #eaeaea;
+    background: ${(props: OptionProps) => props?.theme?.colors.secondary};
 
     &:before {
-      background: ${(props: OptionProps) =>
-  props.theme && props.theme.colors.alt3};
+      background: ${(props: OptionProps) => props?.theme?.colors.green};
     }
   }
 
   ${(props: OptionProps) =>
-  props.winner &&
-  `
-    background: #E1F2EB;
+    props.winner &&
+    `
+    background: ${(props: OptionProps) => props?.theme?.colors.green};
+    opacity: 0.2;
 
     &:before, span {
-      background: ${(props: OptionProps) =>
-    props.theme && props.theme.colors.alt3};
+      background: ${(props: OptionProps) => props?.theme?.colors.green};
+      opacity: 1;
     }
   `}
 `;
 
 export const ResultPercentage = styled.span`
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
   font-weight: 400;
 `;

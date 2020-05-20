@@ -7,7 +7,7 @@ import { ButtonColors, Breakpoints } from '../../../../dictionaries';
 
 export const AccountsContainer = styled.section`
   position: relative;
-  background: ${(props) => props.theme.colors.blockBackground};
+  background: ${(props) => props.theme.colors.tertiary};
   border-radius: 1.25rem;
   grid-area: accounts;
   display: flex;
@@ -26,7 +26,7 @@ export const AccountsContainer = styled.section`
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
-      ${(props) => props.theme.colors.blockBackground} 100%
+      ${(props) => props.theme.colors.tertiary} 100%
     );
   }
 
@@ -56,7 +56,7 @@ export const AddAccountButton = styled(Link)`
   height: 1.5625rem;
   line-height: 1.5625rem;
   border-radius: 1.6875rem;
-  background: #f7f7f7;
+  background: ${(props) => props.theme.colors.secondaryLight};
   border: 0;
   cursor: pointer;
   text-align: center;
@@ -74,20 +74,18 @@ export const AddAccountButton = styled(Link)`
   }
 
   &:hover {
-    background: ${(props) =>
-      props.theme.colors.buttons[ButtonColors.black].hover};
+    background: ${(props) => props.theme.colors.primaryLight};
 
     svg {
-      color: #fff;
+      color: ${(props) => props.theme.colors.tertiary};
     }
   }
 
   &:active {
-    background: ${(props) =>
-      props.theme.colors.buttons[ButtonColors.black].active};
+    background: ${(props) => props.theme.colors.primaryLight};
 
     svg {
-      color: #fff;
+      color: ${(props) => props.theme.colors.tertiary};
     }
   }
 `;
@@ -100,7 +98,7 @@ export const AccountItem = styled(IconButton)`
   text-align: left;
   width: 100%;
   padding: 0.8125rem 0.625rem;
-  border-radius: 1.25rem;
+  border-radius: 2.375rem;
   transition: background-color 0.15s ease-in;
   cursor: pointer;
 
@@ -109,10 +107,10 @@ export const AccountItem = styled(IconButton)`
   }
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.tertiary};
+    background-color: ${(props) => props.theme.colors.secondaryExtraLight};
   }
 
-  @media (min-width: ${Breakpoints.xl}}px) {
+  @media (min-width: ${Breakpoints.xl}px) {
     &:last-child {
       margin-bottom: 1.5625rem;
     }
@@ -123,13 +121,13 @@ export const AccountItem = styled(IconButton)`
   }
 
   &.active {
-    background: ${(props) => props.theme.colors.tertiary};
+    background: ${(props) => props.theme.colors.secondaryExtraLight};
 
     &:hover {
-      background: ${(props) => props.theme.colors.primary};
+      background: ${(props) => props.theme.colors.secondaryExtraLight};
     }
   }
-  
+
   i {
     margin-right: 0.9375rem;
   }

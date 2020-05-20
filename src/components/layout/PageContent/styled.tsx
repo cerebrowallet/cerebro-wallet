@@ -30,7 +30,6 @@ export const Content = styled.section`
 
 export const Footer = styled.footer`
   position: relative;
-  border-top: 1px solid #eaeaea;
   padding-top: 1.0625rem;
   font-size: 0.875rem;
   line-height: 1.0625rem;

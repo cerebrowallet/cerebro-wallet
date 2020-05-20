@@ -8,7 +8,7 @@ export const Button = styled.button`
   border: 0;
   margin-bottom: 3.125rem;
   cursor: pointer;
-  
+
   &:focus {
     outline: none;
   }
@@ -22,7 +22,7 @@ export const Icon = styled.span`
   height: 1.25rem;
   border-radius: 100%;
   z-index: 2;
-  background: ${props => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.primary};
 
   svg {
     position: absolute;
@@ -31,11 +31,11 @@ export const Icon = styled.span`
     transform: translate(-50%, -50%);
     width: 0.7rem;
     height: 0.7rem;
-    color: #fff;
+    color: ${(props) => props.theme.colors.tertiary};
   }
 `;
 
-interface UserPicProps {
+interface AvatarProps {
   avatarUrl?: string;
 }
 
@@ -50,9 +50,9 @@ export const UserPic = styled.div`
   background-size: cover;
   overflow: hidden;
   border-radius: 100%;
-  background-color: ${props => props.theme.colors.blockBackground};
+  background-color: ${(props) => props.theme.colors.tertiary};
 
-  ${(props: UserPicProps) =>
+  ${(props: AvatarProps) =>
     props.avatarUrl &&
     `
     background-image: url(${props.avatarUrl});

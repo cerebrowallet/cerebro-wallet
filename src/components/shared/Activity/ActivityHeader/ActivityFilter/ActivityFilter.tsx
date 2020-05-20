@@ -117,7 +117,7 @@ const ActivityFilter: React.FC<Props> = ({ match, accountId }) => {
                   UPDATES
                 )}
               </Option>
-              <SubHeader>My Wallets</SubHeader>
+              <SubHeader>My Accounts</SubHeader>
               {accounts
                 ? Object.values(accounts.byIds).map(account => (
                     <Option

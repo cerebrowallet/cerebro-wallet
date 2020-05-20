@@ -6,7 +6,7 @@ const Wrapper = styled(components.ValueContainer)`
   position: relative;
   padding: 1rem 0 !important;
   flex-wrap: nowrap !important;
-  height: 3.4375rem!important;
+  height: 3.4375rem !important;
 `;
 
 const ValueContainer = (props: any) => {
