@@ -1,4 +1,6 @@
 import { Reducer } from 'redux';
+import { produce } from 'immer';
+
 import { LayoutState, LayoutActionTypes } from './types';
 
 export const initialState: LayoutState = {
@@ -6,23 +8,21 @@ export const initialState: LayoutState = {
 };
 
 const reducer: Reducer<LayoutState> = (state = initialState, action) => {
-  switch (action.type) {
-    case LayoutActionTypes.SET_THEME: {
-      return { ...state, theme: action.payload };
+  return produce(state, draft => {
+    switch (action.type) {
+      case LayoutActionTypes.SET_THEME:
+        draft.theme = action.payload;
+        break;
+      case LayoutActionTypes.SHOW_NOTIFICATION:
+        draft.notification = action.payload;
+        break;
+      case LayoutActionTypes.REMOVE_NOTIFICATION:
+        draft.notification = undefined;
+        break;
+      default:
+        return state;
     }
-    case LayoutActionTypes.SHOW_NOTIFICATION: {
-      return {
-        ...state,
-        notification: action.payload,
-      };
-    }
-    case LayoutActionTypes.REMOVE_NOTIFICATION: {
-      return { ...state, notification: undefined };
-    }
-    default: {
-      return state;
-    }
-  }
+  })
 };
 
 export { reducer as layoutReducer };
