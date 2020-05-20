@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Breakpoints, ButtonColors } from '../../../dictionaries';
-import { Theme } from '../../../utils/styled';
+import { Theme } from '../../../store/layout/types';
 
 interface Props {
   color?: ButtonColors;

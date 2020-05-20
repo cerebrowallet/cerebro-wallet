@@ -1,8 +1,8 @@
 import { action } from 'typesafe-actions';
 
-import { LayoutActionTypes, ThemeColors, Notification } from './types';
+import { LayoutActionTypes, Themes, Notification } from './types';
 
-export const setTheme = (theme: ThemeColors) =>
+export const setTheme = (theme: Themes) =>
   action(LayoutActionTypes.SET_THEME, theme);
 export const showNotification = (notification: Notification) =>
   action(LayoutActionTypes.SHOW_NOTIFICATION, notification);

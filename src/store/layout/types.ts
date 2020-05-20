@@ -1,6 +1,35 @@
 import { NotificationTypes } from '../../dictionaries';
 
-export type ThemeColors = 'light' | 'dark';
+export enum Themes {
+  light,
+  dark,
+}
+
+export type ColorGradient = string[];
+
+export interface Theme {
+  colors: {
+    primary: string;
+    primaryLight: string;
+    primaryAlpha: string;
+    primaryGradient: ColorGradient;
+    secondary: string;
+    secondaryLight: string;
+    secondaryExtraLight: string;
+    secondaryInactive: string;
+    secondaryAlpha: string;
+    tertiary: string;
+    tertiaryGradient: ColorGradient;
+    orange: string;
+    orangeDark: string;
+    red: string;
+    redLight: string;
+    redAlpha: string;
+    green: string;
+    blue: string;
+    blueAlpha: string;
+  };
+}
 
 export enum LayoutActionTypes {
   SET_THEME = '@@layout/SET_THEME',
@@ -14,6 +43,6 @@ export interface Notification {
 }
 
 export interface LayoutState {
-  readonly theme: ThemeColors;
+  theme: Themes;
   notification?: Notification;
 }

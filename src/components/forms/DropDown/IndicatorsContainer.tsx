@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
-import { Theme } from '../../../utils/styled';
+import { Theme } from '../../../store/layout/types';
 
 interface WrapperProps {
   appTheme: Theme;

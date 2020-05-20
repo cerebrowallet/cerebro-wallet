@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Breakpoints } from '../../../../dictionaries';
-import { Theme } from '../../../../utils/styled';
+import { Theme } from '../../../../store/layout/types';
 
 export const Container = styled.div`
   text-align: center;

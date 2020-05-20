@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
-import { Theme } from '../../../utils/styled';
+import { Theme } from '../../../store/layout/types';
 import { Breakpoints } from '../../../dictionaries';
 
 import IconButton from '../IconButton/IconButton';
@@ -53,12 +53,10 @@ export const MobileTrigger = styled(IconButton)`
   position: relative;
   display: flex;
   width: 100%;
-  background: ${(props: ElementProps) =>
-    props?.theme?.colors.tertiary};
+  background: ${(props: ElementProps) => props?.theme?.colors.tertiary};
 
   &:hover {
-    background: ${(props: ElementProps) =>
-      props?.theme?.colors.tertiary};
+    background: ${(props: ElementProps) => props?.theme?.colors.tertiary};
   }
 
   ${(props: ElementProps) =>

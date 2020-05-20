@@ -5,7 +5,7 @@ import BasierCircleRegularWoff2 from './fonts/basiercircle-regular-webfont.woff2
 import BasierCircledSemiBoldWoff from './fonts/basiercircle-semibold-webfont.woff';
 import BasierCircleSemiBoldWoff2 from './fonts/basiercircle-semibold-webfont.woff2';
 
-import { Theme } from '../utils/styled';
+import { Theme } from '../store/layout/types';
 
 const Globals = createGlobalStyle<{ theme: Theme }>`
   @font-face {

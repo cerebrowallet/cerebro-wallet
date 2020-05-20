@@ -10,7 +10,7 @@ import {
 import { Container } from './styled';
 import { config } from '../../../../config';
 import { Coins } from '../../../../dictionaries';
-import { Theme } from '../../../../utils/styled';
+Themes} from '../../../../utils/styled';
 
 import CustomTooltip from './Tooltip/Tooltip';
 import Loader from '../../Loader/Loader';

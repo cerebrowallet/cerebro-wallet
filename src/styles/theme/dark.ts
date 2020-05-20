@@ -1,4 +1,4 @@
-import { Theme } from '../../utils/styled';
+import { Theme } from '../../store/layout/types';
 import { colors } from '../colors';
 import { hexToRGB } from '../../utils/common';
 

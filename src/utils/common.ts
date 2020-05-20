@@ -1,7 +1,5 @@
 import Big from 'big.js';
 
-import { Theme } from './styled';
-
 /**
  * Converts the given enum to a map of the keys to the values.
  * @param enumeration The enum to convert to a map.

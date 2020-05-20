@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../../utils/styled';
+import { Theme } from '../../../../store/layout/types';
 
 export const Wrapper = styled.div`
   margin-bottom: 1.875rem;
@@ -22,7 +22,7 @@ export const Control = styled.button`
   line-height: 1.0625rem;
   background: none;
   border: 0;
-  color: ${props => props?.theme?.colors.secondary};
+  color: ${(props) => props?.theme?.colors.secondary};
   padding: 0;
   cursor: pointer;
   transition: all 0.15s ease-in;

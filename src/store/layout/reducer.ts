@@ -1,14 +1,14 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { LayoutState, LayoutActionTypes } from './types';
+import { LayoutState, LayoutActionTypes, Themes } from './types';
 
 export const initialState: LayoutState = {
-  theme: 'light',
+  theme: Themes.light,
 };
 
 const reducer: Reducer<LayoutState> = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LayoutActionTypes.SET_THEME:
         draft.theme = action.payload;
@@ -22,7 +22,7 @@ const reducer: Reducer<LayoutState> = (state = initialState, action) => {
       default:
         return state;
     }
-  })
+  });
 };
 
 export { reducer as layoutReducer };
