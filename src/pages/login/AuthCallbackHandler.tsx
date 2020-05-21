@@ -12,16 +12,16 @@ const AuthCallbackHandler: React.FC<RouteComponentProps> = ({ history }) => {
     if (userSession.isSignInPending()) {
       userSession
         .handlePendingSignIn()
-        .then(userData => {
+        .then((userData) => {
           dispatch(setUserData(userData));
           history.push('/');
         })
-        .catch(e => {
+        .catch((e) => {
           // TODO log error && show notification
           history.push('/signin');
         });
     }
-  }, []);
+  }, [history, dispatch]);
 
   return null;
 };

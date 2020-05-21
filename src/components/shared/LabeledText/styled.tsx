@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import React from 'react';
 
 export const Container = styled.div`
   margin-bottom: 1.5625rem;
@@ -11,7 +10,7 @@ export const Label = styled.label`
   margin-bottom: 0.625rem;
   font-size: 0.875rem;
   line-height: 1.0625rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.secondary};
 `;
 
 export const Text = styled.span`
@@ -19,7 +18,7 @@ export const Text = styled.span`
   display: block;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  color: ${props => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
   padding: 0;
   background: none;
   border: 0;

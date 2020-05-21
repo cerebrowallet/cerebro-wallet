@@ -35,7 +35,7 @@ const SessionExpiredModal: React.FC = () => {
       history.push('/signin');
       setShowModal(true);
     }
-  }, [isIdle]);
+  }, [history, isIdle]);
 
   return (
     <Modal showModal={showModal}>

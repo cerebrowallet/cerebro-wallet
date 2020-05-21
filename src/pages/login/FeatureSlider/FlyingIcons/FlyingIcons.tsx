@@ -26,14 +26,16 @@ const trans2 = (rotate: number = 0, scale: number = 1) => (
   x: number,
   y: number
 ) =>
-  `translate3d(${x / 20}px,${y /
-    300}px,0)  rotate(${rotate}deg) scale(${scale})`;
+  `translate3d(${x / 20}px,${
+    y / 300
+  }px,0)  rotate(${rotate}deg) scale(${scale})`;
 const trans3 = (rotate: number = 0, scale: number = 1) => (
   x: number,
   y: number
 ) =>
-  `translate3d(${x / 45}px,${y /
-    55}px,0)  rotate(${rotate}deg) scale(${scale})`;
+  `translate3d(${x / 45}px,${
+    y / 55
+  }px,0)  rotate(${rotate}deg) scale(${scale})`;
 const trans4 = (rotate: number = 0, scale: number = 1) => (
   x: number,
   y: number
@@ -53,7 +55,7 @@ const FlyingIcons: React.FC<Props> = React.memo(({ coords }) => {
 
   useEffect(() => {
     set({ xy: calc(x, y) });
-  }, [coords]);
+  }, [coords, x, y, set]);
 
   return (
     <>

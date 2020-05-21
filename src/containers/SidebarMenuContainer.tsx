@@ -44,7 +44,7 @@ const SidebarMenuContainer: React.FC<Props> = ({
     if (windowSize.width > mobileBreakpoint && showMobileMenu) {
       setShowMobileMenu(false);
     }
-  }, [windowSize, showMobileMenu]);
+  }, [windowSize, showMobileMenu, mobileBreakpoint]);
 
   const [activeItem, otherMenuItems, footerMenuItems] = menuItems.reduce(
     (acc: [MenuItem | undefined, MenuItem[], MenuItem[]], item: MenuItem) => {

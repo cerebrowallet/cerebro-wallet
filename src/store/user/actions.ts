@@ -8,10 +8,7 @@ import {
   UpdateDataActionPayload,
 } from './types';
 import { ActivityFilterTypes, Statuses } from '../../dictionaries';
-import { Themes } from './types';
 
-export const logIn = () => action(UserActionTypes.LOG_IN);
-export const logOut = () => action(UserActionTypes.LOG_OUT);
 export const setUserData = (userData: UserData) =>
   action(UserActionTypes.SET_USER_DATA, userData);
 export const getSettings = () => action(UserActionTypes.GET_SETTINGS);
@@ -34,5 +31,3 @@ export const setActivityFilterType = (update: {
   type: ActivityFilterTypes;
   value?: string;
 }) => action(UserActionTypes.SET_ACTIVITY_FILTER_TYPE, update);
-export const searchActivities = (search: string) =>
-  action(UserActionTypes.SEARCH_ACTIVITIES, search);

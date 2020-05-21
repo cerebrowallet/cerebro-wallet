@@ -24,7 +24,7 @@ const AuthenticatedWrapper: React.FC<Props> = ({ children }) => {
       dispatch(getAccounts());
       dispatch(getExchangeRates());
     }
-  }, []);
+  }, [dispatch]);
 
   return <>{children}</>;
 };

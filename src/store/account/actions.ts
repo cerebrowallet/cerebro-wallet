@@ -6,7 +6,6 @@ import {
   Account,
   ExchangeRates,
   UpdateAccountActionPayload,
-  ChartFilters,
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ChartPeriods, Coins } from '../../../dictionaries';
@@ -26,9 +26,11 @@ const Charts: React.FC<Props> = ({ coinA, coinB, canChange }) => {
   const settings: Settings = useSelector(getSettings);
   const prevSettings = usePrevious<Settings>(settings);
 
-  function getInitialChartData() {
-    dispatch(getChartData({ coinA, coinB, period: ChartPeriods.ThreeMonth }));
-  }
+  const getInitialChartData = useCallback(
+    () =>
+      dispatch(getChartData({ coinA, coinB, period: ChartPeriods.ThreeMonth })),
+    [coinA, coinB, dispatch]
+  );
 
   useEffect(() => {
     if (settings.currency) {
@@ -38,13 +40,13 @@ const Charts: React.FC<Props> = ({ coinA, coinB, canChange }) => {
     return () => {
       dispatch(resetChart());
     };
-  }, []);
+  }, [getInitialChartData, dispatch, settings.currency]);
 
   useEffect(() => {
     if (prevSettings && !prevSettings.currency && settings.currency) {
       getInitialChartData();
     }
-  }, [settings]);
+  }, [settings.currency, getInitialChartData, prevSettings]);
 
   function updateFilter(payload: Partial<ChartFilters>) {
     dispatch(getChartData(payload));

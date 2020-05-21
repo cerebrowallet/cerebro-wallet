@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import IconButton from '../../../../components/shared/IconButton/IconButton';
 import { TrackYEl } from '../../../../components/shared/Scrollbar/styled';
-import { ButtonColors, Breakpoints } from '../../../../dictionaries';
+import { Breakpoints } from '../../../../dictionaries';
 
 export const AccountsContainer = styled.section`
   position: relative;

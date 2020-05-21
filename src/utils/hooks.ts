@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
@@ -33,17 +33,23 @@ export function useWindowSize(): WindowDimensions {
 export function useKeyPress(targetKey: string): boolean {
   const [keyPressed, setKeyPressed] = useState(false);
 
-  function downHandler({ key }: { key: string }) {
-    if (key === targetKey) {
-      setKeyPressed(true);
-    }
-  }
+  const downHandler = useCallback(
+    ({ key }: { key: string }) => {
+      if (key === targetKey) {
+        setKeyPressed(true);
+      }
+    },
+    [targetKey]
+  );
 
-  const upHandler = ({ key }: { key: string }) => {
-    if (key === targetKey) {
-      setKeyPressed(false);
-    }
-  };
+  const upHandler = useCallback(
+    ({ key }: { key: string }) => {
+      if (key === targetKey) {
+        setKeyPressed(false);
+      }
+    },
+    [targetKey]
+  );
 
   useEffect(() => {
     window.addEventListener('keydown', downHandler);
@@ -53,7 +59,7 @@ export function useKeyPress(targetKey: string): boolean {
       window.removeEventListener('keydown', downHandler);
       window.removeEventListener('keyup', upHandler);
     };
-  }, []);
+  }, [downHandler, upHandler]);
 
   return keyPressed;
 }
@@ -69,7 +75,7 @@ export const useIdle = (options: {
     activityDetector.on('idle', () => setIsIdle(true));
     activityDetector.on('active', () => setIsIdle(false));
     return () => activityDetector.stop();
-  }, []);
+  }, [options]);
 
   return isIdle;
 };

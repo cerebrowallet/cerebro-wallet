@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Home as HomeIcon } from 'react-feather';
 
 import logo from '../../../images/text-logo.svg';
@@ -18,7 +19,8 @@ const AuthSidebar: React.FC = () => {
       <Footer>
         Copyright © 2019 Cerebro. All rights reserved.
         <br />
-        <a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a>
+        <Link to="/terms">Terms of Use</Link> /{' '}
+        <Link to="/privacy-policy">Privacy Policy</Link>
       </Footer>
     </Wrapper>
   );

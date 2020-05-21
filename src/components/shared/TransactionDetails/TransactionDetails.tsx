@@ -54,7 +54,7 @@ const TransactionDetails: React.FC<Props> = ({
     } else {
       history.push(`${match.path.split(':accountId')[0]}${accountId}`);
     }
-  }, [accountId, txHash]);
+  }, [accountId, txHash, account, dispatch, history, match.path]);
 
   if (!account || !transaction) {
     return null;

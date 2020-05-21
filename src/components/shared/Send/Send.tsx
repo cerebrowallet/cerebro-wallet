@@ -113,7 +113,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
         setCreateTxResult(null);
       }
     };
-  }, []);
+  }, [createTxResult, dispatch]);
 
   const transitions = useTransition(step, (p) => p, {
     from: {

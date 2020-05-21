@@ -43,7 +43,7 @@ const ActivityFilter: React.FC<Props> = ({ match, accountId }) => {
         })
       );
     }
-  }, [accountId, match.params.accountId]);
+  }, [accountId, match.params.accountId, dispatch]);
 
   const transition = useTransition(showMenu, null, {
     from: { opacity: 0 },
@@ -119,7 +119,7 @@ const ActivityFilter: React.FC<Props> = ({ match, accountId }) => {
               </Option>
               <SubHeader>My Accounts</SubHeader>
               {accounts
-                ? Object.values(accounts.byIds).map(account => (
+                ? Object.values(accounts.byIds).map((account) => (
                     <Option
                       type="button"
                       key={account.id}
