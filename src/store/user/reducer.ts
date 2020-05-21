@@ -1,14 +1,16 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { UserActionTypes, UserState } from './types';
+import { Themes, UserActionTypes, UserState } from './types';
 import { Genders, ActivityFilterTypes } from '../../dictionaries';
 
 export const profileInitialState = {
   gender: Genders.incognito,
 };
 
-export const settingsInitialState = {};
+export const settingsInitialState = {
+  theme: Themes.light,
+};
 
 const initialState: UserState = {
   profile: profileInitialState,
@@ -25,7 +27,7 @@ const reducer: Reducer<UserState> = (
   state: UserState = initialState,
   action
 ) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case UserActionTypes.LOG_IN:
         return draft;

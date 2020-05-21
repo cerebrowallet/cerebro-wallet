@@ -35,6 +35,7 @@ export const BackButton = styled.button`
   cursor: pointer;
   white-space: nowrap;
   margin-right: 1.25rem;
+  color: ${(props) => props.theme.colors.primary};
 
   &:focus {
     outline: none;

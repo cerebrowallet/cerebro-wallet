@@ -8,6 +8,7 @@ import {
   UpdateDataActionPayload,
 } from './types';
 import { ActivityFilterTypes, Statuses } from '../../dictionaries';
+import { Themes } from './types';
 
 export const logIn = () => action(UserActionTypes.LOG_IN);
 export const logOut = () => action(UserActionTypes.LOG_OUT);

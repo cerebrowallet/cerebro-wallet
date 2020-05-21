@@ -5,6 +5,7 @@ export const UserContainer = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
+  color: ${props => props.theme.colors.primary};
   
   &:visited, &:focus, &:active {
     color: ${props => props.theme.colors.primary};
@@ -16,9 +17,8 @@ export const UserProfileLink = styled.span`
   width: 3rem;
   height: 3rem;
   background: ${props => props.theme.colors.tertiary};
-  border-radius: 100%;
   margin-right: 0.938rem;
-  overflow: hidden;
+  border-radius: 100%;
 `;
 
 export const UserPic = styled.img`
@@ -27,6 +27,7 @@ export const UserPic = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 100%;
 `;
 
 export const UserName = styled.div`

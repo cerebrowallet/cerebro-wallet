@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 import { Statuses } from '../../../dictionaries';
-import { Theme } from '../../../store/layout/types';
+import { Theme } from '../../../styles/types';
 
 export const Container = styled.div`
   position: relative;

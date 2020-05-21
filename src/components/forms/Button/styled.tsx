@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Breakpoints, ButtonColors } from '../../../dictionaries';
-import { Theme } from '../../../store/layout/types';
+import { Theme } from '../../../styles/types';
 
 interface Props {
   color?: ButtonColors;
@@ -30,6 +30,7 @@ export const Btn = styled.button`
   cursor: pointer;
   width: 100%;
   transition: background-color 0.1s ease-in;
+  color: ${(props) => props?.theme?.colors.tertiary};
 
   &:before {
     position: absolute;

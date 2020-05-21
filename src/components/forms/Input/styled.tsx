@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Statuses } from '../../../dictionaries';
-import { Theme } from '../../../store/layout/types';
+import { Theme } from '../../../styles/types';
 
 export const Wrapper = styled.div`
   position: relative;

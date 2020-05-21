@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
-import { Theme } from '../../../store/layout/types';
+import { Theme } from '../../../styles/types';
 import { Breakpoints } from '../../../dictionaries';
 
 import IconButton from '../IconButton/IconButton';

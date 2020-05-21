@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { Field, FieldProps } from 'formik';
 import styled, { withTheme } from 'styled-components';
 
-import { Theme } from '../../../store/layout/types';
+import { Theme } from '../../../styles/types';
 
 import Value from './Value';
 import IndicatorsContainer from './IndicatorsContainer';

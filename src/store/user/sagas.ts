@@ -42,12 +42,7 @@ function* getData({
     let data = yield call(getFile, file);
 
     if (!data) {
-      data = initialState;
-
-      yield call(putFile, {
-        fileName: file,
-        file: data,
-      });
+      throw new Error(`Error while loading ${file}`);
     }
 
     yield put(action(data));
@@ -92,7 +87,6 @@ function* getSettings() {
 function* updateData({
   file,
   update,
-  initialData,
   withoutNotifications,
   notifications: { progress, success, fail },
 }: {
@@ -101,7 +95,6 @@ function* updateData({
     [field: string]: any;
   };
   withoutNotifications?: boolean;
-  initialData: any;
   notifications: {
     progress: string;
     success: string;
@@ -120,10 +113,7 @@ function* updateData({
 
     yield call(putFile, {
       fileName: file,
-      file: {
-        ...initialData,
-        ...update,
-      },
+      file: update,
     });
 
     if (!withoutNotifications) {
@@ -148,15 +138,14 @@ function* updateData({
 }
 
 function* updateProfile({
-  payload: { update, withoutNotifications },
+  payload: { withoutNotifications },
 }: ReturnType<typeof updateProfileAction>) {
-  const initialData = yield select(getProfileDataSelector);
+  const profile = yield select(getProfileDataSelector);
 
   yield call(updateData, {
     file: 'profile.json',
-    update,
+    update: profile,
     withoutNotifications,
-    initialData,
     notifications: {
       progress: 'Updating profile...',
       success: 'ProfilePage is successfully updated',
@@ -166,19 +155,14 @@ function* updateProfile({
 }
 
 function* updateSettings({
-  payload: { update, withoutNotifications },
+  payload: { withoutNotifications },
 }: ReturnType<typeof updateSettingsAction>) {
-  const { email, timeout, currency } = yield select(getSettingsSelector);
+  const settings = yield select(getSettingsSelector);
 
   yield call(updateData, {
     file: 'settings.json',
-    update,
+    update: settings,
     withoutNotifications,
-    initialData: {
-      email,
-      timeout,
-      currency,
-    },
     notifications: {
       progress: 'Updating settings...',
       success: 'Settings are successfully updated',

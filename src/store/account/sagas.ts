@@ -13,7 +13,6 @@ import {
   createAccount as createAccountAction,
   deleteAccount as deleteAccountAction,
   getAccountDetails as getAccountDetailsAction,
-  getChartData as getChartDataAction,
   getTransactionDetails as getTransactionDetailsAction,
   makeTransaction as makeTransactionAction,
   setAccounts,

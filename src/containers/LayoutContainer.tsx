@@ -2,7 +2,8 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { ApplicationState } from '../store';
+import { Themes } from '../store/user/types';
+import { getSettings } from '../store/user/selectors';
 import * as themes from '../styles/theme';
 
 interface Props {
@@ -10,9 +11,15 @@ interface Props {
 }
 
 const LayoutContainer: React.FC<Props> = ({ children }) => {
-  const { theme } = useSelector((state: ApplicationState) => state.layout);
+  const settings = useSelector(getSettings);
 
-  return <ThemeProvider theme={themes[theme]}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider
+      theme={settings.theme === Themes.light ? themes.light : themes.dark}
+    >
+      {children}
+    </ThemeProvider>
+  );
 };
 
 export default LayoutContainer;

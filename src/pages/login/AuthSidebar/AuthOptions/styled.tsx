@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../../store/layout/types';
+import { Theme } from '../../../../styles/types';
 
 export const Wrapper = styled.div`
   margin-bottom: 1.875rem;

@@ -13,4 +13,8 @@ export const Button = styled(CircleButton)`
     top: 2.625rem;
     right: 1.25rem;
   }
+
+  & > svg {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;

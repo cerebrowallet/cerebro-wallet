@@ -14,6 +14,7 @@ export const ToggleButton = styled.button`
   border: 0;
   text-align: left;
   padding: 0 1.25rem;
+  color: ${(props) => props.theme.colors.primary};
   border-bottom: 1px solid ${(props) => props.theme.colors.tertiary};
 
   &:focus {
@@ -26,7 +27,7 @@ export const ToggleButton = styled.button`
     height: 0.75rem;
     top: 0.875rem;
     right: 1.125rem;
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.colors.secondary};
     transition: transform 0.2s ease-in-out;
     transform: rotate(
       ${(props: { isMenuOpen: boolean }) =>
@@ -57,6 +58,7 @@ export const Option = styled.button`
   cursor: pointer;
   text-align: left;
   transition: background-color 0.2s ease-in-out;
+  color: ${(props) => props.theme.colors.primary};
 
   &:focus {
     outline: none;

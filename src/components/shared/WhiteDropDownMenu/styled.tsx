@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 
-import { Theme } from '../../../store/layout/types';
+import { Theme } from '../../../styles/types';
 
 export const Container = styled.span`
   position: relative;
@@ -25,6 +25,7 @@ export const Toggle = styled.button`
   text-align: ${(props: ToggleProps) =>
     props.position === 'right' ? 'right' : 'left'};
   padding: 0 0.925rem 0 0.1875rem;
+  color: ${(props: ToggleProps) => props?.theme?.colors.primary};
 
   &:focus {
     outline: none;
@@ -88,6 +89,7 @@ export const MenuItem = styled.button`
   margin-bottom: 0.3125rem;
   cursor: pointer;
   white-space: nowrap;
+  color: ${(props) => props?.theme?.colors.primary};
 
   &:last-child {
     margin-bottom: 0;

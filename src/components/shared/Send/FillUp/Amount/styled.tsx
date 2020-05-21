@@ -29,7 +29,6 @@ export const SendAllButton = styled.button`
 
 export const InputsContainer = styled.div`
   position: relative;
-  //overflow: hidden;
 
   @media (min-width: ${Breakpoints.sm}px) {
     display: flex;
@@ -38,7 +37,7 @@ export const InputsContainer = styled.div`
 `;
 
 export const AmountInCrypto = styled(CurrencyInput)`
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid ${(props) => props.theme.colors.tertiary};
   flex: 50%;
 
   input {
@@ -47,7 +46,7 @@ export const AmountInCrypto = styled(CurrencyInput)`
   }
 
   @media (min-width: ${Breakpoints.sm}px) {
-    border-right: 1px solid #fff;
+    border-right: 1px solid ${(props) => props.theme.colors.tertiary};
   }
 `;
 

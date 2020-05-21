@@ -5,7 +5,7 @@ import BasierCircleRegularWoff2 from './fonts/basiercircle-regular-webfont.woff2
 import BasierCircledSemiBoldWoff from './fonts/basiercircle-semibold-webfont.woff';
 import BasierCircleSemiBoldWoff2 from './fonts/basiercircle-semibold-webfont.woff2';
 
-import { Theme } from '../store/layout/types';
+import { Theme } from '../styles/types';
 
 const Globals = createGlobalStyle<{ theme: Theme }>`
   @font-face {
@@ -31,6 +31,7 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
     font-family: 'basier_circle', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: color .15s ease-in-out, background .15s ease-in-out;
   }
   
   #root > div {

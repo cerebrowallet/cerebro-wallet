@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { Theme } from '../store/layout/types';
+import { Theme } from '../styles/types';
 
 const Normalize = createGlobalStyle<{ theme: Theme }>`
   /* Box sizing rules */

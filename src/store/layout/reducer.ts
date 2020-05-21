@@ -1,18 +1,13 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { LayoutState, LayoutActionTypes, Themes } from './types';
+import { LayoutState, LayoutActionTypes } from './types';
 
-export const initialState: LayoutState = {
-  theme: Themes.light,
-};
+export const initialState: LayoutState = {};
 
 const reducer: Reducer<LayoutState> = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case LayoutActionTypes.SET_THEME:
-        draft.theme = action.payload;
-        break;
       case LayoutActionTypes.SHOW_NOTIFICATION:
         draft.notification = action.payload;
         break;

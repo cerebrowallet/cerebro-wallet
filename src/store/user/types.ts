@@ -28,11 +28,17 @@ export interface Profile {
   gender: Genders;
 }
 
+export enum Themes {
+  light,
+  dark,
+}
+
 export interface Settings {
   currency?: Currencies;
   timeout?: number;
   email?: string;
   emailSubscribeStatus?: Statuses;
+  theme: Themes;
 }
 
 export interface Update {

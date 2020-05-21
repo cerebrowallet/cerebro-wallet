@@ -15,6 +15,7 @@ import { Statuses, Coins } from '../../../dictionaries';
 import {
   getCreateTxResult,
   getRecommendedBTCFee,
+  getAccountsOptions,
 } from '../../../store/account/selectors';
 import {
   makeTransaction,
@@ -72,6 +73,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
   const recommendedFee = useSelector(getRecommendedBTCFee);
   const username = useSelector(getBlockstackUsername);
   const previousStep = usePrevious<SendSteps>(step) || 0;
+  const accountsOptions = useSelector(getAccountsOptions);
 
   const descriptions = {
     [SendSteps.fillUp]: {
@@ -136,7 +138,11 @@ const Send: React.FC<Props> = ({ accountId }) => {
     >
       <Formik
         initialValues={{
-          transferFrom: null,
+          transferFrom: accountId
+            ? (accountsOptions.find(
+                (option) => option.id === accountId
+              ) as TransferAccount)
+            : null,
           transferTo: null,
           transferToType: TransferToTypes.Address,
           amount: '',
