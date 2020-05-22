@@ -66,11 +66,11 @@ const TransactionDetails: React.FC<Props> = ({
         <TopUpHeader>
           <TopUpHeaderDetails>
             <h3>
-              {transaction.amount < 0 ? '— ' : ''}
+              {transaction.amount < 0 ? '-' : ''}
               {Math.abs(transaction.amount)} {account.coin}
             </h3>
             <span>
-              {transaction.amountInLocalCurrency < 0 ? '— ' : ''}
+              {transaction.amountInLocalCurrency < 0 ? '-' : ''}
               {settings.currency && CurrencySymbols[settings.currency]}
               {Math.abs(transaction.amountInLocalCurrency)}
             </span>
