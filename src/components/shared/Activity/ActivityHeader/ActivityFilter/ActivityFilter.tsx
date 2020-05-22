@@ -12,7 +12,7 @@ import { getActivityFilters } from '../../../../../store/user/selectors';
 
 import { Menu, Option, SubHeader, ToggleButton, Wrapper } from './styled';
 
-const SHOW_ALL = 'Show All';
+const SHOW_ALL = 'All';
 const UPDATES = 'Updates';
 
 interface Props extends RouteComponentProps<{ accountId: string }> {
@@ -117,7 +117,7 @@ const ActivityFilter: React.FC<Props> = ({ match, accountId }) => {
                   UPDATES
                 )}
               </Option>
-              <SubHeader>My Accounts</SubHeader>
+              <SubHeader>Accounts</SubHeader>
               {accounts
                 ? Object.values(accounts.byIds).map((account) => (
                     <Option
