@@ -3,7 +3,8 @@ import { SagaIterator } from 'redux-saga';
 
 import { getFile, putFile } from '../../utils/blockstack';
 import { callApi } from '../../utils/api';
-import { UserActionTypes } from './types';
+import { Themes, UserActionTypes } from './types';
+import { config } from '../../config';
 import {
   setProfileData,
   setSettings,
@@ -25,63 +26,64 @@ import {
   TimeOuts,
 } from '../../dictionaries';
 
-function* getData({
-  file,
-  initialState,
-  action,
-  notifications: { error },
-}: {
-  file: string;
-  initialState: any;
-  notifications: {
-    error: string;
-  };
-  action: (data: any) => any;
-}): SagaIterator {
+function* getProfileData() {
   try {
-    let data = yield call(getFile, file);
+    let profile = yield call(getFile, config.gaia.files.profile);
 
-    if (!data) {
-      throw new Error(`Error while loading ${file}`);
+    if (!profile) {
+      profile = {
+        gender: Genders.incognito,
+      };
+
+      yield call(putFile, {
+        fileName: config.gaia.files.profile,
+        file: profile,
+      });
     }
 
-    yield put(action(data));
+    yield put(setProfileData(profile));
   } catch (e) {
-    // TODO log error
     yield put(
       showNotification({
         type: NotificationTypes.Error,
-        text: error,
+        text: 'Error while getting profile',
       })
     );
+
+    // TODO log error
+    console.error(e);
   }
 }
 
-function* getProfileData() {
-  yield call(getData, {
-    file: 'profile.json',
-    initialState: {
-      gender: Genders.incognito,
-    },
-    notifications: {
-      error: 'Error while getting profile',
-    },
-    action: setProfileData,
-  });
-}
-
 function* getSettings() {
-  yield call(getData, {
-    file: 'settings.json',
-    initialState: {
-      currency: Currencies.USD,
-      timeout: TimeOuts.ThreeMinutes,
-    },
-    notifications: {
-      error: 'Error while getting settings',
-    },
-    action: setSettings,
-  });
+  try {
+    let settings = yield call(getFile, config.gaia.files.settings);
+
+    if (!settings) {
+      settings = {
+        currency: Currencies.USD,
+        timeout: TimeOuts.ThreeMinutes,
+        theme: Themes.light,
+      };
+
+      yield call(putFile, {
+        fileName: config.gaia.files.settings,
+        file: settings,
+      });
+    }
+
+    yield put(setSettings(settings));
+  } catch (e) {
+    yield put(
+      showNotification({
+        type: NotificationTypes.Error,
+        text: 'Error while getting settings',
+      })
+    );
+
+    // TODO log error
+    console.error(e);
+  }
 }
 
 function* updateData({
@@ -125,7 +127,6 @@ function* updateData({
       );
     }
   } catch (e) {
-    // TODO log error
     if (!withoutNotifications) {
       yield put(
         showNotification({
@@ -134,6 +135,9 @@ function* updateData({
         })
       );
     }
+
+    // TODO log error
+    console.error(e);
   }
 }
 
@@ -143,7 +147,7 @@ function* updateProfile({
   const profile = yield select(getProfileDataSelector);
 
   yield call(updateData, {
-    file: 'profile.json',
+    file: config.gaia.files.profile,
     update: profile,
     withoutNotifications,
     notifications: {
@@ -160,7 +164,7 @@ function* updateSettings({
   const settings = yield select(getSettingsSelector);
 
   yield call(updateData, {
-    file: 'settings.json',
+    file: config.gaia.files.settings,
     update: settings,
     withoutNotifications,
     notifications: {
