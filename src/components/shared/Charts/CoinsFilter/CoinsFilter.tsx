@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Coins } from '../../../../dictionaries';
 import { config } from '../../../../config';
 import { enumToArray } from '../../../../utils/common';
-import { getChartFilters } from '../../../../store/account/selectors';
+import { getChartsFilters } from '../../../../store/account/selectors';
 
 import { Container } from './styled';
 
@@ -24,7 +24,7 @@ const options = enumToArray(Coins).map(([key, value]) => ({
 }));
 
 const CoinsFilter: React.FC<Props> = ({ updateFilter }) => {
-  const filters = useSelector(getChartFilters);
+  const filters = useSelector(getChartsFilters);
 
   return (
     <Container>

@@ -5,14 +5,17 @@ const appConfig = new AppConfig(undefined, undefined, '/auth-callback');
 export const userSession = new UserSession({ appConfig });
 
 export const getFile = async (fileName: string) => {
-  const response = await userSession.getFile(fileName, { decrypt: true });
+  try {
+    const response = await userSession.getFile(fileName, { decrypt: true });
 
-  if (typeof response === 'string') {
-    return JSON.parse(response);
+    return typeof response === 'string' ? JSON.parse(response) : null;
+  } catch (e) {
+    return null;
   }
-
-  return response;
 };
+
+export const deleteFile = async (fileName: string) =>
+         userSession.deleteFile(fileName);
 
 export const putFile = async ({
   fileName,

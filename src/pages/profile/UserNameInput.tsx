@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { InputElement } from '../../components/forms/Input/styled';
 
-import { getProfileData } from '../../store/user/selectors';
+import { getProfile } from '../../store/user/selectors';
 import { updateProfile } from '../../store/user/actions';
-import { Profile } from '../../store/user/types';
 
 const UserNameInput: React.FC = () => {
   const dispatch = useDispatch();
-  const { username }: Profile = useSelector(getProfileData);
+  const profile = useSelector(getProfile);
+  const username = profile?.username;
   const [value, setValue] = useState<string | undefined>(username || '');
   const inputEl = useRef<HTMLInputElement>(null);
 

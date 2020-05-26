@@ -7,9 +7,9 @@ import DropDown from './DropDown';
 import { DropDownProps } from './DropDown';
 
 interface AccountOption {
-  name: string;
   id: string;
-  balance: string;
+  name: string;
+  balance: number;
   address: string;
 }
 

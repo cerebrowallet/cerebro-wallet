@@ -40,7 +40,7 @@ export const Button = styled(animated.button)`
 `;
 
 interface SubscribeStatusProps {
-  status?: Statuses;
+  status: Statuses | null;
   theme?: Theme;
 }
 

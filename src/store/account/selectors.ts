@@ -1,81 +1,85 @@
-import { createSelector } from 'reselect';
+import { createSelector, defaultMemoize } from 'reselect';
 import { set } from 'date-fns';
 
 import { ApplicationState } from '../index';
-import { Account, Activities, Transaction, TransactionActivity } from './types';
+import { Activities, Transaction, TransactionActivity } from './types';
 import {
   ActivityFilterTypes,
   ActivityTypes,
-  Coins,
   CurrencySymbols,
+  Coins,
 } from '../../dictionaries';
 import { getActivityFilters, getSettings, getUpdates } from '../user/selectors';
 import { groupBy, round } from '../../utils/common';
+import { config } from '../../config';
+
+function calcAccountBalance(txsMap?: { [txHash: string]: Transaction }) {
+  return txsMap
+    ? Object.values(txsMap).reduce((total, tx) => (total += tx.amount), 0)
+    : 0;
+}
 
 export const getAccounts = (state: ApplicationState) => state.account.accounts;
-export const getAccountsList = createSelector(getAccounts, (accounts) =>
-  accounts
-    ? accounts.allIds.reduce((list: Account[], accountId: string) => {
-        const l = list;
-        l.push(accounts.byIds[accountId]);
-        return l;
-      }, [])
-    : []
-);
+export const getTxs = (state: ApplicationState) => state.account.txs;
 export const getExchangeRates = (state: ApplicationState) =>
   state.account.rates;
-export const getAccountsOptions = createSelector(
-  [getAccountsList, getSettings, getExchangeRates],
-  (list, settings, rates) =>
-    list.map((account: Account) => {
-      let balance = `${account.balance} ${account.coin}`;
+export const getAccountById = defaultMemoize((accountId?: string) =>
+  createSelector([getAccounts, getTxs], (accounts, txs) => {
+    if (!accountId || !accounts?.byIds[accountId]) {
+      return null;
+    }
 
-      if (settings.currency && rates) {
-        balance += ` / ${CurrencySymbols[settings.currency]}${round(
-          account.balance * rates[account.coin][settings.currency]
-        )}`;
-      }
-
-      return {
-        name: account.name,
-        address: account.address,
-        id: account.id,
-        coin: account.coin,
-        balance,
-      };
-    })
+    return {
+      ...accounts.byIds[accountId],
+      balance: calcAccountBalance(txs[accountId]?.byIds),
+    };
+  })
 );
-export const getAccountById = (accountId?: string | null) =>
-  createSelector(getAccounts, (accounts) =>
-    accounts && accountId ? accounts.byIds[accountId] : null
-  );
-export const getExchangeRate = (coin: Coins) =>
-  createSelector([getExchangeRates, getSettings], (rates, settings) => {
-    const currency = settings.currency;
-
-    if (!currency || !rates || !rates[coin]) {
-      return 0;
-    }
-
-    return rates[coin][currency];
-  });
+export const getAccountTxs = (accountId: string) => (state: ApplicationState) =>
+  state.account.txs[accountId];
 export const getTotalBalance = createSelector(
-  [getAccounts, getExchangeRates, getSettings],
-  (accounts, rates, settings) => {
-    if (!accounts || !rates) {
-      return 0;
+  [getAccounts, getTxs, getSettings, getExchangeRates],
+  (accounts, txs, settings, rates) =>
+    accounts && rates && settings
+      ? round(
+          accounts.allIds.reduce(
+            (total, accountId) =>
+              (total +=
+                calcAccountBalance(txs[accountId]?.byIds) *
+                rates[accounts.byIds[accountId].coin][settings.currency]),
+            0
+          )
+        )
+      : null
+);
+export const getAccountsListWithBalance = createSelector(
+  [getAccounts, getTxs],
+  (accounts, txs) => {
+    return (
+      accounts &&
+      accounts.allIds.map((accountId: string) => ({
+        id: accountId,
+        name: accounts.byIds[accountId].name,
+        address: accounts.byIds[accountId].address,
+        balance: txs[accountId] ? calcAccountBalance(txs[accountId].byIds) : 0,
+        coin: accounts.byIds[accountId].coin,
+      }))
+    );
+  }
+);
+export const getAccountsListWithDescText = createSelector(
+  [getAccountsListWithBalance, getSettings, getExchangeRates],
+  (accountsList, settings, rates) => {
+    if (!accountsList || !settings || !rates) {
+      return null;
     }
 
-    return round(
-      accounts.allIds.reduce((acc, accountId) => {
-        let balance = acc;
-        const account = accounts.byIds[accountId];
-        balance += settings.currency
-          ? account.balance * rates[account.coin][settings.currency]
-          : 0;
-        return balance;
-      }, 0)
-    );
+    return accountsList.map((account) => ({
+      ...account,
+      descText: `${account.balance} ${config.coins[account.coin].abbr} / ${
+        CurrencySymbols[settings.currency]
+      }${round(account.balance * rates[account.coin][settings.currency])}`,
+    }));
   }
 );
 export const getSearchByHashStr = (state: ApplicationState) =>
@@ -83,69 +87,66 @@ export const getSearchByHashStr = (state: ApplicationState) =>
 export const getActivities = createSelector(
   [
     getActivityFilters,
-    getAccountsList,
+    getAccounts,
+    getTxs,
     getUpdates,
     getSettings,
     getExchangeRates,
     getSearchByHashStr,
   ],
-  (filters, accounts, updates, settings, rates, searchByHashStr) => {
+  (filters, accounts, txs, updates, settings, rates, searchByHashStr) => {
+    if (!accounts || !rates || !settings) {
+      return null;
+    }
+
     let results: Activities[] = [];
 
-    if (filters.type !== ActivityFilterTypes.Updates && accounts) {
-      accounts.forEach((account) => {
+    if (filters.type !== ActivityFilterTypes.Updates) {
+      accounts.allIds.forEach((accountId: string) => {
         if (
           filters.type === ActivityFilterTypes.Account &&
-          filters.value !== account.id
+          filters.value !== accountId
         ) {
           return;
         }
 
-        if (account.transactions) {
-          const transactions: Transaction[] = Object.values(
-            account.transactions.byIds
-          );
+        const account = accounts.byIds[accountId];
+        const accountTxs = txs[accountId]?.byIds
+          ? Object.values(txs[accountId].byIds)
+          : [];
 
-          const activities: TransactionActivity[] = transactions.reduce(
-            (transactions: TransactionActivity[], transaction: Transaction) => {
-              const acc = transactions;
+        const activities: TransactionActivity[] = accountTxs.reduce(
+          (transactions: TransactionActivity[], tx: Transaction) => {
+            const acc = transactions;
 
-              if (
-                searchByHashStr &&
-                !transaction.hash
-                  .toLowerCase()
-                  .includes(searchByHashStr.toLowerCase()) &&
-                !account.address
-                  .toLowerCase()
-                  .includes(searchByHashStr.toLowerCase())
-              ) {
-                return acc;
-              }
-
-              acc.push({
-                id: transaction.hash,
-                type: ActivityTypes.Transaction,
-                amount:
-                  rates && settings.currency
-                    ? round(
-                        transaction.amount *
-                          rates[account.coin][settings.currency]
-                      )
-                    : 0,
-                hash: transaction.hash,
-                accountId: account.id,
-                comment: transaction.comment,
-                date: new Date(transaction.date),
-                coin: account.coin,
-              });
-
+            if (
+              searchByHashStr &&
+              !tx.hash.toLowerCase().includes(searchByHashStr.toLowerCase()) &&
+              !account.address
+                .toLowerCase()
+                .includes(searchByHashStr.toLowerCase())
+            ) {
               return acc;
-            },
-            []
-          );
+            }
 
-          results = results.concat(activities);
-        }
+            acc.push({
+              id: tx.hash,
+              type: ActivityTypes.Transaction,
+              amount: tx.amount,
+              amountInLocal: tx.amount * rates[account.coin][settings.currency],
+              hash: tx.hash,
+              accountId: account.id,
+              comment: account?.txComments?.[tx.hash] || '',
+              date: new Date(tx.date),
+              coin: account.coin,
+            });
+
+            return acc;
+          },
+          []
+        );
+
+        results = results.concat(activities);
       });
     }
 
@@ -180,7 +181,7 @@ export const getActivities = createSelector(
             dayActivities.reduce((sum, activity) => {
               if (activity.type === ActivityTypes.Transaction) {
                 const transaction = activity as TransactionActivity;
-                return (sum += transaction.amount);
+                return (sum += transaction.amountInLocal);
               }
 
               return sum;
@@ -193,50 +194,24 @@ export const getActivities = createSelector(
     );
   }
 );
-export const getTransactionById = (accountId: string, transactionId?: string) =>
-  createSelector(
-    [getAccounts, getExchangeRates, getSettings],
-    (accounts, rates, settings) => {
-      if (!transactionId) {
-        return null;
-      }
-
-      const account = accounts && accounts.byIds[accountId];
-
-      if (!account || !settings || !rates) {
-        return null;
-      }
-
-      return account.transactions && account.transactions.byIds[transactionId]
-        ? {
-            ...account.transactions.byIds[transactionId],
-            amountInLocalCurrency: settings.currency
-              ? round(
-                  account.transactions.byIds[transactionId].amount *
-                    rates[account.coin][settings.currency]
-                )
-              : 0,
-          }
-        : null;
-    }
-  );
+export const getTxByHash = defaultMemoize((accountId: string, txHash: string) =>
+  createSelector(getTxs, (txs) => txs?.[accountId]?.byIds?.[txHash] || null)
+);
 export const getRecommendedBTCFee = (state: ApplicationState) =>
   state.account.recommendedBTCFee;
-export const getTxComment = (accountId: string, txHash: string) =>
-  createSelector(getAccountById(accountId), (account) => {
-    if (
-      !account ||
-      !account?.transactions?.byIds[txHash] ||
-      !account?.transactions?.byIds[txHash].comment
-    ) {
-      return '';
-    }
+export const getTxComment = defaultMemoize(
+  (accountId: string, txHash: string) =>
+    createSelector(getAccountById(accountId), (account) => {
+      if (account?.txComments?.[txHash]) {
+        return account.txComments[txHash];
+      }
 
-    return account.transactions.byIds[txHash].comment;
-  });
+      return '';
+    })
+);
 export const getCreateTxResult = (state: ApplicationState) =>
   state.account.createTxResult;
-export const getChartData = createSelector(
+export const getCharts = createSelector(
   [(state: ApplicationState) => state.account.chart, getSettings],
   (chart, settings) => {
     if (!chart.data || !settings) {
@@ -250,7 +225,7 @@ export const getChartData = createSelector(
     return chart.data[coinA].map((item, i) => {
       const point = {
         dateTime: item.dateTime,
-        currency: settings.currency ? CurrencySymbols[settings.currency] : '',
+        currency: CurrencySymbols[settings.currency],
         [coinA]: item.value,
       };
 
@@ -262,5 +237,10 @@ export const getChartData = createSelector(
     });
   }
 );
-export const getChartFilters = (state: ApplicationState) =>
+export const getChartsFilters = (state: ApplicationState) =>
   state.account.chart.filters;
+export const getExchangeRate = defaultMemoize((coin?: Coins) =>
+  createSelector([getExchangeRates, getSettings], (rates, settings) =>
+    rates && settings && coin ? rates[coin][settings.currency] : 0
+  )
+);

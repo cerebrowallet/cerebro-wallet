@@ -3,14 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { format } from 'date-fns';
 
-import {
-  getAccountById,
-  getTransactionById,
-} from '../../../store/account/selectors';
-import { getSettings } from '../../../store/user/selectors';
-import { getTransactionDetails } from '../../../store/account/actions';
-import { CurrencySymbols } from '../../../dictionaries';
+import { getAccountById, getTxByHash } from '../../../store/account/selectors';
+import { getTxDetails } from '../../../store/account/actions';
 import { config } from '../../../config';
+import { usePrevious } from '../../../utils/hooks';
 
 import {
   TopUp,
@@ -31,6 +27,8 @@ import Hash from '../Hash/Hash';
 import CopyText from '../CopyText/CopyText';
 import ExternalLink from '../ExternalLink/ExternalLink';
 import TxComment from './TxComment/TxComment';
+import FormatAmount from '../FormatAmount';
+import { Transaction } from '../../../store/account/types';
 
 interface Props extends RouteComponentProps {
   accountId: string;
@@ -45,18 +43,25 @@ const TransactionDetails: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const account = useSelector(getAccountById(accountId));
-  const transaction = useSelector(getTransactionById(accountId, txHash));
-  const settings = useSelector(getSettings);
+  const tx = useSelector(getTxByHash(accountId, txHash));
+  const previous = usePrevious<{ tx: Transaction; account: Account }>({
+    tx,
+    account,
+  });
 
   useEffect(() => {
-    if (account && account.transactions && account.transactions.byIds[txHash]) {
-      dispatch(getTransactionDetails({ accountId, txHash }));
-    } else {
+    if (account === null || tx === null) {
       history.push(`${match.path.split(':accountId')[0]}${accountId}`);
     }
-  }, [accountId, txHash, account, dispatch, history, match.path]);
+  }, [account, tx, history, match.path, accountId]);
 
-  if (!account || !transaction) {
+  useEffect(() => {
+    if (!previous?.tx && tx) {
+      dispatch(getTxDetails({ accountId, txHash }));
+    }
+  }, [previous, tx, accountId, txHash, dispatch]);
+
+  if (!account || !tx) {
     return null;
   }
 
@@ -66,13 +71,11 @@ const TransactionDetails: React.FC<Props> = ({
         <TopUpHeader>
           <TopUpHeaderDetails>
             <h3>
-              {transaction.amount < 0 ? '— ' : ''}
-              {Math.abs(transaction.amount)} {account.coin}
+              {tx.amount < 0 ? '— ' : ''}
+              {Math.abs(tx.amount)} {account.coin}
             </h3>
             <span>
-              {transaction.amountInLocalCurrency < 0 ? '— ' : ''}
-              {settings.currency && CurrencySymbols[settings.currency]}
-              {Math.abs(transaction.amountInLocalCurrency)}
+              <FormatAmount coin={account.coin} amount={Math.abs(tx.amount)} />
             </span>
           </TopUpHeaderDetails>
           <TopUpHeaderIcon>
@@ -81,17 +84,17 @@ const TransactionDetails: React.FC<Props> = ({
         </TopUpHeader>
         <AdditionalInfo>
           <AdditionalInfoDate label="Date">
-            {format(new Date(transaction.date), 'h:mm aaaa MMM d, yyyy')}
+            {format(new Date(tx.date), 'h:mm aaaa MMM d, yyyy')}
           </AdditionalInfoDate>
           <AdditionalInfoComment label="Comment">
-            <TxComment accountId={accountId} txHash={transaction.hash} />
+            <TxComment accountId={accountId} txHash={tx.hash} />
           </AdditionalInfoComment>
         </AdditionalInfo>
       </TopUp>
       <Details>
         <LabeledText label="Status">
-          {Number.isInteger(transaction.confirmations) ? (
-            transaction.confirmations > 0 ? (
+          {tx.confirmations ? (
+            tx.confirmations > 0 ? (
               'Success'
             ) : (
               'Unconfirmed'
@@ -101,16 +104,12 @@ const TransactionDetails: React.FC<Props> = ({
           )}
         </LabeledText>
         <LabeledText label="Confirmations">
-          {Number.isInteger(transaction.confirmations) ? (
-            transaction.confirmations
-          ) : (
-            <Placeholder />
-          )}
+          {tx.confirmations ? tx.confirmations : <Placeholder />}
         </LabeledText>
         <LabeledText label="Network fee">
-          {transaction.fee ? (
+          {tx.fee ? (
             <>
-              {transaction.fee} {account.coin}
+              {tx.fee} {account.coin}
             </>
           ) : (
             <Placeholder />
@@ -118,18 +117,18 @@ const TransactionDetails: React.FC<Props> = ({
         </LabeledText>
       </Details>
       <LabeledText label="From">
-        {transaction.from ? (
-          <CopyText value={transaction.from}>
-            <Hash breakAll value={transaction.from} />
+        {tx.from ? (
+          <CopyText value={tx.from}>
+            <Hash breakAll value={tx.from} />
           </CopyText>
         ) : (
           <Placeholder />
         )}
       </LabeledText>
       <LabeledText label="To">
-        {transaction.to ? (
-          <CopyText value={transaction.to}>
-            <Hash breakAll value={transaction.to} />
+        {tx.to ? (
+          <CopyText value={tx.to}>
+            <Hash breakAll value={tx.to} />
           </CopyText>
         ) : (
           <Placeholder />
@@ -138,10 +137,10 @@ const TransactionDetails: React.FC<Props> = ({
       <LabeledText label="Hash">
         <ExternalLink
           to={`${config.coins[account.coin].explorerUrl}/transaction/${
-            transaction.hash
+            tx.hash
           }`}
         >
-          <Hash breakAll value={transaction.hash} />
+          <Hash breakAll value={tx.hash} />
         </ExternalLink>
       </LabeledText>
     </PageContent>

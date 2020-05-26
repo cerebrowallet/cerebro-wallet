@@ -20,7 +20,7 @@
     "big.js": "^5.2.2",
     "bip39": "^3.0.2",
     "bitcoinjs-lib": "^5.1.7",
-    "blockstack": "^19.3.0",
+    "blockstack": "^21.0.0",
     "connected-react-router": "^6.6.1",
     "date-fns": "^2.8.1",
     "formik": "^2.0.4",

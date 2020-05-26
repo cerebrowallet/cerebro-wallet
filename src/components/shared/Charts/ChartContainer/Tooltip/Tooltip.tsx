@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Tooltip: React.FC<Props> = ({ active, payload }) => {
-  if (!active || !payload) {
+  if (!active || !payload || payload.length === 0) {
     return null;
   }
 

@@ -23,7 +23,7 @@ export const getBlockstackAvatarUrl = createSelector(
       ? userData.profile.image[0].contentUrl
       : null
 );
-export const getProfileData = (state: ApplicationState) => state.user.profile;
+export const getProfile = (state: ApplicationState) => state.user.profile;
 export const getSettings = (state: ApplicationState) => state.user.settings;
 export const getGendersList = () =>
   Array.from(enumToMap(Genders).entries()).map(([id, name]) => ({
@@ -56,3 +56,5 @@ export const getTimeoutsList = () =>
 export const getActivityFilters = (state: ApplicationState) =>
   state.user.activityFilters;
 export const getUpdates = (state: ApplicationState) => state.user.updates;
+export const getEmailSubscribeStatus = (state: ApplicationState) =>
+  state.user.emailSubscribeStatus;

@@ -1,25 +1,20 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { Themes, UserActionTypes, UserState } from './types';
-import { Genders, ActivityFilterTypes } from '../../dictionaries';
-
-export const profileInitialState = {
-  gender: Genders.incognito,
-};
-
-export const settingsInitialState = {
-  theme: Themes.light,
-};
+import { UserActionTypes, UserState } from './types';
+import {
+  ActivityFilterTypes,
+} from '../../dictionaries';
 
 const initialState: UserState = {
-  profile: profileInitialState,
-  settings: settingsInitialState,
+  profile: null,
+  settings: null,
   activityFilters: {
     type: ActivityFilterTypes.ShowAll,
     value: null,
     search: null,
   },
+  emailSubscribeStatus: null,
   updates: null,
 };
 
@@ -29,17 +24,13 @@ const reducer: Reducer<UserState> = (
 ) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case UserActionTypes.LOG_IN:
-        return draft;
-      case UserActionTypes.LOG_OUT:
-        return draft;
       case UserActionTypes.SET_USER_DATA:
         draft.userData = action.payload;
         break;
       case UserActionTypes.SET_SETTINGS:
         draft.settings = action.payload;
         break;
-      case UserActionTypes.SET_PROFILE_DATA:
+      case UserActionTypes.SET_PROFILE:
         draft.profile = action.payload;
         break;
       case UserActionTypes.UPDATE_SETTINGS:
@@ -55,10 +46,12 @@ const reducer: Reducer<UserState> = (
         };
         break;
       case UserActionTypes.SET_SUBSCRIBE_ON_NEWS_STATUS:
-        draft.settings.emailSubscribeStatus = action.payload.status;
+        draft.emailSubscribeStatus = action.payload;
         break;
       case UserActionTypes.SUBSCRIBE_ON_NEWS:
-        draft.settings.email = action.payload;
+        if (draft.settings) {
+          draft.settings.email = action.payload;
+        }
         break;
       case UserActionTypes.SET_ACTIVITY_FILTER_TYPE:
         draft.activityFilters = {

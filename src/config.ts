@@ -50,10 +50,13 @@ export interface Config {
       accounts: string;
       profile: string;
       settings: string;
+      mnemonic: string;
+      privateKeys: string;
+      coinLastIndexes: string;
     };
   };
   getCoursesApiUrl: string;
-  getChartDataApiUrl: string;
+  getChartsApiUrl: string;
   getRecommendedBTCLikeFeesApiUrl: string;
   supportEmail: string;
 }
@@ -101,13 +104,16 @@ const config: Config = {
   },
   gaia: {
     files: {
+      accounts: 'accounts.json',
       settings: 'settings.json',
       profile: 'profile.json',
-      accounts: 'accounts.json',
+      mnemonic: 'mnemonic.json',
+      privateKeys: 'privateKeys.json',
+      coinLastIndexes: 'coinLastIndexes.json',
     },
   },
   getCoursesApiUrl: 'https://min-api.cryptocompare.com/data/pricemulti',
-  getChartDataApiUrl: 'https://min-api.cryptocompare.com/data/v2',
+  getChartsApiUrl: 'https://min-api.cryptocompare.com/data/v2',
   getRecommendedBTCLikeFeesApiUrl:
     'https://bitcoinfees.earn.com/api/v1/fees/recommended',
   supportEmail: 'support@cerebrowallet.com',

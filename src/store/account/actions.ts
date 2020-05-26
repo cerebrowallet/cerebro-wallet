@@ -3,25 +3,28 @@ import { action } from 'typesafe-actions';
 import { Coins, Statuses, ChartPeriods } from '../../dictionaries';
 import {
   AccountActionTypes,
-  Account,
   ExchangeRates,
   UpdateAccountActionPayload,
+  Accounts,
+  Transactions,
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 
 export const getAccounts = () => action(AccountActionTypes.GET_ACCOUNTS);
-export const setAccounts = (accounts: {
-  allIds: string[];
-  byIds: { [accountId: string]: Account };
-}) => action(AccountActionTypes.SET_ACCOUNTS, accounts);
+export const setAccounts = (accounts: Accounts) =>
+  action(AccountActionTypes.SET_ACCOUNTS, accounts);
+export const getAccountTxs = (accountId: string) =>
+  action(AccountActionTypes.GET_ACCOUNT_TXS, { accountId });
+export const setAccountTxs = (accountId: string, txs: Transactions) =>
+  action(AccountActionTypes.SET_ACCOUNT_TXS, { accountId, txs });
 export const createAccount = (payload: Coins) =>
   action(AccountActionTypes.CREATE_ACCOUNT, payload);
 export const updateAccount = (payload: UpdateAccountActionPayload) =>
   action(AccountActionTypes.UPDATE_ACCOUNT, payload);
-export const updateAccountInGaia = (payload: UpdateAccountActionPayload) =>
-  action(AccountActionTypes.UPDATE_ACCOUNT_IN_GAIA, payload);
-export const deleteAccount = (payload: string) =>
-  action(AccountActionTypes.DELETE_ACCOUNT, payload);
+export const addAccount = (account: Partial<Account>) =>
+  action(AccountActionTypes.ADD_ACCOUNT, account);
+export const deleteAccount = (accountId: string, accountName: string) =>
+  action(AccountActionTypes.DELETE_ACCOUNT, { accountId, accountName });
 export const getExchangeRates = () =>
   action(AccountActionTypes.GET_EXCHANGE_RATES);
 export const setExchangeRates = (rates: ExchangeRates) =>
@@ -30,16 +33,19 @@ export const getAccountDetails = (payload: string) =>
   action(AccountActionTypes.GET_ACCOUNT_DETAILS, payload);
 export const searchActivityByHash = (searchStr: string) =>
   action(AccountActionTypes.SEARCH_ACTIVITY_BY_HASH, searchStr);
-export const getTransactionDetails = (payload: {
-  accountId: string;
-  txHash: string;
-}) => action(AccountActionTypes.GET_TRANSACTION_DETAILS, payload);
+export const getTxDetails = (payload: { accountId: string; txHash: string }) =>
+  action(AccountActionTypes.GET_TX_DETAILS, payload);
 export const getRecommendedBTCFee = () =>
   action(AccountActionTypes.GET_RECOMMENDED_BTC_FEE);
 export const setRecommendedBTCFee = (payload: any) =>
   action(AccountActionTypes.SET_RECOMMENDED_BTC_FEE, payload);
-export const makeTransaction = (payload: TxDraftFormValues) =>
-  action(AccountActionTypes.MAKE_TRANSACTION, payload);
+export const makeTx = (payload: TxDraftFormValues) =>
+  action(AccountActionTypes.MAKE_TX, payload);
+export const updateTx = (
+  accountId: string,
+  txHash: string,
+  update: { [name: string]: any }
+) => action(AccountActionTypes.UPDATE_TX, { accountId, txHash, update });
 export const addTx = (payload: {
   accountId: string;
   tx: {
@@ -61,14 +67,16 @@ export const addTxCommentConfirm = (payload: {
 export const setCreateTxResult = (
   payload: { status: Statuses; txHash?: string } | null
 ) => action(AccountActionTypes.SET_CREATE_TX_RESULT, payload);
-export const getChartData = (payload: {
+export const getCharts = (payload: {
   coinA?: Coins;
   coinB?: Coins;
   period?: ChartPeriods;
-}) => action(AccountActionTypes.GET_CHART_DATA, payload);
-export const setChartData = (
+}) => action(AccountActionTypes.GET_CHARTS, payload);
+export const setCharts = (
   payload: {
     [coin: string]: { dateTime: number; value: number }[];
   } | null
-) => action(AccountActionTypes.SET_CHART_DATA, payload);
-export const resetChart = () => action(AccountActionTypes.RESET_CHART);
+) => action(AccountActionTypes.SET_CHARTS, payload);
+export const resetChart = () => action(AccountActionTypes.RESET_CHARTS);
+export const exportPrivateKey = () =>
+  action(AccountActionTypes.EXPORT_PRIVATE_KEY);

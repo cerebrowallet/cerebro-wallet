@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { userSession } from '../../utils/blockstack';
 import {
-  getProfileData,
+  getProfile,
   getSettings,
   setUserData,
 } from '../../store/user/actions';
@@ -18,7 +18,7 @@ const AuthenticatedWrapper: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
-      dispatch(getProfileData());
+      dispatch(getProfile());
       dispatch(getSettings());
       dispatch(setUserData(userSession.loadUserData()));
       dispatch(getAccounts());

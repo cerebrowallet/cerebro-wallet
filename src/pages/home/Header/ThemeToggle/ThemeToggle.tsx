@@ -10,6 +10,10 @@ const ThemeToggle: React.FC = () => {
   const dispatch = useDispatch();
   const settings = useSelector(getSettings);
 
+  if (!settings) {
+    return null;
+  }
+
   return (
     <Button
       type="button"

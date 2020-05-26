@@ -42,7 +42,7 @@ const Confirm = React.forwardRef<HTMLDivElement, Props>(({ setStep }, ref) => {
   if (
     !transferFromAccount ||
     !transferToAddress ||
-    !settings.currency ||
+    !settings?.currency ||
     !rates
   ) {
     setStep(SendSteps.fillUp);

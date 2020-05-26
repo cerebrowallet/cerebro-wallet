@@ -17,26 +17,32 @@ const TotalBalance: React.FC = () => {
 
   return (
     <Container>
-      <Title>
-        Total balance
-        <WhiteDropDownMenu
-          selected={settings.currency}
-          menuItems={enumToArray(Currencies).map(([key, value]) => ({
-            name: key,
-            id: value,
-          }))}
-          onChange={(value: any) =>
-            dispatch(
-              updateSettings({
-                update: {
-                  currency: value,
-                },
-              })
-            )
-          }
-        />
-      </Title>
-      <Amount>{totalBalance}</Amount>
+      {settings && totalBalance !== null ? (
+        <>
+          <Title>
+            Total balance
+            <WhiteDropDownMenu
+              selected={settings.currency}
+              menuItems={enumToArray(Currencies).map(([key, value]) => ({
+                name: key,
+                id: value,
+              }))}
+              onChange={(value: any) =>
+                dispatch(
+                  updateSettings({
+                    update: {
+                      currency: value,
+                    },
+                  })
+                )
+              }
+            />
+          </Title>
+          <Amount>{totalBalance}</Amount>
+        </>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

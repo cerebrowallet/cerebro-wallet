@@ -11,12 +11,14 @@ import {
   Trash as TrashIcon,
 } from 'react-feather';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { useSelector } from 'react-redux';
 
 import { Breakpoints } from '../../../dictionaries';
 import { useWindowSize } from '../../../utils/hooks';
 import { ActionButton } from './styled';
 import { config } from '../../../config';
 import { Account } from '../../../store/account/types';
+import { getAccountTxs } from '../../../store/account/selectors';
 
 interface Props extends RouteComponentProps {
   account: Account;
@@ -24,8 +26,9 @@ interface Props extends RouteComponentProps {
 
 const AccountActions: React.FC<Props> = ({ match, account }) => {
   const windowSize = useWindowSize();
+  const accountTxs = useSelector(getAccountTxs(account.id));
 
-  if (!account || (windowSize.width < Breakpoints.md && !match.isExact)) {
+  if (windowSize.width < Breakpoints.md && !match.isExact) {
     return null;
   }
 
@@ -56,9 +59,7 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
         descText="Trade your funds instantly"
       />
       <ActionButton
-        link={`/activity/${account.id}/${
-          account.transactions?.allIds[0] || ''
-        }`}
+        link={`/activity/${account.id}/${accountTxs?.allIds[0] || ''}`}
         icon={<ListIcon />}
         text="Transactions"
         descText="Your funds flow"

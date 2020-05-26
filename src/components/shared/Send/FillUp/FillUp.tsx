@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 
-import { getAccountsOptions } from '../../../../store/account/selectors';
+import { getAccountsListWithBalance } from '../../../../store/account/selectors';
 
 import { TxDraftFormValues, TransferToTypes } from '../Send';
 
@@ -23,7 +23,7 @@ interface Props {
 
 const FillUp: React.FC<Props> = ({ accountId, setStep }) => {
   const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
-  const accountsOptions = useSelector(getAccountsOptions);
+  const accountsOptions = useSelector(getAccountsListWithBalance);
 
   return (
     <div>
@@ -31,7 +31,7 @@ const FillUp: React.FC<Props> = ({ accountId, setStep }) => {
         <FormGroup label="From account">
           <AccountsDropDown
             required
-            options={accountsOptions}
+            options={accountsOptions || []}
             name="transferFrom"
             placeholder="Choose account"
             onChange={(value: any) => {

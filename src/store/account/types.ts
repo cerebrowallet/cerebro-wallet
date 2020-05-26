@@ -8,52 +8,62 @@ import {
 export enum AccountActionTypes {
   GET_ACCOUNTS = '@@account/get_accounts',
   SET_ACCOUNTS = '@@account/set_accounts',
+  GET_ACCOUNT_TXS = '@@account/get_account_txs',
+  SET_ACCOUNT_TXS = '@@account/set_account_txs',
   CREATE_ACCOUNT = '@@account/create_account',
+  CREATE_ACCOUNT_SUCCESS = '@@account/create_account_success',
+  CREATE_ACCOUNT_FAIL = '@@account/create_account_fail',
+  ADD_ACCOUNT = '@@account/add_account',
   UPDATE_ACCOUNT = '@@account/update_account',
   UPDATE_ACCOUNT_IN_GAIA = '@@account/update_account_in_gaia',
   DELETE_ACCOUNT = '@@account/delete_account',
+  DELETE_ACCOUNT_SUCCESS = '@@account/delete_account_success',
   GET_EXCHANGE_RATES = '@@account/get_exchange_rates',
   SET_EXCHANGE_RATES = '@@account/set_exchange_rates',
   GET_ACCOUNT_DETAILS = '@@account/get_account_details',
   SEARCH_ACTIVITY_BY_HASH = '@@account/search_activity_by_hash',
-  GET_TRANSACTION_DETAILS = '@@account/get_transaction_details',
+  GET_TX_DETAILS = '@@account/get_tx_details',
   GET_RECOMMENDED_BTC_FEE = '@@account/get_recommended_btc_fee',
   SET_RECOMMENDED_BTC_FEE = '@@account/set_recommended_btc_fee',
-  MAKE_TRANSACTION = '@account/make_transaction',
+  MAKE_TX = '@account/make_tx',
   ADD_TX = '@@account/add_tx',
+  UPDATE_TX = '@@account/update_tx',
   ADD_TX_COMMENT = '@@account/add_tx_comment',
   ADD_TX_COMMENT_CONFIRM = '@@account/add_tx_comment_confirm',
   SET_CREATE_TX_RESULT = '@@account/set_create_tx_result',
-  GET_CHART_DATA = '@@account/get_chart_data',
-  SET_CHART_DATA = '@@account/set_chart_data',
-  RESET_CHART = '@@account/reset_chart',
+  GET_CHARTS = '@@account/get_charts',
+  SET_CHARTS = '@@account/set_charts',
+  RESET_CHARTS = '@@account/reset_charts',
+  EXPORT_PRIVATE_KEY = '@@account/export_private_key',
 }
 
 export interface Transaction {
   hash: string;
   amount: number;
-  height: number;
-  confirmations: number;
   date: string;
-  spent: boolean;
+  height?: number;
+  confirmations?: number;
   comment?: string;
-  from: string;
-  to: string;
-  fee: string;
+  from?: string;
+  to?: string;
+  fee?: string;
+}
+
+export interface Transactions {
+  byIds: {
+    [txHash: string]: Transaction;
+  }
+  allIds: string[];
 }
 
 export interface Account {
-  address: string;
-  privateKey?: string;
-  name: string;
-  balance: number;
-  coin: Coins;
   id: string;
-  transactions?: {
-    byIds: {
-      [transactionId: string]: Transaction;
-    };
-    allIds: string[];
+  address: string;
+  name: string;
+  coin: Coins;
+  derivationPath: string;
+  txComments: {
+    [txHash: string]: string;
   };
 }
 
@@ -82,6 +92,9 @@ export interface ChartData {
 
 export interface AccountState {
   accounts: Accounts | null;
+  txs: {
+    [accountId: string]: Transactions;
+  };
   rates: ExchangeRates | null;
   searchActivityStr: string;
   recommendedBTCFee: number;
@@ -100,7 +113,6 @@ export interface UpdateAccountActionPayload {
   update: {
     [field: string]: any;
   };
-  saveToGaia?: boolean;
 }
 
 export interface Activity {
@@ -112,7 +124,7 @@ export interface Activity {
 export interface TransactionActivity extends Activity {
   accountId: string;
   amount: number;
-  amountInLocalCurrency?: number;
+  amountInLocal: number;
   coin: Coins;
   hash: string;
   comment?: string;

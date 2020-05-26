@@ -7,7 +7,7 @@ import blockStackIcon from '../../images/blockstack-icon.svg';
 
 import {
   getUserData,
-  getProfileData,
+  getProfile,
   getGendersList,
 } from '../../store/user/selectors';
 import { updateProfile } from '../../store/user/actions';
@@ -24,10 +24,10 @@ import CopyText from '../../components/shared/CopyText/CopyText';
 const ProfileDetails: React.FC = () => {
   const userData = useSelector(getUserData);
   const dispatch = useDispatch();
-  const { gender, username } = useSelector(getProfileData);
+  const profile = useSelector(getProfile);
   const genders = useSelector(getGendersList);
 
-  if (!userData) {
+  if (!userData || !profile) {
     return null;
   }
 
@@ -55,8 +55,8 @@ const ProfileDetails: React.FC = () => {
       <WhiteBlock>
         <Formik
           initialValues={{
-            username: username || '',
-            gender: genders.filter((g) => g.id === gender),
+            username: profile.username || '',
+            gender: genders.filter((g) => g.id === profile.gender),
           }}
           onSubmit={() => {}}
           enableReinitialize

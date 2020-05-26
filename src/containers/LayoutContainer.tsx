@@ -15,7 +15,11 @@ const LayoutContainer: React.FC<Props> = ({ children }) => {
 
   return (
     <ThemeProvider
-      theme={settings.theme === Themes.light ? themes.light : themes.dark}
+      theme={
+        !settings || settings.theme === Themes.light
+          ? themes.light
+          : themes.dark
+      }
     >
       {children}
     </ThemeProvider>
