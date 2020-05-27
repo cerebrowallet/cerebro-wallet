@@ -45,7 +45,6 @@ const Confirm = React.forwardRef<HTMLDivElement, Props>(({ setStep }, ref) => {
     !settings?.currency ||
     !rates
   ) {
-    setStep(SendSteps.fillUp);
     return null;
   }
 

@@ -15,7 +15,7 @@ import { syncDataToGaia } from '../../user/actions';
 import { SyncDataTypes, UserActionTypes } from '../../user/types';
 
 export default function* createAccountSaga({
-  payload: coin,
+  payload: { coin, type },
 }: ReturnType<typeof createAccount>) {
   try {
     yield put(
@@ -29,6 +29,7 @@ export default function* createAccountSaga({
 
     const mnemonic = yield call(getMnemonic);
     const { account, privateKey } = yield call(createWallet, {
+      type,
       coin,
       nextAccountIndex,
       mnemonic,
@@ -42,12 +43,12 @@ export default function* createAccountSaga({
     yield put(addAccount(account));
     yield put(syncDataToGaia({ dataType: SyncDataTypes.accounts }));
 
-    const { type, payload } = yield take([
+    const { type: syncResult, payload } = yield take([
       UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS,
       UserActionTypes.SYNC_DATA_TO_GAIA_ERROR,
     ]);
 
-    if (type === UserActionTypes.SYNC_DATA_TO_GAIA_ERROR) {
+    if (syncResult === UserActionTypes.SYNC_DATA_TO_GAIA_ERROR) {
       throw payload instanceof Error
         ? payload
         : new Error('Error on syncing accounts to Gaia');

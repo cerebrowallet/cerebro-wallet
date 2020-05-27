@@ -3,6 +3,7 @@ import { generateMnemonic, mnemonicToSeed } from 'bip39';
 import { v4 } from 'uuid';
 
 import { Coins } from '../dictionaries';
+import { AccountTypes } from '../store/account/types';
 import { config } from '../config';
 
 const coinTypes = {
@@ -12,21 +13,28 @@ const coinTypes = {
 
 export const createMnemonic = () => generateMnemonic();
 
+const methods = {
+  [AccountTypes.bech32]: bitcoin.payments.p2wpkh,
+  [AccountTypes.legacy]: bitcoin.payments.p2pkh,
+};
+
 export const createWallet = async ({
   coin,
   nextAccountIndex,
   mnemonic,
+  type,
 }: {
   coin: Coins;
   nextAccountIndex: number;
   mnemonic: string;
+  type: Partial<AccountTypes>;
 }) => {
   const seed = await mnemonicToSeed(mnemonic);
   const masterNode = bitcoin.bip32.fromSeed(seed, config.networks[coin]);
   const derivationPath = `m/84'/${coinTypes[coin]}'/${nextAccountIndex}'/0/0`;
   const account = masterNode.derivePath(derivationPath);
 
-  const { address } = bitcoin.payments.p2wpkh({
+  const { address } = methods[type]({
     pubkey: account.publicKey,
     network: config.networks[coin],
   });
@@ -34,6 +42,7 @@ export const createWallet = async ({
   return {
     account: {
       address,
+      type,
       coin: coin,
       id: v4(),
       balance: 0,

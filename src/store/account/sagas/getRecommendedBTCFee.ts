@@ -6,12 +6,12 @@ import { setRecommendedBTCFee } from '../actions';
 
 export default function* getRecommendedBTCFeeSaga() {
   try {
-    const { fastestFee } = yield call(callApi, {
+    const { hourFee } = yield call(callApi, {
       method: 'get',
       url: config.getRecommendedBTCLikeFeesApiUrl,
     });
 
-    yield put(setRecommendedBTCFee(fastestFee));
+    yield put(setRecommendedBTCFee(hourFee));
   } catch (e) {
     console.error(e);
   }

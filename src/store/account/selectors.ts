@@ -15,7 +15,10 @@ import { config } from '../../config';
 
 function calcAccountBalance(txsMap?: { [txHash: string]: Transaction }) {
   return txsMap
-    ? Object.values(txsMap).reduce((total, tx) => (total += tx.amount), 0)
+    ? round(
+        Object.values(txsMap).reduce((total, tx) => (total += tx.amount), 0),
+        8
+      )
     : 0;
 }
 
@@ -76,9 +79,11 @@ export const getAccountsListWithDescText = createSelector(
 
     return accountsList.map((account) => ({
       ...account,
-      descText: `${account.balance} ${config.coins[account.coin].abbr} / ${
-        CurrencySymbols[settings.currency]
-      }${round(account.balance * rates[account.coin][settings.currency])}`,
+      descText: `${round(account.balance, 8)} ${
+        config.coins[account.coin].abbr
+      } / ${CurrencySymbols[settings.currency]}${round(
+        account.balance * rates[account.coin][settings.currency]
+      )}`,
     }));
   }
 );

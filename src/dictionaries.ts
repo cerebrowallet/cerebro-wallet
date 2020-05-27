@@ -1,6 +1,6 @@
 export enum Coins {
   BTC = 'BTC',
-  BTC_TestNet = 'BTC_TestNet'
+  BTC_TestNet = 'BTC_TestNet',
 }
 
 export enum Currencies {
@@ -93,5 +93,7 @@ export enum ChartPeriods {
   Week = '1W',
   Month = '1M',
   ThreeMonth = '3M',
-  Year = '1Y'
+  Year = '1Y',
 }
+
+

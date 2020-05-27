@@ -56,8 +56,14 @@ export interface Transactions {
   allIds: string[];
 }
 
+export enum AccountTypes {
+  bech32 = 'bech32',
+  legacy = 'legacy',
+}
+
 export interface Account {
   id: string;
+  type: AccountTypes;
   address: string;
   name: string;
   coin: Coins;

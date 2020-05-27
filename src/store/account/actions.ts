@@ -7,6 +7,7 @@ import {
   UpdateAccountActionPayload,
   Accounts,
   Transactions,
+  AccountTypes,
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 
@@ -17,8 +18,8 @@ export const getAccountTxs = (accountId: string) =>
   action(AccountActionTypes.GET_ACCOUNT_TXS, { accountId });
 export const setAccountTxs = (accountId: string, txs: Transactions) =>
   action(AccountActionTypes.SET_ACCOUNT_TXS, { accountId, txs });
-export const createAccount = (payload: Coins) =>
-  action(AccountActionTypes.CREATE_ACCOUNT, payload);
+export const createAccount = (coin: Coins, type: AccountTypes) =>
+  action(AccountActionTypes.CREATE_ACCOUNT, { coin, type });
 export const updateAccount = (payload: UpdateAccountActionPayload) =>
   action(AccountActionTypes.UPDATE_ACCOUNT, payload);
 export const addAccount = (account: Partial<Account>) =>

@@ -106,11 +106,9 @@ const Send: React.FC<Props> = ({ accountId }) => {
     dispatch(getRecommendedBTCFeeAction());
 
     return () => {
-      if (createTxResult) {
-        setCreateTxResult(null);
-      }
+      setCreateTxResult(null);
     };
-  }, [createTxResult, dispatch]);
+  }, [dispatch]);
 
   const transitions = useTransition(step, (p) => p, {
     from: {

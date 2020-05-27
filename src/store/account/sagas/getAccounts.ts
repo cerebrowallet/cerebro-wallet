@@ -1,6 +1,6 @@
 import { all, call, put, take, select } from 'redux-saga/effects';
 
-import { AccountActionTypes, Accounts } from '../types';
+import { AccountActionTypes, Accounts, AccountTypes } from '../types';
 import { getFile } from '../../../utils/blockstack';
 import { config } from '../../../config';
 import { setAccounts, createAccount, getAccountTxs } from '../actions';
@@ -13,7 +13,7 @@ export default function* getAccountsSaga() {
     let accounts: Accounts = yield call(getFile, config.gaia.files.accounts);
 
     if (!accounts) {
-      yield put(createAccount(Coins.BTC));
+      yield put(createAccount(Coins.BTC, AccountTypes.bech32));
 
       const { type } = yield take([
         AccountActionTypes.CREATE_ACCOUNT_SUCCESS,
