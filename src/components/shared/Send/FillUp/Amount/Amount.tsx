@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import { TxDraftFormValues } from '../../Send';
 import {
   getAccountById,
-  getExchangeRates,
+  getExchangeRate,
 } from '../../../../../store/account/selectors';
 import { getSettings } from '../../../../../store/user/selectors';
 import { round, parseFloatStr } from '../../../../../utils/common';
@@ -29,12 +29,8 @@ enum Inputs {
 const Amount: React.FC = () => {
   const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
   const sendFromAccount = useSelector(getAccountById(values.transferFrom?.id));
-  const rates = useSelector(getExchangeRates);
   const settings = useSelector(getSettings);
-  const exchangeRate =
-    rates && sendFromAccount && settings && settings.currency
-      ? rates[sendFromAccount.coin][settings.currency]
-      : 0;
+  const exchangeRate = useSelector(getExchangeRate(sendFromAccount?.coin));
   const fee = parseFloat(values.fee);
 
   const validateInput = (inputName: Inputs) => (value: string) => {
@@ -73,6 +69,10 @@ const Amount: React.FC = () => {
 
     setFieldValue(inputToUpdate as never, newValue);
   };
+
+  if (!settings) {
+    return null;
+  }
 
   return (
     <Container label="Amount">

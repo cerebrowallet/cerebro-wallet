@@ -2,13 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { config } from '../../../config';
-import {
-  getAccountById,
-  getExchangeRates,
-} from '../../../store/account/selectors';
-import { round } from '../../../utils/common';
-import { getSettings } from '../../../store/user/selectors';
-import { CurrencySymbols } from '../../../dictionaries';
+import { getAccountById } from '../../../store/account/selectors';
 
 import {
   WhiteBlockDetails,
@@ -27,6 +21,7 @@ import Hash from '../../../components/shared/Hash/Hash';
 import Charts from '../../../components/shared/Charts/Charts';
 import PageContent from '../../../components/layout/PageContent/PageContent';
 import CopyText from '../../../components/shared/CopyText/CopyText';
+import FormatAmount from '../../../components/shared/FormatAmount';
 
 interface Props {
   accountId: string;
@@ -34,8 +29,6 @@ interface Props {
 
 const Details: React.FC<Props> = ({ accountId }) => {
   const account = useSelector(getAccountById(accountId));
-  const rates = useSelector(getExchangeRates);
-  const settings = useSelector(getSettings);
 
   if (!account) {
     return <Loader />;
@@ -54,10 +47,7 @@ const Details: React.FC<Props> = ({ accountId }) => {
             {account.balance} {config.coins[account.coin].abbr}
           </BalanceInCrypto>
           <BalanceInLocalCurrency>
-            {rates && settings.currency
-              ? round(account.balance * rates[account.coin][settings.currency])
-              : 0}
-            {settings.currency && CurrencySymbols[settings.currency]}
+            <FormatAmount amount={account.balance} coin={account.coin} />
           </BalanceInLocalCurrency>
         </Balance>
       </WhiteBlockDetails>
@@ -65,11 +55,6 @@ const Details: React.FC<Props> = ({ accountId }) => {
         <LabeledText label="Public address">
           <CopyText value={account.address}>
             <Hash breakAll value={account.address} />
-          </CopyText>
-        </LabeledText>
-        <LabeledText label="Legacy format">
-          <CopyText value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19">
-            <Hash breakAll value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19" />
           </CopyText>
         </LabeledText>
       </Addresses>

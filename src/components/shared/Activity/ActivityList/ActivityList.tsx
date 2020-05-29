@@ -3,10 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { ActivityTypes } from '../../../../dictionaries';
 import { getActivities } from '../../../../store/account/selectors';
-import {
-  TransactionActivity,
-  Activities,
-} from '../../../../store/account/types';
+import { TransactionActivity } from '../../../../store/account/types';
 
 import { SidebarTrackY } from '../../Scrollbar/styled';
 import { ActivityListContainer } from './styled';
@@ -16,10 +13,17 @@ import Transaction from './Transaction/Transaction';
 import DayTotals from './DayTotals/DayTotals';
 import Update from './Update/Update';
 import SwipeForMore from '../SwipeForMore/SwipeForMore';
-import NoActivities from "./NoActivities/NoActivities";
+import NoActivities from './NoActivities/NoActivities';
+import Loader from '../../Loader/Loader';
+import { getSettings } from '../../../../store/user/selectors';
 
 const ActivityList: React.FC = () => {
-  const activities: Activities[] = useSelector(getActivities);
+  const activities = useSelector(getActivities);
+  const settings = useSelector(getSettings);
+
+  if (!activities || !settings) {
+    return <Loader />;
+  }
 
   return (
     <ActivityListContainer>
@@ -35,6 +39,7 @@ const ActivityList: React.FC = () => {
                     key={key}
                     amount={activity.totalAmount}
                     date={activity.date}
+                    currency={settings.currency}
                   />
                 );
               }

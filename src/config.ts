@@ -13,6 +13,8 @@ const getCoinApiUrls = (chain: Chains) => ({
     `https://api.blockchair.com/${chain}/dashboards/address/${address}`,
   getTxInfo: (txHash: string) =>
     `https://api.blockchair.com/${chain}/dashboards/transaction/${txHash}`,
+  getRawTx: (txHash: string) =>
+    `https://api.blockchair.com/${chain}/raw/transaction/${txHash}`,
   broadcastTx: `https://api.blockchair.com/${chain}/push/transaction`,
   getBlockChainStats: `https://api.blockchair.com/${chain}/stats`,
 });
@@ -26,6 +28,7 @@ export interface Config {
       apiUrls: {
         getAddressInfo: (address: string) => string;
         getTxInfo: (hash: string) => string;
+        getRawTx: (hash: string) => string;
         broadcastTx: string;
         getBlockChainStats: string;
       };
@@ -50,10 +53,13 @@ export interface Config {
       accounts: string;
       profile: string;
       settings: string;
+      mnemonic: string;
+      privateKeys: string;
+      coinLastIndexes: string;
     };
   };
   getCoursesApiUrl: string;
-  getChartDataApiUrl: string;
+  getChartsApiUrl: string;
   getRecommendedBTCLikeFeesApiUrl: string;
   supportEmail: string;
 }
@@ -101,13 +107,16 @@ const config: Config = {
   },
   gaia: {
     files: {
+      accounts: 'accounts.json',
       settings: 'settings.json',
       profile: 'profile.json',
-      accounts: 'accounts.json',
+      mnemonic: 'mnemonic.json',
+      privateKeys: 'privateKeys.json',
+      coinLastIndexes: 'coinLastIndexes.json',
     },
   },
   getCoursesApiUrl: 'https://min-api.cryptocompare.com/data/pricemulti',
-  getChartDataApiUrl: 'https://min-api.cryptocompare.com/data/v2',
+  getChartsApiUrl: 'https://min-api.cryptocompare.com/data/v2',
   getRecommendedBTCLikeFeesApiUrl:
     'https://bitcoinfees.earn.com/api/v1/fees/recommended',
   supportEmail: 'support@cerebrowallet.com',

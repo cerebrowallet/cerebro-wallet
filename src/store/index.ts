@@ -7,11 +7,11 @@ import { layoutReducer } from './layout/reducer';
 import { LayoutState } from './layout/types';
 
 import { userReducer } from './user/reducer';
-import userSaga from './user/sagas';
+import userSaga from './user/sagas/index';
 import { UserState } from './user/types';
 
 import { accountReducer } from './account/reducer';
-import accountSaga from './account/sagas';
+import accountSaga from './account/sagas/index';
 import { AccountState } from './account/types';
 
 export interface ApplicationState {

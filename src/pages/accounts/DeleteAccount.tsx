@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Lock as LockIcon } from 'react-feather';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { deleteAccount } from '../../store/account/actions';
 import { getAccounts } from '../../store/account/selectors';
@@ -21,6 +22,7 @@ interface Props {
 
 const DeleteAccount: React.FC<Props> = ({ accountId }) => {
   const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
   const dispatch = useDispatch();
   const accounts = useSelector(getAccounts);
 
@@ -66,8 +68,9 @@ const DeleteAccount: React.FC<Props> = ({ accountId }) => {
         <ConfirmModal
           onCancel={hideModal}
           onConfirm={() => {
-            dispatch(deleteAccount(accountId));
             hideModal();
+            history.push('/');
+            dispatch(deleteAccount(accountId, account.name));
           }}
           account={account}
           description="To delete your account, we must be sure of safety. Enter account name:"

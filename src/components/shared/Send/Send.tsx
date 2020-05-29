@@ -15,12 +15,9 @@ import { Statuses, Coins } from '../../../dictionaries';
 import {
   getCreateTxResult,
   getRecommendedBTCFee,
-  getAccountsOptions,
+  getAccountsListWithBalance,
 } from '../../../store/account/selectors';
-import {
-  makeTransaction,
-  setCreateTxResult,
-} from '../../../store/account/actions';
+import { makeTx, setCreateTxResult } from '../../../store/account/actions';
 import { getBlockstackUsername } from '../../../store/user/selectors';
 
 import FillUp from './FillUp/FillUp';
@@ -41,7 +38,7 @@ export interface TransferAccount {
   name: string;
   address: string;
   id: string;
-  balance: string;
+  balance: number;
   coin: Coins;
 }
 
@@ -73,7 +70,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
   const recommendedFee = useSelector(getRecommendedBTCFee);
   const username = useSelector(getBlockstackUsername);
   const previousStep = usePrevious<SendSteps>(step) || 0;
-  const accountsOptions = useSelector(getAccountsOptions);
+  const accounts = useSelector(getAccountsListWithBalance);
 
   const descriptions = {
     [SendSteps.fillUp]: {
@@ -109,11 +106,9 @@ const Send: React.FC<Props> = ({ accountId }) => {
     dispatch(getRecommendedBTCFeeAction());
 
     return () => {
-      if (createTxResult) {
-        setCreateTxResult(null);
-      }
+      setCreateTxResult(null);
     };
-  }, [createTxResult, dispatch]);
+  }, [dispatch]);
 
   const transitions = useTransition(step, (p) => p, {
     from: {
@@ -139,8 +134,8 @@ const Send: React.FC<Props> = ({ accountId }) => {
       <Formik
         initialValues={{
           transferFrom: accountId
-            ? (accountsOptions.find(
-                (option) => option.id === accountId
+            ? ((accounts || []).find(
+                (account) => account.id === accountId
               ) as TransferAccount)
             : null,
           transferTo: null,
@@ -150,9 +145,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
           fee: recommendedFee.toString(),
         }}
         enableReinitialize
-        onSubmit={(values: TxDraftFormValues) =>
-          dispatch(makeTransaction(values))
-        }
+        onSubmit={(values: TxDraftFormValues) => dispatch(makeTx(values))}
       >
         {() => (
           <Form>

@@ -2,17 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTransition } from 'react-spring';
 import { useSelector } from 'react-redux';
 
-import { Account } from '../../../store/account/types';
-import {
-  getAccountsList,
-  getExchangeRates,
-} from '../../../store/account/selectors';
-import { getSettings } from '../../../store/user/selectors';
-import { config } from '../../../config';
+import { getAccountsListWithDescText } from '../../../store/account/selectors';
 import { MANAGE_ACCOUNT_ACTIONS } from '../../../menus';
 import { Wrapper, Content, Header, Grid, Button } from './styled';
-import { CurrencySymbols } from '../../../dictionaries';
-import { round } from '../../../utils/common';
 
 import CurrencyIcon from '../CurrencyIcon/CurrencyIcon';
 import AddAccountIcon from '../AddAccountIcon/AddAccountIcon';
@@ -40,14 +32,12 @@ const MyAccounts: React.FC = () => {
     };
   }, []);
 
-  const accounts: Account[] = useSelector(getAccountsList);
-  const rates = useSelector(getExchangeRates);
-  const settings = useSelector(getSettings);
+  const accounts = useSelector(getAccountsListWithDescText);
 
   const accountsTransitions = useTransition(
     show ? accounts : [],
     (item) => item.address,
-    getTransitionOptions(accounts.length)
+    getTransitionOptions(accounts ? accounts.length : 0)
   );
 
   const createAccountTransitions = useTransition(
@@ -69,13 +59,7 @@ const MyAccounts: React.FC = () => {
                 link={`/account/${item.id}`}
                 icon={<CurrencyIcon coin={item.coin} size="lg" />}
                 text={item.name}
-                descText={`${item.balance} ${config.coins[item.coin].abbr} / ${
-                  settings.currency && CurrencySymbols[settings.currency]
-                }${
-                  rates && settings.currency
-                    ? round(item.balance * rates[item.coin][settings.currency])
-                    : 0
-                }`}
+                descText={item.descText}
               />
             </MyAccountsButton>
           ))}

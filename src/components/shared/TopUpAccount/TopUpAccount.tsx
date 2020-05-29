@@ -4,25 +4,25 @@ import { Formik, Form } from 'formik';
 import { useSelector } from 'react-redux';
 
 import {
-  getAccountsList,
   getAccountById,
+  getAccountsListWithBalance,
 } from '../../../store/account/selectors';
 
+import AccountsDropDown from '../../forms/DropDown/AccountsDropDown';
 import FormGroup from '../../forms/FormGroup/FormGroup';
 import QRCode from './QRCode/QRCode';
 import LabeledText from '../LabeledText/LabeledText';
-import DropDown from '../../forms/DropDown/DropDown';
 import PageContent from '../../layout/PageContent/PageContent';
 import Hash from '../Hash/Hash';
 import WhiteBlock from '../WhiteBlock';
-import CopyText from '../../shared/CopyText/CopyText';
+import CopyText from '../CopyText/CopyText';
 
 interface Props {
   accountId?: string;
 }
 
 const TopUpAccount: React.FC<Props> = ({ accountId }) => {
-  const accounts = useSelector(getAccountsList);
+  const accounts = useSelector(getAccountsListWithBalance);
   const [selectedAccountId, setSelectedAccountId] = useState<
     string | undefined
   >(undefined);
@@ -49,8 +49,8 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
             {() => (
               <Form>
                 <FormGroup label="Account" className="form-group--no-margin">
-                  <DropDown
-                    options={accounts}
+                  <AccountsDropDown
+                    options={accounts || []}
                     name="accountId"
                     onChange={({ id }) => {
                       if (typeof id === 'string') {
@@ -68,14 +68,8 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
         <>
           <QRCode address={account.address} />
           <LabeledText label="Public address">
-            <Hash breakAll value={account.address} />
-          </LabeledText>
-          <LabeledText label="Legacy format">
-            <CopyText value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19">
-              <Hash
-                breakAll
-                value="afclqmv21L9NxSdNx92jLy8KdKn3gd528hGDCuzM19"
-              />
+            <CopyText value={account.address}>
+              <Hash breakAll value={account.address} />
             </CopyText>
           </LabeledText>
         </>

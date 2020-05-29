@@ -1,8 +1,10 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { Location } from 'history';
 
 import { ChartPeriods, Coins } from '../../../dictionaries';
-import { getChartData, resetChart } from '../../../store/account/actions';
+import { getCharts } from '../../../store/account/actions';
 import { ChartFilters } from '../../../store/account/types';
 import { getSettings } from '../../../store/user/selectors';
 import { usePrevious } from '../../../utils/hooks';
@@ -23,33 +25,33 @@ interface Props {
 
 const Charts: React.FC<Props> = ({ coinA, coinB, canChange }) => {
   const dispatch = useDispatch();
-  const settings: Settings = useSelector(getSettings);
-  const prevSettings = usePrevious<Settings>(settings);
-
-  const getInitialChartData = useCallback(
-    () =>
-      dispatch(getChartData({ coinA, coinB, period: ChartPeriods.ThreeMonth })),
-    [coinA, coinB, dispatch]
-  );
+  const settings = useSelector(getSettings);
+  const location = useLocation();
+  const previous = usePrevious<{ settings: Settings; location: Location }>({
+    settings,
+    location,
+  });
 
   useEffect(() => {
-    if (settings.currency) {
-      getInitialChartData();
+    if (previous) {
+      if (
+        previous.settings?.currency !== settings?.currency ||
+        previous.location.pathname !== location.pathname
+      ) {
+        dispatch(getCharts({ coinA, coinB, period: ChartPeriods.ThreeMonth }));
+      }
     }
-
-    return () => {
-      dispatch(resetChart());
-    };
-  }, [getInitialChartData, dispatch, settings.currency]);
-
-  useEffect(() => {
-    if (prevSettings && !prevSettings.currency && settings.currency) {
-      getInitialChartData();
-    }
-  }, [settings.currency, getInitialChartData, prevSettings]);
+  }, [
+    settings,
+    previous,
+    location.pathname,
+    coinA,
+    coinB,
+    dispatch,
+  ]);
 
   function updateFilter(payload: Partial<ChartFilters>) {
-    dispatch(getChartData(payload));
+    dispatch(getCharts(payload));
   }
 
   return (

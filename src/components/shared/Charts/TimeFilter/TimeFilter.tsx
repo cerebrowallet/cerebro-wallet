@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Container, Button, Title } from './styled';
 import { ChartPeriods } from '../../../../dictionaries';
-import { getChartFilters } from '../../../../store/account/selectors';
+import { getChartsFilters } from '../../../../store/account/selectors';
 import { enumToArray } from '../../../../utils/common';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const TimeFilter: React.FC<Props> = ({ updateFilter }) => {
-  const filters = useSelector(getChartFilters);
+  const filters = useSelector(getChartsFilters);
 
   return (
     <Container>

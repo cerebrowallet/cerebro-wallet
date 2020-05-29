@@ -17,6 +17,7 @@ const chartInitial = {
 
 const initialState: AccountState = {
   accounts: null,
+  txs: {},
   rates: null,
   searchActivityStr: '',
   recommendedBTCFee: 0,
@@ -33,6 +34,27 @@ const reducer: Reducer<AccountState> = (
       case AccountActionTypes.SET_ACCOUNTS:
         draft.accounts = action.payload;
         break;
+      case AccountActionTypes.ADD_ACCOUNT:
+        if (!draft.accounts) {
+          draft.accounts = {
+            byIds: {},
+            allIds: [],
+          };
+        }
+        draft.accounts.byIds[action.payload.id] = {
+          ...action.payload,
+          txs: [],
+        };
+        draft.accounts.allIds.push(action.payload.id);
+        break;
+      case AccountActionTypes.DELETE_ACCOUNT:
+        if (draft.accounts) {
+          delete draft.accounts.byIds[action.payload.accountId];
+          draft.accounts.allIds = draft.accounts.allIds.filter(
+            (id) => id !== action.payload.accountId
+          );
+        }
+        break;
       case AccountActionTypes.UPDATE_ACCOUNT: {
         if (draft.accounts) {
           const { update, accountId } = action.payload;
@@ -45,7 +67,11 @@ const reducer: Reducer<AccountState> = (
             };
           }
         }
-
+        break;
+      }
+      case AccountActionTypes.SET_ACCOUNT_TXS: {
+        const { accountId, txs } = action.payload;
+        draft.txs[accountId] = txs;
         break;
       }
       case AccountActionTypes.SET_EXCHANGE_RATES:
@@ -58,46 +84,62 @@ const reducer: Reducer<AccountState> = (
         draft.recommendedBTCFee = toBTC(action.payload * TYPICAL_TX_SIZE);
         break;
       case AccountActionTypes.ADD_TX: {
-        if (draft.accounts) {
-          const account = draft.accounts.byIds[action.payload.accountId];
+        const { accountId, tx } = action.payload;
 
-          if (!account.transactions) {
-            account.transactions = {
-              byIds: {},
-              allIds: [],
-            };
-          }
+        if (!draft.txs) {
+          draft.txs = {};
+        }
 
-          account.transactions.allIds.push(action.payload.tx.hash);
-          account.transactions.byIds[action.payload.tx.hash] = {
-            ...action.payload.tx,
+        if (!draft.txs[accountId]) {
+          draft.txs[accountId] = {
+            byIds: {},
+            allIds: [],
           };
         }
+
+        draft.txs[accountId].byIds[tx.hash] = tx;
+        draft.txs[accountId].allIds.push(tx.hash);
+
         break;
       }
-      case AccountActionTypes.ADD_TX_COMMENT_CONFIRM:
-        if (draft.accounts) {
-          const account = draft.accounts.byIds[action.payload.accountId];
-          const tx = account?.transactions?.byIds[action.payload.txHash];
+      case AccountActionTypes.UPDATE_TX: {
+        const { accountId, txHash, update } = action.payload;
 
-          if (tx) {
-            tx.comment = action.payload.comment;
-          }
+        if (draft.txs?.[accountId]?.byIds?.[txHash]) {
+          draft.txs[accountId].byIds[txHash] = {
+            ...draft.txs[accountId].byIds[txHash],
+            ...update,
+          };
         }
+
         break;
+      }
+      case AccountActionTypes.ADD_TX_COMMENT: {
+        const { accountId, txHash, comment } = action.payload;
+
+        if (draft?.accounts?.byIds?.[accountId]) {
+          if (!draft.accounts.byIds[accountId].txComments) {
+            draft.accounts.byIds[accountId].txComments = {};
+          }
+
+          draft.accounts.byIds[accountId].txComments[txHash] = comment;
+        }
+
+        break;
+      }
       case AccountActionTypes.SET_CREATE_TX_RESULT:
         draft.createTxResult = action.payload;
         break;
-      case AccountActionTypes.GET_CHART_DATA:
+      case AccountActionTypes.GET_CHARTS:
         draft.chart.filters = {
           ...draft.chart.filters,
           ...action.payload,
         };
         break;
-      case AccountActionTypes.SET_CHART_DATA:
+      case AccountActionTypes.SET_CHARTS:
         draft.chart.data = action.payload;
         break;
-      case AccountActionTypes.RESET_CHART:
+      case AccountActionTypes.RESET_CHARTS:
         draft.chart = chartInitial;
         break;
       default:

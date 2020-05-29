@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, withRouter, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 
-import { getAccountById, getAccounts } from '../../store/account/selectors';
+import { getAccounts, getTxs } from '../../store/account/selectors';
 
 import Page, { PageLayouts } from '../../components/layout/Page/Page';
 import Activity from '../../components/shared/Activity/Activity';
@@ -10,19 +10,14 @@ import TransactionDetails from '../../components/shared/TransactionDetails/Trans
 
 const ActivityPage: React.FC = () => {
   const accounts = useSelector(getAccounts);
-  let {
-    accountId,
-    txHash,
-  }: { accountId?: string; txHash?: string } = useParams();
-
-  if (!accountId) {
-    accountId = accounts?.allIds[0];
-  }
-
-  const account = useSelector(getAccountById(accountId));
+  const txs = useSelector(getTxs);
+  const params: { accountId?: string; txHash?: string } = useParams();
+  const accountId = params.accountId || accounts?.allIds[0];
+  const account = accountId ? accounts?.byIds[accountId] : null;
+  let { txHash } = params;
 
   if (account && !txHash) {
-    txHash = account?.transactions?.allIds[0];
+    txHash = txs?.[account.id]?.allIds[0];
 
     if (txHash) {
       return <Redirect to={`/activity/${accountId}/${txHash}`} />;

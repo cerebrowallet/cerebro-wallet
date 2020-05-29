@@ -4,8 +4,8 @@ import { withTheme } from 'styled-components';
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 import {
-  getChartData,
-  getChartFilters,
+  getCharts,
+  getChartsFilters,
 } from '../../../../store/account/selectors';
 import { Container } from './styled';
 import { getSettings } from '../../../../store/user/selectors';
@@ -32,12 +32,12 @@ interface Props {
 }
 
 const ChartContainer: React.FC<Props> = ({ theme }) => {
-  const filters = useSelector(getChartFilters);
-  const data = useSelector(getChartData);
+  const filters = useSelector(getChartsFilters);
+  const data = useSelector(getCharts);
   const settings = useSelector(getSettings);
 
   if (data === null || !settings) {
-    return <Loader />;
+    return <Loader/>;
   }
 
   return (

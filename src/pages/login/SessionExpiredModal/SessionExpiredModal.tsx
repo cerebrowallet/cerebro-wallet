@@ -16,18 +16,19 @@ const SessionExpiredModal: React.FC = () => {
   const [isIdle, setIsIdle] = useState(false);
   const settings = useSelector(getSettings);
   const history = useHistory();
+  const timeout = settings?.timeout;
 
   useEffect(() => {
-    if (settings.timeout) {
+    if (timeout) {
       const activityDetector = createActivityDetector({
-        timeToIdle: settings.timeout,
+        timeToIdle: timeout,
         inactivityEvents: [],
       });
       activityDetector.on('idle', () => setIsIdle(true));
       activityDetector.on('active', () => setIsIdle(false));
       return () => activityDetector.stop();
     }
-  }, [settings.timeout]);
+  }, [timeout]);
 
   useEffect(() => {
     if (userSession.isUserSignedIn() && isIdle) {
