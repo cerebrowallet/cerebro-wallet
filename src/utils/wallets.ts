@@ -1,9 +1,10 @@
 import * as bitcoin from 'bitcoinjs-lib';
 import { generateMnemonic, mnemonicToSeed } from 'bip39';
 import { v4 } from 'uuid';
+import { Buffer } from 'buffer';
 
 import { Coins } from '../dictionaries';
-import { AccountTypes } from '../store/account/types';
+import { AddressTypes, UXTO } from '../store/account/types';
 import { config } from '../config';
 
 const coinTypes = {
@@ -13,28 +14,28 @@ const coinTypes = {
 
 export const createMnemonic = () => generateMnemonic();
 
-const methods = {
-  [AccountTypes.bech32]: bitcoin.payments.p2wpkh,
-  [AccountTypes.legacy]: bitcoin.payments.p2pkh,
-};
-
 export const createWallet = async ({
   coin,
   nextAccountIndex,
   mnemonic,
-  type,
+  addressType,
 }: {
   coin: Coins;
   nextAccountIndex: number;
   mnemonic: string;
-  type: Partial<AccountTypes>;
+  addressType: AddressTypes;
 }) => {
   const seed = await mnemonicToSeed(mnemonic);
   const masterNode = bitcoin.bip32.fromSeed(seed, config.networks[coin]);
   const derivationPath = `m/84'/${coinTypes[coin]}'/${nextAccountIndex}'/0/0`;
   const account = masterNode.derivePath(derivationPath);
 
-  const { address } = methods[type]({
+  const createPaymentFn = {
+    [AddressTypes.P2PKH]: bitcoin.payments.p2pkh,
+    [AddressTypes.SegWit]: bitcoin.payments.p2wpkh,
+  };
+
+  const { address } = createPaymentFn[addressType]({
     pubkey: account.publicKey,
     network: config.networks[coin],
   });
@@ -42,7 +43,7 @@ export const createWallet = async ({
   return {
     account: {
       address,
-      type,
+      addressType,
       coin: coin,
       id: v4(),
       balance: 0,
@@ -53,39 +54,54 @@ export const createWallet = async ({
   };
 };
 
-export const createBTCLikeTransaction = ({
-  privateKey,
+export const createBTCLikeTransaction = async ({
+  mnemonic,
   utxo,
   receivers,
   coin,
+  path,
 }: {
-  privateKey: string;
-  utxo: { transaction_hash: string; index: number }[];
-  receivers: { address: string; amount: number }[];
+  mnemonic: string;
+  utxo: UXTO[];
+  receivers: { address: string; value: number }[];
   coin: Coins;
+  path: string;
 }) => {
-  const rootKey = bitcoin.ECPair.fromWIF(privateKey, config.networks[coin]);
-  const tx = new bitcoin.TransactionBuilder(config.networks[coin]);
+  const seed = await mnemonicToSeed(mnemonic);
+  const hdRoot = bitcoin.bip32.fromSeed(seed);
+  const masterFingerprint = hdRoot.fingerprint;
+  const childNode = hdRoot.derivePath(path);
+  const pubkey = childNode.publicKey;
 
-  utxo.forEach(
-    ({
-      transaction_hash,
+  const psbt = new bitcoin.Psbt({ network: config.networks[coin] });
+
+  utxo.forEach(({ transaction_hash, index, txHex }: UXTO) => {
+    psbt.addInput({
+      hash: transaction_hash,
       index,
-    }: {
-      transaction_hash: string;
-      index: number;
-    }) => {
-      tx.addInput(transaction_hash, index);
-    }
-  );
-
-  receivers.forEach(({ address, amount }) => {
-    tx.addOutput(address, amount);
+      nonWitnessUtxo: Buffer.from(txHex, 'hex'),
+      bip32Derivation: [
+        {
+          masterFingerprint,
+          path,
+          pubkey,
+        },
+      ],
+    });
   });
 
-  utxo.forEach((item, index) => {
-    tx.sign(index, rootKey);
+  receivers.forEach(({ address, value }) => {
+    psbt.addOutput({
+      address,
+      value,
+    });
   });
 
-  return tx.build().toHex();
+  utxo.forEach((input, index) => {
+    psbt.signInputHD(index, hdRoot);
+  });
+
+  psbt.finalizeAllInputs();
+
+  return psbt.extractTransaction().toHex();
 };

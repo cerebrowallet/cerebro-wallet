@@ -15,7 +15,7 @@ import { syncDataToGaia } from '../../user/actions';
 import { SyncDataTypes, UserActionTypes } from '../../user/types';
 
 export default function* createAccountSaga({
-  payload: { coin, type },
+  payload: { coin, addressType },
 }: ReturnType<typeof createAccount>) {
   try {
     yield put(
@@ -29,7 +29,7 @@ export default function* createAccountSaga({
 
     const mnemonic = yield call(getMnemonic);
     const { account, privateKey } = yield call(createWallet, {
-      type,
+      addressType,
       coin,
       nextAccountIndex,
       mnemonic,

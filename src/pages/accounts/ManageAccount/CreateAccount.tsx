@@ -13,7 +13,7 @@ import { createAccount } from '../../../store/account/actions';
 import { getCoinsList } from '../../../store/user/selectors';
 
 import CoinDropDown from '../../../components/forms/DropDown/CoinDropDown';
-import { AccountTypes } from '../../../store/account/types';
+import { AddressTypes } from '../../../store/account/types';
 
 const CreateAccount: React.FC = () => {
   const coins = useSelector(getCoinsList);
@@ -26,8 +26,10 @@ const CreateAccount: React.FC = () => {
       FooterIcon={UnlockIcon}
     >
       <Formik
-        initialValues={{ coin: coins[0], type: AccountTypes.bech32 }}
-        onSubmit={({ coin, type }) => dispatch(createAccount(coin.id, type))}
+        initialValues={{ coin: coins[0], addressType: AddressTypes.SegWit }}
+        onSubmit={({ coin, addressType }) =>
+          dispatch(createAccount(coin.id, addressType))
+        }
       >
         {() => (
           <Form>
@@ -39,8 +41,8 @@ const CreateAccount: React.FC = () => {
                 <ButtonGroup
                   name="type"
                   options={[
-                    { name: 'Default', id: AccountTypes.bech32 },
-                    { name: 'Legacy', id: AccountTypes.legacy },
+                    { name: 'Default', id: AddressTypes.SegWit },
+                    { name: 'Legacy', id: AddressTypes.P2PKH },
                   ]}
                 />
               </FormGroup>

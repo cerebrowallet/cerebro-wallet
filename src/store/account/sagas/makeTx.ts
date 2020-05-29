@@ -1,5 +1,6 @@
+import { call, put, select, all } from 'redux-saga/effects';
+
 import { addTx, makeTx, setCreateTxResult } from '../actions';
-import { call, put, select } from 'redux-saga/effects';
 import { getAccountById } from '../selectors';
 import { callApi, getQueryString } from '../../../utils/api';
 import { config } from '../../../config';
@@ -7,7 +8,8 @@ import { createBTCLikeTransaction } from '../../../utils/wallets';
 import { TransferToTypes } from '../../../components/shared/Send/Send';
 import { toSatoshi } from '../../../utils/common';
 import { Statuses } from '../../../dictionaries';
-import { getPrivateKeySaga } from './privateKeysSagas';
+import getMnemonic from './getMnemonic';
+import { UXTO } from '../types';
 
 export default function* makeTxSaga({
   payload: txDraftValues,
@@ -41,13 +43,28 @@ export default function* makeTxSaga({
 
     const addressInfo = addressInfoResult.data[transferFromAccount.address];
 
+    const rawUtxo = yield all(
+      addressInfo.utxo.map((item: UXTO) =>
+        call(callApi, {
+          method: 'get',
+          url: config.coins[transferFromAccount.coin].apiUrls.getRawTx(
+            item.transaction_hash
+          ),
+        })
+      )
+    );
+
     const txAmount = parseFloat(txDraftValues.amount);
     const txFee = parseFloat(txDraftValues.fee);
-    const privateKey = yield call(getPrivateKeySaga, transferFromAccount.id);
+    const mnemonic = yield call(getMnemonic);
 
-    const txHash = createBTCLikeTransaction({
-      privateKey,
-      utxo: addressInfo.utxo,
+    const txHash = yield call(createBTCLikeTransaction, {
+      mnemonic,
+      path: transferFromAccount.derivationPath,
+      utxo: addressInfo.utxo.map((item: UXTO, i: number) => ({
+        ...item,
+        txHex: rawUtxo[i].data[item.transaction_hash].raw_transaction,
+      })),
       receivers: [
         {
           address:
@@ -55,11 +72,11 @@ export default function* makeTxSaga({
             typeof txDraftValues.transferTo !== 'string'
               ? txDraftValues.transferTo.address
               : txDraftValues.transferTo,
-          amount: toSatoshi(txAmount),
+          value: toSatoshi(txAmount),
         },
         {
           address: transferFromAccount.address,
-          amount:
+          value:
             toSatoshi(transferFromAccount.balance) -
             toSatoshi(txAmount) -
             toSatoshi(txFee),

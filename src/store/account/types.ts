@@ -52,18 +52,24 @@ export interface Transaction {
 export interface Transactions {
   byIds: {
     [txHash: string]: Transaction;
-  }
+  };
   allIds: string[];
 }
 
-export enum AccountTypes {
-  bech32 = 'bech32',
-  legacy = 'legacy',
+export interface UXTO {
+  transaction_hash: string;
+  index: number;
+  txHex: string;
+}
+
+export enum AddressTypes {
+  SegWit,
+  P2PKH,
 }
 
 export interface Account {
   id: string;
-  type: AccountTypes;
+  addressType: AddressTypes;
   address: string;
   name: string;
   coin: Coins;

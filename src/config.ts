@@ -13,6 +13,8 @@ const getCoinApiUrls = (chain: Chains) => ({
     `https://api.blockchair.com/${chain}/dashboards/address/${address}`,
   getTxInfo: (txHash: string) =>
     `https://api.blockchair.com/${chain}/dashboards/transaction/${txHash}`,
+  getRawTx: (txHash: string) =>
+    `https://api.blockchair.com/${chain}/raw/transaction/${txHash}`,
   broadcastTx: `https://api.blockchair.com/${chain}/push/transaction`,
   getBlockChainStats: `https://api.blockchair.com/${chain}/stats`,
 });
@@ -26,6 +28,7 @@ export interface Config {
       apiUrls: {
         getAddressInfo: (address: string) => string;
         getTxInfo: (hash: string) => string;
+        getRawTx: (hash: string) => string;
         broadcastTx: string;
         getBlockChainStats: string;
       };

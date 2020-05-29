@@ -22,9 +22,9 @@ const FormatAmount: React.FC<Props> = ({ coin, amount }) => {
 
   return (
     <>
-      {amount < 0 ? '— ' : ''}
+      {amount < 0 ? '—' : ''}
       {CurrencySymbols[settings.currency]}
-      {round(amount * rates[coin][settings.currency])}
+      {round(Math.abs(amount * rates[coin][settings.currency]))}
     </>
   );
 };

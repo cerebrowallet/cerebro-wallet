@@ -5,7 +5,7 @@ import { Container, Button } from './styled';
 
 interface Props {
   name: string;
-  options: { id: string; name: string }[];
+  options: { id: any; name: string }[];
 }
 
 const ButtonGroup: React.FC<Props> = ({ name, options }) => {
