@@ -23,6 +23,7 @@ import Rename from './Rename';
 import ExportPrivateKey from './ExportPrivateKey';
 import DeleteAccount from './DeleteAccount';
 import Loader from '../../components/shared/Loader/Loader';
+import AccountHolderRoute from './AccountHolderRoute';
 
 const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
   match,
@@ -42,21 +43,37 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
         <Route exact path={`${match.url}/details`}>
           <Details accountId={accountId} />
         </Route>
-        <Route exact path={`${match.url}/receive`}>
+        <AccountHolderRoute
+          canVisit={!account.isPublicImport}
+          exact
+          path={`${match.url}/receive`}
+        >
           <TopUpAccount accountId={accountId} />
-        </Route>
-        <Route exact path={`${match.url}/send`}>
+        </AccountHolderRoute>
+        <AccountHolderRoute
+          canVisit={!account.isPublicImport}
+          exact
+          path={`${match.url}/send`}
+        >
           <Send accountId={accountId} />
-        </Route>
-        <Route exact path={`${match.url}/exchange`}>
+        </AccountHolderRoute>
+        <AccountHolderRoute
+          canVisit={!account.isPublicImport}
+          exact
+          path={`${match.url}/exchange`}
+        >
           <Exchange />
-        </Route>
+        </AccountHolderRoute>
         <Route exact path={`${match.url}/rename`}>
           <Rename accountId={accountId} />
         </Route>
-        <Route exact path={`${match.url}/export-private-key`}>
+        <AccountHolderRoute
+          canVisit={!account.isPublicImport}
+          exact
+          path={`${match.url}/export-private-key`}
+        >
           <ExportPrivateKey accountId={accountId} />
-        </Route>
+        </AccountHolderRoute>
         <Route exact path={`${match.url}/delete`}>
           <DeleteAccount accountId={accountId} />
         </Route>

@@ -35,6 +35,7 @@ export enum AccountActionTypes {
   SET_CHARTS = '@@account/set_charts',
   RESET_CHARTS = '@@account/reset_charts',
   EXPORT_PRIVATE_KEY = '@@account/export_private_key',
+  IMPORT_PUBLIC_ADDRESS = '@@account/import_public_address',
 }
 
 export interface Transaction {
@@ -69,14 +70,15 @@ export enum AddressTypes {
 
 export interface Account {
   id: string;
-  addressType: AddressTypes;
+  addressType: AddressTypes | null;
   address: string;
   name: string;
   coin: Coins;
-  derivationPath: string;
+  derivationPath: string | null;
   txComments: {
     [txHash: string]: string;
   };
+  isPublicImport: boolean;
 }
 
 export interface Accounts {
@@ -150,3 +152,9 @@ export interface BlogPostActivity extends Activity {
 }
 
 export type Activities = Activity | TransactionActivity | BlogPostActivity;
+
+export interface BlockChairTx {
+  hash: string;
+  balance_change: number;
+  time: string;
+}

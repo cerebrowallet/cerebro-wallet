@@ -55,17 +55,11 @@ interface TextAreaProps extends InputProps {
 
 const TextAreaElement: React.FC = (props) => <textarea {...props} />;
 
-export const TextArea: React.FC<TextAreaProps> = ({
-  status,
-  placeholder,
-  disabled,
-}) => {
+export const TextArea: React.FC<TextAreaProps> = (props) => {
   return (
     <InputElement
+      {...props}
       as={TextAreaElement}
-      status={status}
-      placeholder={placeholder}
-      disabled={disabled}
     />
   );
 };

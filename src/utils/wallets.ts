@@ -46,7 +46,6 @@ export const createWallet = async ({
       addressType,
       coin: coin,
       id: v4(),
-      balance: 0,
       name: `My ${config.coins[coin].name} Wallet`,
       derivationPath,
     },

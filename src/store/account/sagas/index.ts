@@ -13,6 +13,7 @@ import getRecommendedBTCFeeSaga from './getRecommendedBTCFee';
 import makeTxSaga from './makeTx';
 import addTxCommentSaga from './addTxComment';
 import getChartsSaga from './getCharts';
+import importPublicAddressSaga from './importPublicAddress';
 
 function* accountSaga() {
   yield all([
@@ -30,6 +31,10 @@ function* accountSaga() {
     takeLatest(AccountActionTypes.MAKE_TX, makeTxSaga),
     takeLatest(AccountActionTypes.ADD_TX_COMMENT, addTxCommentSaga),
     takeLatest(AccountActionTypes.GET_CHARTS, getChartsSaga),
+    takeLatest(
+      AccountActionTypes.IMPORT_PUBLIC_ADDRESS,
+      importPublicAddressSaga
+    ),
   ]);
 }
 

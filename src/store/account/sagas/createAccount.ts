@@ -21,7 +21,7 @@ export default function* createAccountSaga({
     yield put(
       showNotification({
         type: NotificationTypes.Default,
-        text: 'Creating accounts...',
+        text: 'Creating account...',
       })
     );
 

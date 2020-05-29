@@ -1,19 +1,12 @@
 import { call, put, select } from 'redux-saga/effects';
 
-import { Transactions } from '../types';
 import { callApi } from '../../../utils/api';
 import { config } from '../../../config';
-import { toBTC } from '../../../utils/common';
 import { showNotification } from '../../layout/actions';
 import { getAccountTxs, setAccountTxs } from '../actions';
 import { NotificationTypes } from '../../../dictionaries';
 import { getAccountById } from '../selectors';
-
-interface BlockChairTx {
-  hash: string;
-  balance_change: number;
-  time: string;
-}
+import { normalizeTxs } from './importPublicAddress';
 
 export default function* getAccountTxsSaga({
   payload: { accountId },
@@ -37,24 +30,7 @@ export default function* getAccountTxsSaga({
       throw new Error(result.context.error);
     }
 
-    const txs = result.data[account.address].transactions.reduce(
-      (txs: Transactions, tx: BlockChairTx) => {
-        const acc: Transactions = txs;
-
-        acc.byIds[tx.hash] = {
-          hash: tx.hash,
-          amount: toBTC(tx.balance_change),
-          date: tx.time,
-        };
-        acc.allIds.push(tx.hash);
-
-        return acc;
-      },
-      {
-        byIds: {},
-        allIds: [],
-      }
-    );
+    const txs = normalizeTxs(result.data[account.address].transactions);
 
     yield put(setAccountTxs(account.id, txs));
   } catch (e) {

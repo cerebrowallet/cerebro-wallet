@@ -40,24 +40,28 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
         text="Details"
         descText="About account"
       />
-      <ActionButton
-        link={`${match.url}/receive`}
-        icon={<PlusIcon />}
-        text="Receive"
-        descText="Top up my account"
-      />
-      <ActionButton
-        link={`${match.url}/send`}
-        icon={<NavigationIcon />}
-        text="Send"
-        descText="Transfer to others"
-      />
-      <ActionButton
-        link={`${match.url}/exchange`}
-        icon={<RepeatIcon />}
-        text="Exchange"
-        descText="Trade your funds instantly"
-      />
+      {!account.isPublicImport && (
+        <>
+          <ActionButton
+            link={`${match.url}/receive`}
+            icon={<PlusIcon />}
+            text="Receive"
+            descText="Top up my account"
+          />
+          <ActionButton
+            link={`${match.url}/send`}
+            icon={<NavigationIcon />}
+            text="Send"
+            descText="Transfer to others"
+          />
+          <ActionButton
+            link={`${match.url}/exchange`}
+            icon={<RepeatIcon />}
+            text="Exchange"
+            descText="Trade your funds instantly"
+          />
+        </>
+      )}
       <ActionButton
         link={`/activity/${account.id}/${accountTxs?.allIds[0] || ''}`}
         icon={<ListIcon />}
@@ -78,12 +82,14 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
         text="Blockexplorer"
         descText="Show public information"
       />
-      <ActionButton
-        link={`${match.url}/export-private-key`}
-        icon={<KeyIcon />}
-        text="Private Key"
-        descText="Not for prying eyes"
-      />
+      {!account.isPublicImport && (
+        <ActionButton
+          link={`${match.url}/export-private-key`}
+          icon={<KeyIcon />}
+          text="Private Key"
+          descText="Not for prying eyes"
+        />
+      )}
       <ActionButton
         link={`${match.url}/delete`}
         icon={<TrashIcon />}

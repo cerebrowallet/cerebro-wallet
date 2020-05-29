@@ -8,8 +8,10 @@ import {
   Accounts,
   Transactions,
   AddressTypes,
+  Account,
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
+import { ImportPublicAddressValues } from '../../pages/accounts/ManageAccount/ImportPublicAddress';
 
 export const getAccounts = () => action(AccountActionTypes.GET_ACCOUNTS);
 export const setAccounts = (accounts: Accounts) =>
@@ -81,3 +83,5 @@ export const setCharts = (
 export const resetChart = () => action(AccountActionTypes.RESET_CHARTS);
 export const exportPrivateKey = () =>
   action(AccountActionTypes.EXPORT_PRIVATE_KEY);
+export const importPublicAddress = (payload: ImportPublicAddressValues) =>
+  action(AccountActionTypes.IMPORT_PUBLIC_ADDRESS, payload);
