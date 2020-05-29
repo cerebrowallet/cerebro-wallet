@@ -70,9 +70,11 @@ export const Option = styled.button`
 `;
 
 export const SubHeader = styled.h4`
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   line-height: 1.0625rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
   padding: 0 1.25rem;
   color: ${(props) => props.theme.colors.secondary};
   margin: 0.625rem 0;

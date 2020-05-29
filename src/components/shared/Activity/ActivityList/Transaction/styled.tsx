@@ -6,7 +6,7 @@ export const Link = styled(NavLink)`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.15rem;
-  padding: 0.375rem 0.625rem;
+  padding: 0.375rem 0.625rem 0.375rem 0.425rem;
   transition: background-color 0.2s ease-in-out;
   border-radius: 1.5625rem;
   color: ${(props) => props.theme.colors.primary};
