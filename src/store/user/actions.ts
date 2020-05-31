@@ -6,7 +6,6 @@ import {
   Settings,
   Profile,
   UpdateDataActionPayload,
-  SyncDataTypes,
   Themes,
 } from './types';
 import {
@@ -45,15 +44,3 @@ export const setActivityFilterType = (update: {
   type: ActivityFilterTypes;
   value?: string;
 }) => action(UserActionTypes.SET_ACTIVITY_FILTER_TYPE, update);
-export const syncDataToGaia = (payload: {
-  dataType: SyncDataTypes;
-  notifications?: {
-    start?: string;
-    success?: string;
-    error?: string;
-  };
-}) => action(UserActionTypes.SYNC_DATA_TO_GAIA, payload);
-export const syncDataToGaiaSuccess = () =>
-  action(UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS);
-export const syncDataToGaiaError = (error: Error) =>
-  action(UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS, error);

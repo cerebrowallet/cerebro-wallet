@@ -14,6 +14,7 @@ import makeTxSaga from './makeTx';
 import addTxCommentSaga from './addTxComment';
 import getChartsSaga from './getCharts';
 import importPublicAddressSaga from './importPublicAddress';
+import importPrivateKeySaga from './importPrivateKey';
 
 function* accountSaga() {
   yield all([
@@ -35,6 +36,7 @@ function* accountSaga() {
       AccountActionTypes.IMPORT_PUBLIC_ADDRESS,
       importPublicAddressSaga
     ),
+    takeLatest(AccountActionTypes.IMPORT_PRIVATE_KEY, importPrivateKeySaga),
   ]);
 }
 

@@ -40,7 +40,7 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
         text="Details"
         descText="About account"
       />
-      {!account.isPublicImport && (
+      {account.keyType !== null && (
         <>
           <ActionButton
             link={`${match.url}/receive`}
@@ -82,7 +82,7 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
         text="Blockexplorer"
         descText="Show public information"
       />
-      {!account.isPublicImport && (
+      {account.keyType !== null && (
         <ActionButton
           link={`${match.url}/export-private-key`}
           icon={<KeyIcon />}

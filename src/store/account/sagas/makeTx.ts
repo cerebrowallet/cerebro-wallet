@@ -8,7 +8,7 @@ import { createBTCLikeTransaction } from '../../../utils/wallets';
 import { TransferToTypes } from '../../../components/shared/Send/Send';
 import { toSatoshi } from '../../../utils/common';
 import { Statuses } from '../../../dictionaries';
-import getMnemonic from './getMnemonic';
+import getMnemonic from './getKey';
 import { UXTO } from '../types';
 
 export default function* makeTxSaga({

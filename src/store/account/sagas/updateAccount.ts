@@ -1,17 +1,15 @@
-import { put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 
-import { syncDataToGaia } from '../../user/actions';
+import syncDataToGaiaSaga from '../../user/sagas/syncDataToGaia';
 import { SyncDataTypes } from '../../user/types';
 
 export default function* updateAccountSaga() {
-  yield put(
-    syncDataToGaia({
-      dataType: SyncDataTypes.accounts,
-      notifications: {
-        start: 'Saving changes...',
-        success: 'Account was successfully updated',
-        error: 'Error while updating account',
-      },
-    })
-  );
+  yield call(syncDataToGaiaSaga, {
+    dataType: SyncDataTypes.accounts,
+    notifications: {
+      start: 'Saving changes...',
+      success: 'Account was successfully updated',
+      error: 'Error while updating account',
+    },
+  });
 }

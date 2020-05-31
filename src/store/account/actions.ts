@@ -12,6 +12,7 @@ import {
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 import { ImportPublicAddressValues } from '../../pages/accounts/ManageAccount/ImportPublicAddress';
+import { ImportPrivateKeyFormValues } from '../../pages/accounts/ManageAccount/ImportPrivateKey';
 
 export const getAccounts = () => action(AccountActionTypes.GET_ACCOUNTS);
 export const setAccounts = (accounts: Accounts) =>
@@ -24,7 +25,7 @@ export const createAccount = (coin: Coins, addressType: AddressTypes) =>
   action(AccountActionTypes.CREATE_ACCOUNT, { coin, addressType });
 export const updateAccount = (payload: UpdateAccountActionPayload) =>
   action(AccountActionTypes.UPDATE_ACCOUNT, payload);
-export const addAccount = (account: Partial<Account>) =>
+export const addAccount = (account: Account) =>
   action(AccountActionTypes.ADD_ACCOUNT, account);
 export const deleteAccount = (accountId: string, accountName: string) =>
   action(AccountActionTypes.DELETE_ACCOUNT, { accountId, accountName });
@@ -81,6 +82,8 @@ export const setCharts = (
   } | null
 ) => action(AccountActionTypes.SET_CHARTS, payload);
 export const resetChart = () => action(AccountActionTypes.RESET_CHARTS);
+export const importPrivateKey = (payload: ImportPrivateKeyFormValues) =>
+  action(AccountActionTypes.IMPORT_PRIVATE_KEY, payload);
 export const exportPrivateKey = () =>
   action(AccountActionTypes.EXPORT_PRIVATE_KEY);
 export const importPublicAddress = (payload: ImportPublicAddressValues) =>

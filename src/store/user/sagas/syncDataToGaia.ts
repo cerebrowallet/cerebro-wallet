@@ -4,14 +4,9 @@ import { getAccounts } from '../../account/selectors';
 import { getProfile, getSettings } from '../selectors';
 import { putFile } from '../../../utils/blockstack';
 import { config } from '../../../config';
-import {
-  syncDataToGaiaSuccess,
-  syncDataToGaiaError,
-  syncDataToGaia,
-} from '../actions';
 import { showNotification } from '../../layout/actions';
 import { SyncDataTypes } from '../types';
-import { NotificationTypes } from '../../../dictionaries';
+import { NotificationTypes, Statuses } from '../../../dictionaries';
 
 const dataTypesSources = {
   [SyncDataTypes.accounts]: {
@@ -29,8 +24,16 @@ const dataTypesSources = {
 };
 
 export default function* syncDataToGaiaSaga({
-  payload: { dataType, notifications },
-}: ReturnType<typeof syncDataToGaia>) {
+  dataType,
+  notifications,
+}: {
+  dataType: SyncDataTypes;
+  notifications?: {
+    start?: string;
+    success?: string;
+    error?: string;
+  };
+}) {
   try {
     if (notifications?.start) {
       yield put(
@@ -58,7 +61,9 @@ export default function* syncDataToGaiaSaga({
       );
     }
 
-    yield put(syncDataToGaiaSuccess());
+    return {
+      status: Statuses.Success,
+    };
   } catch (e) {
     if (notifications?.error) {
       yield put(
@@ -69,9 +74,9 @@ export default function* syncDataToGaiaSaga({
       );
     }
 
-    yield put(syncDataToGaiaError(e));
-
-    // TODO log error
-    console.error(e);
+    return {
+      status: Statuses.Fail,
+      error: e,
+    };
   }
 }

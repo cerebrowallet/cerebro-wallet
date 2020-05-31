@@ -36,6 +36,8 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
     return <Loader />;
   }
 
+  const canVisit = account.keyType !== null;
+
   return (
     <Page layout={PageLayouts.twoColumns} sidebarContent={<AccountsList />}>
       <AccountActions account={account} />
@@ -44,21 +46,21 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           <Details accountId={accountId} />
         </Route>
         <AccountHolderRoute
-          canVisit={!account.isPublicImport}
+          canVisit={canVisit}
           exact
           path={`${match.url}/receive`}
         >
           <TopUpAccount accountId={accountId} />
         </AccountHolderRoute>
         <AccountHolderRoute
-          canVisit={!account.isPublicImport}
+          canVisit={canVisit}
           exact
           path={`${match.url}/send`}
         >
           <Send accountId={accountId} />
         </AccountHolderRoute>
         <AccountHolderRoute
-          canVisit={!account.isPublicImport}
+          canVisit={canVisit}
           exact
           path={`${match.url}/exchange`}
         >
@@ -68,7 +70,7 @@ const Account: React.FC<RouteComponentProps<{ accountId: string }>> = ({
           <Rename accountId={accountId} />
         </Route>
         <AccountHolderRoute
-          canVisit={!account.isPublicImport}
+          canVisit={canVisit}
           exact
           path={`${match.url}/export-private-key`}
         >

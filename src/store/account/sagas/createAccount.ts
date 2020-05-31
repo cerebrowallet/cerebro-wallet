@@ -1,18 +1,25 @@
-import { call, put, all, take } from 'redux-saga/effects';
+import { call, put, all } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
+import { v4 } from 'uuid';
 
 import { createAccount, addAccount } from '../actions';
 import { showNotification } from '../../layout/actions';
-import { NotificationTypes } from '../../../dictionaries';
-import { createWallet } from '../../../utils/wallets';
-import getMnemonic from './getMnemonic';
-import { savePrivateKeySaga } from './privateKeysSagas';
+import { Coins, NotificationTypes, Statuses } from '../../../dictionaries';
+import { generateBTCLikeAddress } from '../../../utils/wallets';
+import getKey from './getKey';
 import {
   getCoinLastIndexSaga,
   incrementCoinLastIndexSaga,
 } from './coinLastIndexesSagas';
-import { syncDataToGaia } from '../../user/actions';
-import { SyncDataTypes, UserActionTypes } from '../../user/types';
+import syncDataToGaiaSaga from '../../user/sagas/syncDataToGaia';
+import { SyncDataTypes } from '../../user/types';
+import { config } from '../../../config';
+import { KeyTypes } from '../types';
+
+const coinTypes = {
+  [Coins.BTC]: '0',
+  [Coins.BTC_TestNet]: '0',
+};
 
 export default function* createAccountSaga({
   payload: { coin, addressType },
@@ -25,33 +32,41 @@ export default function* createAccountSaga({
       })
     );
 
-    const nextAccountIndex = yield call(getCoinLastIndexSaga, coin);
+    const [nextAccountIndex, key] = yield all([
+      call(getCoinLastIndexSaga, coin),
+      call(getKey),
+    ]);
+    const derivationPath = `m/84'/${coinTypes[coin]}'/${nextAccountIndex}'/0/0`;
+    const accountId = v4();
 
-    const mnemonic = yield call(getMnemonic);
-    const { account, privateKey } = yield call(createWallet, {
+    const address = yield call(generateBTCLikeAddress, {
       addressType,
       coin,
-      nextAccountIndex,
-      mnemonic,
+      key,
+      keyType: KeyTypes.Mnemonic,
+      derivationPath,
     });
 
-    yield all([
-      call(savePrivateKeySaga, { accountId: account.id, privateKey }),
-      call(incrementCoinLastIndexSaga, coin),
-    ]);
+    yield call(incrementCoinLastIndexSaga, coin);
 
-    yield put(addAccount(account));
-    yield put(syncDataToGaia({ dataType: SyncDataTypes.accounts }));
+    yield put(
+      addAccount({
+        address,
+        addressType,
+        id: accountId,
+        coin,
+        name: `My ${config.coins[coin].name} Wallet`,
+        derivationPath,
+        txComments: {},
+        keyType: KeyTypes.Mnemonic,
+      })
+    );
+    const result = yield call(syncDataToGaiaSaga, {
+      dataType: SyncDataTypes.accounts,
+    });
 
-    const { type: syncResult, payload } = yield take([
-      UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS,
-      UserActionTypes.SYNC_DATA_TO_GAIA_ERROR,
-    ]);
-
-    if (syncResult === UserActionTypes.SYNC_DATA_TO_GAIA_ERROR) {
-      throw payload instanceof Error
-        ? payload
-        : new Error('Error on syncing accounts to Gaia');
+    if (result.status === Statuses.Fail) {
+      throw result.error;
     }
 
     yield put(
@@ -61,7 +76,7 @@ export default function* createAccountSaga({
       })
     );
 
-    yield put(push(`/account/${account.id}`));
+    yield put(push(`/account/${accountId}`));
   } catch (e) {
     yield put(
       showNotification({

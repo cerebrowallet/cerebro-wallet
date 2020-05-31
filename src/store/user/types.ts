@@ -19,9 +19,6 @@ export enum UserActionTypes {
   SET_SUBSCRIBE_ON_NEWS_STATUS = '@@user/subscribe_on_news_status',
   SET_ACTIVITY_FILTER_TYPE = '@@user/set_activity_filter_type',
   SEARCH_ACTIVITIES = '@@user/search_activities',
-  SYNC_DATA_TO_GAIA = '@@user/sync_data_to_gaia',
-  SYNC_DATA_TO_GAIA_SUCCESS = '@@user/sync_accounts_to_gaia_success',
-  SYNC_DATA_TO_GAIA_ERROR = '@@user/sync_accounts_to_gaia_error',
 }
 
 export interface Profile {

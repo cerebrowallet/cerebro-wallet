@@ -1,34 +1,40 @@
 import * as bitcoin from 'bitcoinjs-lib';
 import { generateMnemonic, mnemonicToSeed } from 'bip39';
-import { v4 } from 'uuid';
 import { Buffer } from 'buffer';
 
 import { Coins } from '../dictionaries';
-import { AddressTypes, UXTO } from '../store/account/types';
+import { AddressTypes, KeyTypes, UXTO } from '../store/account/types';
 import { config } from '../config';
-
-const coinTypes = {
-  [Coins.BTC]: '0',
-  [Coins.BTC_TestNet]: '0',
-};
 
 export const createMnemonic = () => generateMnemonic();
 
-export const createWallet = async ({
+export const generateBTCLikeAddress = async ({
   coin,
-  nextAccountIndex,
-  mnemonic,
+  key,
+  keyType,
   addressType,
+  derivationPath,
 }: {
   coin: Coins;
-  nextAccountIndex: number;
-  mnemonic: string;
+  key: string;
+  derivationPath?: string;
   addressType: AddressTypes;
+  keyType: KeyTypes;
 }) => {
-  const seed = await mnemonicToSeed(mnemonic);
-  const masterNode = bitcoin.bip32.fromSeed(seed, config.networks[coin]);
-  const derivationPath = `m/84'/${coinTypes[coin]}'/${nextAccountIndex}'/0/0`;
-  const account = masterNode.derivePath(derivationPath);
+  let publicKey;
+
+  if (keyType === KeyTypes.PrivateKey) {
+    const keyPair = bitcoin.ECPair.fromPrivateKey(Buffer.from(key, 'hex'));
+    publicKey = keyPair.publicKey;
+  } else if (keyType === KeyTypes.WIF) {
+    const keyPair = bitcoin.ECPair.fromWIF(key);
+    publicKey = keyPair.publicKey;
+  } else {
+    const seed = await mnemonicToSeed(key);
+    const masterNode = bitcoin.bip32.fromSeed(seed, config.networks[coin]);
+    const account = masterNode.derivePath(derivationPath || "m/84'/0'/0'/0/0");
+    publicKey = account.publicKey;
+  }
 
   const createPaymentFn = {
     [AddressTypes.P2PKH]: bitcoin.payments.p2pkh,
@@ -36,21 +42,11 @@ export const createWallet = async ({
   };
 
   const { address } = createPaymentFn[addressType]({
-    pubkey: account.publicKey,
+    pubkey: publicKey,
     network: config.networks[coin],
   });
 
-  return {
-    account: {
-      address,
-      addressType,
-      coin: coin,
-      id: v4(),
-      name: `My ${config.coins[coin].name} Wallet`,
-      derivationPath,
-    },
-    privateKey: account.toWIF(),
-  };
+  return address;
 };
 
 export const createBTCLikeTransaction = async ({

@@ -34,6 +34,7 @@ export enum AccountActionTypes {
   GET_CHARTS = '@@account/get_charts',
   SET_CHARTS = '@@account/set_charts',
   RESET_CHARTS = '@@account/reset_charts',
+  IMPORT_PRIVATE_KEY = '@@account/import_private_key',
   EXPORT_PRIVATE_KEY = '@@account/export_private_key',
   IMPORT_PUBLIC_ADDRESS = '@@account/import_public_address',
 }
@@ -63,6 +64,12 @@ export interface UXTO {
   txHex: string;
 }
 
+export enum KeyTypes {
+  Mnemonic,
+  PrivateKey,
+  WIF
+}
+
 export enum AddressTypes {
   SegWit,
   P2PKH,
@@ -78,7 +85,7 @@ export interface Account {
   txComments: {
     [txHash: string]: string;
   };
-  isPublicImport: boolean;
+  keyType: KeyTypes | null;
 }
 
 export interface Accounts {

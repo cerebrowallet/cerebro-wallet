@@ -1,11 +1,11 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call, put, all } from 'redux-saga/effects';
 
 import { deleteAccount } from '../actions';
 import { showNotification } from '../../layout/actions';
-import { NotificationTypes } from '../../../dictionaries';
-import { deletePrivateKeySaga } from './privateKeysSagas';
-import { syncDataToGaia } from '../../user/actions';
-import { SyncDataTypes, UserActionTypes } from '../../user/types';
+import { NotificationTypes, Statuses } from '../../../dictionaries';
+import deleteKey from './deleteKey';
+import syncDataToGaiaSaga from '../../user/sagas/syncDataToGaia';
+import { SyncDataTypes } from '../../user/types';
 
 export default function* deleteAccountSaga({
   payload: { accountId, accountName },
@@ -18,24 +18,25 @@ export default function* deleteAccountSaga({
       })
     );
 
-    yield call(deletePrivateKeySaga, accountId);
-    yield put(syncDataToGaia({ dataType: SyncDataTypes.accounts }));
-
-    const { type, payload } = yield take([
-      UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS,
-      UserActionTypes.SYNC_DATA_TO_GAIA_ERROR,
+    const [syncResult] = yield all([
+      call(syncDataToGaiaSaga, {
+        dataType: SyncDataTypes.accounts,
+      }),
+      call(deleteKey, accountId),
     ]);
 
-    if (type === UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS) {
-      yield put(
-        showNotification({
-          type: NotificationTypes.Success,
-          text: 'Account was successfully deleted',
-        })
-      );
-    } else {
-      throw payload;
-    }
+    yield put(
+      showNotification({
+        type:
+          syncResult.status === Statuses.Success
+            ? NotificationTypes.Success
+            : NotificationTypes.Error,
+        text:
+          syncResult.status === Statuses.Success
+            ? 'Account was successfully deleted'
+            : 'Error while deleting account',
+      })
+    );
   } catch (e) {
     yield put(
       showNotification({

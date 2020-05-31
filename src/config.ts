@@ -53,8 +53,7 @@ export interface Config {
       accounts: string;
       profile: string;
       settings: string;
-      mnemonic: string;
-      privateKeys: string;
+      keys: string;
       coinLastIndexes: string;
     };
   };
@@ -110,8 +109,7 @@ const config: Config = {
       accounts: 'accounts.json',
       settings: 'settings.json',
       profile: 'profile.json',
-      mnemonic: 'mnemonic.json',
-      privateKeys: 'privateKeys.json',
+      keys: 'keys.json',
       coinLastIndexes: 'coinLastIndexes.json',
     },
   },

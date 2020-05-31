@@ -1,16 +1,16 @@
-import { call, put, take } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { v4 } from 'uuid';
 
 import { callApi } from '../../../utils/api';
 
 import { importPublicAddress, addAccount, setAccountTxs } from '../actions';
-import { syncDataToGaia } from '../../user/actions';
+import syncDataToGaiaSaga from '../../user/sagas/syncDataToGaia';
 import { config } from '../../../config';
 import { Transactions, BlockChairTx } from '../types';
 import { toBTC } from '../../../utils/common';
-import { SyncDataTypes, UserActionTypes } from '../../user/types';
+import { SyncDataTypes } from '../../user/types';
 import { showNotification } from '../../layout/actions';
-import { NotificationTypes } from '../../../dictionaries';
+import { NotificationTypes, Statuses } from '../../../dictionaries';
 import { push } from 'connected-react-router';
 
 export function normalizeTxs(txs: BlockChairTx[]) {
@@ -68,7 +68,7 @@ export default function* importPublicAddressSaga({
         id: accountId,
         name: accountName,
         derivationPath: null,
-        isPublicImport: true,
+        keyType: null,
         txComments: {},
       })
     );
@@ -76,17 +76,12 @@ export default function* importPublicAddressSaga({
       setAccountTxs(accountId, normalizeTxs(result.data[address].transactions))
     );
 
-    yield put(syncDataToGaia({ dataType: SyncDataTypes.accounts }));
+    const syncResult = yield call(syncDataToGaiaSaga, {
+      dataType: SyncDataTypes.accounts,
+    });
 
-    const { type: syncResult, payload } = yield take([
-      UserActionTypes.SYNC_DATA_TO_GAIA_SUCCESS,
-      UserActionTypes.SYNC_DATA_TO_GAIA_ERROR,
-    ]);
-
-    if (syncResult === UserActionTypes.SYNC_DATA_TO_GAIA_ERROR) {
-      throw payload instanceof Error
-        ? payload
-        : new Error('Error on syncing accounts to Gaia');
+    if (syncResult.status === Statuses.Fail) {
+      throw syncResult.error;
     }
 
     yield put(
