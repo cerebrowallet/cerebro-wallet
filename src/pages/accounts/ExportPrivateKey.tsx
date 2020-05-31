@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Download as DownloadIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getAccountById } from '../../store/account/selectors';
+import { exportPrivateKey } from '../../store/account/actions';
+import { KeyTypes } from '../../store/account/types';
 
 import PageContent from '../../components/layout/PageContent/PageContent';
 import FormGroup from '../../components/forms/FormGroup/FormGroup';
@@ -17,8 +19,21 @@ interface Props {
   accountId: string;
 }
 
+const keyTypesOptions = [
+  {
+    id: KeyTypes.Mnemonic,
+    name: 'Mnemonic phrase',
+  },
+  {
+    id: KeyTypes.PrivateKey,
+    name: 'Private key',
+  },
+  { id: KeyTypes.WIF, name: 'WIF' },
+];
+
 const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
   const account = useSelector(getAccountById(accountId));
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
   const hideModal = () => setShowModal(false);
@@ -26,6 +41,13 @@ const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
   if (!account) {
     return null;
   }
+
+  const options = keyTypesOptions.filter(
+    (option) =>
+      !(
+        account.keyType !== KeyTypes.Mnemonic && option.id === KeyTypes.Mnemonic
+      )
+  );
 
   return (
     <PageContent
@@ -35,34 +57,37 @@ const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
     >
       <Formik
         initialValues={{
-          format: null,
+          keyType: options[0],
         }}
         onSubmit={() => setShowModal(true)}
       >
-        {() => (
+        {({
+          values,
+        }: {
+          values: { keyType: { id: KeyTypes; name: string } };
+        }) => (
           <Form>
             <WhiteBlock>
               <FormGroup label="Private Key format">
-                <DropDown
-                  name="format"
-                  required
-                  options={[{ id: 'WIF', name: 'wif' }]}
-                />
+                <DropDown name="keyType" required options={options} />
               </FormGroup>
               <Button type="submit">Next</Button>
             </WhiteBlock>
+            <Modal showModal={showModal} onHide={hideModal}>
+              <ConfirmModal
+                onCancel={hideModal}
+                onConfirm={() => {
+                  hideModal();
+                  dispatch(exportPrivateKey(accountId, values.keyType.id));
+                }}
+                account={account}
+                description="To export your private key, we must be sure of safety. Enter account name:"
+                confirmBtnName="Export"
+              />
+            </Modal>
           </Form>
         )}
       </Formik>
-      <Modal showModal={showModal} onHide={hideModal}>
-        <ConfirmModal
-          onCancel={hideModal}
-          onConfirm={hideModal}
-          account={account}
-          description="To export your private key, we must be sure of safety. Enter account name:"
-          confirmBtnName="Export"
-        />
-      </Modal>
     </PageContent>
   );
 };

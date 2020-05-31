@@ -17,7 +17,6 @@ export enum AccountActionTypes {
   UPDATE_ACCOUNT = '@@account/update_account',
   UPDATE_ACCOUNT_IN_GAIA = '@@account/update_account_in_gaia',
   DELETE_ACCOUNT = '@@account/delete_account',
-  DELETE_ACCOUNT_SUCCESS = '@@account/delete_account_success',
   GET_EXCHANGE_RATES = '@@account/get_exchange_rates',
   SET_EXCHANGE_RATES = '@@account/set_exchange_rates',
   GET_ACCOUNT_DETAILS = '@@account/get_account_details',

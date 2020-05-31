@@ -4,6 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/big.js": "^4.0.5",
+    "@types/file-saver": "^2.0.1",
     "@types/jest": "24.0.22",
     "@types/node": "12.12.6",
     "@types/qrcode.react": "^1.0.0",
@@ -23,6 +24,7 @@
     "blockstack": "^21.0.0",
     "connected-react-router": "^6.6.1",
     "date-fns": "^2.8.1",
+    "file-saver": "^2.0.2",
     "formik": "^2.0.4",
     "immer": "^5.0.1",
     "qrcode.react": "^1.0.0",

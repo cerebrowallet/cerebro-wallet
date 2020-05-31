@@ -100,3 +100,15 @@ export const createBTCLikeTransaction = async ({
 
   return psbt.extractTransaction().toHex();
 };
+
+export const getNodeFromMnemonic = async ({
+  mnemonic,
+  derivationPath,
+}: {
+  mnemonic: string;
+  derivationPath: string;
+}) => {
+  const seed = await mnemonicToSeed(mnemonic);
+  const hdRoot = bitcoin.bip32.fromSeed(seed);
+  return hdRoot.derivePath(derivationPath);
+};

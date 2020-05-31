@@ -9,6 +9,7 @@ import {
   Transactions,
   AddressTypes,
   Account,
+  KeyTypes
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 import { ImportPublicAddressValues } from '../../pages/accounts/ManageAccount/ImportPublicAddress';
@@ -84,7 +85,7 @@ export const setCharts = (
 export const resetChart = () => action(AccountActionTypes.RESET_CHARTS);
 export const importPrivateKey = (payload: ImportPrivateKeyFormValues) =>
   action(AccountActionTypes.IMPORT_PRIVATE_KEY, payload);
-export const exportPrivateKey = () =>
-  action(AccountActionTypes.EXPORT_PRIVATE_KEY);
+export const exportPrivateKey = (accountId: string, keyType: KeyTypes) =>
+  action(AccountActionTypes.EXPORT_PRIVATE_KEY, { accountId, keyType });
 export const importPublicAddress = (payload: ImportPublicAddressValues) =>
   action(AccountActionTypes.IMPORT_PUBLIC_ADDRESS, payload);
