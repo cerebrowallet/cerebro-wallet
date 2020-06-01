@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
-import { Location } from 'history';
+import { useDispatch } from 'react-redux';
 
 import { ChartPeriods, Coins } from '../../../dictionaries';
 import { getCharts } from '../../../store/account/actions';
 import { ChartFilters } from '../../../store/account/types';
-import { getSettings } from '../../../store/user/selectors';
-import { usePrevious } from '../../../utils/hooks';
-import { Settings } from '../../../store/user/types';
 
 import { Container, Header } from './styled';
 
@@ -25,30 +20,10 @@ interface Props {
 
 const Charts: React.FC<Props> = ({ coinA, coinB, canChange }) => {
   const dispatch = useDispatch();
-  const settings = useSelector(getSettings);
-  const location = useLocation();
-  const previous = usePrevious<{ settings: Settings; location: Location }>({
-    settings,
-    location,
-  });
 
   useEffect(() => {
-    if (previous) {
-      if (
-        previous.settings?.currency !== settings?.currency ||
-        previous.location.pathname !== location.pathname
-      ) {
-        dispatch(getCharts({ coinA, coinB, period: ChartPeriods.ThreeMonth }));
-      }
-    }
-  }, [
-    settings,
-    previous,
-    location.pathname,
-    coinA,
-    coinB,
-    dispatch,
-  ]);
+    dispatch(getCharts({ coinA, coinB, period: ChartPeriods.ThreeMonth }));
+  }, [dispatch, coinA, coinB]);
 
   function updateFilter(payload: Partial<ChartFilters>) {
     dispatch(getCharts(payload));

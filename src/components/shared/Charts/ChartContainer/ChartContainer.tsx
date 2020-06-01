@@ -37,7 +37,7 @@ const ChartContainer: React.FC<Props> = ({ theme }) => {
   const settings = useSelector(getSettings);
 
   if (data === null || !settings) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (

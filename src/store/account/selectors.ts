@@ -219,7 +219,7 @@ export const getCreateTxResult = (state: ApplicationState) =>
 export const getCharts = createSelector(
   [(state: ApplicationState) => state.account.chart, getSettings],
   (chart, settings) => {
-    if (!chart.data || !settings) {
+    if (!chart.data || Object.keys(chart.data).length === 0 || !settings) {
       return null;
     }
 

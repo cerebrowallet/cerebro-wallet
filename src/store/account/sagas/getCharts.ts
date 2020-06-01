@@ -1,6 +1,7 @@
-import { all, call, put, select } from 'redux-saga/effects';
+import { all, call, put, select, take } from 'redux-saga/effects';
 
 import { getSettings } from '../../user/selectors';
+import { UserActionTypes } from '../../user/types';
 import { getChartsFilters } from '../selectors';
 import { ChartPeriods, Coins } from '../../../dictionaries';
 import { config } from '../../../config';
@@ -11,8 +12,13 @@ export default function* getChartsSaga() {
   try {
     yield put(setCharts(null));
 
-    const settings = yield select(getSettings);
+    let settings = yield select(getSettings);
     const filters = yield select(getChartsFilters);
+
+    if (!settings) {
+      const { payload } = yield take(UserActionTypes.SET_SETTINGS);
+      settings = payload;
+    }
 
     const params = {
       [ChartPeriods.Day]: { aggregate: 1, limit: 24, api: 'histohour' },
