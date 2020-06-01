@@ -44,7 +44,17 @@ export default function* exportPrivateKeySaga({
     }
 
     if (keyType === KeyTypes.Mnemonic) {
-      text += `Mnemonic: ${key}\nDerivation Path: ${derivationPath}`;
+      text += `Mnemonic: ${key}\n`;
+
+      const node = yield call(getNodeFromMnemonic, {
+        mnemonic: key,
+        derivationPath: account.derivationPath,
+      });
+      if (node.privateKey) {
+        text += `Private Key: ${node.privateKey.toString('hex')}\n`;
+      }
+
+      text += `Derivation Path: ${derivationPath}\n`;
     } else if (account.keyType === keyType) {
       text += `${
         keyType === KeyTypes.PrivateKey ? 'Private Key' : 'WIF'
@@ -57,6 +67,7 @@ export default function* exportPrivateKeySaga({
               derivationPath: account.derivationPath,
             })
           : bitcoin.ECPair.fromWIF(key);
+
       text += `Private Key: ${
         node.privateKey && node.privateKey.toString('hex')
       }\n`;
@@ -68,6 +79,7 @@ export default function* exportPrivateKeySaga({
               derivationPath: account.derivationPath,
             })
           : bitcoin.ECPair.fromPrivateKey(Buffer.from(key, 'hex'));
+
       text += `WIF: ${node.toWIF()}\n`;
     }
 

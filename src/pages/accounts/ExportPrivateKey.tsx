@@ -19,18 +19,6 @@ interface Props {
   accountId: string;
 }
 
-const keyTypesOptions = [
-  {
-    id: KeyTypes.Mnemonic,
-    name: 'Mnemonic phrase',
-  },
-  {
-    id: KeyTypes.PrivateKey,
-    name: 'Private key',
-  },
-  { id: KeyTypes.WIF, name: 'WIF' },
-];
-
 const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
   const account = useSelector(getAccountById(accountId));
   const dispatch = useDispatch();
@@ -42,12 +30,23 @@ const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
     return null;
   }
 
-  const options = keyTypesOptions.filter(
-    (option) =>
-      !(
-        account.keyType !== KeyTypes.Mnemonic && option.id === KeyTypes.Mnemonic
-      )
-  );
+  const keyTypesOptions: { id: KeyTypes; name: string }[] = [];
+
+  if (account.keyType === KeyTypes.Mnemonic) {
+    keyTypesOptions.push({
+      id: KeyTypes.Mnemonic,
+      name: 'Private Key and Mnemonic phrase',
+    });
+  }
+
+  if (account.keyType !== KeyTypes.Mnemonic) {
+    keyTypesOptions.push({
+      id: KeyTypes.PrivateKey,
+      name: 'Private key',
+    });
+  }
+
+  keyTypesOptions.push({ id: KeyTypes.WIF, name: 'WIF' });
 
   return (
     <PageContent
@@ -57,7 +56,7 @@ const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
     >
       <Formik
         initialValues={{
-          keyType: options[0],
+          keyType: keyTypesOptions[0],
         }}
         onSubmit={() => setShowModal(true)}
       >
@@ -69,7 +68,7 @@ const ExportPrivateKey: React.FC<Props> = ({ accountId }) => {
           <Form>
             <WhiteBlock>
               <FormGroup label="Private Key format">
-                <DropDown name="keyType" required options={options} />
+                <DropDown name="keyType" required options={keyTypesOptions} />
               </FormGroup>
               <Button type="submit">Next</Button>
             </WhiteBlock>
