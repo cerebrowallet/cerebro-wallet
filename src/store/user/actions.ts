@@ -6,32 +6,17 @@ import {
   Settings,
   Profile,
   UpdateDataActionPayload,
-  Themes,
 } from './types';
-import {
-  ActivityFilterTypes,
-  Currencies,
-  Genders,
-  Statuses,
-  TimeOuts,
-} from '../../dictionaries';
+import { ActivityFilterTypes, Statuses } from '../../dictionaries';
 
 export const setUserData = (userData: UserData) =>
   action(UserActionTypes.SET_USER_DATA, userData);
 export const getSettings = () => action(UserActionTypes.GET_SETTINGS);
-export const setSettings = (
-  settings: Settings = {
-    currency: Currencies.USD,
-    timeout: TimeOuts.ThreeMinutes,
-    theme: Themes.light,
-  }
-) => action(UserActionTypes.SET_SETTINGS, settings);
+export const setSettings = (settings: Settings) =>
+  action(UserActionTypes.SET_SETTINGS, settings);
 export const getProfile = () => action(UserActionTypes.GET_PROFILE);
-export const setProfile = (
-  profile: Profile = {
-    gender: Genders.incognito,
-  }
-) => action(UserActionTypes.SET_PROFILE, profile);
+export const setProfile = (profile: Profile) =>
+  action(UserActionTypes.SET_PROFILE, profile);
 export const updateProfile = (payload: UpdateDataActionPayload) =>
   action(UserActionTypes.UPDATE_PROFILE, payload);
 export const updateSettings = (payload: UpdateDataActionPayload) =>

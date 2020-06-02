@@ -2,14 +2,20 @@ import { call, put } from 'redux-saga/effects';
 
 import { getFile } from '../../../utils/blockstack';
 import { config } from '../../../config';
-import { NotificationTypes } from '../../../dictionaries';
+import { Genders, NotificationTypes } from '../../../dictionaries';
 import { setProfile } from '../actions';
 import { showNotification } from '../../layout/actions';
 
 export default function* getProfileSaga() {
   try {
     const profile = yield call(getFile, config.gaia.files.profile);
-    yield put(setProfile(profile));
+    yield put(
+      setProfile(
+        profile || {
+          gender: Genders.incognito,
+        }
+      )
+    );
   } catch (e) {
     yield put(
       showNotification({
