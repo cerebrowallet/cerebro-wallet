@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { hexToRGB } from '../../../utils/common';
+
 export const Button = styled.button`
   display: flex;
   align-items: center;
@@ -30,6 +32,32 @@ export const Button = styled.button`
     height: 1.5rem;
     margin-right: 0.9375rem;
   }
+`;
+
+export const SkeletonButtonWrapper = styled.div`
+  padding: 0 0.625rem;
+`
+
+export const SkeletonButton = styled(Button)`
+  display: block;
+  margin-bottom: 0.625rem;
+  background: ${(props) => hexToRGB(props.theme.colors.secondaryExtraLight, 0.9)};
+  overflow: hidden;
+
+  &:hover,
+  &.active {
+    background: ${(props) => hexToRGB(props.theme.colors.secondaryExtraLight, 0.9)};
+  }
+`;
+
+export const SkeletonIcon = styled.i`
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  background: ${(props) => hexToRGB(props.theme.colors.secondaryLight, 0.9)};
 `;
 
 export const Text = styled.div`

@@ -15,6 +15,7 @@ import {
 
 import Scrollbar from '../../../../components/shared/Scrollbar/Scrollbar';
 import CurrencyIcon from '../../../../components/shared/CurrencyIcon/CurrencyIcon';
+import AccountsSkeleton from './AccountsSkeleton';
 
 const Accounts: React.FC = () => {
   const accounts = useSelector(getAccountsListWithDescText);
@@ -39,7 +40,7 @@ const Accounts: React.FC = () => {
             />
           ))
         ) : (
-          <></>
+          <AccountsSkeleton />
         )}
       </Scrollbar>
     </AccountsContainer>
