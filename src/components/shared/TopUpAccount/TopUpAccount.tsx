@@ -34,9 +34,9 @@ const TopUpAccount: React.FC<Props> = ({ accountId }) => {
 
   return (
     <PageContent
-      headerText="Top up account"
+      headerText="Top up / Receive"
       FooterIcon={ShareIcon}
-      footerText="You can share this address with anyone who wants to send money to you."
+      footerText="You can share this address with anyone who wants to send coins to you."
     >
       {!accountId && (
         <WhiteBlock>

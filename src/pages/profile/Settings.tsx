@@ -30,7 +30,7 @@ const Settings: React.FC = () => {
   return (
     <PageContent
       headerText="Settings"
-      footerText="Stay tuned for new features and essential market news with Cerebro."
+      footerText="Stay tuned for new features and essential news with Cerebro."
       FooterIcon={SendIcon}
     >
       <WhiteBlock>

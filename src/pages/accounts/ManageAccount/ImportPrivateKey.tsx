@@ -48,7 +48,7 @@ const ImportPrivateKey: React.FC = () => {
   return (
     <PageContent
       headerText="Import Private Key"
-      footerText="All your keys securely stored via Decentralized Storage Gaia by Blockstack. Keys cannot be used to store or transfer your funds by anyone except you. Available features: check balance, charts, transactions history, send, receive and in-app exchange service."
+      footerText="All your keys securely stored via Decentralized Storage Gaia by Blockstack. Keys cannot be used to store or transfer your funds by anyone except you. Available features: check balance, charts, activity, send, receive and in-app exchange service."
       FooterIcon={ShieldIcon}
     >
       <Formik

@@ -22,7 +22,7 @@ const CreateAccount: React.FC = () => {
   return (
     <PageContent
       headerText="Create a new account"
-      footerText="The account will be created with your Mnemonic phrase. Available features: check balance, charts, transactions history, send, receive and in-app exchange service."
+      footerText="The account will be created with your Mnemonic phrase using Default (bech32) or Legacy format. Available features: check balance, charts, transaction history, send, receive and in-app exchange service."
       FooterIcon={UnlockIcon}
     >
       <Formik

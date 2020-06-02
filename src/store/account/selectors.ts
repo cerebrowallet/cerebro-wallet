@@ -81,7 +81,7 @@ export const getAccountsListWithDescText = createSelector(
       ...account,
       descText: `${round(account.balance, 8)} ${
         config.coins[account.coin].abbr
-      } / ${CurrencySymbols[settings.currency]}${round(
+      } · ${CurrencySymbols[settings.currency]}${round(
         account.balance * rates[account.coin][settings.currency]
       )}`,
     }));

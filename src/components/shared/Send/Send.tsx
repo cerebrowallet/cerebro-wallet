@@ -76,7 +76,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
     [SendSteps.fillUp]: {
       headerText: 'Send',
       footerText:
-        'Instantly send money with custom fee to anyone or own wallet.',
+        'Instantly send money to anyone or own wallet.',
       footerIcon: CompassIcon,
     },
     [SendSteps.confirm]: {

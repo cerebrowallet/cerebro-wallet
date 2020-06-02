@@ -27,7 +27,7 @@ const ImportPublicAddress: React.FC = () => {
   return (
     <PageContent
       headerText="Import Public Address"
-      footerText="Add a public address and see what happens to it. Available features: check balance, charts and transactions history from public explorer."
+      footerText="Add a public address and see what happens to it. Available features: check balance, charts and transaction history from public explorer."
       FooterIcon={ActivityIcon}
     >
       <Formik

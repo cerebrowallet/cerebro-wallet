@@ -17,13 +17,13 @@ const MENU_ITEMS = [
   {
     link: '/profile/settings',
     text: 'Settings',
-    descText: 'Adjust settings',
+    descText: 'Adjust Settings',
     icon: <SettingsIcon />,
   },
   {
-    link: 'https://docs.cerebrowallet.com',
-    text: 'Help Center',
-    descText: 'Knowledge Base, Support',
+    link: 'https://wiki.cerebrowallet.com',
+    text: 'Wiki',
+    descText: 'Knowledge Base',
     icon: <BookIcon />,
   },
 ];

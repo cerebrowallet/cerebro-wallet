@@ -21,8 +21,8 @@ const Menu: React.FC<Props> = ({ showMenu }) => {
   return (
     <MenuContainer showMenu={showMenu}>
       <RouterLink to="/my-accounts">Accounts</RouterLink>
-      <ExternalLink href="https://docs.cerebrowallet.com">
-        Help Center
+      <ExternalLink href="https://wiki.cerebrowallet.com">
+        Wiki
       </ExternalLink>
       <RouterLink to="/profile/settings">Settings</RouterLink>
       <LogOutButton

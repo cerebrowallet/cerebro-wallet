@@ -14,7 +14,7 @@ const ActivityHeader: React.FC = () => {
     <Wrapper>
       <Input
         type="text"
-        placeholder="Search by hash..."
+        placeholder="Search by hash or address..."
         value={searchStr}
         onChange={e => dispatch(searchActivityByHash(e.target.value))}
       />

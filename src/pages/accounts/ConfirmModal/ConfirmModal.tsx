@@ -56,7 +56,7 @@ const ConfirmModal: React.FC<Props> = ({
         </Content>
         <Footer>
           <BackButton type="button" onClick={onCancel}>
-            &larr; Back
+            ‹ Back
           </BackButton>
           <Button type="submit" color={confirmBtnColor}>
             {confirmBtnName}

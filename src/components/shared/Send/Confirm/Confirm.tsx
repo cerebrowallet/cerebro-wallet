@@ -74,7 +74,7 @@ const Confirm = React.forwardRef<HTMLDivElement, Props>(({ setStep }, ref) => {
       </Details>
       <Actions>
         <BackButton type="button" onClick={() => setStep(SendSteps.fillUp)}>
-          &larr; Back
+          ‹ Back
         </BackButton>
         <Button type="submit">Confirm</Button>
       </Actions>
