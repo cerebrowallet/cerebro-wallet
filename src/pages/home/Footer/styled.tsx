@@ -14,6 +14,7 @@ export const FooterContainer = styled.footer`
 
   @media (min-width: ${Breakpoints.xl}px) {
     display: flex;
+    padding-right: 1.875rem;
   }
 `;
 

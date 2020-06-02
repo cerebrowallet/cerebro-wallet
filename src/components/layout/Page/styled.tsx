@@ -101,7 +101,7 @@ export const TwoColumnsContent = styled.section`
 
 export const DashboardContent = styled.section`
   display: grid;
-  grid-gap: 1.3125rem;
+  grid-gap: 3.5rem;
   padding: 0.9375rem 1.25rem 1.5625rem;
   grid-template-areas:
     'header'
