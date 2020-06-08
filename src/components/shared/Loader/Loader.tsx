@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Container, Icon } from './styled';
+import { Container } from './styled';
+import LogoIcon from '../LogoIcon/LogoIcon';
 
 const Loader: React.FC = () => {
   return (
     <Container>
-      <Icon />
+      <LogoIcon />
     </Container>
   );
 };

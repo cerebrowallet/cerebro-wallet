@@ -6,14 +6,14 @@ import { useTransition, animated } from 'react-spring';
 import { userSession } from './utils/blockstack';
 import { usePrevious } from './utils/hooks';
 
-import AuthenticatedWrapper from './pages/login/AuthenticatedWrapper';
-import AuthCallbackHandler from './pages/login/AuthCallbackHandler';
-import PrivateRoute from './pages/login/PrivateRoute';
+import AuthenticatedWrapper from './pages/signIn/AuthenticatedWrapper';
+import AuthCallbackHandler from './pages/signIn/AuthCallbackHandler';
+import PrivateRoute from './pages/signIn/PrivateRoute';
 import HomePage from './pages/home/HomePage';
 import FeaturesPage from './pages/features/FeaturesPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import MyAccounts from './components/shared/MyAccounts/MyAccounts';
-import LoginPage from './pages/login/LoginPage';
+import LoginPage from './pages/signIn/LoginPage';
 import AccountsPage from './pages/accounts/AccountsPage';
 import ActivityPage from './pages/activity/ActivityPage';
 
@@ -59,7 +59,7 @@ const Routes: React.FC = () => {
       <Route>
         <AuthenticatedWrapper>
           {transitions.map(({ item: location, props, key }) => (
-            <animated.div key={key} style={props}>
+            <animated.div id="animate" key={key} style={props}>
               <Switch location={location}>
                 <PrivateRoute exact path="/">
                   <HomePage />

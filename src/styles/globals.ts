@@ -34,7 +34,12 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
     transition: color .15s ease-in-out, background .15s ease-in-out;
   }
   
-  #root > div {
+  #root {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #root > #animate {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -53,6 +58,10 @@ const Globals = createGlobalStyle<{ theme: Theme }>`
     &:active {
       color: ${(props) => props.theme.colors.primary};
     }
+  }
+  
+  #cerebro-icon-ring {
+    fill: ${(props) => props.theme.colors.tertiary};
   }
  `;
 

@@ -117,16 +117,3 @@ export const DashboardContent = styled.section`
     padding-left: 4.6875rem;
   }
 `;
-
-export const LoginContent = styled.section`
-  display: none;
-
-  @media (min-width: ${Breakpoints.md}px) {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    grid-gap: 0;
-    padding: 0;
-  }
-`;

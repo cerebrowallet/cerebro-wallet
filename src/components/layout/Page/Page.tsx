@@ -8,7 +8,6 @@ import {
   OneColumnContent,
   TwoColumnsContent,
   DashboardContent,
-  LoginContent,
   Sidebar,
 } from './styled';
 import Scrollbar from '../../shared/Scrollbar/Scrollbar';
@@ -19,21 +18,18 @@ export enum PageLayouts {
   oneColumn = 'one-column',
   twoColumns = 'two-columns',
   dashboard = 'dashboard',
-  login = 'login',
 }
 
 const containerComponents = {
   [PageLayouts.oneColumn]: OneColumnContainer,
   [PageLayouts.twoColumns]: TwoColumnsContainer,
   [PageLayouts.dashboard]: Container,
-  [PageLayouts.login]: Container,
 };
 
 const contentComponents = {
   [PageLayouts.oneColumn]: OneColumnContent,
   [PageLayouts.twoColumns]: TwoColumnsContent,
   [PageLayouts.dashboard]: DashboardContent,
-  [PageLayouts.login]: LoginContent,
 };
 
 interface Props {
