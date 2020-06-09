@@ -1,4 +1,4 @@
-import { call, put, all } from 'redux-saga/effects';
+import { call, put, all, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { v4 } from 'uuid';
 
@@ -6,6 +6,7 @@ import { createAccount, addAccount } from '../actions';
 import { showNotification } from '../../layout/actions';
 import { Coins, NotificationTypes, Statuses } from '../../../dictionaries';
 import { generateBTCLikeAddress } from '../../../utils/wallets';
+import { getAccounts } from '../selectors';
 import getKey from './getKey';
 import {
   getCoinLastIndexSaga,
@@ -49,13 +50,25 @@ export default function* createAccountSaga({
 
     yield call(incrementCoinLastIndexSaga, coin);
 
+    const coinName = config.coins[coin].name;
+    const accounts = yield select(getAccounts);
+    const sameCoinAccountsIdsWithDefaultName = accounts
+      ? accounts.allIds.filter((accountId: string) => {
+          const account = accounts.byIds[accountId];
+          return account.coin === coin && account.name === coinName;
+        })
+      : [];
+
     yield put(
       addAccount({
         address,
         addressType,
         id: accountId,
         coin,
-        name: `My ${config.coins[coin].name} Wallet`,
+        name:
+          sameCoinAccountsIdsWithDefaultName.length === 0
+            ? coinName
+            : `${coinName} ${sameCoinAccountsIdsWithDefaultName.length + 1}`,
         derivationPath,
         txComments: {},
         keyType: KeyTypes.Mnemonic,

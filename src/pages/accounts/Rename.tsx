@@ -17,6 +17,18 @@ interface Props {
   accountId: string;
 }
 
+export const validateAccountName = (required: boolean) => (value: string) => {
+  if (required && !value.trim()) {
+    return 'Field is required';
+  }
+
+  if (value.trim().length > 20) {
+    return 'Max allowed length is 20 characters';
+  }
+
+  return;
+}
+
 const Rename: React.FC<Props> = ({ accountId }) => {
   const account = useSelector(getAccountById(accountId));
   const dispatch = useDispatch();
@@ -52,7 +64,11 @@ const Rename: React.FC<Props> = ({ accountId }) => {
         <Form>
           <WhiteBlock>
             <FormGroup label="New account name">
-              <Input name="name" required />
+              <Input
+                name="name"
+                required
+                validate={validateAccountName(true)}
+              />
             </FormGroup>
             <Button type="submit">Save</Button>
           </WhiteBlock>

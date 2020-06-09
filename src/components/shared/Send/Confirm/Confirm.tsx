@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormikContext } from 'formik';
 
 import { SendSteps, TransferToTypes, TxDraftFormValues } from '../Send';
 import { getSettings } from '../../../../store/user/selectors';
+import { makeTx } from '../../../../store/account/actions';
 import {
   getAccountById,
   getExchangeRates,
@@ -26,6 +27,7 @@ interface Props {
 }
 
 const Confirm = React.forwardRef<HTMLDivElement, Props>(({ setStep }, ref) => {
+  const dispatch = useDispatch();
   const settings = useSelector(getSettings);
   const rates = useSelector(getExchangeRates);
   const { values } = useFormikContext<TxDraftFormValues>();
@@ -76,7 +78,9 @@ const Confirm = React.forwardRef<HTMLDivElement, Props>(({ setStep }, ref) => {
         <BackButton type="button" onClick={() => setStep(SendSteps.fillUp)}>
           ‹ Back
         </BackButton>
-        <Button type="submit">Confirm</Button>
+        <Button type="button" onClick={() => dispatch(makeTx(values))}>
+          Confirm
+        </Button>
       </Actions>
     </div>
   );

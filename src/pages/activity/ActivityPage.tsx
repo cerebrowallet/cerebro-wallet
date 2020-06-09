@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, withRouter, useParams } from 'react-router';
+import { Redirect, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import { getAccounts, getTxs } from '../../store/account/selectors';
@@ -36,4 +36,4 @@ const ActivityPage: React.FC = () => {
   );
 };
 
-export default withRouter(ActivityPage);
+export default ActivityPage;

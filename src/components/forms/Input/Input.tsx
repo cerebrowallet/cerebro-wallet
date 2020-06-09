@@ -40,7 +40,7 @@ const Input: React.FC<Props> = ({
 
         if (validate) {
           error = validate(value);
-        } else if (required && value === '') {
+        } else if (required && !value) {
           error = requiredErrorMessage || 'no-message';
         }
 

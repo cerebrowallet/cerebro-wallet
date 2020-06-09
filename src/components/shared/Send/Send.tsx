@@ -17,7 +17,7 @@ import {
   getRecommendedBTCFee,
   getAccountsListWithBalance,
 } from '../../../store/account/selectors';
-import { makeTx, setCreateTxResult } from '../../../store/account/actions';
+import { setCreateTxResult } from '../../../store/account/actions';
 import { getBlockstackUsername } from '../../../store/user/selectors';
 
 import FillUp from './FillUp/FillUp';
@@ -145,7 +145,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
           fee: recommendedFee.toString(),
         }}
         enableReinitialize
-        onSubmit={(values: TxDraftFormValues) => dispatch(makeTx(values))}
+        onSubmit={() => setStep(SendSteps.confirm)}
       >
         {() => (
           <Form>

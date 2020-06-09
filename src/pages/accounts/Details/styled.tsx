@@ -20,6 +20,7 @@ export const WalletName = styled.div`
   align-items: center;
   margin-right: 1.25rem;
   margin-bottom: 1.875rem;
+  word-break: break-word;
 
   @media (min-width: ${Breakpoints.sm}px) {
     margin-bottom: 0;

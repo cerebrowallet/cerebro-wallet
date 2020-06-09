@@ -23,7 +23,7 @@ function* accountSaga() {
     takeEvery(AccountActionTypes.GET_ACCOUNT_TXS, getAccountTxsSaga),
     takeLatest(AccountActionTypes.CREATE_ACCOUNT, createAccountSaga),
     takeLatest(AccountActionTypes.GET_EXCHANGE_RATES, getExchangeRatesSaga),
-    takeLatest(AccountActionTypes.UPDATE_ACCOUNT_IN_GAIA, updateAccountSaga),
+    takeLatest(AccountActionTypes.UPDATE_ACCOUNT, updateAccountSaga),
     takeLatest(AccountActionTypes.DELETE_ACCOUNT, deleteAccountSaga),
     takeLatest(AccountActionTypes.GET_TX_DETAILS, getTxDetailsSaga),
     takeLatest(

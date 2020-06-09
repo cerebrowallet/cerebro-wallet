@@ -20,7 +20,7 @@ export const Button = styled.button`
 
   &:hover,
   &.active {
-    background: ${(props) => props.theme.colors.secondaryLight};
+    background: ${(props) => props.theme.colors.secondaryExtraLight};
   }
 
   &:focus {

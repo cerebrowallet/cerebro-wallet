@@ -22,7 +22,8 @@ interface Props {
 }
 
 const FillUp: React.FC<Props> = ({ accountId, setStep }) => {
-  const { values, setFieldValue } = useFormikContext<TxDraftFormValues>();
+  const context = useFormikContext<TxDraftFormValues>();
+  const { values, setFieldValue } = context;
   const accountsOptions = useSelector(getAccountsListWithBalance);
 
   return (
@@ -53,9 +54,7 @@ const FillUp: React.FC<Props> = ({ accountId, setStep }) => {
         <TwoCols>
           <Fee />
           <div>
-            <Button type="button" onClick={() => setStep(SendSteps.confirm)}>
-              Next
-            </Button>
+            <Button type="submit">Next</Button>
           </div>
         </TwoCols>
       </FormGroup>

@@ -7,6 +7,7 @@ import { getCoinsList } from '../../../store/user/selectors';
 import { Coins } from '../../../dictionaries';
 import { KeyTypes, AddressTypes } from '../../../store/account/types';
 import { importPrivateKey } from '../../../store/account/actions';
+import { validateAccountName } from '../Rename';
 
 import PageContent from '../../../components/layout/PageContent/PageContent';
 import CoinDropDown from '../../../components/forms/DropDown/CoinDropDown';
@@ -121,7 +122,8 @@ const ImportPrivateKey: React.FC = () => {
               <FormGroup label="Account name">
                 <Input
                   name="accountName"
-                  placeholder={`My ${values.coin.name} Wallet (optional)`}
+                  placeholder={`${values.coin.name} (optional)`}
+                  validate={validateAccountName(false)}
                 />
               </FormGroup>
               <Button type="submit">Import</Button>

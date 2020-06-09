@@ -41,7 +41,7 @@ const Amount: React.FC = () => {
     let error;
     const intVal = parseFloatStr(value);
 
-    if (!isPositiveNumber(value)) {
+    if (!isPositiveNumber(value) || value === '0') {
       error = 'Amount field is not valid.';
     }
 

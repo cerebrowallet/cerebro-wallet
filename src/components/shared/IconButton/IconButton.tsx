@@ -13,7 +13,7 @@ interface Props {
   style?: any;
 }
 
-const IconMenuIcon: React.FC<Props> = ({
+const IconButton: React.FC<Props> = ({
   link,
   onClick,
   text,
@@ -61,4 +61,4 @@ const IconMenuIcon: React.FC<Props> = ({
   );
 };
 
-export default IconMenuIcon;
+export default IconButton;
