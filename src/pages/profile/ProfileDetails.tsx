@@ -37,6 +37,8 @@ const ProfileDetails: React.FC = () => {
     profile: { name },
   } = userData;
 
+  const userName = name ? name : blockStackUsername.split('.')[0];
+
   return (
     <PageContent
       headerText="Profile"
@@ -50,7 +52,7 @@ const ProfileDetails: React.FC = () => {
         ID-{identityAddress}
       </LabeledText>
       <LabeledText label="Blockstack name">
-        <CopyText value={name}>{name}</CopyText>
+        <CopyText value={userName}>{userName}</CopyText>
       </LabeledText>
       <WhiteBlock>
         <Formik

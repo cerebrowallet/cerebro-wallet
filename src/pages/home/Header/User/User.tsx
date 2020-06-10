@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import {
   getBlockstackUsername,
   getBlockstackAvatarUrl,
-  getBlockStackName,
+  getUserName,
 } from '../../../../store/user/selectors';
 
 import userImage from '../../../../images/user.png';
@@ -13,7 +13,7 @@ import { UserContainer, UserProfileLink, UserPic, UserName } from './styled';
 const User: React.FC = () => {
   const avatarUrl = useSelector(getBlockstackAvatarUrl);
   const username = useSelector(getBlockstackUsername);
-  const name = useSelector(getBlockStackName);
+  const name = useSelector(getUserName);
 
   return (
     <UserContainer to="/profile/details">
