@@ -132,6 +132,11 @@ export interface UpdateAccountActionPayload {
   update: {
     [field: string]: any;
   };
+  notifications?: {
+    success?: string;
+    error?: string;
+    start?: string;
+  }
 }
 
 export interface Activity {

@@ -56,6 +56,9 @@ const Rename: React.FC<Props> = ({ accountId }) => {
                 update: {
                   name: values.name,
                 },
+                notifications: {
+                  success: 'Successfully renamed.'
+                }
               })
             );
           }
