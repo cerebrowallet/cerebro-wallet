@@ -11,6 +11,8 @@ interface Props {
   txHash: string;
 }
 
+const MAX_COMMENT_SIZE = 20;
+
 const TxComment: React.FC<Props> = ({ accountId, txHash }) => {
   const dispatch = useDispatch();
   const txComment = useSelector(getTxComment(accountId, txHash));
@@ -22,7 +24,7 @@ const TxComment: React.FC<Props> = ({ accountId, txHash }) => {
   }, [txComment]);
 
   function saveComment() {
-    const comment = draft && draft.trim();
+    const comment = draft && draft.trim().slice(0, MAX_COMMENT_SIZE + 1);
 
     if (comment && comment !== txComment) {
       dispatch(
@@ -37,7 +39,11 @@ const TxComment: React.FC<Props> = ({ accountId, txHash }) => {
 
   return (
     <Input
-      onChange={(e) => setDraft(e.target.value)}
+      onChange={(e) => {
+        if (e.target.value.length <= MAX_COMMENT_SIZE) {
+          setDraft(e.target.value);
+        }
+      }}
       value={draft}
       ref={inputRef}
       onBlur={saveComment}
