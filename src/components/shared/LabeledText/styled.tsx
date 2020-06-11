@@ -28,7 +28,7 @@ export const Text = styled.span`
 export const Icon = styled.img`
   position: absolute;
   border: 0;
-  left: -1.0625rem;
+  left: -1.1rem;
   top: 0.45rem;
   padding: 0;
   width: 0.75rem;

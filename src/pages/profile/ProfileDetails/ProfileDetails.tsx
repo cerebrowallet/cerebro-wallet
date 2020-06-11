@@ -54,9 +54,11 @@ const ProfileDetails: React.FC = () => {
           target="_blank"
         >
           {blockStackUsername}
-          <br />
-          ID-{identityAddress}
         </Link>
+        <br />
+        <CopyText value={`ID-${identityAddress}`}>
+          ID-{identityAddress}
+        </CopyText>
       </LabeledText>
       <LabeledText label="Blockstack name">
         <CopyText value={userName}>{userName}</CopyText>
