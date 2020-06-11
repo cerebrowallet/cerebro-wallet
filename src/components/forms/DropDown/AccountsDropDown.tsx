@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { components } from 'react-select';
 
-import DropDown from './DropDown';
+import { Coins, CurrencySymbols, Currencies } from '../../../dictionaries';
+import { getSettings } from '../../../store/user/selectors';
+import { getExchangeRates } from '../../../store/account/selectors';
+import { ExchangeRates } from '../../../store/account/types';
+import { round } from '../../../utils/common';
 
+import DropDown from './DropDown';
 import { DropDownProps } from './DropDown';
 
 interface AccountOption {
@@ -11,6 +17,9 @@ interface AccountOption {
   name: string;
   balance: number;
   address: string;
+  coin?: Coins;
+  currency?: Currencies | undefined;
+  rates?: ExchangeRates;
 }
 
 interface Props extends DropDownProps {
@@ -19,26 +28,11 @@ interface Props extends DropDownProps {
 }
 
 const ValueWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: flex-end;
-  justify-content: start;
-  font-size: 1rem;
-  line-height: 1.5rem;
   padding-right: 3.2rem;
   padding-left: 1.25rem;
 `;
 
-const Left = styled.div`
-  max-width: 14.6875rem;
-  padding-right: 0.9375rem;
-`;
-
-const Right = styled.div`
-  overflow: hidden;
-`;
-
-const Strong = styled.div`
+const Name = styled.div`
   font-weight: 600;
   font-size: 1rem;
   line-height: 1rem;
@@ -47,23 +41,33 @@ const Strong = styled.div`
   text-overflow: ellipsis;
 `;
 
-const Text = styled.div`
+const Balance = styled.div`
   font-size: 0.75rem;
-  line-height: 0.7rem;
+  line-height: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: ${(props) => props.theme.colors.secondary};
 `;
 
-function AccountValue({ name, balance, address }: AccountOption) {
+function AccountValue({ name, balance, coin, currency, rates }: AccountOption) {
+  const balanceInLocalCurrency =
+    currency && rates && coin && rates?.[coin][currency]
+      ? round(balance * rates[coin][currency])
+      : null;
+
   return (
     <ValueWrapper>
-      <Left>
-        <Strong>{name}</Strong>
-        <Text>{address}</Text>
-      </Left>
-      <Right>
-        <Text>{balance}</Text>
-      </Right>
+      <Name>{name}</Name>
+      <Balance>
+        {balance} {coin}
+        {balanceInLocalCurrency !== null && currency && (
+          <>
+            {' · '}
+            {CurrencySymbols[currency]}
+            {balanceInLocalCurrency}
+          </>
+        )}
+      </Balance>
     </ValueWrapper>
   );
 }
@@ -72,7 +76,7 @@ const Wrapper = styled(components.ValueContainer)`
   position: relative;
   padding: 0.625rem 0 !important;
   flex-wrap: nowrap !important;
-  height: 3.4375rem!important;
+  height: 3.4375rem !important;
 `;
 
 const AccountsValueContainer = (props: any) => {
@@ -82,11 +86,18 @@ const AccountsValueContainer = (props: any) => {
 };
 
 const AccountsDropDown: React.FC<Props> = (props) => {
+  const settings = useSelector(getSettings);
+  const rates = useSelector(getExchangeRates);
+
+  const component = (cProps: any) => (
+    <AccountValue {...cProps} currency={settings?.currency} rates={rates} />
+  );
+
   return (
     <DropDown
       {...props}
-      optionComponent={AccountValue}
-      valueComponent={AccountValue}
+      optionComponent={component}
+      valueComponent={component}
       valueContainerComponent={AccountsValueContainer}
     />
   );
