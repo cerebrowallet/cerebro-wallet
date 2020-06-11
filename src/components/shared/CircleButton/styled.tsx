@@ -20,8 +20,11 @@ export const Button = styled.button`
   }
 
   svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 1.2rem;
     height: 1.2rem;
-    vertical-align: middle;
   }
 `;
