@@ -13,7 +13,12 @@ export default function* getAccountsSaga() {
     let accounts: Accounts = yield call(getFile, config.gaia.files.accounts);
 
     if (!accounts) {
-      yield put(createAccount(Coins.BTC, AddressTypes.SegWit));
+      yield put(
+        createAccount({
+          coin: Coins.BTC,
+          addressType: AddressTypes.SegWit,
+        })
+      );
 
       const { type } = yield take([
         AccountActionTypes.CREATE_ACCOUNT_SUCCESS,

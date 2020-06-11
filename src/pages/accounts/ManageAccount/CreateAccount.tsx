@@ -14,6 +14,7 @@ import { getCoinsList } from '../../../store/user/selectors';
 
 import CoinDropDown from '../../../components/forms/DropDown/CoinDropDown';
 import { AddressTypes } from '../../../store/account/types';
+import Input from '../../../components/forms/Input/Input';
 
 const CreateAccount: React.FC = () => {
   const coins = useSelector(getCoinsList);
@@ -26,12 +27,22 @@ const CreateAccount: React.FC = () => {
       FooterIcon={UnlockIcon}
     >
       <Formik
-        initialValues={{ coin: coins[0], addressType: AddressTypes.SegWit }}
-        onSubmit={({ coin, addressType }) =>
-          dispatch(createAccount(coin.id, addressType))
+        initialValues={{
+          coin: coins[0],
+          addressType: AddressTypes.SegWit,
+          name: '',
+        }}
+        onSubmit={({ coin, addressType, name }) =>
+          dispatch(
+            createAccount({
+              coin: coin.id,
+              addressType,
+              name,
+            })
+          )
         }
       >
-        {() => (
+        {({ values }) => (
           <Form>
             <WhiteBlock>
               <FormGroup label="Choose a coin">
@@ -39,11 +50,17 @@ const CreateAccount: React.FC = () => {
               </FormGroup>
               <FormGroup label="Address format">
                 <ButtonGroup
-                  name="type"
+                  name="addressType"
                   options={[
                     { name: 'Default', id: AddressTypes.SegWit },
                     { name: 'Legacy', id: AddressTypes.P2PKH },
                   ]}
+                />
+              </FormGroup>
+              <FormGroup label="Account name">
+                <Input
+                  name="name"
+                  placeholder={`${values.coin.name} (optional)`}
                 />
               </FormGroup>
               <Button type="submit">Create</Button>

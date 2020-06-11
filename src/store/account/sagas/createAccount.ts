@@ -23,7 +23,7 @@ const coinTypes = {
 };
 
 export default function* createAccountSaga({
-  payload: { coin, addressType },
+  payload: { coin, addressType, name },
 }: ReturnType<typeof createAccount>) {
   try {
     yield put(
@@ -50,14 +50,25 @@ export default function* createAccountSaga({
 
     yield call(incrementCoinLastIndexSaga, coin);
 
-    const coinName = config.coins[coin].name;
-    const accounts = yield select(getAccounts);
-    const sameCoinAccountsIdsWithDefaultName = accounts
-      ? accounts.allIds.filter((accountId: string) => {
-          const account = accounts.byIds[accountId];
-          return account.coin === coin && account.name === coinName;
-        })
-      : [];
+    let accountName;
+
+    if (!name) {
+      const coinName = config.coins[coin].name;
+      const accounts = yield select(getAccounts);
+      const sameCoinAccountsIdsWithDefaultName = accounts
+        ? accounts.allIds.filter((accountId: string) => {
+            const account = accounts.byIds[accountId];
+            return account.coin === coin && account.name === coinName;
+          })
+        : [];
+
+      accountName =
+        sameCoinAccountsIdsWithDefaultName.length === 0
+          ? coinName
+          : `${coinName} ${sameCoinAccountsIdsWithDefaultName.length + 1}`;
+    } else {
+      accountName = name;
+    }
 
     yield put(
       addAccount({
@@ -65,10 +76,7 @@ export default function* createAccountSaga({
         addressType,
         id: accountId,
         coin,
-        name:
-          sameCoinAccountsIdsWithDefaultName.length === 0
-            ? coinName
-            : `${coinName} ${sameCoinAccountsIdsWithDefaultName.length + 1}`,
+        name: accountName,
         derivationPath,
         txComments: {},
         keyType: KeyTypes.Mnemonic,

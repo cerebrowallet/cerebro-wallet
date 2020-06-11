@@ -9,7 +9,7 @@ import {
   Transactions,
   AddressTypes,
   Account,
-  KeyTypes
+  KeyTypes,
 } from './types';
 import { TxDraftFormValues } from '../../components/shared/Send/Send';
 import { ImportPublicAddressValues } from '../../pages/accounts/ManageAccount/ImportPublicAddress';
@@ -22,8 +22,11 @@ export const getAccountTxs = (accountId: string) =>
   action(AccountActionTypes.GET_ACCOUNT_TXS, { accountId });
 export const setAccountTxs = (accountId: string, txs: Transactions) =>
   action(AccountActionTypes.SET_ACCOUNT_TXS, { accountId, txs });
-export const createAccount = (coin: Coins, addressType: AddressTypes) =>
-  action(AccountActionTypes.CREATE_ACCOUNT, { coin, addressType });
+export const createAccount = (payload: {
+  coin: Coins;
+  addressType: AddressTypes;
+  name?: string;
+}) => action(AccountActionTypes.CREATE_ACCOUNT, payload);
 export const updateAccount = (payload: UpdateAccountActionPayload) =>
   action(AccountActionTypes.UPDATE_ACCOUNT, payload);
 export const addAccount = (account: Account) =>
