@@ -3,23 +3,25 @@ import { Smile as SmileIcon } from 'react-feather';
 import { Form, Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 
-import blockStackIcon from '../../images/blockstack-icon.svg';
+import blockStackIcon from '../../../images/blockstack-icon.svg';
 
 import {
   getUserData,
   getProfile,
   getGendersList,
-} from '../../store/user/selectors';
-import { updateProfile } from '../../store/user/actions';
+} from '../../../store/user/selectors';
+import { updateProfile } from '../../../store/user/actions';
 
-import Avatar from './Avatar/Avatar';
-import LabeledText from '../../components/shared/LabeledText/LabeledText';
-import WhiteBlock from '../../components/shared/WhiteBlock';
-import FormGroup from '../../components/forms/FormGroup/FormGroup';
-import DropDown from '../../components/forms/DropDown/DropDown';
-import PageContent from '../../components/layout/PageContent/PageContent';
-import UserNameInput from './UserNameInput';
-import CopyText from '../../components/shared/CopyText/CopyText';
+import { Link } from './styled';
+
+import Avatar from '../Avatar/Avatar';
+import LabeledText from '../../../components/shared/LabeledText/LabeledText';
+import WhiteBlock from '../../../components/shared/WhiteBlock';
+import FormGroup from '../../../components/forms/FormGroup/FormGroup';
+import DropDown from '../../../components/forms/DropDown/DropDown';
+import PageContent from '../../../components/layout/PageContent/PageContent';
+import UserNameInput from '../UserNameInput';
+import CopyText from '../../../components/shared/CopyText/CopyText';
 
 const ProfileDetails: React.FC = () => {
   const userData = useSelector(getUserData);
@@ -47,9 +49,14 @@ const ProfileDetails: React.FC = () => {
     >
       <Avatar />
       <LabeledText label="Blockstack ID" iconUrl={blockStackIcon}>
-        {blockStackUsername}
-        <br />
-        ID-{identityAddress}
+        <Link
+          href={`https://explorer.blockstack.org/name/${blockStackUsername}`}
+          target="_blank"
+        >
+          {blockStackUsername}
+          <br />
+          ID-{identityAddress}
+        </Link>
       </LabeledText>
       <LabeledText label="Blockstack name">
         <CopyText value={userName}>{userName}</CopyText>

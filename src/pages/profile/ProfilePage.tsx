@@ -3,7 +3,7 @@ import { Switch, Route, withRouter } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 
 import ProfileMenu from './ProfileMenu';
-import ProfileDetails from './ProfileDetails';
+import ProfileDetails from './ProfileDetails/ProfileDetails';
 import Settings from './Settings';
 import Page, { PageLayouts } from '../../components/layout/Page/Page';
 
