@@ -37,6 +37,7 @@ const Accounts: React.FC = () => {
               link={`/account/${account.id}/details`}
               text={account.name}
               descText={account.descText}
+              readonly={account.readonly}
             />
           ))
         ) : (

@@ -97,7 +97,7 @@ export const AccountItem = styled(IconButton)`
   align-items: center;
   text-align: left;
   width: 100%;
-  padding: 0.8125rem 0.625rem;
+  padding: 0.8125rem 1rem 0.8125rem 0.625rem;
   border-radius: 2.375rem;
   transition: background-color 0.15s ease-in;
   cursor: pointer;
@@ -126,10 +126,6 @@ export const AccountItem = styled(IconButton)`
     &:hover {
       background: ${(props) => props.theme.colors.secondaryExtraLight};
     }
-  }
-
-  i {
-    margin-right: 0.9375rem;
   }
 `;
 

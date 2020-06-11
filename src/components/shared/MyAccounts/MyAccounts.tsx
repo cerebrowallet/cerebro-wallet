@@ -35,7 +35,7 @@ const MyAccounts: React.FC = () => {
   const accounts = useSelector(getAccountsListWithDescText);
 
   const accountsTransitions = useTransition(
-    show ? accounts : [],
+    show && accounts ? accounts : [],
     (item) => item.address,
     getTransitionOptions(accounts ? accounts.length : 0)
   );
@@ -60,6 +60,7 @@ const MyAccounts: React.FC = () => {
                 icon={<CurrencyIcon coin={item.coin} size="lg" />}
                 text={item.name}
                 descText={item.descText}
+                readonly={item.readonly}
               />
             </MyAccountsButton>
           ))}

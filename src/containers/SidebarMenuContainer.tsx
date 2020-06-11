@@ -18,6 +18,7 @@ export interface MenuItem {
   icon: React.ReactElement<any>;
   className?: string;
   footerItem?: boolean;
+  readonly?: boolean;
 }
 
 interface Props extends RouteComponentProps {

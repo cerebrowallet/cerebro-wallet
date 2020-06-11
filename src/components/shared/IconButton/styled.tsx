@@ -30,23 +30,24 @@ export const Button = styled.button`
   svg {
     width: 1.5rem;
     height: 1.5rem;
-    margin-right: 0.9375rem;
   }
 `;
 
 export const SkeletonButtonWrapper = styled.div`
   padding: 0 0.625rem;
-`
+`;
 
 export const SkeletonButton = styled(Button)`
   display: block;
   margin-bottom: 0.625rem;
-  background: ${(props) => hexToRGB(props.theme.colors.secondaryExtraLight, 0.9)};
+  background: ${(props) =>
+    hexToRGB(props.theme.colors.secondaryExtraLight, 0.9)};
   overflow: hidden;
 
   &:hover,
   &.active {
-    background: ${(props) => hexToRGB(props.theme.colors.secondaryExtraLight, 0.9)};
+    background: ${(props) =>
+      hexToRGB(props.theme.colors.secondaryExtraLight, 0.9)};
   }
 `;
 
@@ -62,8 +63,14 @@ export const SkeletonIcon = styled.i`
 
 export const Text = styled.div`
   font-size: 1rem;
-  line-height: 1.25rem;
+  line-height: 1rem;
   font-weight: 600;
+  margin-top: -0.0625rem;
+`;
+
+export const Title = styled.span`
+  display: inline-block;
+  margin-bottom: 0.0625rem;
 `;
 
 export const Description = styled.span`
@@ -101,3 +108,31 @@ export const ExternalLink: React.FC<{
     {props.children}
   </Button>
 );
+
+export const Icon = styled.div`
+  position: relative;
+  display: inline-block;
+  margin-right: 0.9375rem;
+  line-height: 1;
+`;
+
+export const ReadOnlyIcon = styled.div`
+  position: absolute;
+  top: 60%;
+  right: -0.25rem;
+  width: 1rem;
+  height: 1rem;
+  background: ${(props) => props.theme.colors.tertiary};
+  border-radius: 100%;
+`;
+
+export const EyeIcon = styled.img`
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.625rem;
+  height: 0.625rem;
+  margin-right: 0;
+`;

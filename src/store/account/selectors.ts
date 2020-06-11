@@ -66,6 +66,7 @@ export const getAccountsListWithBalance = createSelector(
         address: accounts.byIds[accountId].address,
         balance: txs[accountId] ? calcAccountBalance(txs[accountId].byIds) : 0,
         coin: accounts.byIds[accountId].coin,
+        readonly: accounts.byIds[accountId].keyType === null,
       }))
     );
   }

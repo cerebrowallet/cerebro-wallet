@@ -5,7 +5,6 @@ export const Figure = styled.figure`
   width: 2.25rem;
   height: 2.25rem;
   background: ${(props) => props.theme.colors.tertiary};
-  margin-right: 0.9375rem;
   border-radius: 100%;
 
   svg {

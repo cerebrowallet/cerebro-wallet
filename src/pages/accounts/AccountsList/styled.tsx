@@ -43,7 +43,7 @@ export const AccountsSidebarMenu = styled(SidebarMenuContainer)`
     padding: 0;
   }
 
-  i {
-    margin-right: 0.9375rem;
-  }
+  //i {
+  //  margin-right: 0.9375rem;
+  //}
 `;

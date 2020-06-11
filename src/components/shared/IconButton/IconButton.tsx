@@ -1,6 +1,18 @@
 import React from 'react';
 
-import { Button, Text, Description, RouterLink, ExternalLink } from './styled';
+import EyeIconSrc from '../../../images/eye-icon.svg';
+
+import {
+  Button,
+  Text,
+  Description,
+  RouterLink,
+  ExternalLink,
+  Icon,
+  ReadOnlyIcon,
+  Title,
+  EyeIcon
+} from './styled';
 
 interface Props {
   link?: string;
@@ -11,6 +23,7 @@ interface Props {
   className?: string;
   children?: React.ReactNode;
   style?: any;
+  readonly?: boolean;
 }
 
 const IconButton: React.FC<Props> = ({
@@ -22,6 +35,7 @@ const IconButton: React.FC<Props> = ({
   children,
   className,
   style,
+  readonly,
 }) => {
   if (!link && !onClick) {
     return null;
@@ -29,9 +43,16 @@ const IconButton: React.FC<Props> = ({
 
   const content = (
     <>
-      {icon}
+      <Icon>
+        {icon}
+        {readonly && (
+          <ReadOnlyIcon>
+            <EyeIcon src={EyeIconSrc} />
+          </ReadOnlyIcon>
+        )}
+      </Icon>
       <Text>
-        {text}
+        <Title>{text}</Title>
         <Description>{descText}</Description>
       </Text>
       {children}

@@ -53,8 +53,4 @@ export const Button = styled(animated(IconButton))`
   background: ${(props) => props.theme.colors.tertiary};
   max-width: none;
   margin-bottom: 0 !important;
-
-  i {
-    margin-right: 0.9375rem;
-  }
 `;

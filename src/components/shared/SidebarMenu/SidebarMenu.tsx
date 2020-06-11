@@ -16,18 +16,12 @@ import IconButton from '../IconButton/IconButton';
 import Scrollbar from '../Scrollbar/Scrollbar';
 import Loader from '../Loader/Loader';
 
-interface MenuItem {
-  link: string;
-  text: string;
-  descText: string;
-  icon: React.ReactElement<any>;
-  className?: string;
-}
+import { MenuItem as IMenuItem } from '../../../containers/SidebarMenuContainer';
 
 interface Props {
-  menuItems: MenuItem[];
-  footerMenuItems: MenuItem[];
-  activeItem?: MenuItem;
+  menuItems: IMenuItem[];
+  footerMenuItems: IMenuItem[];
+  activeItem?: IMenuItem;
   setShowMobileMenu: (show: boolean) => void;
   showMobileMenu: boolean;
   onMobileMenuItemClick: (link: string) => void;
@@ -67,6 +61,7 @@ const SidebarMenu: React.FC<Props> = ({
               text={item.text}
               descText={item.descText}
               icon={item.icon}
+              readonly={item.readonly}
             />
           ))}
           <SidebarMenuFooter showMobileMenu={showMobileMenu}>
@@ -77,6 +72,7 @@ const SidebarMenu: React.FC<Props> = ({
                 text={item.text}
                 descText={item.descText}
                 icon={item.icon}
+                readonly={item.readonly}
               />
             ))}
           </SidebarMenuFooter>
@@ -99,6 +95,7 @@ const SidebarMenu: React.FC<Props> = ({
               text={item.text}
               descText={item.descText}
               icon={item.icon}
+              readonly={item.readonly}
             />
           ))
         ) : (
@@ -113,6 +110,7 @@ const SidebarMenu: React.FC<Props> = ({
             text={item.text}
             descText={item.descText}
             icon={item.icon}
+            readonly={item.readonly}
           />
         ))}
       </SidebarMenuFooter>

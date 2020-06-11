@@ -22,7 +22,8 @@ const AccountsList: React.FC = () => {
               link: `/account/${account.id}`,
               text: account.name,
               descText: account.descText,
-              icon: <CurrencyIcon coin={account.coin} size="large" />,
+              icon: <CurrencyIcon coin={account.coin} size="lg" />,
+              readonly: account.readonly,
             }),
             []
           ),
