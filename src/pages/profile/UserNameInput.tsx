@@ -9,8 +9,8 @@ import { updateProfile } from '../../store/user/actions';
 const UserNameInput: React.FC = () => {
   const dispatch = useDispatch();
   const profile = useSelector(getProfile);
-  const username = profile?.username;
-  const [value, setValue] = useState<string | undefined>(username || '');
+  const username = profile?.username || '';
+  const [value, setValue] = useState<string>(username);
   const inputEl = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const UserNameInput: React.FC = () => {
       value={value}
       ref={inputEl}
       placeholder="Enter"
+      name="username"
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         setValue(e.target.value)
       }
