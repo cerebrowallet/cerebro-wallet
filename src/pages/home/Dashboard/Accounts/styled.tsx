@@ -52,9 +52,10 @@ export const Title = styled.span`
 `;
 
 export const AddAccountButton = styled(Link)`
+  position: relative;
+  display: block;
   width: 2.25rem;
   height: 1.5625rem;
-  line-height: 1.5625rem;
   border-radius: 1.6875rem;
   background: ${(props) => props.theme.colors.secondaryLight};
   border: 0;
@@ -67,6 +68,10 @@ export const AddAccountButton = styled(Link)`
   }
 
   svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     color: ${(props) => props.theme.colors.secondary};
     width: 0.75rem;
     height: 0.75rem;
