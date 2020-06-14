@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 
+import { colors } from '../../../styles/colors';
+
 export const Container = styled.div`
   position: fixed;
   left: 50%;
@@ -27,26 +29,26 @@ const Content = styled.div`
 `;
 
 export const Success = styled(Content)`
-  color: ${props => props.theme.colors.tertiary};
-  background: ${props => props.theme.colors.green};
+  color: ${(props) => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.green};
 `;
 
 export const Error = styled(Content)`
-  color: ${props => props.theme.colors.tertiary};
-  background: ${props => props.theme.colors.red};
+  color: ${(props) => props.theme.colors.tertiary};
+  background: ${(props) => props.theme.colors.red};
 `;
 
 export const Default = styled(Content)`
-  color: ${props => props.theme.colors.tertiary};
-  background: ${props => props.theme.colors.primary};
+  color: ${colors.white};
+  background: ${colors.smoke};
 `;
 
 export const DefaultInvert = styled(Content)`
-  color: ${props => props.theme.colors.primary};
-  background: ${props => props.theme.colors.tertiary};
+  color: ${colors.black};
+  background: ${colors.white};
 
   svg {
-    color: ${props => props.theme.colors.primary}!important;
+    color: ${colors.white}!important;
   }
 `;
 
@@ -68,6 +70,6 @@ export const Button = styled.button`
   svg {
     width: 1rem;
     height: 1rem;
-    color: ${props => props.theme.colors.tertiary};
+    color: ${(props) => props.theme.colors.tertiary};
   }
 `;
