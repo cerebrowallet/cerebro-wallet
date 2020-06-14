@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+export const Container = styled.button`
   position: relative;
   width: 8rem;
   height: 8rem;
@@ -35,26 +35,7 @@ export const Icon = styled.span`
   }
 `;
 
-interface AvatarProps {
-  avatarUrl?: string;
-}
-
-export const UserPic = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-  border-radius: 100%;
-  background-color: ${(props) => props.theme.colors.tertiary};
-
-  ${(props: AvatarProps) =>
-    props.avatarUrl &&
-    `
-    background-image: url(${props.avatarUrl});
-  `}
-`;
+export const AvatarContainer = styled.div`
+  width: 8rem;
+  height: 8rem;
+`

@@ -5,16 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import blockStackIcon from '../../../images/blockstack-icon.svg';
 
-import {
-  getUserData,
-  getProfile,
-  getGendersList,
-} from '../../../store/user/selectors';
+import { getProfile, getGendersList } from '../../../store/user/selectors';
 import { updateProfile } from '../../../store/user/actions';
 
 import { Link } from './styled';
 
-import Avatar from '../Avatar/Avatar';
+import ProfileAvatar from './ProfileAvatar/ProfileAvatar';
 import LabeledText from '../../../components/shared/LabeledText/LabeledText';
 import WhiteBlock from '../../../components/shared/WhiteBlock';
 import FormGroup from '../../../components/forms/FormGroup/FormGroup';
@@ -22,24 +18,19 @@ import DropDown from '../../../components/forms/DropDown/DropDown';
 import PageContent from '../../../components/layout/PageContent/PageContent';
 import UserNameInput from '../UserNameInput';
 import CopyText from '../../../components/shared/CopyText/CopyText';
+import Loader from '../../../components/shared/Loader/Loader';
 
 const ProfileDetails: React.FC = () => {
-  const userData = useSelector(getUserData);
   const dispatch = useDispatch();
   const profile = useSelector(getProfile);
   const genders = useSelector(getGendersList);
 
-  if (!userData || !profile) {
-    return null;
+  if (!profile) {
+    return <Loader />;
   }
 
-  const {
-    username: blockStackUsername,
-    identityAddress,
-    profile: { name },
-  } = userData;
-
-  const userName = name ? name : blockStackUsername.split('.')[0];
+  const { blockstack, username, gender } = profile;
+  const name = blockstack.name || profile.blockstack.username.split('.')[0];
 
   return (
     <PageContent
@@ -47,27 +38,27 @@ const ProfileDetails: React.FC = () => {
       footerText="Use emoji by default or upload an avatar."
       FooterIcon={SmileIcon}
     >
-      <Avatar />
+      <ProfileAvatar />
       <LabeledText label="Blockstack ID" iconUrl={blockStackIcon}>
         <Link
-          href={`https://explorer.blockstack.org/name/${blockStackUsername}`}
+          href={`https://explorer.blockstack.org/name/${blockstack.username}`}
           target="_blank"
         >
-          {blockStackUsername}
+          {blockstack.username}
         </Link>
         <br />
-        <CopyText value={`ID-${identityAddress}`}>
-          ID-{identityAddress}
+        <CopyText value={`ID-${blockstack.address}`}>
+          ID-{blockstack.address}
         </CopyText>
       </LabeledText>
       <LabeledText label="Blockstack name">
-        <CopyText value={userName}>{userName}</CopyText>
+        <CopyText value={name}>{name}</CopyText>
       </LabeledText>
       <WhiteBlock>
         <Formik
           initialValues={{
-            username: profile.username || '',
-            gender: genders.filter((g) => g.id === profile.gender),
+            username: username || '',
+            gender: genders.filter((g) => g.id === gender),
           }}
           onSubmit={() => {}}
           enableReinitialize
@@ -81,15 +72,15 @@ const ProfileDetails: React.FC = () => {
                 <DropDown
                   name="gender"
                   options={genders}
-                  onChange={({ id }) =>
+                  onChange={({ id }) => {
                     dispatch(
                       updateProfile({
                         update: {
                           gender: id,
                         },
                       })
-                    )
-                  }
+                    );
+                  }}
                 />
               </FormGroup>
             </Form>

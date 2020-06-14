@@ -1,5 +1,4 @@
 import { action } from 'typesafe-actions';
-import { UserData } from 'blockstack/lib/auth/authApp';
 
 import {
   UserActionTypes,
@@ -9,14 +8,12 @@ import {
 } from './types';
 import { ActivityFilterTypes, Statuses } from '../../dictionaries';
 
-export const setUserData = (userData: UserData) =>
-  action(UserActionTypes.SET_USER_DATA, userData);
 export const getSettings = () => action(UserActionTypes.GET_SETTINGS);
 export const setSettings = (settings: Settings) =>
   action(UserActionTypes.SET_SETTINGS, settings);
 export const getProfile = () => action(UserActionTypes.GET_PROFILE);
-export const setProfile = (profile: Profile) =>
-  action(UserActionTypes.SET_PROFILE, profile);
+export const setProfile = (payload: Profile) =>
+  action(UserActionTypes.SET_PROFILE, payload);
 export const updateProfile = (payload: UpdateDataActionPayload) =>
   action(UserActionTypes.UPDATE_PROFILE, payload);
 export const updateSettings = (payload: UpdateDataActionPayload) =>
@@ -29,3 +26,8 @@ export const setActivityFilterType = (update: {
   type: ActivityFilterTypes;
   value?: string;
 }) => action(UserActionTypes.SET_ACTIVITY_FILTER_TYPE, update);
+export const chooseRandomEmoji = ({
+  isAuthCallback,
+}: {
+  isAuthCallback: boolean;
+}) => action(UserActionTypes.CHOOSE_EMOJI, { isAuthCallback });

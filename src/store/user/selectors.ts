@@ -1,40 +1,15 @@
 import { createSelector } from 'reselect';
-import { UserData } from 'blockstack/lib/auth/authApp';
 
 import { Currencies, Genders, TimeOuts } from '../../dictionaries';
 import { ApplicationState } from '../index';
 import { enumToMap } from '../../utils/common';
 import { config } from '../../config';
 import { Value } from '../../components/forms/DropDown/DropDown';
-import { Profile } from './types';
 
 export const getProfile = (state: ApplicationState) => state.user.profile;
-export const getUserData = (state: ApplicationState) => state.user.userData;
-export const getBlockstackUsername = createSelector(
-  getUserData,
-  (userData?: UserData) => (userData ? userData.username.split('.')[0] : null)
-);
-export const getUserName = createSelector(
-  [getUserData, getProfile],
-  (userData: UserData | undefined, profile: Profile | null) => {
-    if (profile && profile.username) {
-      return profile.username;
-    }
-
-    if (userData && userData.profile.name) {
-      return userData.profile.name;
-    }
-
-    return null;
-  }
-);
-export const getBlockstackAvatarUrl = createSelector(
-  getUserData,
-  (userData?: UserData) =>
-    userData && userData?.profile?.image && userData.profile.image.length > 0
-      ? userData.profile.image[0].contentUrl
-      : null
-);
+export const getUserName = createSelector(getProfile, (profile) => {
+  return profile && (profile.username || profile.blockstack.username);
+});
 export const getSettings = (state: ApplicationState) => state.user.settings;
 export const getGendersList = () =>
   Array.from(enumToMap(Genders).entries()).map(([id, name]) => ({

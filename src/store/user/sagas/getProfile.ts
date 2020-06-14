@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 
-import { getFile } from '../../../utils/blockstack';
+import { getFile, userSession } from '../../../utils/blockstack';
 import { config } from '../../../config';
 import { Genders, NotificationTypes } from '../../../dictionaries';
 import { setProfile } from '../actions';
@@ -8,13 +8,23 @@ import { showNotification } from '../../layout/actions';
 
 export default function* getProfileSaga() {
   try {
-    const profile = yield call(getFile, config.gaia.files.profile);
+    const gaiaData = yield call(getFile, config.gaia.files.profile);
+    const blockstackData = userSession.loadUserData();
+    const profile = gaiaData || { gender: Genders.incognito };
+
     yield put(
-      setProfile(
-        profile || {
-          gender: Genders.incognito,
-        }
-      )
+      setProfile({
+        ...profile,
+        avatarUrl:
+          profile.avatarUrl ||
+          blockstackData?.profile?.image?.[0]?.contentUrl ||
+          null,
+        blockstack: {
+          address: blockstackData.identityAddress,
+          username: blockstackData.username,
+          name: blockstackData?.profile?.name || null,
+        },
+      })
     );
   } catch (e) {
     yield put(

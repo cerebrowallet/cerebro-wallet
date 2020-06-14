@@ -12,21 +12,12 @@ export const UserContainer = styled(Link)`
   }
 `;
 
-export const UserProfileLink = styled.span`
+export const AvatarContainer = styled.div`
   position: relative;
   width: 3rem;
   height: 3rem;
   background: ${props => props.theme.colors.tertiary};
   margin-right: 0.938rem;
-  border-radius: 100%;
-`;
-
-export const UserPic = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   border-radius: 100%;
 `;
 

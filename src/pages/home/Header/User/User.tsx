@@ -1,27 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-  getBlockstackUsername,
-  getBlockstackAvatarUrl,
-  getUserName,
-} from '../../../../store/user/selectors';
+import { getUserName } from '../../../../store/user/selectors';
 
-import userImage from '../../../../images/user.png';
-import { UserContainer, UserProfileLink, UserPic, UserName } from './styled';
+import Avatar from '../../../../components/shared/Avatar/Avatar';
+
+import { UserContainer, AvatarContainer, UserName } from './styled';
 
 const User: React.FC = () => {
-  const avatarUrl = useSelector(getBlockstackAvatarUrl);
-  const username = useSelector(getBlockstackUsername);
-  const name = useSelector(getUserName);
+  const username = useSelector(getUserName);
 
   return (
     <UserContainer to="/profile/details">
-      <UserProfileLink>
-        <UserPic src={avatarUrl || userImage} alt={name || username} />
-      </UserProfileLink>
+      <AvatarContainer>
+        <Avatar />
+      </AvatarContainer>
       <UserName>
-        Hello, <strong>{name || username}</strong>
+        Hello, <strong>{username}</strong>
       </UserName>
     </UserContainer>
   );

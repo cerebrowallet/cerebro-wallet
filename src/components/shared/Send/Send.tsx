@@ -18,7 +18,7 @@ import {
   getAccountsListWithBalance,
 } from '../../../store/account/selectors';
 import { setCreateTxResult } from '../../../store/account/actions';
-import { getBlockstackUsername } from '../../../store/user/selectors';
+import { getUserName } from '../../../store/user/selectors';
 
 import FillUp from './FillUp/FillUp';
 import Confirm from './Confirm/Confirm';
@@ -68,7 +68,7 @@ const Send: React.FC<Props> = ({ accountId }) => {
   const [step, setStep] = useState(SendSteps.fillUp);
   const createTxResult = useSelector(getCreateTxResult);
   const recommendedFee = useSelector(getRecommendedBTCFee);
-  const username = useSelector(getBlockstackUsername);
+  const username = useSelector(getUserName);
   const previousStep = usePrevious<SendSteps>(step) || 0;
   const accounts = useSelector(getAccountsListWithBalance);
 

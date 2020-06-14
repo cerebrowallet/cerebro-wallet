@@ -1,11 +1,11 @@
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
-import { updateProfile } from '../actions';
+import { updateProfile, chooseRandomEmoji } from '../actions';
 import syncDataToGaiaSaga from './syncDataToGaia';
 import { SyncDataTypes } from '../types';
 
 export default function* updateProfileSaga({
-  payload: { withoutNotifications },
+  payload: { withoutNotifications, update },
 }: ReturnType<typeof updateProfile>) {
   yield call(syncDataToGaiaSaga, {
     dataType: SyncDataTypes.profile,
@@ -17,4 +17,8 @@ export default function* updateProfileSaga({
           error: 'Error while updating profile',
         },
   });
+
+  if (Object.prototype.hasOwnProperty.call(update, 'gender')) {
+    yield put(chooseRandomEmoji({ isAuthCallback: false }));
+  }
 }

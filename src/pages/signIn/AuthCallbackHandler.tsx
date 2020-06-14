@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router';
 
-import { setUserData } from '../../store/user/actions';
 import { userSession } from '../../utils/blockstack';
+import { chooseRandomEmoji } from '../../store/user/actions';
 
-const AuthCallbackHandler: React.FC<RouteComponentProps> = ({ history }) => {
+import Loader from '../../components/shared/Loader/Loader';
+
+const AuthCallbackHandler: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (userSession.isSignInPending()) {
       userSession
         .handlePendingSignIn()
-        .then((userData) => {
-          dispatch(setUserData(userData));
+        .then(() => {
+          dispatch(chooseRandomEmoji({ isAuthCallback: true }));
           history.push('/');
         })
         .catch((e) => {
@@ -21,9 +24,9 @@ const AuthCallbackHandler: React.FC<RouteComponentProps> = ({ history }) => {
           history.push('/signin');
         });
     }
-  }, [history, dispatch]);
+  }, [dispatch, history]);
 
-  return null;
+  return <Loader />;
 };
 
-export default withRouter(AuthCallbackHandler);
+export default AuthCallbackHandler;

@@ -19,11 +19,19 @@ export enum UserActionTypes {
   SET_SUBSCRIBE_ON_NEWS_STATUS = '@@user/subscribe_on_news_status',
   SET_ACTIVITY_FILTER_TYPE = '@@user/set_activity_filter_type',
   SEARCH_ACTIVITIES = '@@user/search_activities',
+  CHOOSE_EMOJI = '@@user/choose_emoji',
 }
 
 export interface Profile {
   username?: string;
   gender: Genders;
+  avatarUrl: string | null; // uploaded avatar
+  avatarEmoji: string | null;
+  blockstack: {
+    name: string | null;
+    username: string;
+    address: string;
+  }
 }
 
 export enum Themes {

@@ -5,7 +5,6 @@ import { userSession } from '../../utils/blockstack';
 import {
   getProfile,
   getSettings,
-  setUserData,
 } from '../../store/user/actions';
 import { getAccounts, getExchangeRates } from '../../store/account/actions';
 
@@ -20,7 +19,6 @@ const AuthenticatedWrapper: React.FC<Props> = ({ children }) => {
     if (userSession.isUserSignedIn()) {
       dispatch(getProfile());
       dispatch(getSettings());
-      dispatch(setUserData(userSession.loadUserData()));
       dispatch(getAccounts());
       dispatch(getExchangeRates());
     }
