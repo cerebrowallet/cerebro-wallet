@@ -12,17 +12,11 @@ const AuthCallbackHandler: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (userSession.isSignInPending()) {
-      userSession
-        .handlePendingSignIn()
-        .then(() => {
-          dispatch(chooseRandomEmoji({ isAuthCallback: true }));
-          history.push('/');
-        })
-        .catch((e) => {
-          // TODO log error && show notification
-          history.push('/signin');
-        });
+    if (userSession.loadUserData()) {
+      dispatch(chooseRandomEmoji({ isAuthCallback: true }));
+      history.push('/');
+    } else {
+      history.push('/signin');
     }
   }, [dispatch, history]);
 
