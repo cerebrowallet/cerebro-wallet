@@ -44,3 +44,5 @@ export const getActivityFilters = (state: ApplicationState) =>
 export const getUpdates = (state: ApplicationState) => state.user.updates;
 export const getEmailSubscribeStatus = (state: ApplicationState) =>
   state.user.emailSubscribeStatus;
+export const getAuthFinishedFlag = (state: ApplicationState) =>
+  state.user.authFinished;

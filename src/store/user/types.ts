@@ -20,6 +20,8 @@ export enum UserActionTypes {
   SET_ACTIVITY_FILTER_TYPE = '@@user/set_activity_filter_type',
   SEARCH_ACTIVITIES = '@@user/search_activities',
   CHOOSE_EMOJI = '@@user/choose_emoji',
+  HANDLE_AUTH_CALLBACK = '@@user/handle_auth_callback',
+  SET_AUTH_FINISHED = '@@user/set_auth_finished',
 }
 
 export interface Profile {
@@ -54,6 +56,7 @@ export interface Update {
 }
 
 export interface UserState {
+  authFinished: boolean;
   userData?: UserData;
   profile: Profile | null;
   settings: Settings | null;

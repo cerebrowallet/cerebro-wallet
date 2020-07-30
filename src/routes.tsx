@@ -7,7 +7,6 @@ import { userSession } from './utils/blockstack';
 import { usePrevious } from './utils/hooks';
 
 import AuthenticatedWrapper from './pages/signIn/AuthenticatedWrapper';
-import AuthCallbackHandler from './pages/signIn/AuthCallbackHandler';
 import PrivateRoute from './pages/signIn/PrivateRoute';
 import HomePage from './pages/home/HomePage';
 import FeaturesPage from './pages/features/FeaturesPage';
@@ -42,9 +41,6 @@ const Routes: React.FC = () => {
 
   return (
     <Switch>
-      <Route path="/auth-callback">
-        <AuthCallbackHandler />
-      </Route>
       <Route path={['/signup', '/signin']}>
         {userSession.isUserSignedIn() ? (
           <Redirect

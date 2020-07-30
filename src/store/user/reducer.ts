@@ -7,6 +7,7 @@ import {
 } from '../../dictionaries';
 
 const initialState: UserState = {
+  authFinished: false,
   profile: null,
   settings: null,
   activityFilters: {
@@ -61,6 +62,9 @@ const reducer: Reducer<UserState> = (
         break;
       case UserActionTypes.SEARCH_ACTIVITIES:
         draft.activityFilters.search = action.payload;
+        break;
+      case UserActionTypes.SET_AUTH_FINISHED:
+        draft.authFinished = true;
         break;
       default:
         return draft;

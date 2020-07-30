@@ -1,4 +1,4 @@
-import { all, takeLatest } from 'redux-saga/effects';
+import { all, takeLatest, takeLeading } from 'redux-saga/effects';
 import { UserActionTypes } from '../types';
 
 import getProfileSaga from './getProfile';
@@ -7,6 +7,7 @@ import subscribeOnNewsSaga from './subscribeOnNews';
 import updateProfileSaga from './updateProfile';
 import updateSettingsSaga from './updateSettings';
 import chooseRandomEmoji from './chooseRandomEmoji';
+import handleAuthCallbackSaga from './handleAuthCallback';
 
 function* userSaga() {
   yield all([
@@ -16,6 +17,7 @@ function* userSaga() {
     takeLatest(UserActionTypes.UPDATE_SETTINGS, updateSettingsSaga),
     takeLatest(UserActionTypes.SUBSCRIBE_ON_NEWS, subscribeOnNewsSaga),
     takeLatest(UserActionTypes.CHOOSE_EMOJI, chooseRandomEmoji),
+    takeLeading(UserActionTypes.HANDLE_AUTH_CALLBACK, handleAuthCallbackSaga),
   ]);
 }
 

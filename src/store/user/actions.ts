@@ -31,3 +31,6 @@ export const chooseRandomEmoji = ({
 }: {
   isAuthCallback: boolean;
 }) => action(UserActionTypes.CHOOSE_EMOJI, { isAuthCallback });
+export const handleAuthCallback = () =>
+  action(UserActionTypes.HANDLE_AUTH_CALLBACK);
+export const setAuthFinished = () => action(UserActionTypes.SET_AUTH_FINISHED);
