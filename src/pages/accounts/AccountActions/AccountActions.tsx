@@ -3,7 +3,6 @@ import {
   Info as InfoIcon,
   Plus as PlusIcon,
   Navigation as NavigationIcon,
-  Repeat as RepeatIcon,
   List as ListIcon,
   Edit3 as EditIcon,
   Link as LinkIcon,
@@ -54,12 +53,12 @@ const AccountActions: React.FC<Props> = ({ match, account }) => {
             text="Send"
             descText="Transfer to others"
           />
-          <ActionButton
-            link={`${match.url}/exchange`}
-            icon={<RepeatIcon />}
-            text="Exchange"
-            descText="Trade your funds instantly"
-          />
+          {/*<ActionButton*/}
+          {/*  link={`${match.url}/exchange`}*/}
+          {/*  icon={<RepeatIcon />}*/}
+          {/*  text="Exchange"*/}
+          {/*  descText="Trade your funds instantly"*/}
+          {/*/>*/}
         </>
       )}
       <ActionButton

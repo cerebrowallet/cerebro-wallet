@@ -19,6 +19,7 @@ export default function* getProfileSaga() {
           profile.avatarUrl ||
           blockstackData?.profile?.image?.[0]?.contentUrl ||
           null,
+        hasBlockstackProfile: !!blockstackData?.profile?.image?.[0]?.contentUrl,
         blockstack: {
           address: blockstackData.identityAddress,
           username: blockstackData.username,

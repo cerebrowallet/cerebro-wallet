@@ -4,7 +4,7 @@ import {
   Key as KeyIcon,
   Navigation as NavigationIcon,
   Plus as PlusIcon,
-  Repeat as RepeatIcon,
+  // Repeat as RepeatIcon,
 } from 'react-feather';
 
 export const FEATURES = [
@@ -20,12 +20,12 @@ export const FEATURES = [
     descText: 'Transfer to others',
     icon: NavigationIcon,
   },
-  {
-    link: '/features/exchange',
-    text: 'Exchange',
-    descText: 'Trade your funds instantly',
-    icon: RepeatIcon,
-  },
+  // {
+  //   link: '/features/exchange',
+  //   text: 'Exchange',
+  //   descText: 'Trade your funds instantly',
+  //   icon: RepeatIcon,
+  // },
   {
     link: '/activity',
     text: 'Activity',

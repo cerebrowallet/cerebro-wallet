@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
 import { Breakpoints } from '../../../../dictionaries';
+import { colors } from '../../../../styles/colors';
 
 export const Button = styled.button`
-  background: ${(props) => props.theme.colors.primary};
+  background: ${colors.black};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06),
     0 1px 0 #e5e5ec, 0 0 2px rgba(0, 0, 0, 0.08);
   border-radius: 0.25rem;
   padding: 0.75rem 0.9rem;
   font-weight: 600;
-  color: ${(props) => props.theme.colors.tertiary};
+  color: ${colors.white};
   border: 0;
   display: flex;
   align-content: center;

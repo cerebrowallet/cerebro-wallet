@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Breakpoints } from '../../dictionaries';
+import MainFooter from '../home/Footer/Footer';
 
 export const Main = styled.div`
   display: flex;
@@ -16,4 +17,8 @@ export const Content = styled.div`
   @media (min-width: ${Breakpoints.md}px) {
     flex-direction: row;
   }
+`;
+
+export const Footer = styled(MainFooter)`
+  
 `;

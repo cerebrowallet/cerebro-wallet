@@ -10,7 +10,6 @@ export const DashboardContainer = styled.section`
     'accounts'
     'features-menu';
   grid-gap: 1.3125rem;
-  align-self: center;
 
   @media (max-aspect-ratio: 16/9) {
     align-self: flex-start;
@@ -28,5 +27,10 @@ export const DashboardContainer = styled.section`
   @media (min-width: ${Breakpoints.xl}px) {
     padding-right: 1.875rem;
     max-width: 60rem;
+  }
+
+  @media (min-width: ${Breakpoints.xxl}px) {
+    width: 60rem;
+    justify-self: center;
   }
 `;

@@ -29,7 +29,7 @@ const ProfileDetails: React.FC = () => {
     return <Loader />;
   }
 
-  const { blockstack, username, gender } = profile;
+  const { blockstack, username, gender, hasBlockstackProfile } = profile;
   const name = blockstack.name || profile.blockstack.username.split('.')[0];
 
   return (
@@ -68,21 +68,23 @@ const ProfileDetails: React.FC = () => {
               <FormGroup label="Cerebro username">
                 <UserNameInput />
               </FormGroup>
-              <FormGroup label="Gender (for emoji)">
-                <DropDown
-                  name="gender"
-                  options={genders}
-                  onChange={({ id }) => {
-                    dispatch(
-                      updateProfile({
-                        update: {
-                          gender: id,
-                        },
-                      })
-                    );
-                  }}
-                />
-              </FormGroup>
+              {!hasBlockstackProfile && (
+                <FormGroup label="Gender (for emoji)">
+                  <DropDown
+                    name="gender"
+                    options={genders}
+                    onChange={({ id }) => {
+                      dispatch(
+                        updateProfile({
+                          update: {
+                            gender: id,
+                          },
+                        })
+                      );
+                    }}
+                  />
+                </FormGroup>
+              )}
             </Form>
           )}
         </Formik>

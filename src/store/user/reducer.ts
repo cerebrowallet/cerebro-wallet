@@ -1,15 +1,21 @@
 import { Reducer } from 'redux';
 import { produce } from 'immer';
 
-import { UserActionTypes, UserState } from './types';
-import {
-  ActivityFilterTypes,
-} from '../../dictionaries';
+import { Themes, UserActionTypes, UserState } from './types';
+import { ActivityFilterTypes, Currencies, TimeOuts } from '../../dictionaries';
 
 const initialState: UserState = {
   authFinished: false,
   profile: null,
-  settings: null,
+  settings: {
+    currency: Currencies.USD,
+    timeout: TimeOuts.ThreeMinutes,
+    theme:
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? Themes.dark
+        : Themes.light,
+  },
   activityFilters: {
     type: ActivityFilterTypes.ShowAll,
     value: null,

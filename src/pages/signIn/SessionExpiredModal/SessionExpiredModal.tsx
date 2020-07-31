@@ -4,8 +4,7 @@ import { useHistory } from 'react-router';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
-import { Wrapper, Img, Text } from './styled';
-import Button from '../../../components/forms/Button/Button';
+import { Wrapper, Img, Text, OkButton } from './styled';
 import sleepingFaceImg from '../../../images/sleeping-face.png';
 import { getSettings } from '../../../store/user/selectors';
 import { userSession } from '../../../utils/blockstack';
@@ -39,14 +38,14 @@ const SessionExpiredModal: React.FC = () => {
   }, [history, isIdle]);
 
   return (
-    <Modal showModal={showModal}>
+    <Modal showModal={showModal} white>
       <Wrapper>
         <Img src={sleepingFaceImg} />
         <Text>
           Your session has timed out due to inactivity. Please, re-login or
           exit.
         </Text>
-        <Button onClick={() => setShowModal(false)}>Ok, thanks</Button>
+        <OkButton onClick={() => setShowModal(false)}>Ok, thanks</OkButton>
       </Wrapper>
     </Modal>
   );

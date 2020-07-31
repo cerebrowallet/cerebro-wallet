@@ -9,9 +9,10 @@ interface Props {
   children: React.ReactNode;
   showModal: boolean;
   onHide?: () => void;
+  white?: boolean;
 }
 
-const Modal: React.FC<Props> = ({ children, showModal, onHide }) => {
+const Modal: React.FC<Props> = ({ children, showModal, onHide, white }) => {
   const isEscPressed: boolean = useKeyPress('Escape');
 
   const overlayRef = useRef(null);
@@ -47,8 +48,10 @@ const Modal: React.FC<Props> = ({ children, showModal, onHide }) => {
       {transitions.map(
         ({ item, key, props }) =>
           item && (
-            <Overlay key={key} style={props}>
-              <Body style={bodyStyle}>{children}</Body>
+            <Overlay key={key} style={props} white={white}>
+              <Body style={bodyStyle} white={white}>
+                {children}
+              </Body>
             </Overlay>
           )
       )}

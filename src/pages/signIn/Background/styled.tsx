@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 import { Breakpoints } from '../../../dictionaries';
+import { colors } from '../../../styles/colors';
 
 export const Wrapper = styled.div`
   position: relative;
-  background: ${(props) => props.theme.colors.primary};
+  background: ${colors.black};
   display: grid;
   grid-template-areas:
     'main'

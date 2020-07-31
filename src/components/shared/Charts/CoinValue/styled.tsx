@@ -4,14 +4,19 @@ export const Container = styled.span`
   line-height: 1;
 `;
 
+interface ColorDotProps {
+  color: string;
+  darkTheme: boolean;
+}
+
 export const ColorDot = styled.span`
   position: relative;
   display: inline-block;
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 100%;
-  background: ${(props: { color: string }) => props.color};
-  opacity: 0.2;
+  background: ${(props: ColorDotProps) => props.color};
+  opacity: ${(props: ColorDotProps) => (props.darkTheme ? '1' : '0.2')};
   top: -0.0625rem;
   margin-right: 0.3125rem;
 `;

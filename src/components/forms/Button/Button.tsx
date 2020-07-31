@@ -11,9 +11,15 @@ interface Props {
   color?: ButtonColors;
 }
 
-const Button: React.FC<Props> = ({ type, children, onClick, color }) => {
+const Button: React.FC<Props> = ({
+  type,
+  children,
+  onClick,
+  color,
+  ...rest
+}) => {
   return (
-    <Btn type={type} onClick={onClick} color={color}>
+    <Btn {...rest} type={type} onClick={onClick} color={color}>
       {children}
     </Btn>
   );

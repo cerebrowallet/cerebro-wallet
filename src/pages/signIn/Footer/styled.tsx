@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Breakpoints } from '../../../dictionaries';
+import { colors } from '../../../styles/colors';
 
 export const Container = styled.section`
   position: relative;
@@ -16,7 +17,7 @@ export const Container = styled.section`
   align-items: center;
   font-size: 0.75rem;
   line-height: 1;
-  color: ${(props) => props.theme.colors.secondary};
+  color: ${colors.gray};
   margin-bottom: 1.875rem;
 
   @media (min-width: ${Breakpoints.md}px) {
@@ -41,7 +42,7 @@ export const Menu = styled.div`
   }
 `;
 
-export const MenuLink = styled.a`
+export const MenuItem = styled.a`
   color: ${(props) => props.theme.colors.secondary};
   text-decoration: none;
   display: block;

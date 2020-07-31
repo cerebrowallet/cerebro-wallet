@@ -79,8 +79,14 @@ export const OneColumnContent = styled.section`
     padding-left: 4.6875rem;
   }
 
-  @media (min-width: ${Breakpoints.xl}px) {
-    padding-left: 14.0625rem;
+  @media (min-width: ${Breakpoints.xxl}px) {
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+
+    & > section {
+      width: 36.25rem;
+    }
   }
 `;
 
@@ -96,6 +102,11 @@ export const TwoColumnsContent = styled.section`
   @media (min-width: ${Breakpoints.xl}px) {
     padding: 3.125rem 2.6875rem;
     grid-gap: 3.4375rem;
+  }
+
+  @media (min-width: ${Breakpoints.xxl}px) {
+    justify-content: center;
+    grid-template-columns: auto auto;
   }
 `;
 

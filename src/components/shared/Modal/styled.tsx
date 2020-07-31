@@ -2,6 +2,13 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 import { Breakpoints } from '../../../dictionaries';
+import { Theme } from '../../../styles/types';
+import { colors } from '../../../styles/colors';
+
+interface Props {
+  theme?: Theme;
+  white?: boolean;
+}
 
 export const Overlay = styled(animated.div)`
   position: fixed;
@@ -18,14 +25,26 @@ export const Overlay = styled(animated.div)`
     top: 0;
     right: 0;
     bottom: 0;
-    background: ${(props) => props.theme.colors.primary};
+    background: ${(props: Props) => {
+      if (props.white) {
+        return colors.black;
+      }
+
+      return props.theme?.colors.primary;
+    }};
     opacity: 0.4;
   }
 `;
 
 export const Body = styled(animated.div)`
   position: absolute;
-  background: ${(props) => props.theme.colors.tertiary};
+  background: ${(props: Props) => {
+    if (props.white) {
+      return colors.white;
+    }
+
+    return props.theme?.colors.tertiary;
+  }};
   padding: 1.5625rem;
   border-radius: 1.25rem;
   margin-top: 2.5rem;

@@ -1,17 +1,24 @@
 import React from 'react';
 
-import { Container, Copyright, Menu, MenuLink } from './styled';
+import { Container, Copyright, Menu, MenuItem } from './styled';
 
 const Footer: React.FC = () => {
   return (
     <Container>
       <Copyright>Cerebro Wallet &copy; 2020</Copyright>
       <Menu>
-        <MenuLink href="/assets">Assets</MenuLink>
-        <MenuLink href="/changelog">Changelog</MenuLink>
-        <MenuLink href="/blog">Blog</MenuLink>
-        <MenuLink href="/terms">Terms of Use</MenuLink>
-        <MenuLink href="/privacy">Privacy Policy</MenuLink>
+        <MenuItem href="mailto:support@cerebrowallet.com">
+          Send feedback
+        </MenuItem>
+        <MenuItem
+          href="https://github.com/cerebrowallet/cerebro-wallet/issues"
+          target="_blank"
+        >
+          Create issue
+        </MenuItem>
+        <MenuItem href="https://wiki.cerebrowallet.com/beta" target="_blank">
+          For beta testers
+        </MenuItem>
       </Menu>
     </Container>
   );

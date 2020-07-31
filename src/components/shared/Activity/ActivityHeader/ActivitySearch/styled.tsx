@@ -19,6 +19,7 @@ export const Input = styled.input`
   border: 0;
   text-align: left;
   padding: 0 1.25rem;
+  color: ${(props) => props.theme.colors.primary};
 
   &:focus {
     outline: none;

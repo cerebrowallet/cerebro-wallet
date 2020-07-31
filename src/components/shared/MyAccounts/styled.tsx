@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 
 import { Breakpoints } from '../../../dictionaries';
+import { colors } from '../../../styles/colors';
 import IconButton from '../IconButton/IconButton';
 
 export const Wrapper = styled.section`
@@ -31,7 +32,7 @@ export const Header = styled.h3`
   font-size: 1.5rem;
   line-height: 1.5rem;
   margin-bottom: 2.1875rem;
-  color: ${(props) => props.theme.colors.tertiary};
+  color: ${colors.white};
 `;
 
 export const Grid = styled.div`

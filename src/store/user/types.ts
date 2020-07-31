@@ -29,6 +29,7 @@ export interface Profile {
   gender: Genders;
   avatarUrl: string | null; // uploaded avatar
   avatarEmoji: string | null;
+  hasBlockstackProfile?: boolean;
   blockstack: {
     name: string | null;
     username: string;
@@ -59,7 +60,7 @@ export interface UserState {
   authFinished: boolean;
   userData?: UserData;
   profile: Profile | null;
-  settings: Settings | null;
+  settings: Settings;
   emailSubscribeStatus: Statuses | null;
   activityFilters: {
     type: ActivityFilterTypes;

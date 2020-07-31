@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
 import { Breakpoints } from '../../../dictionaries';
-import { Theme } from '../../../styles/types';
+import { colors } from '../../../styles/colors';
 
 export const Container = styled.div`
   position: relative;
   padding: 1.875rem 1.25rem 1.25rem;
   text-align: center;
-  background: ${(props) => props.theme.colors.tertiary};
+  background: ${colors.white};
   display: flex;
   border-radius: 1.25rem;
   margin: 0 1.25rem 1.875rem;
-  
+
   @media (min-width: ${Breakpoints.md}px) {
     width: 24.375rem;
     margin: 0;
@@ -24,13 +24,14 @@ export const Slides = styled.div`
   display: grid;
   grid-template-areas: 'slide';
   width: 100%;
-`
+`;
 
 export const Title = styled.h1`
   font-size: 1.5rem;
   line-height: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.625rem;
+  color: ${colors.black};
 `;
 
 export const Text = styled.p`
@@ -57,10 +58,8 @@ export const PaginationDot = styled.button`
   border-radius: 100%;
   margin-right: 0.25rem;
   cursor: pointer;
-  background: ${(props: { theme?: Theme; active: boolean }) =>
-    props.active
-      ? props?.theme?.colors.primary
-      : props?.theme?.colors.secondaryLight};
+  background: ${(props: { active: boolean }) =>
+    props.active ? colors.black : colors.grayLight};
   transition: background-color 0.15s ease-in-out;
 
   &:focus {
