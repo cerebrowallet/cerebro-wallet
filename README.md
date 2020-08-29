@@ -1,6 +1,6 @@
 <img src="docs/cover.jpg" align="center" title="Cerebro Wallet Github Cover">
 
-[Cerebro](https://cerebrowallet.com) is an open source multicurrency wallet powered by [Blockstack](https:blockstack.org). The wallet is browser-based and adaptive interface that uses public data from blockchain and explorer APIs.
+[Cerebro](https://cerebrowallet.com) is an open source multicurrency wallet powered by [Blockstack](https://github.com/blockstack). The wallet is browser-based and adaptive interface that uses public data from blockchain and explorer APIs.
 
 It uses Gaia decentralized storage and encryption option. Cerebro doesn't store or proceed user private key, the all data are securely stored in the Gaia by Blockstack.
 
