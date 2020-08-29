@@ -10,7 +10,7 @@ Add steps
 
 ## Supported Blockchains (Coins)
 
-We started with Bitcoin. We started with Bitcoin. We plan to add other currencies after testing the beta version of the wallet. Get your favorite coin added to Cerebro: [Create issue/Suggest a coin](https://github.com/cerebrowallet/cerebro-website/issues/new/choose)
+We started with Bitcoin and we plan to add other currencies after testing the beta version of the wallet. Get your favorite coin added to Cerebro: [Suggest a coin](https://github.com/cerebrowallet/cerebro-website/issues/new/choose)
 
 ## Reporting bugs
 
