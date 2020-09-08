@@ -5,10 +5,11 @@
 It uses Gaia decentralized storage and encryption option. Cerebro doesn't store or proceed user private key, the all data are securely stored in the Gaia by Blockstack.
 
 ## Getting Started
-
+```
 git clone https://github.com/cerebrowallet/cerebro-wallet
 yarn install
 yarn start
+```
 
 ## Supported Blockchains (Coins)
 
