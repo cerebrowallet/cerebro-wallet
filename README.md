@@ -6,7 +6,9 @@ It uses Gaia decentralized storage and encryption option. Cerebro doesn't store 
 
 ## Getting Started
 
-Add steps
+git clone https://github.com/cerebrowallet/cerebro-wallet
+yarn install
+yarn start
 
 ## Supported Blockchains (Coins)
 
