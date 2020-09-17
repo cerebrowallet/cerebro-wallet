@@ -14,6 +14,7 @@ export enum Currencies {
   JPY = 'JPY',
   PKR = 'PKR',
   SEK = 'SEK',
+  KRW = 'KRW',
 }
 
 export enum CurrencySymbols {
@@ -28,6 +29,7 @@ export enum CurrencySymbols {
   JPY = '¥',
   PKR = '₨',
   SEK = 'kr',
+  KRW = '₩',
 }
 
 export enum NotificationTypes {
@@ -95,5 +97,3 @@ export enum ChartPeriods {
   ThreeMonth = '3M',
   Year = '1Y',
 }
-
-
