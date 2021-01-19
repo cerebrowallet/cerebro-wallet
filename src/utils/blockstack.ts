@@ -1,12 +1,22 @@
-import { UserSession, AppConfig } from 'blockstack';
+import { UserSession, AppConfig } from '@stacks/auth';
+import { Storage } from '@stacks/storage';
+import { showConnect } from '@stacks/connect';
 
-const appConfig = new AppConfig(undefined, undefined, '/auth-callback');
+const redirectPath = '/auth-callback';
+const appName = 'Cerebro Wallet';
+
+const appConfig = new AppConfig([
+  'store_write',
+  'publish_data'
+], undefined, redirectPath);
 
 export const userSession = new UserSession({ appConfig });
 
+const storage = new Storage({ userSession });
+
 export const getFile = async (fileName: string) => {
   try {
-    const response = await userSession.getFile(fileName, { decrypt: true });
+    const response = await storage.getFile(fileName, { decrypt: true });
 
     return typeof response === 'string' ? JSON.parse(response) : null;
   } catch (e) {
@@ -15,7 +25,7 @@ export const getFile = async (fileName: string) => {
 };
 
 export const deleteFile = async (fileName: string) =>
-         userSession.deleteFile(fileName);
+  storage.deleteFile(fileName);
 
 export const putFile = async ({
   fileName,
@@ -26,7 +36,21 @@ export const putFile = async ({
     [name: string]: any;
   };
 }) => {
-  await userSession.putFile(fileName, JSON.stringify(file), {
+  await storage.putFile(fileName, JSON.stringify(file), {
     encrypt: true,
   });
 };
+
+export const handleSignIn = () => {
+  showConnect({
+    redirectTo: redirectPath,
+    manifestPath: window ? window.location.origin + '/manifest.json' : undefined,
+    appDetails: {
+      name: appName,
+      icon: window.location.origin + '/logo512.png',
+    },
+    finished({authResponse}){
+      window.location.assign(`${redirectPath}?authResponse=${authResponse}`);
+    }
+  });
+}

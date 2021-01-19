@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Button, BlockstackLogo } from './styled';
 import blockstackLogo from '../../../../images/blockstack-logo.svg';
-import { userSession } from '../../../../utils/blockstack';
+import { handleSignIn } from '../../../../utils/blockstack';
 
 const SignInButton: React.FC = () => {
   return (
-    <Button onClick={() => userSession.redirectToSignIn()}>
+    <Button onClick={() => handleSignIn()}>
       <BlockstackLogo src={blockstackLogo} alt="Blockstack" />
       Sign in with Blockstack
     </Button>
