@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
+    "@stacks/auth": "^1.0.1",
+    "@stacks/connect": "^4.3.15",
+    "@stacks/storage": "^1.0.1",
     "@types/big.js": "^4.0.5",
     "@types/file-saver": "^2.0.1",
     "@types/jest": "24.0.22",
@@ -21,7 +24,7 @@
     "big.js": "^5.2.2",
     "bip39": "^3.0.2",
     "bitcoinjs-lib": "^5.1.7",
-    "blockstack": "^21.0.0",
+    "blockstack": "^21.1.1",
     "connected-react-router": "^6.6.1",
     "date-fns": "^2.8.1",
     "file-saver": "^2.0.2",
